@@ -1,0 +1,38 @@
+{
+  /**
+   * List of extensions that uses will be prompted to install as suggestions for the repo
+   *
+   * Comments are allowed in VS Code *.json files saved in repo's .vscode directory
+   */
+  "recommendations": [
+    // Uses the sort import style included in this package to sort ESM import statements
+    "amatiasq.sort-imports",
+    // Markdown linting and style checking
+    "davidanson.vscode-markdownlint",
+    // Integrates ESLint JavaScript into VS Code
+    "dbaeumer.vscode-eslint",
+    // Adds JS Babel es6/es7 syntax coloring
+    "dzannotti.vscode-babel-coloring",
+    // HTML id and class attribute completion for VS Code
+    "ecmel.vscode-html-css",
+    // Overrides user/workspace settings with settings found in .editorconfig files
+    "EditorConfig.EditorConfig",
+    // Nunjucks Syntax and Snippets
+    "ginfuru.better-nunjucks",
+    // JavaScript syntax highlighting for ES201x, React JSX, and GraphQL
+    "mgmcdermott.vscode-language-babel",
+    // Automatically scan and import TypeScript definition files in workspace
+    // and handle .tsconfig "paths" settings that allow relative imports
+    "pmneo.tsimporter",
+    // YAML language support
+    "redhat.vscode-yaml",
+    // Reload the TypeScript Language Server whenever it changes.
+    "rbuckton.tsserver-live-reload",
+    // Diagnostic data for workspace files based on webhint analysis.
+    "webhint.vscode-webhint"
+  ],
+  "unwantedRecommendations": [
+    // TSLint has been deprecated in favor of ESLint
+    "ms-vscode.vscode-typescript-tslint-plugin"
+  ]
+}
