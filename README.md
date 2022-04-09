@@ -1,5 +1,40 @@
 # Webstack Builders Corporate Website using Eleventy
 
+## @TODO
+
+- 404
+- robots.txt
+
+```md
+---
+permalink: robots.txt
+eleventyExcludeFromCollections: true
+layout: null
+---
+
+Sitemap: <%= `${site.url}/sitemap.xml` %>
+```
+
+## Collections
+
+Collections use the `tag` label in YAML frontmatter to sort pages.
+
+```njk
+{%- for post in collections.post -%}
+  <li>{{ post.data.title }}</li>
+{%- endfor -%}
+```
+
+Each collection item has the following keys available on it:
+
+- inputPath: the full path to the source input file (including the path to the input directory)
+- fileSlug: Mapped from the input file name, useful for permalinks. Read more about fileSlug.
+- outputPath: the full path to the output file to be written for this content
+- url: url used to link to this piece of content.
+- date: the resolved JS Date Object used for sorting. Read more about Content Dates.
+- data: all data for this piece of content (includes any data inherited from layouts)
+- templateContent: the rendered content of this template. This does not include layout wrappers.
+
 ## Plugins
 
 - [eleventy-plugin-rss](https://www.npmjs.com/package/@11ty/eleventy-plugin-rss) A pack of Eleventy filters for generating Atom and JSON feeds using the Nunjucks templating engine.

@@ -1,6 +1,8 @@
 ---
 title: 'Hello World'
 description: 'A demo of the "Page" template and kitchen sink sample of styled elements.'
+permalink: /articles/helloworld/
+date: 2021-03-31
 ---
 
 # Header 1

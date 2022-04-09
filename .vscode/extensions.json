@@ -18,7 +18,9 @@
     // Overrides user/workspace settings with settings found in .editorconfig files
     "EditorConfig.EditorConfig",
     // Nunjucks Syntax and Snippets
-    "ginfuru.better-nunjucks",
+    "ronnidc.nunjucks",
+    // Nunjucks formatting
+    "okitavera.vscode-nunjucks-formatter"
     // JavaScript syntax highlighting for ES201x, React JSX, and GraphQL
     "mgmcdermott.vscode-language-babel",
     // Automatically scan and import TypeScript definition files in workspace
