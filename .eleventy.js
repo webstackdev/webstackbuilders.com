@@ -11,7 +11,7 @@ const socialImages = require('@11tyrocks/eleventy-plugin-social-images')
 const syntaxHighlight = require('@11ty/eleventy-plugin-syntaxhighlight')
 
 // Helper packages
-
+const dateFns = require('date-fns')
 const markdownIt = require('markdown-it')
 const markdownItAnchor = require('markdown-it-anchor')
 const markdownItEmoji = require('markdown-it-emoji')
@@ -26,7 +26,7 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPlugin(inclusiveLangPlugin, {
     templateFormats: ['md', 'njk'], // default is 'md'
   })
-  //eleventyConfig.addPlugin(lazyImagesPlugin, lazyImagesHandler)
+  eleventyConfig.addPlugin(lazyImagesPlugin, lazyImagesHandler)
   eleventyConfig.addPlugin(pluginRss)
   // Include the addNbsp filter for use in templates that inserts a non-breaking space between
   // the last two words in the title to prevent a single word dangling on the last line
@@ -48,7 +48,14 @@ module.exports = function (eleventyConfig) {
 
   eleventyConfig.setBrowserSyncConfig(pageNotFoundHandler)
 
-  //eleventyConfig.addTransform('htmlmin', htmlMinifyHandler)
+  eleventyConfig.addTransform('htmlmin', htmlMinifyHandler)
+
+  eleventyConfig.setEjsOptions({
+    rmWhitespace: true,
+    context: {
+      dateFns,
+    },
+  })
 
   return {
     dir: {
