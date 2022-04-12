@@ -1,6 +1,7 @@
 ---
 layout: base.njk
 templateEngineOverride: md, njk
+permalink: /
 ---
 
 {# A tiny extra style for the starter home page, intended to be removed as you customize to fit your
@@ -57,14 +58,15 @@ own content! #}
     </h2>
   </div>
 </header>
+
 <main class="tdbc-container">
   <div class="tdbc-section">
     <ul class="tdbc-column-container">
-      {%- for page in collections.pages -%}
+      {%- for page in collections.root -%}
       <li class="tdbc-card">
         <div class="tdbc-card__content">
           <a href="{{ page.url }}" class="tdbc-card__title">{{ page.data.title }}</a>
-          <p>{{ page.data.description }}</p>
+          <p>{{ page.data.description }}</p> am I here?
         </div>
       </li>
       {%- endfor -%}

@@ -28,12 +28,42 @@ Collections use the `tag` label in YAML frontmatter to sort pages.
 Each collection item has the following keys available on it:
 
 - inputPath: the full path to the source input file (including the path to the input directory)
-- fileSlug: Mapped from the input file name, useful for permalinks. Read more about fileSlug.
+- fileSlug: for permalinks - inputPath filename minus template file extension.
 - outputPath: the full path to the output file to be written for this content
 - url: url used to link to this piece of content.
 - date: the resolved JS Date Object used for sorting. Read more about Content Dates.
 - data: all data for this piece of content (includes any data inherited from layouts)
 - templateContent: the rendered content of this template. This does not include layout wrappers.
+
+```js
+let page = {
+  // URL can be used in <a href> to link to other templates
+  // Note: This value will be `false` if `permalink` is set to `false`.
+  url: '/current/page/myFile/',
+
+  // For permalinks: inputPath filename minus template file extension
+  fileSlug: 'myFile',
+
+  // For permalinks: inputPath minus template file extension
+  filePathStem: '/current/page/myFile',
+
+  // JS Date Object for current page (used to sort collections)
+  date: new Date(),
+
+  // The path to the original source file for the template
+  // Note: this will include your input directory path!
+  inputPath: './current/page/myFile.md',
+
+  // Depends on your output directory (the default is _site)
+  // You probably won’t use this: `url` is better.
+  // Note: This value will be `false` if `permalink` is set to `false`.
+  outputPath: './_site/current/page/myFile/index.html',
+
+  // Added in 1.0
+  // Useful with `page.filePathStem` when using custom file extensions.
+  outputFileExtension: 'html',
+}
+```
 
 ## Plugins
 
