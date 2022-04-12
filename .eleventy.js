@@ -23,12 +23,15 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPlugin(syntaxHighlight)
 
   eleventyConfig.addWatchTarget('./src/sass/')
+
   /**
-   * Files to pass through to public folder
+   * Files to pass through to the `public` folder
    */
-  eleventyConfig.addPassthroughCopy('./src/assets/fonts')
-  eleventyConfig.addPassthroughCopy('./src/assets/images')
-  eleventyConfig.addPassthroughCopy('./src/favicon.png')
+  // Copy `src/assets/fonts` to `public/assets/fonts`
+  eleventyConfig.addPassthroughCopy({ 'src/assets/fonts': 'fonts' })
+  eleventyConfig.addPassthroughCopy({ 'src/assets/images': 'images' })
+  // @TODO: NOT working, favicon needs to go in the root directory but addPassthroughCopy doesn't take relative path prefixes
+  eleventyConfig.addPassthroughCopy({ 'src/assets/images/favicon.*': '' })
 
   /**
    * Shortcodes for use in templates
