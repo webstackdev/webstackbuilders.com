@@ -7,11 +7,11 @@
   # been specified, include it in the publish directory path.
   publish = "public"
   # Default build command.
-  command = "npm run build"
-  functions = "src/functions"
+  command = "yarn build"
+  functions = "public/functions"
 
 [dev]
-  command = "npm run start"
+  command = "yarn start"
 
 [[redirects]]
   from = "/feed/"

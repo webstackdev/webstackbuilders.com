@@ -18,7 +18,7 @@
      */
     "importHelpers": true,
     /** Warn on code that can not be correctly interpreted by a single-file transpilation process like Babel */
-    "isolatedModules": true,
+    "isolatedModules": false,
     /** Type declaration files to include. */
     "lib": ["DOM", "ESNext", "WebWorker"],
     /** Module code to generate as output.  */

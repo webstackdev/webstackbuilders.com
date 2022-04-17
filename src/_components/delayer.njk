@@ -1,0 +1,28 @@
+{# Waits for user interaction by pressing the key, moving a mouse or touching the screen.  #}
+{# After interaction, it changes the word 'delay' to 'src' in a script tag, making the tag #}
+{# valid and causing the scripts to load. Useful for cookie consent banners to avoid LCP   #}
+{# hit on Lighthouse. Usage: <script delay="cookie.js" defer></script>                     #}
+<script>
+  const autoLoadDuration = 5
+  const eventList = ["keydown", "mousemove", "wheel", "touchmove", "touchstart", "touchend"]
+
+  const autoLoadTimeout = setTimeout(runScripts, autoLoadDuration * 1000)
+
+  eventList.forEach(function(event) {
+    window.addEventListener(event, triggerScripts, { passive: true })
+  })
+
+  function triggerScripts() {
+    runScripts()
+    clearTimeout(autoLoadTimeout)
+    eventList.forEach(function(event) {
+      window.removeEventListener(event, triggerScripts, { passive: true })
+    })
+  }
+
+  function runScripts() {
+    document.querySelectorAll("script[delay]").forEach(function(scriptTag) {
+      scriptTag.setAttribute("src", scriptTag.getAttribute("delay"))
+    })
+  }
+</script>
