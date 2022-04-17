@@ -1,37 +1,19 @@
-/* eslint-disable import/no-extraneous-dependencies, global-require */
-const plugins = [
-  /*require('tailwindcss'), require('autoprefixer')*/
-]
+const autoprefixer = require('autoprefixer')
+//const cssnano = require('cssnano')
+//const postcssImport = require('postcss-import')
+//const postcssPresetEnv = require('postcss-preset-env')
 
-if (process.env.NODE_ENV === 'production') {
-  plugins.push(
-    require('cssnano')({
-      preset: [
-        'default',
-        {
-          discardComments: {
-            removeAll: true,
-          },
-        },
-      ],
-    })
-  )
-}
+// @TODO: Need a production SASS pipeline setup
 
-module.exports = { plugins }
-
-/*
-// From a different template repo:
-
-const cssnano = require('cssnano');
-const postcssImport = require('postcss-import');
-const postcssPresetEnv = require('postcss-preset-env');
-
+/**
+ *  Webstack `postcss-loader` transformations to apply
+ */
 module.exports = {
-    plugins: [
-        postcssImport(),
-        postcssPresetEnv(),
-        cssnano(),
-    ],
+  plugins: [
+    // eslint-disable-next-line global-require
+    autoprefixer(),
+    //postcssImport(),
+    //postcssPresetEnv(),
+    //cssnano(),
+  ],
 }
-*/

@@ -6,5 +6,6 @@
     "preferences.quoteStyle": "single"
   },
   "css.validate": false,
-  "tailwindCSS.validate": false
+  "tailwindCSS.validate": false,
+  "prettier.enable": false
 }

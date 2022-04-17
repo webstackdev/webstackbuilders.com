@@ -62,6 +62,8 @@
      * Skip type checking of all declaration files in `node_modules`, only doing so on explicit imports.
      */
     "skipLibCheck": true,
+    /** Generate source maps */
+    "sourceMap": true,
     /**
      * Enable all of the strict mode family options: `alwaysStrict`, `strictNullChecks`, `strictBindCallApply`,
      * `strictFunctionTypes`, `strictPropertyInitialization`, `noImplicitAny`, `noImplicitThis`, and
@@ -92,5 +94,13 @@
    * Files to include in compilation. Files in `gatsby` will be compiled by Parcel
    * on import from `./gatsby-*.ts` files while using this configuration file.
    */
-  "include": ["./src/assets/script/*"]
+  "include": ["src/assets/script/*"]
 }
+
+/*
+"baseUrl": "./",
+"rootDir": "./",
+"paths": {
+  "@/*": ["./src/*"]
+}
+*/

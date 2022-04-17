@@ -1,6 +1,6 @@
 const markdownIt = require('markdown-it')
-const markdownItAnchor = require('markdown-it-anchor')
-const markdownItEmoji = require('markdown-it-emoji')
+const markdownAnchor = require('markdown-it-anchor')
+const markdownEmoji = require('markdown-it-emoji')
 
 const { slugify } = require('../filters')
 
@@ -9,13 +9,40 @@ const { slugify } = require('../filters')
  */
 exports.markdownLib = markdownIt({
   html: true,
+  //breaks: true,
+  //linkify: true,
 })
-  .use(markdownItAnchor, {
-    permalink: markdownItAnchor.permalink.ariaHidden({
+  .use(markdownAnchor, {
+    level: [1, 2, 3],
+    permalink: markdownAnchor.permalink.ariaHidden({
       class: 'tdbc-anchor',
       space: false,
-    }),
-    level: [1, 2, 3],
+    }), // could also be `true` and use keys:
+    //permalinkBefore: true,
+    //permalinkClass: 'title-anchor',
+    //permalinkSymbol: '',
+    //permalinkAttrs: slug => ({ 'aria-label': normaliseTitleAnchors(slug) }),
     slugify,
+    //slugify: slugifyTitleAnchors,
   })
-  .use(markdownItEmoji)
+  .use(markdownEmoji)
+
+const normaliseTitleAnchors = value => {
+  const result = value.replace(/-/g, ' ')
+  return result.charAt(0).toUpperCase() + result.slice(1)
+}
+
+// @TODO: refactor slugify in filters
+const slugifyTitleAnchors = value => {
+  return encodeURIComponent(
+    String(value)
+      .toString()
+      .toLowerCase()
+      .replace(/\s+/g, '-')
+      .replace(/&/g, '-and-')
+      .replace(/[^\w\-]+/g, '')
+      .replace(/\-\-+/g, '-')
+      .replace(/^-+/, '')
+      .replace(/-+$/, '')
+  )
+}

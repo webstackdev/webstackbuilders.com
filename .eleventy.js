@@ -1,7 +1,7 @@
 // 11ty Plugins
 const directoryOutputPlugin = require('@11ty/eleventy-plugin-directory-output')
 const inclusiveLangPlugin = require('@11ty/eleventy-plugin-inclusive-language')
-const lazyImagesPlugin = require('eleventy-plugin-lazyimages')
+//const lazyImagesPlugin = require('eleventy-plugin-lazyimages')
 const pluginRss = require('@11ty/eleventy-plugin-rss')
 const socialImages = require('@11tyrocks/eleventy-plugin-social-images')
 const syntaxHighlight = require('@11ty/eleventy-plugin-syntaxhighlight')
@@ -10,40 +10,67 @@ const syntaxHighlight = require('@11ty/eleventy-plugin-syntaxhighlight')
 const eleventySetup = require('./eleventy')
 
 module.exports = function (eleventyConfig) {
-  // 11ty Plugins
+  /**
+   * Use `.eleventyignore` for dev server files to watch instead of default `.gitignore`
+   */
+  eleventyConfig.setUseGitIgnore(false)
+
+  /**
+   * Since Webpack and SASS are compiling files to the `public` directory directly,
+   * set a timeout so those processes have time to complete before 11ty watch fires.
+   */
+  eleventyConfig.setWatchThrottleWaitTime(100) // in milliseconds
+
+  /**
+   * Map default layouts to the base nunjucks file in _layouts
+   */
+  //eleventyConfig.addLayoutAlias('default', 'base.njk')
+
+  /**
+   *  11ty Plugins
+   */
   eleventyConfig.addPlugin(directoryOutputPlugin)
   eleventyConfig.addPlugin(inclusiveLangPlugin, {
     templateFormats: ['md', 'njk'], // default is 'md'
   })
-  // @TODO: eleventyConfig.addPlugin(lazyImagesPlugin, eleventySetup.handlers.lazyImagesHandler)
   eleventyConfig.addPlugin(pluginRss)
-  // Social images provides an addNbsp filter for use in templates that inserts a non-breaking space
-  // between the last two words in the title to prevent a single word dangling on the last line
   eleventyConfig.addPlugin(socialImages)
   eleventyConfig.addPlugin(syntaxHighlight)
-
-  eleventyConfig.addWatchTarget('./src/sass/')
+  // eleventyConfig.addPlugin(lazyImagesPlugin, eleventySetup.handlers.lazyImagesHandler)
 
   /**
-   * Files to pass through to the `public` folder
+   * Watch compiled assets for changes. When the file or the files
+   * in this directory change Eleventy will trigger a build. Files
+   * are updated by Webpack workflow when scss or js files change.
    */
-  // Copy `src/assets/fonts` to `public/assets/fonts`
-  eleventyConfig.addPassthroughCopy({ 'src/assets/fonts': 'fonts' })
-  eleventyConfig.addPassthroughCopy({ 'src/assets/images': 'images' })
-  // @TODO: NOT working, favicon needs to go in the root directory but addPassthroughCopy doesn't take relative path prefixes
-  eleventyConfig.addPassthroughCopy({ 'src/assets/images/favicon.*': '' })
+  eleventyConfig.addWatchTarget('./src/assets/scss/index.css')
+  eleventyConfig.addWatchTarget('./src/assets/script/index.js')
 
   /**
-   * Shortcodes for use in templates
+   * Files to pass through to the `public` folder. Strips `input` from the path (`src` here).
+   */
+  eleventyConfig.addPassthroughCopy('src/images')
+  eleventyConfig.addPassthroughCopy({ 'src/assets/fonts': 'fonts' })
+
+  /**
+   * Shortcodes and Nunjucks Tags for use in templates
    */
   eleventyConfig.addShortcode('img', eleventySetup.shortcodes.imgShortcode)
   eleventyConfig.addShortcode('year', eleventySetup.shortcodes.year)
   eleventyConfig.addShortcode('youtube', eleventySetup.shortcodes.youtube)
 
+  /**
+   * Filters for use in templates
+   */
+  eleventyConfig.addFilter('dateDisplay', eleventySetup.filters.dateDisplay)
   eleventyConfig.addFilter('exclude', eleventySetup.filters.exclude)
+  eleventyConfig.addFilter('squash', eleventySetup.filters.squash)
   eleventyConfig.addFilter('slug', eleventySetup.filters.slugify)
   eleventyConfig.addFilter('withCategory', eleventySetup.filters.withCategory)
 
+  /**
+   * Configured markdown-it instance, also used in markdown shortcodes
+   */
   eleventyConfig.setLibrary('md', eleventySetup.library.markdownLib)
 
   /**
@@ -54,25 +81,24 @@ module.exports = function (eleventyConfig) {
   /**
    * HTML minification
    */
-  // @TODO: See the minify:html package.json script for an alternative instead of doing this in build process
-  //eleventyConfig.addTransform('htmlmin', eleventySetup.handlers.htmlMinifyHandler)
-
-  eleventyConfig.setEjsOptions({
-    rmWhitespace: true,
-    context: {
-      dateFns,
-    },
-  })
+  if (process.env.ELEVENTY_ENV === 'production') {
+    eleventyConfig.addTransform('htmlmin', eleventySetup.handlers.htmlMinifyHandler)
+  }
 
   return {
-    // default 11ty template engine used to preprocess markdown files and allow
-    // preprocessor syntax like includes and shortcodes in markdown is liquid.
-    markdownTemplateEngine: 'njk',
     dir: {
       input: 'src',
       output: 'public',
       includes: '_components',
       layouts: '_layouts',
     },
+    // Liquid is the default 11ty template engine used to preprocess html
+    // files and allow preprocessor syntax like includes and shortcodes in html.
+    htmlTemplateEngine: 'njk',
+    // Liquid is the default 11ty template engine used to preprocess markdown
+    // files and allow preprocessor syntax like includes and shortcodes in markdown.
+    markdownTemplateEngine: 'njk',
+    // ejs can be embedded in json data files for values
+    templateFormats: ['11ty.js', 'ejs', 'md', 'njk'],
   }
 }

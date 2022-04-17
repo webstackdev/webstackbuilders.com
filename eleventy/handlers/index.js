@@ -15,7 +15,7 @@ exports.lazyImagesHandler = {
       // Handle remote file
       return imgPath
     } else {
-      return `./src/img/${imgPath}`
+      return `./src/images/${imgPath}`
     }
   },
 }
@@ -26,14 +26,14 @@ exports.lazyImagesHandler = {
 exports.htmlMinifyHandler = (content, outputPath) => {
   if (outputPath.endsWith('.html')) {
     const minified = htmlmin.minify(content, {
-      useShortDoctype: true,
-      removeComments: true,
+      collapseInlineTagWhitespace: false,
       collapseWhitespace: true,
-      minifyJS: true,
+      removeComments: true,
+      sortClassName: true,
+      useShortDoctype: true,
     })
     return minified
   }
-
   return content
 }
 

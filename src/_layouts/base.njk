@@ -15,26 +15,28 @@
     title | slug
   }}{% else %}home{% endif %}.png{% endset -%}
   <head>
-    <!-- Generated from the 11ty Netlify Jumpstart: https://github.com/5t3ph/11ty-netlify-jumpstart -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="generator" content="eleventy" />
-    <title>{{ pageTitle }}</title>
     <meta name="description" content="{{ pageDescription }}" />
-    <link rel="icon" href="{{ '/favicon.png' | url }}" />
-    <link href="{{ '/css/style.css' | url }}" rel="stylesheet" />
-    <meta name="twitter:card" content="summary_large_image" />
-    {% if meta.twitterUsername %}
-      <meta name="twitter:creator" content="@{{ meta.twitterUsername }}" />
-    {% endif %}
-    <meta name="twitter:title" content="{{ pageTitle }}" />
-    <meta name="twitter:description" content="{{ pageDescription }}" />
+    <title>{{ pageTitle }}</title>
 
+    <!-- Facebook share metadata -->
     <meta name="og:title" content="{{ pageTitle }}" />
     <meta name="og:description" content="{{ pageDescription }}" />
     <meta property="og:image" content="{{ pageSocialImg }}" />
+
+    <!-- Twitter share metadata -->
+    <meta name="twitter:card" content="summary_large_image" />
+    {% if meta.twitterUsername %}
+    <meta name="twitter:creator" content="@{{ meta.twitterUsername }}" />
+    {% endif %}
+    <meta name="twitter:title" content="{{ pageTitle }}" />
+    <meta name="twitter:description" content="{{ pageDescription }}" />
     <meta name="twitter:image" content="{{ pageSocialImg }}" />
 
+    <!-- Links -->
+    <link rel="icon" href="{{ '/images/favicon.png' | url }}" />
+    <link href="/css/index.css" rel="stylesheet" />
     <link
       rel="alternate"
       type="application/rss+xml"
@@ -43,7 +45,9 @@
     />
   </head>
   <body>
-    {{ content | safe }}
+    <main>
+      {{ content | safe }}
+    </main>
 
     <footer class="tdbc-background--secondary">
       <div class="tdbc-container tdbc-text-align-center">
@@ -70,5 +74,6 @@
         </div>
       </div>
     </footer>
+    <script src="/js/index.js?{{ cacheBust.mainJs }}"></script>
   </body>
 </html>
