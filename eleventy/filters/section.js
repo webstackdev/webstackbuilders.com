@@ -6,7 +6,6 @@
  *
  * If excerpt or nothing is passed as an argument, we return what was before the split marker.
  * If remainder is passed as an argument, we return the rest of the post
- *
  */
 exports.section = (str, section) => {
   var content = new String(str)

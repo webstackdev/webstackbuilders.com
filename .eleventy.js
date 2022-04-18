@@ -9,6 +9,7 @@ const syntaxHighlight = require('@11ty/eleventy-plugin-syntaxhighlight')
 // Local
 const eleventySetup = require('./eleventy')
 
+/** @param { import('./@types/eleventy').Config } config */
 module.exports = function (eleventyConfig) {
   /**
    * Use `.eleventyignore` for dev server files to watch instead of default `.gitignore`

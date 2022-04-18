@@ -37,7 +37,13 @@
     "watch:script": "webpack --config webpack.config.dev.js",
     "watch:css": "gulp watch:css",
     "watch:html": "ELEVENTY_ENV=development npx eleventy --watch --serve --incremental",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest",
+    "test:coverage": "jest --coverage",
+    "test:ci": "jest --ci --runInBand",
+    "test:cy:open": "cypress open",
+    "test:cy:run": "npx npm-package-scripts run-cypress",
+    "test:update": "jest --updateSnapshot",
+    "test:watch": "jest --watch"
   },
   "//": "stylelint is pinned at ^9.1.0 by dependencies",
   "devDependencies": {
@@ -48,12 +54,18 @@
     "@11ty/eleventy-plugin-rss": "^1.1.2",
     "@11ty/eleventy-plugin-syntaxhighlight": "^4.0.0",
     "@11tyrocks/eleventy-plugin-social-images": "^0.4.1",
+    "@babel/core": "7.17.9",
+    "@babel/preset-typescript": "7.16.7",
+    "@types/eslint": "8.4.1",
+    "@types/jest": "27.4.1",
     "@types/markdown-it": "12.2.3",
     "@typescript-eslint/eslint-plugin": "^5.19.0",
     "@typescript-eslint/parser": "^5.19.0",
+    "babel-jest": "27.5.1",
     "core-js": "3.22.0",
     "cross-env": "7.0.3",
     "cssnano": "^5.1.7",
+    "cypress": "9.5.4",
     "date-fns": "2.28.0",
     "del": "6.0.0",
     "eleventy-plugin-lazyimages": "2.1.2",
@@ -73,6 +85,7 @@
     "gulp-sass": "5.1.0",
     "gulp-sourcemaps": "3.0.0",
     "html-minifier": "4.0.0",
+    "jest": "27.5.1",
     "luxon": "2.3.2",
     "markdown-it": "^12.3.2",
     "markdown-it-anchor": "^8.6.2",
@@ -95,12 +108,17 @@
     "stylelint-scss": "^4.2.0",
     "terser": "5.12.1",
     "terser-webpack-plugin": "5.3.1",
+    "ts-jest": "27.1.4",
     "ts-loader": "9.2.8",
     "tslib": "2.3.1",
     "typescript": "4.6.3",
     "webpack": "5.72.0",
     "webpack-cli": "4.9.2",
-    "webpack-merge": "5.8.0"
+    "webpack-merge": "5.8.0",
+    "yargs": "17.4.1"
+  },
+  "bin": {
+    "npm-package-scripts": "./scripts/npm-package-scripts"
   },
   "browserslist": [
     "> 1%",

@@ -1,6 +1,7 @@
 const restrictedGlobals = require('confusing-browser-globals')
 const level = process.env.NODE_ENV === 'production' ? 'error' : 'warn'
 
+/** @type {import('@types/eslint').Linter.BaseConfig} */
 module.exports = {
   env: {
     browser: true,
@@ -32,7 +33,6 @@ module.exports = {
   ],
   rules: {
     // Base ESLint Rules
-
     'arrow-body-style': 'off', // problematic rule with Prettier https://github.com/prettier/eslint-plugin-prettier/issues/65
     camelcase: [level],
     curly: [level, 'all'],
