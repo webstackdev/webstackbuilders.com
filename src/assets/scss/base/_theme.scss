@@ -21,6 +21,11 @@ $tdbc-colors: map-merge(
   )
 );
 
+/**
+ *
+ * @param {string} $key The semantic name like 'primary' to retrieve a color value for
+ * @return {string} The hex value of the color for the given key
+ */
 @function tdbc-color($key) {
   @return map-get($tdbc-colors, $key);
 }

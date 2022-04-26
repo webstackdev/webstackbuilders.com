@@ -1,11 +1,19 @@
-@use 'buttons';
-@use 'card';
-@use 'cookies';
-@use 'fonts';
-@use 'layout';
-@use 'prism_vs_code_dark';
-@use 'prism';
-@use 'reset';
-@use 'sitenav';
-@use 'typography';
-@use 'utilities';
+/** Base SCSS */
+@use 'base/fonts';
+@use 'base/prism';
+@use 'base/reset';
+@use 'base/typography';
+
+/** Components SCSS */
+@use 'components/buttons';
+@use 'components/cookies';
+@use 'components/themeSwitcher';
+
+/** Layout SCSS */
+@use 'layout/card';
+@use 'layout/layout';
+@use 'layout/sitenav';
+@use 'layout/utilities';
+
+/** Modules SCSS */
+//@use 'modules/index';

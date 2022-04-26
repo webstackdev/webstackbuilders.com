@@ -2,24 +2,30 @@
   "words": [
     "atrule",
     "baloo",
+    "deduped",
     "eleventy",
     "eleventyignore",
     "eleventyjs",
     "ekalinin",
     "haml",
     "gifsicle",
+    "italicised",
     "jstl",
     "lqip",
     "linkify",
     "luxon",
     "mozjpeg",
+    "nbsp",
     "normalise",
     "optipng",
     "sindresorhus",
     "suffx",
     "tdbc",
     "tinysvg",
+    "tydata",
     "tyrocks",
-    "unspaced"
+    "unspaced",
+    "unstyled",
+    "ydata"
   ]
 }

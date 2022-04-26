@@ -1,4 +1,8 @@
-@use "theme" as *;
+/**
+ * @use loads mixins, functions, and variables from other Sass stylesheets,
+ * and combines CSS from multiple stylesheets together.
+ */
+@use "../base/theme" as *;
 
 .tdbc-content-maxlength {
   max-width: 80ch;
@@ -17,8 +21,7 @@
   }
 }
 
-$tdbc-alignments: left, center, right !default;
-
+$tdbc-alignments: left, center, right !default; // only define the variable if it has not already been set
 @each $alignment in $tdbc-alignments {
   .tdbc-text-align--#{$alignment} {
     text-align: #{$alignment};

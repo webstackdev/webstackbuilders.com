@@ -2,7 +2,6 @@
 title: 'About'
 description: 'Review feature info and customization details.'
 permalink: /about/
-tags: root
 layout: page
 ---
 

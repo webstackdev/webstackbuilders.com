@@ -1,13 +1,13 @@
-@use "theme" as *;
+@use "../base/theme" as *;
 
 // stylelint-disable-next-line selector-max-type
 body {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
   background-color: tdbc-color("background");
   color: $tdbc-color-body;
+  display: flex;
+  flex-direction: column;
   font-family: $tdbc-font-family;
+  min-height: 100vh;
 }
 
 // stylelint-disable selector-max-type, selector-no-qualifying-type
@@ -34,11 +34,11 @@ article {
 .tdbc-container {
   display: flex;
   flex-direction: column;
-  width: 100%;
-  max-width: 120ch;
-  margin-right: auto;
   margin-left: auto;
+  margin-right: auto;
+  max-width: 120ch;
   padding: 1rem;
+  width: 100%;
 }
 
 .tdbc-column-container {
@@ -95,7 +95,7 @@ ul.tdbc-column-container {
 
 // stylelint-disable-next-line selector-max-type
 hr {
-  margin-top: 4rem;
-  margin-bottom: 4rem;
   border: 1px solid tdbc-color("secondary");
+  margin-bottom: 4rem;
+  margin-top: 4rem;
 }

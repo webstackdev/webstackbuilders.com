@@ -13,7 +13,7 @@ module.exports = {
   testURL: `http://localhost`,
   /** Set up for Babel config */
   transform: {
-    '^.+\\.[jt]s$': `<rootDir>/jest/jest-preprocess.js`,
+    '^.+\\.[jt]s$': `<rootDir>/test/jest/jest-preprocess.js`,
   },
   verbose: true,
 }

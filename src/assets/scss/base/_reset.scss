@@ -1,0 +1,84 @@
+/**
+ * CSS Reset
+ */
+
+/**
+ * Use a more intuitive box sizing model than default
+ */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/**
+ * Remove all default margins using low-specificity wildcard selector
+ */
+* {
+  margin: 0;
+}
+
+/**
+ * Allow percentage-based heights in the application
+ */
+html, body {
+  height: 100%;
+  overflow-x: hidden;
+}
+
+/**
+ * Set core body defaults
+ *
+ * 1. Correct the line height in all browsers.
+ * 2. Prevent adjustments of font size after orientation changes in iOS.
+ */
+body {
+  font-family: sans-serif;
+  font-size: 100%;
+  line-height: 1.5; /* 1 */
+  min-height: 100vh;
+  text-rendering: optimizeSpeed;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%; /* 2 */
+}
+
+/**
+ * Help prevent overflow of long words/names/URLs
+ */
+p, li, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+/**
+ * Make images easier to work with
+ */
+img {
+  display: block;
+  max-width: 100%;
+}
+
+/**
+ * Remove built-in form typography styles
+ */
+input, button, textarea, select {
+  font: inherit;
+}
+
+/*
+  Create a root stacking context
+*/
+#root, #__next {
+  isolation: isolate;
+}
+
+/**
+ * Remove all animations and transitions for people that prefer not to see them
+ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

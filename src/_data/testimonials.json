@@ -1,0 +1,24 @@
+{
+  "testimonials": [
+    {
+      "name": "Fluffy Agency",
+      "description": "Fluffy client info",
+      "slug": "fluffy"
+    },
+    {
+      "name": "Snugglepants, Inc.",
+      "description": "Snugglepants client info",
+      "slug": "snugglepants"
+    },
+    {
+      "name": "Lord Featherbottom Games Ltd.",
+      "description": "Featherbottom client info",
+      "slug": "featherbottom"
+    },
+    {
+      "name": "Pennywise.com",
+      "description": "Pennywise client info",
+      "slug": "pennywise"
+    }
+  ]
+}

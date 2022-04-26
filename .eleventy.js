@@ -8,6 +8,7 @@ const syntaxHighlight = require('@11ty/eleventy-plugin-syntaxhighlight')
 
 // Local
 const eleventySetup = require('./eleventy')
+const criticalCss = require('./eleventy/transforms/criticalCss')
 
 /** @param { import('./@types/eleventy').Config } config */
 module.exports = function (eleventyConfig) {
@@ -38,6 +39,7 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPlugin(socialImages)
   eleventyConfig.addPlugin(syntaxHighlight)
   // eleventyConfig.addPlugin(lazyImagesPlugin, eleventySetup.handlers.lazyImagesHandler)
+  // eleventyConfig.addPlugin(criticalCss)
 
   /**
    * Watch compiled assets for changes. When the file or the files
@@ -88,18 +90,52 @@ module.exports = function (eleventyConfig) {
 
   return {
     dir: {
+      /**
+       * Global data template files directory, available to all templates. This is the
+       * default but included here for visibility with the other core directories.
+       */
+      data: '_data',
+
+      /**
+       * The top level directory/file/glob used to look for templates, such as Markdown
+       * files or 11ydata.js / 11ydata.json / (subdir|markdownFilename).json files
+       *
+       * 1. For `posts/subdir/my-first-blog-post.md`:
+       *   posts/subdir/my-first-blog-post.11tydata.js
+       *   posts/subdir/my-first-blog-post.11tydata.json
+       *   posts/subdir/my-first-blog-post.json
+       * 2. For all templates in subdir: posts/subdir/subdir.11tydata.js, etc.
+       * 3. For parent directory, applies to all subdirectories: posts/posts.11tydata.js , etc.
+       */
       input: 'src',
+
+      /**
+       * Directory for Eleventy layouts, include files, extends files, partials,
+       * or macros. These files will not be processed as full template files, but
+       * can be consumed by other templates. Must be a nested directory of `input`.
+       */
+      includes: '_layouts',
+
+      /**
+       * The directory inside which the finished site source will be written to.
+       */
       output: 'public',
-      includes: '_components',
-      layouts: '_layouts',
     },
-    // Liquid is the default 11ty template engine used to preprocess html
-    // files and allow preprocessor syntax like includes and shortcodes in html.
+
+    /**
+     * Liquid is the default 11ty template engine used to preprocess html.
+     * Files and allow preprocessor syntax like includes and shortcodes in html.
+     */
     htmlTemplateEngine: 'njk',
-    // Liquid is the default 11ty template engine used to preprocess markdown
-    // files and allow preprocessor syntax like includes and shortcodes in markdown.
+
+    /** Liquid is the default 11ty template engine used to preprocess markdown
+     * files and allow preprocessor syntax like includes and shortcodes in markdown.
+     */
     markdownTemplateEngine: 'njk',
-    // ejs can be embedded in json data files for values
+
+    /**
+     * ejs can be embedded in json data files for values
+     */
     templateFormats: ['11ty.js', 'ejs', 'md', 'njk'],
   }
 }
