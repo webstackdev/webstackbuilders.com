@@ -8,7 +8,7 @@ const syntaxHighlight = require('@11ty/eleventy-plugin-syntaxhighlight')
 
 // Local
 const eleventySetup = require('./eleventy')
-const criticalCss = require('./eleventy/transforms/criticalCss')
+//const criticalCss = require('./eleventy/transforms/criticalCss')
 
 /** @param { import('./@types/eleventy').Config } config */
 module.exports = (eleventyConfig) => {
