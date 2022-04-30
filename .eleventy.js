@@ -11,7 +11,7 @@ const eleventySetup = require('./eleventy')
 const criticalCss = require('./eleventy/transforms/criticalCss')
 
 /** @param { import('./@types/eleventy').Config } config */
-module.exports = function (eleventyConfig) {
+module.exports = (eleventyConfig) => {
   /**
    * Use `.eleventyignore` for dev server files to watch instead of default `.gitignore`
    */
