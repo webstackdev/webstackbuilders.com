@@ -14,6 +14,7 @@
     "lqip",
     "linkify",
     "luxon",
+    "memfs",
     "mozjpeg",
     "nbsp",
     "normalise",
@@ -26,6 +27,7 @@
     "tyrocks",
     "unspaced",
     "unstyled",
+    "xlink",
     "ydata"
   ]
 }

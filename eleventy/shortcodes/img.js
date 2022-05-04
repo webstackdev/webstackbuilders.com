@@ -1,4 +1,5 @@
 const Image = require('@11ty/eleventy-img')
+const minify = require('./utils').minify
 
 exports.imgShortcode = async (url, formats, widths, sizes = '', cls = '', alt = '') => {
   // formats must be an array
@@ -30,7 +31,7 @@ exports.imgShortcode = async (url, formats, widths, sizes = '', cls = '', alt = 
     loading: 'lazy',
   }
 
-  return Image.generateHTML(metadata, imageAttributes, {
+  return minify(Image.generateHTML(metadata, imageAttributes, {
     whitespaceMode: 'inline',
-  })
+  }))
 }

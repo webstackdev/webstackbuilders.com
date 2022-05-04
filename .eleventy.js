@@ -58,18 +58,26 @@ module.exports = (eleventyConfig) => {
   /**
    * Shortcodes and Nunjucks Tags for use in templates
    */
-  eleventyConfig.addShortcode('img', eleventySetup.shortcodes.imgShortcode)
-  eleventyConfig.addShortcode('year', eleventySetup.shortcodes.year)
-  eleventyConfig.addShortcode('youtube', eleventySetup.shortcodes.youtube)
+  Object.keys(eleventySetup.shortcodes).forEach((shortcodeName) => {
+    eleventyConfig.addShortcode(shortcodeName, eleventySetup.shortcodes[shortcodeName])
+  })
+
+  /**
+   * Paired Shortcodes and Nunjucks Tags for use in templates
+   */
+  Object.keys(eleventySetup.pairedShortcodes).forEach((pairedShortcodeName) => {
+    eleventyConfig.addPairedShortcode(
+      pairedShortcodeName,
+      eleventySetup.pairedShortcodes[pairedShortcodeName]
+    )
+  })
 
   /**
    * Filters for use in templates
    */
-  eleventyConfig.addFilter('dateDisplay', eleventySetup.filters.dateDisplay)
-  eleventyConfig.addFilter('exclude', eleventySetup.filters.exclude)
-  eleventyConfig.addFilter('squash', eleventySetup.filters.squash)
-  eleventyConfig.addFilter('slug', eleventySetup.filters.slugify)
-  eleventyConfig.addFilter('withCategory', eleventySetup.filters.withCategory)
+  Object.keys(eleventySetup.filters).forEach((filterName) => {
+      eleventyConfig.addFilter(filterName, eleventySetup.filters[filterName])
+  })
 
   /**
    * Configured markdown-it instance, also used in markdown shortcodes
@@ -82,10 +90,12 @@ module.exports = (eleventyConfig) => {
   eleventyConfig.setBrowserSyncConfig(eleventySetup.handlers.pageNotFoundHandler)
 
   /**
-   * HTML minification
+   * @TODO: needs refactored, right now this is production build tasks like HTML minification and critical CSS
    */
   if (process.env.ELEVENTY_ENV === 'production') {
-    eleventyConfig.addTransform('htmlmin', eleventySetup.handlers.htmlMinifyHandler)
+    Object.keys(eleventySetup.transforms).forEach((transformName) => {
+      //eleventyConfig.addTransform(transformName, eleventySetup.transforms[transformName])
+    })
   }
 
   return {

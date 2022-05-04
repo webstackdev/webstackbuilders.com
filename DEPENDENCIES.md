@@ -141,6 +141,8 @@ preact
 sanitize-html
 svg-sprite
 twitter
-workbox-cli
 encoding
+
+Already added:
+workbox-cli
 netlify-lambda

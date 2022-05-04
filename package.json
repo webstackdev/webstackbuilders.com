@@ -16,7 +16,7 @@
   "node": ">=17.1.0",
   "scripts": {
     "prebuild": "run-s clean setup",
-    "build": "run-s build:script build:css build:html",
+    "build": "run-s build:script build:css build:html --print-label",
     "build:css": "gulp build:css",
     "build:script": "webpack --config webpack.config.prod.js",
     "build:html": "cross-env ELEVENTY_ENV=production eleventy",
@@ -35,7 +35,7 @@
     "setup": "gulp setup",
     "prestart": "run-s clean setup build:script build:css",
     "release": "np --no-cleanup",
-    "start": "cross-env ELEVENTY_ENV=development run-p watch:*",
+    "start": "cross-env ELEVENTY_ENV=development run-p watch:* --print-label",
     "watch:script": "webpack --config webpack.config.dev.js",
     "watch:css": "gulp watch:css",
     "watch:html": "ELEVENTY_ENV=development npx eleventy --watch --serve --incremental",
@@ -95,6 +95,7 @@
     "markdown-it-emoji": "2.0.2",
     "md5-file": "5.0.0",
     "mkdirp": "1.0.4",
+    "netlify-lambda": "2.0.15",
     "np": "7.6.1",
     "npm-run-all": "^4.1.5",
     "outdent": "0.8.0",
@@ -119,6 +120,7 @@
     "webpack": "5.72.0",
     "webpack-cli": "4.9.2",
     "webpack-merge": "5.8.0",
+    "workbox-cli": "6.5.3",
     "yargs": "17.4.1"
   },
   "bin": {

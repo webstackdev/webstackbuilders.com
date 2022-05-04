@@ -1,10 +1,26 @@
 {
-  "name": "11ty",
-  "type": "node",
-  "request": "launch",
-  "program": "${workspaceRoot}/node_modules/.bin/eleventy",
-  "stopOnEntry": false,
-  "args": ["--watch"],
-  "cwd": "${workspaceRoot}",
-  "console": "internalConsole"
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "eleventy-build",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceRoot}/node_modules/.bin/eleventy",
+      "stopOnEntry": false,
+      "cwd": "${workspaceRoot}",
+      "env": { "ELEVENTY_ENV": "production" },
+      "console": "internalConsole"
+    },
+    {
+      "name": "eleventy-serve",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceRoot}/node_modules/.bin/eleventy",
+      "stopOnEntry": false,
+      "args": ["--watch"],
+      "cwd": "${workspaceRoot}",
+      "env": { "ELEVENTY_ENV": "development" },
+      "console": "internalConsole"
+    }
+  ]
 }

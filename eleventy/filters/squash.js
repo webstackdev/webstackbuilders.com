@@ -5,7 +5,7 @@
  * @param {String} text
  */
 
-exports.squash = text => {
+module.exports =  text => {
   var content = new String(text)
 
   // remove all html elements

@@ -1,27 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-  {%- set pageTitle %}{% if title %}{{
-    title
-  }}
-  | {% endif %}{{
-    meta.siteName
-  }}{% endset -%} {%- set pageDescription %}{% if description %}{{
-    description
-  }}{% else %}{{
-    meta.siteDescription
-  }}{% endif %}{% endset -%} {%- set pageSocialImg %}{{
-    meta.url
-  }}/previews/{% if title %}{{
-    title | slug
-  }}{% else %}home{% endif %}.png{% endset -%}
+  {% include "utilities/vars.njk" %}
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="{{ pageDescription }}" />
-    <title>{{ pageTitle }}</title>
+    <title>{% pageTitle %}</title>
 
     <!-- Facebook share metadata -->
-    <meta name="og:title" content="{{ pageTitle }}" />
+    <meta name="og:title" content="{% pageTitle %}" />
     <meta name="og:description" content="{{ pageDescription }}" />
     <meta property="og:image" content="{{ pageSocialImg }}" />
 
@@ -30,7 +17,7 @@
     {% if meta.twitterUsername %}
     <meta name="twitter:creator" content="@{{ meta.twitterUsername }}" />
     {% endif %}
-    <meta name="twitter:title" content="{{ pageTitle }}" />
+    <meta name="twitter:title" content="{% pageTitle %}" />
     <meta name="twitter:description" content="{{ pageDescription }}" />
     <meta name="twitter:image" content="{{ pageSocialImg }}" />
 

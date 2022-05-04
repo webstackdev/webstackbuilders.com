@@ -2,7 +2,6 @@
  * Filters to specify for use in .eleventy.js with `addFilter`
  */
 const fs = require('fs')
-const htmlmin = require('html-minifier')
 
 const NOT_FOUND_PATH = 'public/404.html'
 
@@ -18,23 +17,6 @@ exports.lazyImagesHandler = {
       return `./src/images/${imgPath}`
     }
   },
-}
-
-/**
- * Minify HTML. Example code from 11ty docs.
- */
-exports.htmlMinifyHandler = (content, outputPath) => {
-  if (outputPath.endsWith('.html')) {
-    const minified = htmlmin.minify(content, {
-      collapseInlineTagWhitespace: false,
-      collapseWhitespace: true,
-      removeComments: true,
-      sortClassName: true,
-      useShortDoctype: true,
-    })
-    return minified
-  }
-  return content
 }
 
 /**
