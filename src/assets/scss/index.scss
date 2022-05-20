@@ -1,19 +1,47 @@
+/** General SCSS */
+@import 'base/variables';
+@import 'base/themes';
+@import 'base/colors';
+
+/** Utility SCSS */
+@import 'utils/functions';
+@import 'utils/mixins';
+
 /** Base SCSS */
-@use 'base/fonts';
-@use 'base/prism';
-@use 'base/reset';
-@use 'base/typography';
+@import 'base/accessibility';
+@import 'base/animation';
+@import 'base/focus';
+@import 'base/fonts';
+@import 'base/layout';
+@import 'base/reset';
+@import 'base/typography';
+@import 'base/utility';
 
 /** Components SCSS */
-@use 'components/buttons';
-@use 'components/cookies';
-@use 'components/themeSwitcher';
+@import 'components/about';
+@import 'components/alert';
+@import 'components/article';
+@import 'components/articlelist';
+@import 'components/button';
+@import 'components/callout';
+@import 'components/cookies';
+@import 'components/featuredarticles';
+@import 'components/footer';
+@import 'components/form';
+@import 'components/header';
+@import 'components/hero';
+@import 'components/icon';
+@import 'components/markdown';
+@import 'components/nav';
+@import 'components/otherarticles';
+@import 'components/page';
+@import 'components/responsive-image';
+@import 'components/sharer';
+@import 'components/signup';
+@import 'components/spinner';
+@import 'components/testimonials';
+@import 'components/titlebar';
+@import 'components/topbanner';
 
-/** Layout SCSS */
-@use 'layout/card';
-@use 'layout/layout';
-@use 'layout/sitenav';
-@use 'layout/utilities';
-
-/** Modules SCSS */
-//@use 'modules/index';
+/** Vendor SCSS */
+@import 'vendor/share-highlight';

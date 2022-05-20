@@ -43,17 +43,4 @@ module.exports = {
       },
     ],
   },
-  // Any `import`s from from NPM modules in `node_modules`
-  // will be compiled in to a `vendor.js` file.
-  optimization: {
-    splitChunks: {
-      cacheGroups: {
-        commons: {
-          test: /[\\/]node_modules[\\/]/,
-          name: 'vendor',
-          chunks: 'all',
-        },
-      },
-    },
-  },
 }

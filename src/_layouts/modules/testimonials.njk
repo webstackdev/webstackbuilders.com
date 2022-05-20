@@ -1,15 +1,15 @@
----
-pagination:
-  data: globalDataSet.testimonials
-  size: 6
-  alias: testimonials
----
 {# This is the home page module for testimonials #}
-<ol>
+<h1>Testimonial</h1>
+<ul>
 {% for testimonial in testimonials %}
   <li>
-    <a href="{{ testimonial.slug | url }}">{{ testimonial.data.name }}</a>
-    <p>{{ testimonial.data.description }}</p>
+    <div>{{ testimonial.name }}</div>
+    <div>{{ testimonial.organization }}</div>
+    <img
+      src="/avatars/{{ testimonial.avatar }}"
+      alt="photo of {{ testimonial.name }}"
+    />
+    <p>{{ testimonial.text }}</p>
   </li>
 {% endfor %}
-</ol>
+</ul>

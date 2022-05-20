@@ -1,3 +1,8 @@
+declare module '*.svg' {
+  const content: any;
+  export default content;
+}
+
 type ServeStaticOptions = import('serve-static').ServeStaticOptions
 
 // ---- Utility types

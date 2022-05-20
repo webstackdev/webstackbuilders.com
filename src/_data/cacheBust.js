@@ -1,6 +1,3 @@
-const path = require('path')
-const md5File = require('md5-file')
-
 /**
  * Manage cache-busting keys to add to asset URLs. 11ty adds the
  * return value from this function to the global data scope.
@@ -8,6 +5,9 @@ const md5File = require('md5-file')
  * @returns an object with common names of files as keys e.g. `mainCSS`, and
  * the computed md5 hash for the file (or current date if in dev) as values.
  */
+const path = require('path')
+const md5File = require('md5-file')
+
 const cacheBust = () => {
   // Map of files to cache bust
   const files = {

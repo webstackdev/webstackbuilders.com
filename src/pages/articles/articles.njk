@@ -1,0 +1,59 @@
+---
+layout: base
+tags: nav
+title: Articles
+eleventyNavigation:
+  key: Articles
+  order: 4
+permalink: /articles/
+---
+<div class="page page--blog">
+  <header class="page__header">
+    <h1 class="page__title">{{ title }}</h1>
+  </header>
+
+  <div class="page__content">
+    {%- set articlelist = collections.articles -%}
+    <ol reversed class="articlelist" start="{{ articlelist.length }}">
+      {% for post in articlelist | reverse %}
+        <li class="articlelist__item">
+          <h2 class="articlelist__title">
+            <a
+              href="{{ post.url | url }}"
+              class="articlelist__link"
+              rel="bookmark"
+            >
+              {{ post.data.title }}
+            </a>
+          </h2>
+
+          <div class="articlelist__meta">
+            <time class="articlelist__date" datetime="{{ post.date | dateToISO }}">
+              {{ post.date | readableDate('dd LLL yyyy') }}
+            </time>
+
+            {% if post.data.tags %}
+              <span aria-hidden="true">&sdot;</span>
+              <span class="articlelist__tags">
+                {{ post.data.tags|join(', ') }}
+              </span>
+            {% endif %}
+
+            {% if post.data.draft %}
+              <span aria-hidden="true">&sdot;</span>
+              <span class="articlelist__status">(Draft)</span>
+            {% endif %}
+          </div>
+
+          <p class="articlelist__excerpt">
+            {% if post.data.description %}
+              {{ post.data.description }}
+            {% else %}
+              {{ post.templateContent | excerpt | striptags }}
+            {% endif %}
+          </p>
+        </li>
+      {% endfor %}
+    </ol>
+  </div>
+</div>

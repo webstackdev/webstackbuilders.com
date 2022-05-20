@@ -3,7 +3,7 @@ const common = require('./webpack.config.common.js')
 
 module.exports = merge(common, {
   mode: 'development',
-  devtool: "inline-source-map",
+  devtool: 'eval-cheap-module-source-map',
   // Allow watching and live reloading of assets
   watch: true,
 })

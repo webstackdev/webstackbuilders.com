@@ -2,7 +2,7 @@ const { readFileSync } = require('fs')
 const { JSDOM } = require('jsdom')
 
 // Load document from Eleventy output directory
-const { document } = new JSDOM(readFileSync('./dist/index.html')).window
+const { document } = new JSDOM(readFileSync('./public/index.html')).window
 
 describe('eleventy-critical-css', () => {
   test.skip('should inline critical CSS to the head of the document', () => {

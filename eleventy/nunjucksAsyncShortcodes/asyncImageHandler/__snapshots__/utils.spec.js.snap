@@ -1,0 +1,92 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Renders the Nunjucks template without error Lazy image matches snapshot with same context 1`] = `
+"
+  <picture class=\\"lazy-picture\\" data-lazy-state=\\"unseen\\">
+
+      <source
+        
+        type=\\"image/jpeg\\"
+        srcset=\\"/img/6dfd7ac6-300.jpeg 300w\\"
+        
+        data-srcset=\\"/img/6dfd7ac6-300.jpeg 300w, /img/6dfd7ac6-600.jpeg 600w, /img/6dfd7ac6-2406.jpeg 2406w\\"
+        sizes=\\"100vw\\"
+        class=\\"lazy\\"
+      >
+
+      <source
+        
+        type=\\"image/webp\\"
+        srcset=\\"/img/6dfd7ac6-300.webp 300w\\"
+        
+        data-srcset=\\"/img/6dfd7ac6-300.webp 300w, /img/6dfd7ac6-600.webp 600w, /img/6dfd7ac6-2406.webp 2406w\\"
+        sizes=\\"100vw\\"
+        class=\\"lazy\\"
+      >
+
+    <img
+      src=\\"/img/6dfd7ac6-300.jpeg\\"
+      data-src=\\"/img/6dfd7ac6-2406.jpeg\\"
+      width=\\"2406\\"
+      height=\\"2411\\"
+      alt=\\"A cover photo\\"
+      class=\\"lazy \\"
+      loading=\\"lazy\\"
+    >
+  </picture>
+  <noscript>
+    <picture>
+
+        <source
+          type=\\"image/jpeg\\"
+          srcset=\\"/img/6dfd7ac6-300.jpeg 300w, /img/6dfd7ac6-600.jpeg 600w, /img/6dfd7ac6-2406.jpeg 2406w\\"
+          sizes=\\"100vw\\"
+        >
+
+        <source
+          type=\\"image/webp\\"
+          srcset=\\"/img/6dfd7ac6-300.webp 300w, /img/6dfd7ac6-600.webp 600w, /img/6dfd7ac6-2406.webp 2406w\\"
+          sizes=\\"100vw\\"
+        >
+
+      <img
+        src=\\"/img/6dfd7ac6-2406.jpeg\\"
+        width=\\"2406\\"
+        height=\\"2411\\"
+        alt=\\"A cover photo\\"
+        class=\\"\\"
+      >
+    </picture>
+  </noscript>
+
+
+"
+`;
+
+exports[`Renders the Nunjucks template without error Non-lazy image matches snapshot with same context 1`] = `
+"
+  <picture>
+
+      <source
+        type=\\"image/jpeg\\"
+        srcset=\\"/img/6dfd7ac6-300.jpeg 300w, /img/6dfd7ac6-600.jpeg 600w, /img/6dfd7ac6-2406.jpeg 2406w\\"
+        sizes=\\"100vw\\"
+      >
+
+      <source
+        type=\\"image/webp\\"
+        srcset=\\"/img/6dfd7ac6-300.webp 300w, /img/6dfd7ac6-600.webp 600w, /img/6dfd7ac6-2406.webp 2406w\\"
+        sizes=\\"100vw\\"
+      >
+
+    <img
+      src=\\"/img/6dfd7ac6-2406.jpeg\\"
+      width=\\"2406\\"
+      height=\\"2411\\"
+      alt=\\"A cover photo\\"
+      class=\\"\\"
+    >
+  </picture>
+
+"
+`;

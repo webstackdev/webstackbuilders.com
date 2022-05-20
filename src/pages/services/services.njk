@@ -1,0 +1,59 @@
+---
+layout: base
+tags: nav
+title: Services
+eleventyNavigation:
+  key: Services
+  order: 3
+permalink: /services/
+---
+<div class="page page--blog">
+  <header class="page__header">
+    <h1 class="page__title">{{ title }}</h1>
+  </header>
+
+  <div class="page__content">
+    {%- set servicelist = collections.services -%}
+    <ol reversed class="articlelist" start="{{ servicelist.length }}">
+      {% for service in servicelist | reverse %}
+        <li class="articlelist__item h-entry {% if service.data.draft %}articlelist__item--draft{% endif %}">
+          <h2 class="articlelist__title p-name">
+            <a
+              href="{{ service.url | url }}"
+              class="articlelist__link u-url"
+              rel="bookmark"
+            >
+              {{ service.data.title }}
+            </a>
+          </h2>
+
+          <div class="articlelist__meta">
+            <time class="articlelist__date dt-published" datetime="{{ service.date | dateToISO }}">
+              {{ service.date | readableDate('dd LLL yyyy') }}
+            </time>
+
+            {% if service.data.tags %}
+              <span aria-hidden="true">&sdot;</span>
+              <span class="articlelist__tags p-category">
+                {{ service.data.tags|join(', ') }}
+              </span>
+            {% endif %}
+
+            {% if service.data.draft %}
+              <span aria-hidden="true">&sdot;</span>
+              <span class="articlelist__status">(Draft)</span>
+            {% endif %}
+          </div>
+
+          <p class="articlelist__excerpt p-summary">
+            {% if service.data.description %}
+              {{ service.data.description }}
+            {% else %}
+              {{ service.templateContent | excerpt | striptags }}
+            {% endif %}
+          </p>
+        </li>
+      {% endfor %}
+    </ol>
+  </div>
+</div>

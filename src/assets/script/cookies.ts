@@ -1,3 +1,4 @@
+/** @TODO: Not included in production script bundle yet */
 const COOKIE_BANNER_DISPLAYED = 'cookieBannerDisplayed'
 
 const dismiss = () => {

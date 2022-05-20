@@ -1,6 +1,15 @@
 # Webstack Builders Corporate Website using Eleventy
 
-## @TODO Pages to create
+## Nunjucks syntax
+
+```nunjucks
+{% import "components/file.njk" as file_component %}
+{% for file in files %}
+  {{ file_component.render(file) }}
+{% endfor %}
+```
+
+## @TODO: Pages to create
 
 - 404
 - robots.txt
@@ -13,6 +22,14 @@ layout: null
 ---
 
 Sitemap: <%= `${site.url}/sitemap.xml` %>
+```
+
+## @TODO: exclude pages like 404 from the sitemap.
+
+Mxb's template uses a `excludeFromSitemap` variable to exclude pages from the sitemap:
+
+```js
+{%- if not item.data.excludeFromSitemap and item.url -%}
 ```
 
 ## Preload hero images, usually loaded after stylesheets and fonts
@@ -149,3 +166,9 @@ let page = {
 - [@vidhill/fortawesome-regular-11ty-shortcode](https://www.npmjs.com/package/@vidhill/fortawesome-free-regular-11ty-shortcode) embed `Font Awesome 5` fonts as inline svg.
 - [@fec/eleventy-plugin-remark](https://www.npmjs.com/package/@fec/eleventy-plugin-remark) transpile Markdown with Remark, and use Remark plugins.
 - [@11ty/eleventy-plugin-syntaxhighlight](https://www.11ty.dev/docs/plugins/syntaxhighlight/) PrismJS syntax highlighting. No browser/client JavaScript here, these highlight transformations are all done at build-time. Supports individual line highlighting.
+
+## Highlight Share Plugin
+
+Put this around text that should be highlighted for share, like the way Medium does:
+
+{% highlight %}Here's some highlighted text you can share!{% endhighlight %}

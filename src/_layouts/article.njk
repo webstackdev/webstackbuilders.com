@@ -1,0 +1,59 @@
+---
+layout: base
+---
+<article
+  id="{{ title | slug }}"
+  class="article"
+  role="article"
+  itemscope
+  itemtype="http://schema.org/BlogPosting"
+  aria-labelledby="{{ title | slug }}-title"
+>
+  <header class="article__header">
+    <h1 id="{{ title | slug }}-title" class="article__title title" itemprop="headline">{{ title }}</h1>
+    <div class="article__meta">
+      <time class="article__date" itemprop="datePublished" datetime="{{ page.date | dateToISO }}">
+        {{ page.date | readableDate('dd LLL yyyy') }}
+      </time>
+      {% if tags %}
+        <span aria-label="in category">&sdot;</span> <span class="article__tags">{{ tags | join(', ') }}</span>
+      {% endif %}
+      {% if draft %}
+        <span aria-hidden="true">&sdot;</span> <span class="article__status">(Draft)</span>
+      {% endif %}
+    </div>
+  </header>
+
+  <div class="article__content markdown" itemprop="articleBody">
+    {{ content | safe }}
+  </div>
+
+  <div class="article__footer">
+    <div hidden>
+      <a href="{{ page.url | url | absoluteUrl(site.url) }}">{{ title }}</a>
+      <p>
+        <a rel="author" href="{{ site.url }}">{{ author.name }}</a>
+        {% image author.avatar, "Site author's avatar image" %}
+      </p>
+    </div>
+
+      <p class="article__footer__info">
+        Published in [{{ tags | join(', ') }}] &sdot; {{ page.date | readableDate('dd LLL yyyy') }} <br/>
+      </p>
+
+      <a
+        href="https://twitter.com/intent/follow?screen_name={{ author.social.twitter.name }}"
+        target="_blank"
+        rel="noopener noreferrer"
+        title="Follow {{ author.name }} on Twitter"
+        class="btn btn--twitter"
+      >
+        {% icon "twitter" %} Follow @{{ author.social.twitter.name }}
+      </a>
+  </div>
+</article>
+
+<div class="articlesection">
+  <h3 class="articlesection__title">Other things I've written</h3>
+  {% include './modules/otherarticles.njk' %}
+</div>

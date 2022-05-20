@@ -3,9 +3,9 @@
  * {% tag %}This contains some [**Markdown**](https://www.11ty.dev/docs/languages/markdown/){% endtag %}
  */
 const { markdownLib } = require('../library')
-const minify = require('./utils').minify
+const outdent = require('outdent')
 
 exports.customMarkdownShortcode = children => {
   const content = markdownLib.render(children)
-  return minify(`<div>${content}</div>`)
+  return outdent.string(`<div>${content}</div>`)
 }

@@ -9,7 +9,8 @@
       "stopOnEntry": false,
       "cwd": "${workspaceRoot}",
       "env": { "ELEVENTY_ENV": "production" },
-      "console": "internalConsole"
+      "console": "internalConsole",
+      "runtimeVersion": "17.5.0"
     },
     {
       "name": "eleventy-serve",
@@ -20,7 +21,8 @@
       "args": ["--watch"],
       "cwd": "${workspaceRoot}",
       "env": { "ELEVENTY_ENV": "development" },
-      "console": "internalConsole"
+      "console": "internalConsole",
+      "runtimeVersion": "17.5.0"
     }
   ]
 }

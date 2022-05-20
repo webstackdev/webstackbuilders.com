@@ -1,7 +1,9 @@
 // 11ty Plugins
 const directoryOutputPlugin = require('@11ty/eleventy-plugin-directory-output')
 const inclusiveLangPlugin = require('@11ty/eleventy-plugin-inclusive-language')
-//const lazyImagesPlugin = require('eleventy-plugin-lazyimages')
+const navigationPlugin = require("@11ty/eleventy-navigation")
+const pluginPageAssets = require('eleventy-plugin-page-assets')
+//const pluginShareHighlight = require('eleventy-plugin-share-highlight')
 const pluginRss = require('@11ty/eleventy-plugin-rss')
 const socialImages = require('@11tyrocks/eleventy-plugin-social-images')
 const syntaxHighlight = require('@11ty/eleventy-plugin-syntaxhighlight')
@@ -24,22 +26,32 @@ module.exports = (eleventyConfig) => {
   eleventyConfig.setWatchThrottleWaitTime(100) // in milliseconds
 
   /**
-   * Map default layouts to the base nunjucks file in _layouts
-   */
-  //eleventyConfig.addLayoutAlias('default', 'base.njk')
-
-  /**
    *  11ty Plugins
    */
   eleventyConfig.addPlugin(directoryOutputPlugin)
-  eleventyConfig.addPlugin(inclusiveLangPlugin, {
+  eleventyConfig.addPlugin(navigationPlugin)
+  /*eleventyConfig.addPlugin(inclusiveLangPlugin, {
     templateFormats: ['md', 'njk'], // default is 'md'
-  })
+  })*/
   eleventyConfig.addPlugin(pluginRss)
   eleventyConfig.addPlugin(socialImages)
   eleventyConfig.addPlugin(syntaxHighlight)
-  // eleventyConfig.addPlugin(lazyImagesPlugin, eleventySetup.handlers.lazyImagesHandler)
+  /** Copies PDF and video asset files to the public folder using same directory structure as input pages */
+  eleventyConfig.addPlugin(pluginPageAssets, eleventySetup.handlers.pluginPageAssetsConfig)
+  // eleventyConfig.addPlugin(pluginShareHighlight)
   // eleventyConfig.addPlugin(criticalCss)
+
+  /**
+   * Creates optimized images and responsive image tags
+   */
+  eleventyConfig.addNunjucksAsyncShortcode('image', eleventySetup.nunjucksAsyncShortcodes.asyncImageHandler)
+
+  /**
+   * Map layouts to the nunjucks file in _layouts
+   */
+  eleventyConfig.addLayoutAlias('base', 'base.njk')
+  eleventyConfig.addLayoutAlias('page', 'page.njk')
+  eleventyConfig.addLayoutAlias('article', 'article.njk')
 
   /**
    * Watch compiled assets for changes. When the file or the files
@@ -52,8 +64,18 @@ module.exports = (eleventyConfig) => {
   /**
    * Files to pass through to the `public` folder. Strips `input` from the path (`src` here).
    */
-  eleventyConfig.addPassthroughCopy('src/images')
+  eleventyConfig.addPassthroughCopy('src/manifest.json')
+  eleventyConfig.addPassthroughCopy('src/robots.txt')
+  eleventyConfig.addPassthroughCopy({ 'src/assets/images/favicon': 'images/favicon' })
+  eleventyConfig.addPassthroughCopy({ 'src/assets/images/site': 'images/site' })
   eleventyConfig.addPassthroughCopy({ 'src/assets/fonts': 'fonts' })
+
+  /**
+   * Filters for use in templates
+   */
+  Object.keys(eleventySetup.filters).forEach((filterName) => {
+      eleventyConfig.addFilter(filterName, eleventySetup.filters[filterName])
+  })
 
   /**
    * Shortcodes and Nunjucks Tags for use in templates
@@ -73,10 +95,25 @@ module.exports = (eleventyConfig) => {
   })
 
   /**
-   * Filters for use in templates
+   * Transforms
+   * @TODO: needs refactored, right now this is production build tasks like
+   * HTML minification and critical CSS.
    */
-  Object.keys(eleventySetup.filters).forEach((filterName) => {
-      eleventyConfig.addFilter(filterName, eleventySetup.filters[filterName])
+  if (process.env.ELEVENTY_ENV === 'production') {
+    Object.keys(eleventySetup.transforms).forEach((transformName) => {
+      //eleventyConfig.addTransform(transformName, eleventySetup.transforms[transformName])
+    })
+  }
+
+  /**
+   * Global data
+   */
+  eleventyConfig.addGlobalData('stats', () => {
+    const now = new Date()
+    return ({
+      timestamp: new Intl.DateTimeFormat('en-US', { dateStyle: 'full', timeStyle: 'long' }).format(now),
+      env: process.env.ELEVENTY_ENV ?? 'development',
+    })
   })
 
   /**
@@ -90,13 +127,42 @@ module.exports = (eleventyConfig) => {
   eleventyConfig.setBrowserSyncConfig(eleventySetup.handlers.pageNotFoundHandler)
 
   /**
-   * @TODO: needs refactored, right now this is production build tasks like HTML minification and critical CSS
+   * Collections: Articles
    */
-  if (process.env.ELEVENTY_ENV === 'production') {
-    Object.keys(eleventySetup.transforms).forEach((transformName) => {
-      //eleventyConfig.addTransform(transformName, eleventySetup.transforms[transformName])
-    })
-  }
+  eleventyConfig.addCollection('articles', function (collection) {
+    return collection
+      .getFilteredByGlob('src/pages/articles/**/*.md')
+      .filter((item) => item.data.permalink !== false)
+      .sort((a, b) => b.date - a.date)
+  })
+
+  /**
+   * Collections: Featured Articles
+   */
+  eleventyConfig.addCollection('featured', function (collection) {
+    return collection
+      .getFilteredByGlob('src/pages/articles/**/*.md')
+      .filter((item) => item.data.featured)
+      .sort((a, b) => b.date - a.date)
+  })
+
+  /**
+   * Collections: Case Studies / Work / Portfolio
+   */
+  eleventyConfig.addCollection('casestudies', function (collection) {
+    return collection
+      .getFilteredByGlob('src/pages/case-studies/**/*.md')
+      .filter((item) => item.data.permalink !== false)
+  })
+
+  /**
+   * Collections: Services (Store)
+   */
+  eleventyConfig.addCollection('services', function (collection) {
+    return collection
+      .getFilteredByGlob('src/pages/services/**/*.md')
+      .filter((item) => item.data.active)
+  })
 
   return {
     dir: {

@@ -11,7 +11,8 @@ egrep -rnw --exclude-dir=node_modules --exclude=yarn.lock --exclude=yarn-error.l
 ```json
 critical
 cross-env
-html-minifier // used in handler
+html-minifier // used in shortcodes
+netlify-lambda
 np // a better npm publish, used in package.json script
 npm-run-all
 sass
@@ -21,6 +22,7 @@ terser-webpack-plugin
 webpack
 webpack-cli
 webpack-merge
+workbox-cli
 ```
 
 ## Cache busting script in _data
@@ -41,6 +43,7 @@ yargs
 cssnano
 del
 fancy-log
+glob
 gulp
 gulp-postcss
 gulp-sass
@@ -48,6 +51,13 @@ gulp-sourcemaps
 mkdirp // peer dependency
 postcss-preset-env
 postcss-svgo
+/**
+ * For gulp task to create sprite from svg icons.
+ * Also added `glob` and `vinyl` for the task.
+ */
+svg-sprite
+sw-precache // Google's service worker generator
+vinyl
 ```
 
 ## Eleventy plugins and config
@@ -55,18 +65,19 @@ postcss-svgo
 ```json
 @11ty/eleventy
 @11ty/eleventy-img
+@11ty/eleventy-navigation
 @11ty/eleventy-plugin-directory-output
 @11ty/eleventy-plugin-inclusive-language
-@11ty/eleventy-navigation
 @11ty/eleventy-plugin-rss
 @11ty/eleventy-plugin-syntaxhighlight
 @11tyrocks/eleventy-plugin-social-images
 eleventy-plugin-lazyimages
+eleventy-plugin-page-assets
+eleventy-plugin-share-highlight
 luxon // date-time lib used in filters
 markdown-it
 markdown-it-anchor
 markdown-it-emoji
-outdent
 postcss
 ```
 
@@ -80,6 +91,8 @@ babel-jest
 cypress
 jest
 jsdom
+mock-cwd
+mock-fs
 ts-jest
 ts-loader
 ```
@@ -90,6 +103,7 @@ ts-loader
 @types/markdown-it // still used?
 tslib
 typescript
+lazysizes // for image lazyload
 ```
 
 ## Linting
@@ -119,7 +133,6 @@ stylelint-scss
 
 ## MBX Dependencies
 
-@11ty/eleventy-navigation
 @babel/plugin-transform-react-jsx
 @babel/plugin-transform-runtime
 @babel/preset-env
@@ -128,8 +141,6 @@ clean-css
 cssesc
 dompurify
 dotenv
-eleventy-plugin-page-assets
-eleventy-plugin-share-highlight
 focus-trap
 focus-visible
 html-entities
@@ -139,10 +150,5 @@ lodash
 memfs
 preact
 sanitize-html
-svg-sprite
 twitter
 encoding
-
-Already added:
-workbox-cli
-netlify-lambda

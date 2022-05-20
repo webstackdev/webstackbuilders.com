@@ -1,0 +1,257 @@
+.nav {
+  align-items: center;
+  display: flex;
+
+  // Nav Menu UL
+  &__menu {
+    display: flex;
+  }
+
+  // Nav Item LI
+  &__item {
+    position: relative;
+
+    // Underline
+    &::after {
+      background-color: var(--color-border);
+      bottom: -5px;
+      content: '';
+      display: block;
+      height: 5px;
+      left: 1.25rem;
+      position: absolute;
+      right: 1.25rem;
+      transform-origin: 0 50%;
+      transform: scaleX(0);
+      transition: transform 0.3s cubic-bezier(0.86, 0, 0.07, 1);
+    }
+
+    // Hover Underline
+    &:hover::after {
+      transform: scaleX(1);
+    }
+
+    // Current Page Active Item
+    &--active {
+      &::after {
+        background-color: var(--color-primary) !important;
+        transform: none;
+      }
+      > a {
+        color: var(--color-text);
+      }
+    }
+  }
+
+  // Nav Link
+  &__link {
+    align-items: center;
+    color: var(--color-text);
+    display: flex;
+    line-height: 1;
+    padding: 0.75rem 1.25rem;
+    position: relative;
+    text-transform: lowercase;
+    transition: color 0.2s linear;
+    white-space: nowrap;
+    z-index: 1;
+
+    @include hover-focus {
+      color: var(--color-text);
+    }
+  }
+
+  // Toggle Button
+  &__togglebtn {
+    display: none;
+  }
+
+  /**
+   * Mobile Version (tablet and down)
+   */
+  @include mq-down(lg) {
+    &__content {
+      display: none;
+      flex-direction: column;
+      height: 100%;
+      justify-content: center;
+      left: 0;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: getZIndexValue('nav');
+    }
+
+    &__menu {
+      flex-direction: column;
+      flex: 1 0 auto;
+      justify-content: center;
+      opacity: 0;
+      transform: translateY(1.5rem);
+      transition: opacity 0.5s linear 0.25s, transform 0.5s $animation-curve-default 0.25s;
+    }
+
+    &__item {
+      color: #fff;
+      font-family: var(--font-family-display);
+      font-size: 2.5rem;
+      letter-spacing: 1px;
+      padding: 0 15%;
+
+      &::after {
+        background-color: var(--color-text-offset);
+        bottom: 15%;
+        height: 10px;
+        left: 0;
+        right: 70%;
+      }
+    }
+
+    &__link {
+      color: #fff !important;
+      padding: 1.5rem;
+      text-transform: none;
+    }
+
+    &__num {
+      color: var(--color-text-offset);
+      font-family: var(--font-family-base);
+      font-size: 0.5em;
+      font-weight: 300;
+      margin-right: 0.75rem;
+    }
+
+    &__togglebtn {
+      display: flex;
+      position: relative;
+      z-index: getZIndexValue('nav') + 1;
+    }
+  }
+}
+
+/**
+ * Navigation Open State (mobile only)
+ */
+.nav--open {
+  @include mq-down(lg) {
+    .nav__content {
+      display: flex;
+    }
+
+    .nav__menu--visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .nav__togglebtn {
+        color: #fff;
+        background-color: transparent;
+    }
+
+    .nav__bg {
+      visibility: visible;
+    }
+
+    .nav__bg__circle {
+      transform: scale(1);
+    }
+  }
+}
+
+/**
+ * Navigation Background Animation
+ */
+.nav__bg {
+    position: fixed;
+    z-index: getZIndexValue('nav') - 1;
+    top: 16px;
+    right: 5%;
+    height: 4px;
+    width: 4px;
+    transform: translateX(-22px) translateY(22px);
+    pointer-events: none;
+    visibility: hidden;
+
+    &__circle {
+      backface-visibility: hidden;
+      background-color: #000;
+      border-radius: 50%;
+      display: block;
+      height: 300vmax;
+      height: calc(var(--diameter) * 2);
+      left: -150vmax;
+      left: calc(var(--diameter) * -1);
+      position: absolute;
+      top: -150vmax;
+      top: calc(var(--diameter) * -1);
+      transform-origin: 50% 50%;
+      transform: scale(0);
+      transition: transform 0.4s cubic-bezier(0.755, 0.05, 0.855, 0.06);
+      width: 300vmax;
+      width: calc(var(--diameter) * 2);
+      will-change: transform;
+    }
+
+    @include mq(md) {
+      top: 50px;
+    }
+    @include mq(lg) {
+      display: none;
+    }
+}
+
+/**
+ * Navigation Menu Button Icon
+ */
+.menuicon {
+  cursor: pointer;
+  display: block;
+  height: 16px;
+  margin: 0 auto;
+  position: relative;
+  transform: translate(0, -1px) rotate(0deg);
+  transition: 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  width: 24px;
+
+  &__bar {
+    background-color: currentColor;
+    display: block;
+    height: 3px;
+    left: 0;
+    position: absolute;
+    transform: rotate(0deg);
+    transition: transform 0.25s ease-in-out;
+    width: 100%;
+
+    &:nth-child(1) {
+      top: 0px;
+    }
+    &:nth-child(2),
+    &:nth-child(3) {
+      top: 50%;
+    }
+    &:nth-child(4) {
+      top: 100%;
+    }
+  }
+
+  // Animate to "X" when Nav is open
+  .nav--open & {
+    transform: translate(-1px, 0) rotate(270deg);
+
+    .menuicon__bar {
+      &:nth-child(1),
+      &:nth-child(4) {
+      left: 50%;
+      top: 50%;
+      width: 0;
+      }
+      &:nth-child(2) {
+        transform: rotate(45deg);
+      }
+      &:nth-child(3) {
+        transform: rotate(-45deg);
+      }
+    }
+  }
+}

@@ -1,0 +1,31 @@
+/**
+ * Screen reader classes. See _focus.scss for focus pseudoelement.
+ */
+.sr-only {
+  @include sr-only();
+}
+
+.sr-only-focusable {
+  @include sr-only-focusable();
+}
+
+/**
+ * The skip link is only visible on focus
+ */
+.sr-skip-link {
+  @include sr-only();
+  @include sr-only-focusable();
+
+  &:focus {
+    background-color: var(--color-text);
+    border-radius: 0 0 0.5rem 0.5rem;
+    color: var(--color-bg);
+    font-size: 1rem;
+    left: 50%;
+    outline: none;
+    padding: 1rem 1.5rem;
+    position: absolute;
+    top: 0;
+    transform: translateX(-50%);
+  }
+}

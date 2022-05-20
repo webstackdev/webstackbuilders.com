@@ -1,0 +1,59 @@
+{%- if lazy %}
+<picture class="lazy-picture" data-lazy-state="unseen">
+  {%- for item in items %}
+  <source
+    {# Type and srcset for the low-res placeholder image #}
+    type="{{ item[0].sourceType }}"
+    srcset="{{ item[0].srcset }}"
+    {# Full-size image source set will be swapped in by script #}
+    data-srcset="{{ item | getDataSrcset }}"
+    sizes="{{ sizes }}"
+    class="lazy"
+  >
+  {%- endfor %}
+  <img
+    src="{{ lowSrc.url }}"
+    data-src="{{ highSrc.url }}"
+    width="{{ highSrc.width }}"
+    height="{{ highSrc.height }}"
+    alt="{{ alt }}"
+    class="lazy {{ className }}"
+    loading="lazy"
+  >
+</picture>
+<noscript>
+  <picture>
+    {%- for item in items %}
+    <source
+      type="{{ item[0].sourceType }}"
+      srcset="{{ item | getDataSrcset }}"
+      sizes="{{ sizes }}"
+    >
+    {%- endfor %}
+    <img
+      src="{{ highSrc.url }}"
+      width="{{ highSrc.width }}"
+      height="{{ highSrc.height }}"
+      alt="{{ alt }}"
+      class="{{ className }}"
+    >
+  </picture>
+</noscript>
+{%- else %}
+<picture>
+  {%- for item in items %}
+  <source
+    type="{{ item[0].sourceType }}"
+    srcset="{{ item | getDataSrcset }}"
+    sizes="{{ sizes }}"
+  >
+  {%- endfor %}
+  <img
+    src="{{ highSrc.url }}"
+    width="{{ highSrc.width }}"
+    height="{{ highSrc.height }}"
+    alt="{{ alt }}"
+    class="{{ className }}"
+  >
+</picture>
+{%- endif -%}

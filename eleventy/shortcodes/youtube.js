@@ -2,7 +2,7 @@
  * Embed Youtube as shortcode in markdown by video ID. Usage:
  * {% youtube 'ix5mPa6D7ZA' %}
  */
-const minify = require('./utils').minify
+const outdent = require('outdent')
 
 exports.youtubeShortcode = id => {
    const output =`
@@ -24,5 +24,5 @@ exports.youtubeShortcode = id => {
   <iframe src="https://www.youtube.com/embed/${id}" frameborder="0" allowfullscreen allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"></iframe>
 </div>
   `
-  return minify(output)
+  return outdent.string(output)
 }

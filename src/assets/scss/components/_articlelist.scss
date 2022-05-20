@@ -1,0 +1,49 @@
+.articlelist {
+  @include container-narrow;
+
+  &__item {
+      margin-bottom: 3rem;
+
+      @include mq(md) {
+        margin-bottom: 5rem;
+      }
+  }
+
+  &__link {
+    display: block;
+
+    .articlelist__item--draft & {
+      color: var(--color-secondary);
+    }
+  }
+
+  &__title {
+    margin-bottom: 0;
+  }
+
+  &__meta {
+    color: var(--color-text-offset);
+    font-size: 1.125rem;
+    margin-bottom: 1rem;
+  }
+
+  &__tags {
+    font-family: Georgia, Times, serif;
+    font-size: 0.875em;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+
+  &__status {
+    color: var(--color-secondary);
+    font-weight: 700;
+  }
+
+  &__excerpt {
+      @include body-text();
+
+      .articlelist__item--draft & {
+        opacity: 0.5;
+      }
+  }
+}

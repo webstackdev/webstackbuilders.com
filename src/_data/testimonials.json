@@ -1,24 +1,26 @@
-{
-  "testimonials": [
-    {
-      "name": "Fluffy Agency",
-      "description": "Fluffy client info",
-      "slug": "fluffy"
-    },
-    {
-      "name": "Snugglepants, Inc.",
-      "description": "Snugglepants client info",
-      "slug": "snugglepants"
-    },
-    {
-      "name": "Lord Featherbottom Games Ltd.",
-      "description": "Featherbottom client info",
-      "slug": "featherbottom"
-    },
-    {
-      "name": "Pennywise.com",
-      "description": "Pennywise client info",
-      "slug": "pennywise"
-    }
-  ]
-}
+[
+  {
+    "name": "Chris Southam",
+    "organization": "The SaaS People",
+    "avatar": "chris-southam.webp",
+    "text": "Dan's core strength is his ability to adapt and apply critical thinking to a problem. He doesn't just take a project and do it, he will break it down, check it ticks all the boxes (including the ones you forgot about!), and then deliver something beyond your expectations. Work with him without hesitation!"
+  },
+  {
+    "name": "Sara King",
+    "organization": "DenGro",
+    "avatar": "sara-king.webp",
+    "text": "I always love working with Dan - he’s professional and enthusiastic and always willing to provide insight and suggestions for improving accessibility and functionality of a site or project. Couldn’t recommend him highly enough!"
+  },
+  {
+    "name": "Brian Bristol",
+    "organization": "Pigeon Loans",
+    "avatar": "brian-bristol.webp",
+    "text": "We loved working with Dan and appreciate all his contributions to Pigeon Loans. If anyone is in the market for hiring a great freelance front-end developer, don’t hesitate to add Dan to your team."
+  },
+  {
+    "name": "Dru Sellers",
+    "organization": "One More Cloud",
+    "avatar": "dru-sellers.webp",
+    "text": "Over the last few months I’ve had the pleasure to work with Dan on the relaunch of our new marketing site. His attention to detail and flexibility to work with in our team’s style made him a delight to work with. Additionally, as an American it was awesome to wake up each day to a fresh package of improvements. To that end we are planning to employ Dan to help us modernize our other two sites as well."
+  }
+]

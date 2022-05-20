@@ -1,0 +1,17 @@
+/**
+ *
+ */
+@function breakpoint-min($name, $breakpoints: $grid-breakpoints) {
+  $min: map-get($breakpoints, $name);
+  @return if($min != 0, $min, null);
+}
+
+/**
+ * Z-index layering
+ */
+@function getZIndexValue($layerName) {
+  @if map-has-key($z-layers, $layerName) == false {
+    @warn "No layer found for `#{$layerName}` in $z-layers map variable. Property omitted.";
+  }
+  @return map-get($z-layers, $layerName);
+}

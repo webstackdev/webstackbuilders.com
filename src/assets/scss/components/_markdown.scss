@@ -1,0 +1,249 @@
+.markdown {
+  @include body-text();
+
+  /* Vertical Rythm */
+  > * {
+    margin-bottom: 2rem;
+  }
+
+  a {
+    @include hyphenate;
+  }
+
+  /* In-Text Links */
+  p, li, blockquote {
+    a:not(.btn) {
+      border-bottom: 1px solid currentColor;
+      box-shadow: inset 0 -2px 0 0 currentColor;
+
+      @include hover-focus {
+        border-bottom-color: var(--color-primary);
+        box-shadow: inset 0 -1.25em 0 0 var(--color-primary);
+        color: #fff;
+        outline: none;
+      }
+    }
+  }
+
+  /* Images */
+  img, video {
+    color: var(--color-text-offset);
+    display: block;
+    font-style: italic;
+    height: auto;
+    margin: 0 auto 2rem;
+    max-width: 100%;
+    text-align: center;
+  }
+
+  figure {
+    margin: 2rem auto;
+    max-width: none;
+    text-align: center;
+
+    img {
+      margin-bottom: 0;
+    }
+  }
+
+  figcaption {
+    font-size: 1rem;
+    font-style: italic;
+    padding-top: 0.75rem;
+  }
+
+  /* Video */
+  video {
+    height: auto;
+    max-width: 100%;
+  }
+
+  /* Rules */
+  hr {
+    background-color: var(--color-border);
+    border: 0px solid var(--color-border);
+    height: 1px;
+    margin: 4rem auto;
+    text-align: center;
+    width: 240px;
+  }
+
+  /* Headings */
+  h2, h3, h4 {
+    margin-bottom: 0.5em;
+    margin-top: 1.5em;
+    position: relative;
+
+    &:first-child {
+      margin-top: 0;
+    }
+    @include hover-focus {
+      > .heading-anchor {
+        opacity: 0.75;
+      }
+    }
+  }
+
+  .heading-anchor {
+    display: none;
+    left: -1em;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    width: 1em;
+
+    @include hover-focus {
+      opacity: 1 !important;
+    }
+
+    @include mq(md) {
+      display: block;
+    }
+  }
+
+  /* Lists */
+  ul, ol {
+    list-style-position: outside;
+    padding-left: 1em;
+
+    li:not(:last-child) {
+      margin-bottom: 0.25em;
+    }
+  }
+
+  ul {
+    list-style-type: disc;
+  }
+
+  ol {
+    list-style-type: decimal;
+  }
+
+  blockquote {
+    border-left: 3px solid var(--color-secondary);
+    margin: 2rem 0 2rem -35px;
+    padding-left: 35px;
+  }
+
+  mark {
+    background-color: var(--color-border);
+    color: var(--color-text);
+  }
+
+  /* Code blocks */
+  pre[class*='language-'] {
+    display: block;
+    font-size: 1rem;
+    padding: 2rem 1.5rem;
+    overflow-x: auto;
+
+    .post & {
+      margin: 2rem calc(50% - 50vw);
+    }
+    .note & {
+      border-radius: 0.5rem;
+    }
+
+    > code {
+      @include container-narrow;
+      display: block;
+    }
+
+    @include mq(lg) {
+      padding: 2rem 3rem;
+    }
+    @media screen and (min-width: 1040px) {
+      .post & {
+        border-radius: $border-radius * 2;
+        margin-left: -180px;
+        margin-right: -180px;
+      }
+    }
+  }
+
+  /* Inline code */
+  :not(pre) > code {
+    background-color: var(--color-bg-offset);
+    border-radius: $border-radius;
+    border: 1px solid var(--color-border);
+    display: inline-block;
+    font-family: $font-family-monospace;
+    font-size: 75%;
+    margin: 0 2px;
+    padding: 2px 4px;
+  }
+
+  /* Embedded Tweets */
+  .twitter-tweet-rendered {
+    margin: 0 auto 2rem !important;
+  }
+
+  /* Basic Styles Before the JS is loaded */
+  blockquote.twitter-tweet {
+    border-color: #eee #ddd #bbb;
+    border-radius: 5px;
+    border-style: solid;
+    border-width: 1px;
+    display: block;
+    font-family: 'Helvetica Neue', Roboto, 'Segoe UI', Calibri, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 16px;
+    margin: 0 auto 2rem;
+    max-width: 550px;
+    padding: 1rem;
+
+    p {
+      font-size: 1.125rem;
+      font-weight: normal;
+      line-height: 1.35;
+      margin-bottom: 1rem;
+    }
+
+    a {
+      color: $twitter-brand-primary;
+      box-shadow: none;
+      border: none;
+
+      @include hover-focus {
+        box-shadow: none;
+        color: $twitter-brand-primary;
+        text-decoration: underline;
+      }
+    }
+  }
+
+  /* iframe container */
+  .embed {
+    height: 0;
+    position: relative;
+
+    &--16-9 {
+      padding-bottom: 56.25% !important;
+    }
+
+    &--4-3 {
+      padding-bottom: 75% !important;
+    }
+
+    video, iframe {
+      @include coverall;
+      height: 100%;
+      width: 100% !important;
+      z-index: 2;
+    }
+  }
+
+  /* Signup Form */
+  .signup {
+    box-shadow: 14px 14px 30px -10px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Extends */
+  .extend {
+    @include mq(lg) {
+      margin-left: -3rem;
+      margin-right: -3rem;
+    }
+  }
+}

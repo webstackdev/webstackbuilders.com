@@ -1,16 +1,16 @@
 ---
+layout: base
+eleventyExcludeFromCollections: true
 title: Oops! Not Found
 permalink: 404.html
 ---
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ title }}</title>
-  </head>
-  <body>
-    <h1>{{ title }}</h1>
-    <p>This is where you should tell the user how to find their content. Maybe on the <a href="{{ "/" | url }}">home page?</a></p>
-  </body>
-</html>
+<div class="page page--404">
+  <header class="page__header">
+    <h1 class="page__title">Nope</h1>
+    <p class="page__subtitle">That’s a 404.</p>
+  </header>
+  <div class="page__content markdown">
+    <p>Sorry about that - might be a typo in the URL, or maybe this page has moved? Anyway, enjoy this nice error page I made for you.</p>
+    <p class="u-align-center"><a href="/" class="btn btn--primary">Nah, Go Back Home</a></p>
+  </div>
+</div>

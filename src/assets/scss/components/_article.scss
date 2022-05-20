@@ -1,0 +1,94 @@
+.article {
+  &__header {
+    @extend .page__header;
+  }
+
+  &__title {
+    @extend .page__title;
+    @include mq(lg) {
+      font-size: 6rem !important;
+    }
+  }
+
+  &__meta {
+    align-items: center;
+    color: var(--color-text-offset);
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 1rem;
+    margin: 1rem 0;
+
+    @include mq(md) {
+      font-size: 1.25rem;
+      justify-content: center;
+    }
+  }
+
+  &__tags {
+    font-family: Georgia, Times, serif;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+  }
+
+  &__status {
+    color: var(--color-secondary);
+    font-weight: 700;
+  }
+
+  &__content {
+    @include container-narrow;
+  }
+
+  &__footer {
+    @include container-narrow;
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 2rem auto;
+
+    &__info {
+      color: var(--color-text-offset);
+      font-style: italic;
+      margin: 1rem 0;
+    }
+  }
+}
+
+.articlesection {
+  @include container-narrow;
+  border-top: 1px solid var(--color-border);
+  padding: 2rem 0;
+
+  &__header {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+  }
+
+  &__title {
+    @extend .smalltitle;
+    margin-bottom: 1rem;
+  }
+
+  &__info {
+    align-items: center;
+    color: var(--color-text-offset);
+    display: flex;
+
+    @include hover-focus {
+      color: var(--color-text);
+    }
+
+    .icon {
+      display: block;
+      margin-right: 0.1875em;
+    }
+  }
+
+  @include mq(md) {
+    padding: 3rem 0;
+  }
+}

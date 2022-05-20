@@ -4,7 +4,7 @@
 
 // local imports
 const { customMarkdownShortcode } = require('./markdown')
-const { imgShortcode } = require('./img')
+const { icon } = require('./icon')
 const { youtubeShortcode } = require('./youtube')
 
 module.exports = {
@@ -14,15 +14,15 @@ module.exports = {
   customMarkdownShortcode,
 
   /**
-   * Uses @11ty/eleventy-img for image processing, returns image tag contents
+   * Returns <svg> block for using SVG icon sprite by icon name
    */
-  imgShortcode,
+  icon,
 
   /**
    * Page description for meta headers
    */
   pageDescription: function() {
-    return this.page.description ??  this.ctx.meta.siteDescription
+    return this.page.description ??  this.ctx.site.title
   },
 
   /**
@@ -30,7 +30,7 @@ module.exports = {
    */
   pageSocialImg: function() {
     const slug = this.page.title ? this.page.title >>> slug : `home`
-    return `${this.ctx.meta.url}/previews/${slug}.png`
+    return `${this.ctx.site.url}/previews/${slug}.png`
   },
 
   /**
@@ -38,7 +38,7 @@ module.exports = {
    */
   pageTitle: function() {
     const title = this.page.title ?  `${this.page.title} | ` : ''
-    return `${title}${this.ctx.meta.siteName}`
+    return `${title}${this.ctx.site.title}`
   },
 
   /**

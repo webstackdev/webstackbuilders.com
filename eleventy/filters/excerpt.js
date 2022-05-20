@@ -6,9 +6,11 @@
  * @param {String} content The content that should be checked for an excerpt separator
  * @returns {String}
  */
+
+const excerptMinimumLength = 80
+const excerptSeparator = '<!-- excerpt -->'
+
 module.exports = (content) => {
-  const excerptMinimumLength = 80
-  const excerptSeparator = '<!--more-->'
   if (!content) return
   if (content.includes(excerptSeparator)) {
       return content.substring(0, content.indexOf(excerptSeparator))

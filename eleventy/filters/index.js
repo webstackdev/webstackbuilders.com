@@ -70,11 +70,11 @@ module.exports = {
 
   /**
    * Usage:
-   *   {% set otherposts = collections.posts | excludePost(page) | slice(-10) %}
+   *   {% set otherposts = collections.posts | excludeItemFromCollection(page) | slice(-10) %}
    */
-  excludePost: function (allPosts, currentPost) {
-    return allPosts.filter(
-      (post) => post.inputPath !== currentPost.inputPath
+  excludeItemFromCollection: function (collection, itemToExclude) {
+    return collection.filter(
+      (item) => item.inputPath !== itemToExclude.inputPath
     )
   },
 
