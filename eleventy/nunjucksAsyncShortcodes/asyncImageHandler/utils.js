@@ -43,7 +43,7 @@ exports.getImagePaths = (src, pageUrl) => {
       // Project-relative path to the output image directory to write generated images to
       outputDir: path.join(process.cwd(), '/public/images', path.parse(src).dir),
       // Directory for the <img src> attribute. e.g. /images/ for <img src="/images/MY_IMAGE.jpeg">
-      urlPath: path.join('images', src),
+      urlPath: path.join('images'),
     }
   } else if (/^[^\\/:\*\?"<>\|]+$/.test(src)) {
     // src values that are not relative paths are assumed to be being used in a Markdown
@@ -79,7 +79,7 @@ exports.pathsExist = (imagePath, outputDir, src) => {
     )
   }
 
-  if (!fs.existsSync(outputDir)){
+  if (!fs.existsSync(outputDir)) {
     fs.mkdirSync(outputDir, { recursive: true })
   }
   return true
@@ -91,20 +91,22 @@ exports.pathsExist = (imagePath, outputDir, src) => {
  */
 exports.renderTemplate = (template, context) => {
   const env = new nunjucks.Environment(
-    new nunjucks.FileSystemLoader(path.join(process.cwd(), 'eleventy/nunjucksAsyncShortcodes/asyncImageHandler')),
+    new nunjucks.FileSystemLoader(
+      path.join(process.cwd(), 'eleventy/nunjucksAsyncShortcodes/asyncImageHandler')
+    ),
     {
       lstripBlocks: true, // remove leading whitespace from a block/tag
-      throwOnUndefined: true // throw errors when outputting a null/undefined value
+      throwOnUndefined: true, // throw errors when outputting a null/undefined value
     }
   )
   env.addFilter('getDataSrcset', getDataSrcset)
   return env.render(template, context)
 }
 
-const getDataSrcset = (formatItems) => {
+const getDataSrcset = formatItems => {
   return formatItems
     .filter(imageObject => imageObject.width !== 1)
     .map(filtered => filtered.srcset)
-    .join(", ")
+    .join(', ')
 }
 exports.getDataSrcset = getDataSrcset

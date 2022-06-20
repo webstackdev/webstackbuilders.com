@@ -60,7 +60,7 @@ describe(`Returns paths for the source image file, output directory, and <img> t
         "outputDir": "/var/www/eleventy/public/images/avatars",
         "urlPath": "images/avatars/john-smith.jpeg",
       }
-    `)
+    `) // urlPath: 'images'
   })
 
   test('Paths for relative image filenames that are in the assets/images folder', () => {

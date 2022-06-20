@@ -1,27 +1,17 @@
 .header {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
   padding: 1rem 0;
-
-  &__inner {
-    align-items: center;
-    display: flex;
-    justify-content: space-between;
-  }
 
   &__brand {
     align-items: center;
     color: var(--text-color);
     display: flex;
+  }
 
-    &__avatar {
-      border-radius: 50%;
-      display: block;
-      height: 3rem;
-      margin-right: 0.5rem;
-      width: 3rem;
-    }
-    &__text {
-      font-weight: 700;
-    }
+  &__text {
+    font-weight: 700;
   }
 
   &__nav {

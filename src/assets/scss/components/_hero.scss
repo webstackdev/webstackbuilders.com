@@ -1,7 +1,5 @@
 .hero {
   display: flex;
-  flex-direction: column;
-  flex: 1 0 auto;
   justify-content: center;
   padding: 2rem 0 4rem;
 
@@ -10,8 +8,15 @@
   }
 
   &__inner {
-    display: flex;
-    flex-direction: column;
+  }
+
+  &__pretitle {
+    font-size: 1.1875rem; //19px
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 1rem;
+    order: -1; // shrink elements when they overflow the parent
+    text-transform: uppercase;
   }
 
   &__title {
@@ -22,14 +27,6 @@
     @include mq(md) {
       font-size: 5.875rem; //94px
     }
-  }
-  &__pretitle {
-    font-size: 1.1875rem; //19px
-    font-weight: 700;
-    letter-spacing: 1px;
-    margin-bottom: 1rem;
-    order: -1;
-    text-transform: uppercase;
   }
 
   &__content {
@@ -42,12 +39,19 @@
     }
   }
 
-  &__br {
-      display: none;
+  &__cta_badge {
+  }
 
-      @include mq(xl) {
-        display: block;
-      }
+  &__cta_list {
+  }
+
+  &__cta_points {
+  }
+
+  &__cta_icon {
+  }
+
+  &__cta_lead {
   }
 
   &__link {
@@ -85,12 +89,5 @@
     &--twitter::after {
       background-color: $twitter-brand-primary;
     }
-  }
-
-  &__sam-disney-animation {
-    position: absolute;
-    top: 0;
-    right: 0;
-    transform: translateX(0px) translateY(9.89998px) rotate(-15deg) translateZ(0px);
   }
 }

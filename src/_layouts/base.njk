@@ -4,12 +4,16 @@
     {% include "./components/head/meta.njk" %}
     <link rel="preload" href="{{ '/fonts/baloo-2-v1-latin-regular.woff2' | url }}" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="{{ '/css/index.css' | url }}" />
+    <link rel="stylesheet" href="{{ '/css/themes.css' | url }}">
+    <script>{% include "./components/initialtheme.njk" %}</script>
   </head>
   <body>
     <a href="#main" class="sr-skip-link">skip to main content</a>
+    {% include "./images/sprites.njk" %}
     {% include "./components/titlebar.njk" %}
 
     <div class="layout" role="document">
+      {% include "./components/themepicker.njk" %}
       {% include "./components/header.njk" %}
 
       <main class="main container" role="main" id="main" tabindex="-1">
@@ -19,6 +23,11 @@
       {% include "./components/footer.njk" %}
     </div>
 
+    {# Main JS Bundle #}
     <script src="{{ '/js/index.js' | url }}?{{ cacheBust.mainJs }}" defer></script>
+    {%- if layout == 'post' or layout == 'note' -%}
+      <script src="{{ '/assets/scripts/webmentions.js' | url }}" defer></script>
+      <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+    {%- endif -%}
   </body>
 </html>

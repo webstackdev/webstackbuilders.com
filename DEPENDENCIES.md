@@ -25,7 +25,7 @@ webpack-merge
 workbox-cli
 ```
 
-## Cache busting script in _data
+## Cache busting script in \_data
 
 ```json
 md5-file
@@ -45,19 +45,15 @@ del
 fancy-log
 glob
 gulp
+gulp-if
 gulp-postcss
 gulp-sass
 gulp-sourcemaps
+gulp-svg-sprite
 mkdirp // peer dependency
 postcss-preset-env
 postcss-svgo
-/**
- * For gulp task to create sprite from svg icons.
- * Also added `glob` and `vinyl` for the task.
- */
-svg-sprite
 sw-precache // Google's service worker generator
-vinyl
 ```
 
 ## Eleventy plugins and config
@@ -79,6 +75,7 @@ markdown-it
 markdown-it-anchor
 markdown-it-emoji
 postcss
+sharp // used in image lazy loading script
 ```
 
 ## Testing

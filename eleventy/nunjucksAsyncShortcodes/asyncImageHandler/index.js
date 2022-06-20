@@ -1,10 +1,12 @@
+const path = require('path')
+const sharp = require('sharp')
 const Image = require('@11ty/eleventy-img')
 const {
   checkForAltMetadata,
   filenameFormat,
   getImagePaths,
   pathsExist,
-  renderTemplate
+  renderTemplate,
 } = require('./utils')
 
 const ImageWidths = {
@@ -26,7 +28,8 @@ exports.asyncImageHandler = async function (
   checkForAltMetadata(src, alt)
 
   // Need to skip the Image() call and return a built <img> tag with an external URL as src
-  if (src.startsWith('http:') || src.startsWith('https:')) return `<img src="${src}" alt="${alt}" />`
+  if (src.startsWith('http:') || src.startsWith('https:'))
+    return `<img src="${src}" alt="${alt}" />`
 
   // Get paths based on whether image is in the images folder or in a Markdown file folder
   const { imagePath, outputDir, urlPath } = getImagePaths(src, this.page.url)
@@ -42,9 +45,19 @@ exports.asyncImageHandler = async function (
     urlPath,
     filenameFormat,
     sharpOptions: {
-      animated: true // Process animated webp files
+      animated: true, // Process animated webp files
     },
   })
+
+  /**
+   * Blurred image placeholder for lazy loading
+   */
+  const placeholder = await sharp(imageMetadata[baseFormat][0].outputPath)
+    .resize({ fit: sharp.fit.inside })
+    .blur()
+    .toBuffer()
+
+  const base64Placeholder = `data:image/png;base64,${placeholder.toString('base64')}`
 
   /**
    * Returns an HTML <picture> element string with keys for each image format
@@ -52,6 +65,7 @@ exports.asyncImageHandler = async function (
    */
   return renderTemplate(`picture.njk`, {
     alt,
+    base64Placeholder,
     className,
     ImageWidths,
     items: Object.values(imageMetadata),

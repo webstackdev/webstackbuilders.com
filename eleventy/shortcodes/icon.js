@@ -1,3 +1,6 @@
+/**
+ * Returns <svg> block for using SVG icon sprite by icon name
+ */
 const outdent = require('outdent')
 
 exports.icon = (iconName, useInline = false) => {

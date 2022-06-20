@@ -1,6 +1,6 @@
 /** General SCSS */
 @import 'base/variables';
-@import 'base/themes';
+//@import 'base/themes';
 @import 'base/colors';
 
 /** Utility SCSS */
@@ -31,6 +31,7 @@
 @import 'components/header';
 @import 'components/hero';
 @import 'components/icon';
+@import 'components/logo';
 @import 'components/markdown';
 @import 'components/nav';
 @import 'components/otherarticles';

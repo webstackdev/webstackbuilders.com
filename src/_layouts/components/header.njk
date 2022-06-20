@@ -1,27 +1,19 @@
 <header class="header" role="banner">
   <div class="header__inner container">
     <a class="header__brand" href="/" rel="home" aria-label="Go To Homepage">
-      <svg
-        version="1.0"
-        id="katman_1"
-        xmlns="http://www.w3.org/2000/svg"
-        xmlns:xlink="http://www.w3.org/1999/xlink"
-        x="0px" y="0px" viewBox="0 0 600 400"
-        style="enable-background:new 0 0 600 400;"
-        xml:space="preserve"
-      >
-        <style type="text/css">
-          .st0{fill:#fff;}
-        </style>
-        <path class="st0" d="M271,147.8v104.2c-28.3,19.8-64.7,34.6-91.3,56.5V291c24.6-16.1,50.6-31,76.3-47.2v-70.3c-21.2,13.4-43.1,24-63.3,37.4v23.7l-13,6.4v-40.6L271,147.8z"/>
-        <path class="st0" d="M168.9,200.4V255c0,7.5,0,14.9,0,22.1v30l-91.7-55.5V147.4l14.8,8.8v87.2l63.4,38.8v-72.9l-21.1-12.1v-16.7L168.9,200.4z"/>
-        <path class="st0" d="M265.2,140.4l-14.7,8.8l-15.1-8.3l-60.9-33l-61.5,33l61.5,35.2l4.6-2.7l4.7-2.5l10.5-6l15.4,7.8l-6.7,3.9l-24.3,14.1l-4.6,2.6c-30.4-17.6-60.6-35.2-91-52.7c30.6-17,59.8-33.2,90.7-48.8c26.4,12.1,50.6,26.8,76,40.7C255.1,135.1,260.1,137.7,265.2,140.4z"/>
-      </svg>
-      <span class="header__brand__text">{{ site.name }}</span>
+      {% include '../images/logo.njk' %}
+      <span class="header__text">{{ site.name }}</span>
     </a>
-
-    <div class="header__nav">
+    <span class="header__nav">
       {% include "./navigation.njk" %}
-    </div>
+        <button
+          class="iconbtn header__themebtn js-themepicker-toggle"
+          aria-expanded="false"
+          aria-controls="theme-menu"
+        >
+          <span class="sr-only">Toggle theme switcher</span>
+          {% icon "theme" %}
+        </button>
+    </span>
   </div>
 </header>

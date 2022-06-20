@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <!-- #DNS prefetching -->
+    <!-- http://csswizardry.com/2013/01/front-end-performance-for-web-designers-and-front-end-developers -->
+    <link rel="dns-prefetch" href="//ajax.googleapis.com" />
+    <link rel="dns-prefetch" href="//google-analytics.com" />
+    <!-- #Asset Prefetching -->
+    <!-- Fetch and Download Assets before requested by the user  -->
+    <!-- http://csswizardry.com/2013/01/front-end-performance-for-web-designers-and-front-end-developers/#section:resource-prefetching -->
+    <link rel="prefetch" href="" />
+    <!-- #Page Prefetching -->
+    <!-- http://calendar.perfplanet.com/2012/speed-up-your-site-using-prefetching -->
+    <link rel="prefetch" href="index.html" />
+    <!-- #Typekit -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet" />
+    <title>finnovate.io - We build engaging technology</title>
+    <meta name="description" content="Software development company helping organizations build engaging products.  Our clients come from a variety of sectors including finance, education and non-profits." />
+    <meta name="robots" content="all" />
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!-- Place favicon.ico and apple-touch-icon(s) in the root directory -->
+    <!-- http://mathiasbynens.be/notes/rel-shortcut-icon -->
+    <!-- http://mathiasbynens.be/notes/touch-icons -->
+    <link rel="icon" type="image/ico" href="favicon.ico" />
+    <!-- CSS, you gotta have style -->
+    <link rel="stylesheet" href="css/styles.css" />
+    <script type="text/javascript" src="js/app.js"></script>
+  </head>
+  <body id="body">
+    <a href="#main" id="skip-to-main" onclick="focusMainContent()">Skip to main content</a>
+    <!--[if lte IE 9]>
+      <div class="alert">
+        You are using an <strong>outdated</strong> browser. For optimal experience, please <a href="http://browsehappy.com/" rel="noopener" target="_blank" aria-label="Upgrade your browser (opens in a new tab)">upgrade your browser</a>.
+      </div>
+    <![endif]-->
+    <div id="backdrop_" class="backdrop"></div>
+    <div id="content">
+      <header>
+        <nav aria-label="Site" class="navbar">
+          <div class="navbar__logo">
+            <a onfocus="hideAllSubMenu()" href="/" aria-current="page"><img src="images/finnovate-logo.svg" alt="Finnovate.io home page" /></a>
+          </div>
+          <ul class="navbar__menu">
+            <li id="services" class="navbar__menu__item navbar__menu__sub-menu" onmouseenter="showSubMenu('services')" onmouseleave="hideSubMenu('services')">
+              <a onclick="toggleSubMenu('services')" onfocus="showSubMenu('services')" href="services.html">Services</a>
+              <div class="navbar__menu__sub-menu__popup">
+                <div class="navbar__menu__sub-menu__popup__title"><a tabindex="-1" href="/services.html">Services</a></div>
+                <ul class="navbar__menu__sub-menu__popup__list">
+                  <li class="navbar__menu__sub-menu__popup__list__item"><a href="/services/web-and-mobile.html">Web and mobile development</a></li>
+                  <li class="navbar__menu__sub-menu__popup__list__item"><a href="/services/fintech.html">For FinTech companies</a></li>
+                  <li class="navbar__menu__sub-menu__popup__list__item"><a href="/services/edtech.html">For EdTech companies</a></li>
+                  <li class="navbar__menu__sub-menu__popup__list__item"><a href="/services/startups.html">For Startups</a></li>
+                  <li class="navbar__menu__sub-menu__popup__list__item"><a href="/services/non-profit.html">For Non-profit organizations</a></li>
+                  <li class="navbar__menu__sub-menu__popup__list__item"><a href="/services/agile.html">Agile Methodology</a></li>
+                </ul>
+              </div>
+            </li>
+            <li class="navbar__menu__item"><a href="product.html" onfocus="hideAllSubMenu()" onkeydown="focusOnPreviousSubMenu('services')">Platform</a></li>
+            <li class="navbar__menu__item"><a href="team.html">Team</a></li>
+            <li class="navbar__menu__item"><a rel="noopener" href="https://medium.com/finnovate-io" target="_blank" aria-label="Blog (opens in a new tab)">Blog</a></li>
+            <li class="navbar__menu__button"><a href="#contact" onclick="focusContactUsSection()" class="button-sm">Contact Us</a></li>
+          </ul>
+        </nav>
+        <!-------------------------------------------- HERO ---------------------------------------------------------->
+        <div class="hero">
+          <!-- Title -->
+          <div class="hero__title hero__title--large"><h1>We Build Engaging Technology</h1></div>
+          <div class="hero__subtitle">We help organizations build amazing web, mobile and blockchain apps</div>
+          <img class="hero__train" src="images/hero-train.svg" alt="Graphic of a city with an animated train going from left to right and back" />
+          <!-- BUTTON: Contact Us -->
+          <div class="hero__button"><a href="#contact" onclick="focusContactUsSection()" class="button">Contact Us</a></div>
+        </div>
+        <div class="wave"><img src="images/hero-curve.svg" alt="" role="presentation" /></div>
+      </header>
+      <!-------------------------------------------- CASE STUDIES -------------------------------------------------->
+      <main tabindex="-1" role="main" class="container" id="main">
+        <div class="audience">
+          <!-- Title -->
+          <div class="audience__title">
+            <h2>Delivering amazing <span class="audience__title__highlighted">digital experiences</span> with great organizations</h2>
+            We have delivered dozens of digital solutions that propelled growth for our clients. Here are a few examples.
+          </div>
+          <div class="audience__cases audience__cases--desktop">
+            <div id="overlay_0"></div>
+            <!-- CASE 1 : Junior Achievement--><!-- Tile -->
+            <h3 id="case_header_1">
+              <button id="case_1" class="audience__cases__case audience__cases__case-1" onclick="toggleCase('1')" aria-controls="overlay_1" aria-label="Junior Achievement" aria-expanded="false">
+                <div class="audience__cases__case__tile">
+                  <div class="audience__cases__case__tile__content">
+                    <img src="images/ja-case-logo.png" alt="Junior Achievement logo" />
+                    <div id="desc_1" class="audience__cases__case__tile__content__desc">Gamifying financial literacy training in the classroom</div>
+                  </div>
+                </div>
+              </button>
+            </h3>
+            <!-- Overlay -->
+            <div id="overlay_1" class="audience__cases__overlay" role="region" aria-labelledby="case_1">
+              <div class="audience__cases__overlay__content">
+                <img src="images/ja-case-logo.png" alt="Junior Achievement logo" />
+                <div id="full-desc_1" class="audience__cases__overlay__content__desc">
+                  As part of Junior Achievement's Dollar with Sense program, Finnovate.io delivered a budget simulation experience that changes the way students learn about personal finance.
+                </div>
+              </div>
+              <div id="preview_1" class="audience__cases__overlay__preview">
+                <img class="audience__cases__overlay__preview__mobile" src="images/ja-preview-mobile.png" alt="Junior Achievement app preview on a mobile device" />
+                <img class="audience__cases__overlay__preview__desktop" src="images/ja-preview-desktop.png" alt="Junior Achievement app preview on a laptop" />
+              </div>
+              <button onclick="closeCase('1')" aria-label="collapse" class="audience__cases__overlay__close-btn">&#x2715;</button>
+            </div>
+            <!-- CASE 2 : Manulife --><!-- Tile -->
+            <h3 id="case_header_2">
+              <button id="case_2" class="audience__cases__case audience__cases__case-2" onclick="toggleCase('2')" aria-controls="overlay_2" aria-label="Manulife" aria-expanded="false">
+                <div class="audience__cases__case__tile">
+                  <div class="audience__cases__case__tile__content">
+                    <img src="images/manulife-case-logo.png" alt="Manulife logo" />
+                    <div id="desc_2" class="audience__cases__case__tile__content__desc">Accelerating the adoption of modern web and mobile technologies</div>
+                  </div>
+                </div>
+              </button>
+            </h3>
+            <!-- Overlay -->
+            <div id="overlay_2" class="audience__cases__overlay" role="region" aria-labelledby="case_2">
+              <div class="audience__cases__overlay__content">
+                <img src="images/manulife-case-logo.png" alt="Manulife logo" />
+                <div id="full-desc_2" class="audience__cases__overlay__content__desc">Finnovate.io trained multiple teams at Manulife on the latest web development technology to help build the next generation of financial tools.</div>
+              </div>
+              <div id="preview_2" class="audience__cases__overlay__preview"><img class="audience__cases__overlay__preview__manulife" src="images/manulife-preview.png" alt="Plants on a white background" /></div>
+              <button onclick="closeCase('2')" aria-label="collapse" class="audience__cases__overlay__close-btn">&#x2715;</button>
+            </div>
+            <!-- CASE 3 : Toronto District School Board --><!-- Tile -->
+            <h3 id="case_header_3">
+              <button id="case_3" class="audience__cases__case audience__cases__case-3" onclick="toggleCase('3')" aria-controls="overlay_3" aria-label="TDSB" aria-expanded="false">
+                <div class="audience__cases__case__tile">
+                  <div class="audience__cases__case__tile__content">
+                    <img src="images/tdsb-case-logo.png" alt="TDSB logo" />
+                    <div id="desc_3" class="audience__cases__case__tile__content__desc">Helping students and parents plan finances for post-secondary education</div>
+                  </div>
+                </div>
+              </button>
+            </h3>
+            <!-- Overlay -->
+            <div id="overlay_3" class="audience__cases__overlay" role="region" aria-labelledby="case_3">
+              <div class="audience__cases__overlay__content">
+                <img src="images/tdsb-case-logo.png" alt="TDSB logo" />
+                <div id="full-desc_3" class="audience__cases__overlay__content__desc">
+                  We offer digital financial planning tools to students at schools in the TDSB. We educate students about career planning, cost of post-secondary education and funding sources available to Canadian families.
+                </div>
+              </div>
+              <div id="preview_3" class="audience__cases__overlay__preview">
+                <img class="audience__cases__overlay__preview__mobile" src="images/tdsb-preview-mobile.png" alt="TDSB app preview on a mobile device" />
+                <img class="audience__cases__overlay__preview__desktop" src="images/tdsb-preview-desktop.png" alt="TDSB app preview on a laptop" />
+              </div>
+              <button onclick="closeCase('3')" aria-label="collapse" class="audience__cases__overlay__close-btn">&#x2715;</button>
+            </div>
+            <!-- CASE 4 : My Blueprint --><!-- Tile -->
+            <h3 id="case_header_4">
+              <button id="case_4" class="audience__cases__case audience__cases__case-4" onclick="toggleCase('4')" aria-controls="overlay_4" aria-label="MyBlueprint" aria-expanded="false">
+                <div class="audience__cases__case__tile">
+                  <div class="audience__cases__case__tile__content">
+                    <img src="images/mybp-case-logo.png" alt="MyBlueprint logo" />
+                    <div id="desc_4" class="audience__cases__case__tile__content__desc">Modernizing technology stack for student portfolio and career resources</div>
+                  </div>
+                </div>
+              </button>
+            </h3>
+            <!-- Overlay -->
+            <div id="overlay_4" class="audience__cases__overlay" role="region" aria-labelledby="case_4">
+              <div class="audience__cases__overlay__content">
+                <img src="images/mybp-case-logo.png" alt="myBlueprint logo" />
+                <div id="full-desc_4" class="audience__cases__overlay__content__desc">
+                  Finnovate.io developed the <a href="http://myblueprint.ca/" rel="noopener" target="_blank" aria-label="myBlueprint.ca (opens in a new tab)">myBlueprint.ca</a> marketing website and their Class Pass mobile app for iOS and
+                  Android. We also provided training and consulting services and assisted with the migration from a legacy student education and career planning platform to React.js fueled by RESTful APIs.
+                </div>
+              </div>
+              <div id="preview_4" class="audience__cases__overlay__preview">
+                <img class="audience__cases__overlay__preview__mobile" src="images/mybp-preview-mobile.png" alt="myBlueprint app preview on a mobile device" />
+                <img class="audience__cases__overlay__preview__desktop" src="images/mybp-preview-desktop.png" alt="myBlueprint app preview on a laptop" />
+              </div>
+              <button onclick="closeCase('4')" aria-label="collapse" class="audience__cases__overlay__close-btn">&#x2715;</button>
+            </div>
+            <!-- CASE 5 : SmartSaver --><!-- Tile -->
+            <h3 id="case_header_5">
+              <button id="case_5" class="audience__cases__case audience__cases__case-5" onclick="toggleCase('5')" aria-controls="overlay_5" aria-label="SmartSaver" aria-expanded="false">
+                <div class="audience__cases__case__tile">
+                  <div class="audience__cases__case__tile__content">
+                    <img src="images/ss-case-logo.png" alt="SmartSAVER logo" class="audience__cases__case__tile__content__smartsaver-logo" />
+                    <div id="desc_5" class="audience__cases__case__tile__content__desc">Accelerating the uptake of RESP and the Canada Learning Bond</div>
+                  </div>
+                </div>
+              </button>
+            </h3>
+            <!-- Overlay -->
+            <div id="overlay_5" class="audience__cases__overlay" role="region" aria-labelledby="case_5">
+              <div class="audience__cases__overlay__content">
+                <img src="images/ss-case-logo.png" alt="SmartSAVER logo" class="audience__cases__overlay__content__smartsaver-logo" />
+                <div id="full-desc_5" class="audience__cases__overlay__content__desc">
+                  SmartSAVER is leveraging our financial empowerment tools to visually highlight the benefits of RESP. The tools became a primary driver for conversion.
+                  <a href="http://mysmartfuture.org/" rel="noopener" target="_blank" aria-label="MySmartFuture.org (opens in a new tab)">MySmartFUTURE.org</a> helps thousands of under-served families with savings for post-secondary
+                  education.
+                </div>
+              </div>
+              <div id="preview_5" class="audience__cases__overlay__preview">
+                <img class="audience__cases__overlay__preview__mobile" src="images/ss-preview-mobile.png" alt="SmartSAVER app preview on a mobile device" />
+                <img class="audience__cases__overlay__preview__desktop" src="images/ss-preview-desktop.png" alt="SmartSAVER app preview on a laptop" />
+              </div>
+              <button onclick="closeCase('5')" aria-label="collapse" class="audience__cases__overlay__close-btn">&#x2715;</button>
+            </div>
+            <!-- CASE 6 : BioArcade -->
+            <h3 id="case_header_6">
+              <button id="case_6" class="audience__cases__case audience__cases__case-6" onclick="toggleCase('6')" aria-controls="overlay_6" aria-label="BioArcade" aria-expanded="false">
+                <div class="audience__cases__case__tile">
+                  <div class="audience__cases__case__tile__content">
+                    <img src="images/ba-case-logo.png" alt="BioArcade logo" />
+                    <div id="desc_6" class="audience__cases__case__tile__content__desc">Teaching science through mobile gaming</div>
+                  </div>
+                </div>
+              </button>
+            </h3>
+            <!-- Overlay -->
+            <div id="overlay_6" class="audience__cases__overlay" role="region" aria-labelledby="case_6">
+              <div class="audience__cases__overlay__content">
+                <img src="images/ba-case-logo.png" alt="BioArcade logo" />
+                <div id="full-desc_6" class="audience__cases__overlay__content__desc">
+                  BioArcade is an innovative mobile game that teaches the player fundamentals of DNA sequences. Player can match DNA sequences to engineer various forms of living creatures!
+                </div>
+              </div>
+              <div id="preview_6" class="audience__cases__overlay__preview">
+                <div class="audience__cases__overlay__preview__ba">
+                  <img src="images/ba-preview-mobile1.png" alt="Preview of a screen on the BioArcade app on a mobile device" /> <img src="images/ba-preview-mobile2.png" alt="Preview of a screen on the BioArcade app on a mobile device" />
+                </div>
+              </div>
+              <button onclick="closeCase('6')" aria-label="collapse" class="audience__cases__overlay__close-btn">&#x2715;</button>
+            </div>
+            <div id="case_header_7"></div>
+          </div>
+          <div class="audience__cases audience__cases--mobile">
+            <div id="mobile_overlay_0"></div>
+            <!-- CASE 1 : Junior Achievement--><!-- Tile -->
+            <div id="mobile_case_header_1">
+              <button id="mobile_case_1" class="audience__cases__case audience__cases__case-1" onclick="openMobileCase('1')" aria-label="Junior Achievement">
+                <div class="audience__cases__case__tile">
+                  <div class="audience__cases__case__tile__content">
+                    <img src="images/ja-case-logo.png" alt="Junior Achievement logo" />
+                    <div id="mobile_desc_1" class="audience__cases__case__tile__content__desc">Gamifying financial literacy training in the classroom</div>
+                  </div>
+                </div>
+              </button>
+            </div>
+            <!-- Overlay -->
+            <div id="mobile_overlay_1" class="audience__cases__overlay" role="dialog" aria-modal="true" aria-labelledby="mobile_case_1">
+              <div class="audience__cases__overlay__content">
+                <img src="images/ja-case-logo.png" alt="Junior Achievement logo" />
+                <p id="mobile_full-desc_1" class="audience__cases__overlay__content__desc" tabindex="-1">
+                  As part of Junior Achievement's Dollar with Sense program, Finnovate.io delivered a budget simulation experience that changes the way students learn about personal finance.
+                </p>
+              </div>
+              <div id="mobile_preview_1" class="audience__cases__overlay__preview">
+                <img class="audience__cases__overlay__preview__mobile" src="images/ja-preview-mobile.png" alt="Junior Achievement app preview on a mobile device" />
+                <img class="audience__cases__overlay__preview__desktop" src="images/ja-preview-desktop.png" alt="Junior Achievement app preview on a laptop" />
+              </div>
+              <button onclick="closeMobileCase('1')" aria-label="close" class="audience__cases__overlay__close-btn">&#x2715;</button>
+            </div>
+            <!-- CASE 2 : Manulife --><!-- Tile -->
+            <div id="mobile_case_header_2">
+              <button id="mobile_case_2" class="audience__cases__case audience__cases__case-2" onclick="openMobileCase('2')" aria-label="Manulife">
+                <div class="audience__cases__case__tile">
+                  <div class="audience__cases__case__tile__content">
+                    <img src="images/manulife-case-logo.png" alt="Manulife logo" />
+                    <div id="mobile_desc_2" class="audience__cases__case__tile__content__desc">Accelerating the adoption of modern web and mobile technologies</div>
+                  </div>
+                </div>
+              </button>
+            </div>
+            <!-- Overlay -->
+            <div id="mobile_overlay_2" class="audience__cases__overlay" role="dialog" aria-modal="true" aria-labelledby="mobile_case_2">
+              <div class="audience__cases__overlay__content">
+                <img src="images/manulife-case-logo.png" alt="Manulife logo" />
+                <p id="mobile_full-desc_2" class="audience__cases__overlay__content__desc" tabindex="-1">
+                  Finnovate.io trained multiple teams at Manulife on the latest web development technology to help build the next generation of financial tools.
+                </p>
+              </div>
+              <div id="mobile_preview_2" class="audience__cases__overlay__preview"><img class="audience__cases__overlay__preview__manulife" src="images/manulife-preview.png" alt="Plants on a white background" /></div>
+              <button onclick="closeMobileCase('2')" aria-label="close" class="audience__cases__overlay__close-btn">&#x2715;</button>
+            </div>
+            <!-- CASE 3 : Toronto District School Board --><!-- Tile -->
+            <div id="mobile_case_header_3">
+              <button id="mobile_case_3" class="audience__cases__case audience__cases__case-3" onclick="openMobileCase('3')" aria-label="TDSB">
+                <div class="audience__cases__case__tile">
+                  <div class="audience__cases__case__tile__content">
+                    <img src="images/tdsb-case-logo.png" alt="TDSB logo" />
+                    <div id="mobile_desc_3" class="audience__cases__case__tile__content__desc">Helping students and parents plan finances for post-secondary education</div>
+                  </div>
+                </div>
+              </button>
+            </div>
+            <!-- Overlay -->
+            <div id="mobile_overlay_3" class="audience__cases__overlay" role="dialog" aria-modal="true" aria-labelledby="mobile_case_3">
+              <div class="audience__cases__overlay__content">
+                <img src="images/tdsb-case-logo.png" alt="TDSB logo" />
+                <p id="mobile_full-desc_3" class="audience__cases__overlay__content__desc" tabindex="-1">
+                  We offer digital financial planning tools to students at schools in the TDSB. We educate students about career planning, cost of post-secondary education and funding sources available to Canadian families.
+                </p>
+              </div>
+              <div id="mobile_preview_3" class="audience__cases__overlay__preview">
+                <img class="audience__cases__overlay__preview__mobile" src="images/tdsb-preview-mobile.png" alt="TDSB app preview on a mobile device" />
+                <img class="audience__cases__overlay__preview__desktop" src="images/tdsb-preview-desktop.png" alt="TDSB app preview on a laptop" />
+              </div>
+              <button onclick="closeMobileCase('3')" aria-label="close" class="audience__cases__overlay__close-btn">&#x2715;</button>
+            </div>
+            <!-- CASE 4 : My Blueprint --><!-- Tile -->
+            <div id="mobile_case_header_4">
+              <button id="mobile_case_4" class="audience__cases__case audience__cases__case-4" onclick="openMobileCase('4')" aria-label="MyBlueprint">
+                <div class="audience__cases__case__tile">
+                  <div class="audience__cases__case__tile__content">
+                    <img src="images/mybp-case-logo.png" alt="MyBlueprint logo" />
+                    <div id="mobile_desc_4" class="audience__cases__case__tile__content__desc">Modernizing technology stack for student portfolio and career resources</div>
+                  </div>
+                </div>
+              </button>
+            </div>
+            <!-- Overlay -->
+            <div id="mobile_overlay_4" class="audience__cases__overlay" role="dialog" aria-modal="true" aria-labelledby="mobile_case_4">
+              <div class="audience__cases__overlay__content">
+                <img src="images/mybp-case-logo.png" alt="myBlueprint logo" />
+                <p id="mobile_full-desc_4" class="audience__cases__overlay__content__desc" tabindex="-1">
+                  Finnovate.io developed the <a href="http://myblueprint.ca/" rel="noopener" target="_blank" aria-label="myBlueprint.ca (opens in a new tab)">myBlueprint.ca</a> marketing website and their Class Pass mobile app for iOS and
+                  Android. We also provided training and consulting services and assisted with the migration from a legacy student education and career planning platform to React.js fueled by RESTful APIs.
+                </p>
+              </div>
+              <div id="mobile_preview_4" class="audience__cases__overlay__preview">
+                <img class="audience__cases__overlay__preview__mobile" src="images/mybp-preview-mobile.png" alt="myBlueprint app preview on a mobile device" />
+                <img class="audience__cases__overlay__preview__desktop" src="images/mybp-preview-desktop.png" alt="myBlueprint app preview on a laptop" />
+              </div>
+              <button onclick="closeMobileCase('4')" aria-label="close" class="audience__cases__overlay__close-btn">&#x2715;</button>
+            </div>
+            <!-- CASE 5 : SmartSaver --><!-- Tile -->
+            <div id="mobile_case_header_5">
+              <button id="mobile_case_5" class="audience__cases__case audience__cases__case-5" onclick="openMobileCase('5')" aria-label="SmartSaver">
+                <div class="audience__cases__case__tile">
+                  <div class="audience__cases__case__tile__content">
+                    <img src="images/ss-case-logo.png" alt="SmartSAVER logo" class="audience__cases__case__tile__content__smartsaver-logo" />
+                    <div id="mobile_desc_5" class="audience__cases__case__tile__content__desc">Accelerating the uptake of RESP and the Canada Learning Bond</div>
+                  </div>
+                </div>
+              </button>
+            </div>
+            <!-- Overlay -->
+            <div id="mobile_overlay_5" class="audience__cases__overlay" role="dialog" aria-modal="true" aria-labelledby="mobile_case_5">
+              <div class="audience__cases__overlay__content">
+                <img src="images/ss-case-logo.png" alt="SmartSAVER logo" class="audience__cases__overlay__content__smartsaver-logo" />
+                <p id="mobile_full-desc_5" class="audience__cases__overlay__content__desc" tabindex="-1">
+                  SmartSAVER is leveraging our financial empowerment tools to visually highlight the benefits of RESP. The tools became a primary driver for conversion.
+                  <a href="http://mysmartfuture.org/" rel="noopener" target="_blank" aria-label="MySmartFuture.org (opens in a new tab)">MySmartFUTURE.org</a> helps thousands of under-served families with savings for post-secondary
+                  education.
+                </p>
+              </div>
+              <div id="mobile_preview_5" class="audience__cases__overlay__preview">
+                <img class="audience__cases__overlay__preview__mobile" src="images/ss-preview-mobile.png" alt="SmartSAVER app preview on a mobile device" />
+                <img class="audience__cases__overlay__preview__desktop" src="images/ss-preview-desktop.png" alt="SmartSAVER app preview on a laptop" />
+              </div>
+              <button onclick="closeMobileCase('5')" aria-label="close" class="audience__cases__overlay__close-btn">&#x2715;</button>
+            </div>
+            <!-- CASE 6 : BioArcade -->
+            <div id="mobile_case_header_6">
+              <button id="mobile_case_6" class="audience__cases__case audience__cases__case-6" onclick="openMobileCase('6')" aria-label="BioArcade">
+                <div class="audience__cases__case__tile">
+                  <div class="audience__cases__case__tile__content">
+                    <img src="images/ba-case-logo.png" alt="BioArcade logo" />
+                    <div id="mobile_desc_6" class="audience__cases__case__tile__content__desc">Teaching science through mobile gaming</div>
+                  </div>
+                </div>
+              </button>
+            </div>
+            <!-- Overlay -->
+            <div id="mobile_overlay_6" class="audience__cases__overlay" role="dialog" aria-modal="true" aria-labelledby="mobile_case_6">
+              <div class="audience__cases__overlay__content">
+                <img src="images/ba-case-logo.png" alt="BioArcade logo" />
+                <p id="mobile_full-desc_6" class="audience__cases__overlay__content__desc" tabindex="-1">
+                  BioArcade is an innovative mobile game that teaches the player fundamentals of DNA sequences. Player can match DNA sequences to engineer various forms of living creatures!
+                </p>
+              </div>
+              <div id="mobile_preview_6" class="audience__cases__overlay__preview">
+                <div class="audience__cases__overlay__preview__ba">
+                  <img src="images/ba-preview-mobile1.png" alt="Preview of a screen on the BioArcade app on a mobile device" /> <img src="images/ba-preview-mobile2.png" alt="Preview of a screen on the BioArcade app on a mobile device" />
+                </div>
+              </div>
+              <button onclick="closeMobileCase('6')" aria-label="close" class="audience__cases__overlay__close-btn">&#x2715;</button>
+            </div>
+            <div id="mobile_case_header_7"></div>
+          </div>
+          <!------------------------------------------------ PARTNERS -------------------------------------------------->
+          <div class="partners">
+            <div class="partners__header">
+              <h2>Our Industry Partners</h2>
+              <p class="partners__header__description">We proudly support organizations at the forefront of innovation and technology around the world.</p>
+            </div>
+            <div class="partners__logos">
+              <div class="partners__logos__logo"><img src="images/techstars-logo.png" alt="Techstars_" /></div>
+              <div class="partners__logos__logo"><img src="images/fintech-cadence-logo.png" alt="Fintech Cadence" /></div>
+              <div class="partners__logos__logo"><img src="images/cla-logo.png" alt="CLA - Canadian Lenders Association" /></div>
+              <div class="partners__logos__logo"><img src="images/ifhlab-logo.png" alt="ifh lab" /></div>
+              <!-- TODO: uncomment once we get permission from Invest Ottawa --><!-- <div class="partners__logos__logo">
+                <img src="images/invest-ottawa-logo.png" alt="Invest Ottawa - Investir Ottawa">
+              </div> -->
+              <div class="partners__logos__logo"><img src="images/the-forge-logo.png" alt="The Forge" /></div>
+            </div>
+          </div>
+          <!-------------------------------------------- HOW WE CAN HELP ----------------------------------------------->
+          <div class="primepromo" id="services">
+            <!-- Title -->
+            <div class="primepromo__header">
+              <h2>How we can help</h2>
+              With our deep experience in software technology, we will deliver turn-key digital solutions that wow your audience.
+            </div>
+            <div class="primepromo__content">
+              <!-- SECTION 1: Web Apps -->
+              <div class="primepromo__content__section">
+                <div class="primepromo__content__section__icon"><img src="images/web_icon.svg" alt="Web app" /></div>
+                <div class="primepromo__content__section__content">
+                  <h3>Web Apps</h3>
+                  We leverage modern JavaScript frameworks such as React & Angular to create applications that work beautifully across all devices.
+                </div>
+              </div>
+              <!-- SECTION 2: Content Digitization -->
+              <div class="primepromo__content__section">
+                <div class="primepromo__content__section__icon"><img src="images/platform_icon.svg" alt="Platform" /></div>
+                <div class="primepromo__content__section__content">
+                  <h3>Content Digitization</h3>
+                  Our finnovate platform turns paper based content into dynamic interactive experiences in minutes. Our platform enables organizations to rapidly establish their brand presence online and gain insights into customer
+                  behaviour and goals.
+                </div>
+              </div>
+              <!-- SECTION 3: Mobile Apps -->
+              <div class="primepromo__content__section">
+                <div class="primepromo__content__section__icon"><img src="images/mobile_icon.svg" alt="Mobile app" /></div>
+                <div class="primepromo__content__section__content">
+                  <h3>Mobile Apps</h3>
+                  We are experts in building performant and great looking mobile apps for iOS and Android.
+                </div>
+              </div>
+              <!-- SECTION 4: Blockchain Dapps -->
+              <div class="primepromo__content__section">
+                <div class="primepromo__content__section__icon"><img src="images/blockchain_icon.svg" alt="Blockchain" /></div>
+                <div class="primepromo__content__section__content">
+                  <h3>Blockchain Dapps</h3>
+                  We build decentralized applications on the Ethereum Blockchain, combining smart contracts and intuitive user interfaces to form powerful experiences.
+                </div>
+              </div>
+              <!-- BUTTONS:  Learn about our Platform and Services -->
+              <div class="primepromo__content__buttons">
+                <a class="primepromo__content__buttons__button button-plain button-ellipse" href="services.html">Learn about our services</a>
+                <a class="primepromo__content__buttons__button button-plain button-ellipse" href="product.html">Learn about our platform</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+      <!-------------------------------------------- CONTACT US ---------------------------------------------------->
+      <footer role="contentinfo">
+        <div class="background-pattern">
+          <div class="container">
+            <div class="contact" id="contact">
+              <!-- Title -->
+              <h2 class="contact__title">Contact Us</h2>
+              <form class="contact__form" id="contactForm" onsubmit="event.preventDefault(); return submitContact()">
+                <div class="contact__form__row">
+                  <!-- FIELD 1: First Name -->
+                  <div class="contact__form__field"><label for="firstname" class="contact__form__field__label">First name</label><input class="textfield" type="text" name="firstname" id="firstname" required aria-required="true" /></div>
+                  <!-- FIELD 2: Last Name -->
+                  <div class="contact__form__field"><label for="lastname" class="contact__form__field__label">Last name</label><input class="textfield" type="text" name="lastname" id="lastname" required aria-required="true" /></div>
+                </div>
+                <div class="contact__form__row">
+                  <!-- FIELD 3: Email -->
+                  <div class="contact__form__field"><label for="email" class="contact__form__field__label">Email</label><input class="textfield" type="email" name="email" id="email" required aria-required="true" /></div>
+                  <!-- FIELD 4: Phone -->
+                  <div class="contact__form__field"><label for="phone" class="contact__form__field__label">Phone (optional)</label><input class="textfield" type="text" name="phone" id="phone" /></div>
+                </div>
+                <div class="contact__form__row">
+                  <!-- FIELD 5: Message -->
+                  <div class="contact__form__field">
+                    <label for="message" class="contact__form__field__label">Message</label>
+                    <textarea rows="4" class="textfield" type="text" name="message" id="message" required placeholder="How can we help?" aria-required="true"></textarea>
+                  </div>
+                </div>
+                <div class="contact__form__status-message" id="contact-form-status-message" aria-relevant="all" aria-live="assertive" role="status" aria-atomic="true"></div>
+                <div class="contact__form__status-message contact__form__status-message--error" id="contact-form-error-message" aria-relevant="all" aria-live="assertive" role="alert" aria-atomic="true"></div>
+                <div class="contact__form__row">
+                  <!-- BUTTON: Submit -->
+                  <div class="contact__form__field"><input type="submit" id="submitButton" class="button-block" aria-label="Submit" value="Submit" /></div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <!-------------------------------------------- FOOTER -------------------------------------------------------->
+        <div id="root"></div>
+        <div class="background-skyblue">
+          <div class="container">
+            <div class="footer">
+              <div class="footer__sitemap">
+                <!-- LINKS -->
+                <ul class="footer__sitemap__links">
+                  <li><a href="/">Home</a></li>
+                  <li>
+                    <a href="/services.html">Services</a>
+                    <ul class="footer__sitemap__links__sub-links">
+                      <li class="footer__sitemap__links__sub-links__item"><a href="/services/web-and-mobile.html">Web and mobile development</a></li>
+                      <li class="footer__sitemap__links__sub-links__item"><a href="/services/fintech.html">For FinTech companies</a></li>
+                      <li class="footer__sitemap__links__sub-links__item"><a href="/services/edtech.html">For EdTech companies</a></li>
+                      <li class="footer__sitemap__links__sub-links__item"><a href="/services/startups.html">For Startups</a></li>
+                      <li class="footer__sitemap__links__sub-links__item"><a href="/services/non-profit.html">For Non-profit organizations</a></li>
+                      <li class="footer__sitemap__links__sub-links__item"><a href="/services/agile.html">Agile Methodology</a></li>
+                    </ul>
+                  </li>
+                  <li><a href="/product.html">Platform</a></li>
+                  <li><a href="/product-professional-training.html">Professional Training</a></li>
+                  <li><a href="/team.html">Team</a></li>
+                </ul>
+                <!-- CONTACT -->
+                <div class="footer__sitemap__contact">
+                  <div class="footer__sitemap__contact__item">
+                    <img src="images/envelope.svg" alt="Email" class="footer__sitemap__contact__item__icon" />
+                    <div class="footer__sitemap__contact__item__text"><a href="mailto:hello@finnovate.io">hello@finnovate.io</a></div>
+                  </div>
+                  <div class="footer__sitemap__contact__item">
+                    <img src="images/phone.svg" alt="Phone" class="footer__sitemap__contact__item__icon" />
+                    <div class="footer__sitemap__contact__item__text">(647) 888-3558</div>
+                  </div>
+                  <a href="https://www.linkedin.com/company/finnovate-io/" rel="noopener" class="footer__sitemap__contact__item">
+                    <img src="images/linkedin-logo-white.png" alt="LinkedIn logo" class="footer__sitemap__contact__item__icon" />
+                  </a>
+                  <div class="footer__sitemap__contact__address">
+                    <p class="footer__sitemap__contact__address__line">180 John St, Toronto</p>
+                    <p class="footer__sitemap__contact__address__line">ON, M5T 1X5</p>
+                  </div>
+                </div>
+              </div>
+              <!-- COPYRIGHT -->
+              <div class="footer__copyright">© Exacto Systems Inc. 2021. All Rights Reserved.</div>
+            </div>
+          </div>
+        </div>
+      </footer>
+      <!-- Google Analytics -->
+      <script>
+        (function (i, s, o, g, r, a, m) {
+          i["GoogleAnalyticsObject"] = r;
+          (i[r] =
+            i[r] ||
+            function () {
+              (i[r].q = i[r].q || []).push(arguments);
+            }),
+            (i[r].l = 1 * new Date());
+          (a = s.createElement(o)), (m = s.getElementsByTagName(o)[0]);
+          a.async = 1;
+          a.src = g;
+          m.parentNode.insertBefore(a, m);
+        })(window, document, "script", "https://www.google-analytics.com/analytics.js", "ga");
+        ga("create", "UA-59825603-3", "auto");
+        ga("send", "pageview");
+      </script>
+    </div>
+  </body>
+</html>
