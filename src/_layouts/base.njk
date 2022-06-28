@@ -23,6 +23,8 @@
       {% include "./components/footer.njk" %}
     </div>
 
+    {% include "./components/cookies.njk" %}
+
     {# Main JS Bundle #}
     <script src="{{ '/js/index.js' | url }}?{{ cacheBust.mainJs }}" defer></script>
     {%- if layout == 'post' or layout == 'note' -%}

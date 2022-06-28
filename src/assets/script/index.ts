@@ -28,5 +28,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // step 10, all assets loaded, the page has everything ready and users can interact with it
 window.addEventListener('load', () => {
-  // here you can access anything in the page, and everything is ready
+  //
 })

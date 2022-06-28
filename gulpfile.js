@@ -13,7 +13,7 @@ const sass = require('gulp-sass')(require('sass'))
 const sourcemaps = require('gulp-sourcemaps')
 const svgSprite = require('gulp-svg-sprite')
 const svgo = require('postcss-svgo')
-const swPrecache = require('sw-precache')
+const { generateSW } = require('workbox-build')
 
 const isDevelopment = process.env.ELEVENTY_ENV === 'development'
 
@@ -79,21 +79,49 @@ const logError = err => {
 }
 
 /**
- * Use Google's service worker generator to create an up to date service worker.
- * Precaches every image, HTML, JavaScript, and CSS file.
+ * Use Google Workbox to generate a service worker for the site. This
+ * could be done as a Webpack plugin, but is done here instead to simplify
+ * coordination. This must run as a last step in the build process so
+ * that all assets are ready to be added to the list of assets to precache.
+ *
+ * @TODO: Add push notifications with PushManager.subscribe()
+ *        https://developer.mozilla.org/en-US/docs/Web/API/Push_API
+ * @TODO: Refactor to use streaming service worker, see README.md
+ * @TODO: This currently precaches *everything*
  */
-gulp.task('build:serviceworker', callback => {
-  swPrecache.write(
-    path.join('/', 'sw.js'),
-    {
-      staticFileGlobs: [
-        // track and cache all files that match this pattern
-        rootDir + '/**/*.{js,html,css,png,jpg,gif}',
-      ],
-      stripPrefix: rootDir,
-    },
-    callback
-  )
+gulp.task('build:serviceworker', () => {
+  return generateSW({
+    // caching strategy to use
+    runtimeCaching: [
+      {
+        urlPattern: /\.(?:html|css|js)$/,
+        handler: 'StaleWhileRevalidate',
+        options: {
+          cacheName: 'webstackbuilders-cache',
+        },
+      },
+      {
+        urlPattern: /\.(?:png|jpg|jpeg|gif|bmp|webp|svg|ico)$/,
+        handler: 'CacheFirst',
+        options: {
+          cacheName: 'webstackbuilders-cache',
+        },
+      },
+    ],
+    // local directory relative to the current directory to match globPatterns against
+    globDirectory: './public/',
+    // track and cache all files that match this glob pattern
+    // prettier-ignore
+    globPatterns: ['**\/*.{js,html,css,png,jpg,gif}'],
+    // name of the service worker file created, must be in root directory to cover entire site
+    swDest: path.join('./public/', 'sw.js'),
+  }).then(({ count, size, warnings }) => {
+    if (warnings.length > 0) {
+      log.error('Warnings encountered while generating a service worker:' + warnings.join('\n'))
+    }
+
+    log(`Generated a service worker, which will precache ${count} files, totaling ${size} bytes.`)
+  })
 })
 
 /**
@@ -102,6 +130,7 @@ gulp.task('build:serviceworker', callback => {
  */
 gulp.task('build:sprites', done => {
   const spriterConfig = {
+    log: 'info',
     mode: {
       inline: true,
       // Create a sprite svg image that uses <symbol> tags for each individual icon
@@ -126,5 +155,8 @@ gulp.task('build:sprites', done => {
     .src('**/*.svg', { cwd: 'src/assets/icons' }) //
     .pipe(svgSprite(spriterConfig))
     .pipe(gulp.dest('src/_layouts/images'))
+    .on('finish', function () {
+      log('Sprites compiled to _layouts/images/sprites.njk')
+    })
     .on('end', done)
 })

@@ -13,6 +13,7 @@
 
 - 404
 - robots.txt
+- privacy.md need to finish privacy policy
 
 ```md
 ---
@@ -70,7 +71,8 @@ Need to make sure that web font doesn't render larger or smaller than the system
   font-family: 'Pacifico';
   font-style: normal;
   font-weight: 400;
-  src: local('Pacifico Regular'), local('Pacifico-Regular'), url(https://fonts.gstatic.com/s/pacifico/v12/FwZY7-Qmy14u9lezJ-6H6MmBp0u-.woff2) format('woff2');
+  src: local('Pacifico Regular'), local('Pacifico-Regular'),
+    url(https://fonts.gstatic.com/s/pacifico/v12/FwZY7-Qmy14u9lezJ-6H6MmBp0u-.woff2) format('woff2');
   font-display: swap;
 }
 ```
@@ -78,7 +80,7 @@ Need to make sure that web font doesn't render larger or smaller than the system
 Preload fonts:
 
 ```html
-<link rel="preload" as="font">
+<link rel="preload" as="font" />
 ```
 
 TTI (Time to Interactive) measures time from when the page is painted until it becomes usefully interactive.
@@ -89,6 +91,7 @@ Interactive can only have two in-flight network requests.
 ## BFCache
 
 Never add an `unload` event listener. It prevents pages from being cached in the modern bfcache system.
+
 Use the `pagehide` event. The `pagehide` event fires in all cases where the `unload` event
 currently fires, and it also fires when a page is put in the bfcache.
 
@@ -147,7 +150,19 @@ let page = {
 }
 ```
 
-## Plugins
+## Streaming Service Worker for Precaching
+
+This strategy avoids reloading the page template with inline SVGs and styles. It would allow inlining all Javascript and stylesheets as well. For a static Eleventy site, it requires generating two versions of each page: one version will contain the full page markup, while the other will contain only the content.
+
+- Create a file containing only your website's header markup.
+- Create a file containing only your website's footer markup.
+- Pull out each page's main content into a separate file, or set up your back end to conditionally serve only the page content based on an HTTP request header.
+
+Be careful for <title>, <link>, and <meta> tags that vary between pages.
+
+[Google Article on Streaming Service Worker Setup](https://developer.chrome.com/docs/workbox/faster-multipage-applications-with-streams/)
+
+## Plugins to Setup and Include
 
 - [eleventy-plugin-rss](https://www.npmjs.com/package/@11ty/eleventy-plugin-rss) A pack of Eleventy filters for generating Atom and JSON feeds using the Nunjucks templating engine.
 - [eleventy-google-fonts](https://www.npmjs.com/package/eleventy-google-fonts) Download and inline Google Font's CSS.

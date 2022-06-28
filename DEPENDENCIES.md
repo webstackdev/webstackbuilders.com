@@ -53,7 +53,8 @@ gulp-svg-sprite
 mkdirp // peer dependency
 postcss-preset-env
 postcss-svgo
-sw-precache // Google's service worker generator
+workbox-cli // Google's service worker generator
+icon-gen // Favicon generator
 ```
 
 ## Eleventy plugins and config

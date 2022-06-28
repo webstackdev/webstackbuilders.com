@@ -5,7 +5,7 @@ permalink: /privacy/
 layout: page
 ---
 
-# Privacy policy
+# Privacy Policy
 
 ## Information regarding this site and its vendors.
 
@@ -13,11 +13,11 @@ This site and its owner do NOT store your personal information in any way. Howev
 
 ## Notes about external services
 
-### Cloudflare
+### Netlify
 
 This site’s traffic goes through Cloudflare and is configured to use its Web Analytics tool, which Cloudflare claims doesn’t track individual users and doesn’t leave cookies.
 
-### Cloudinary
+### Google Analytics
 
 Cloudinary hosts and serves most of the images on this site. A Cloudinary Support article says that your viewing of any such images involves no storage or use of your personal data.
 
@@ -44,3 +44,6 @@ This site uses lite-youtube-embed to provide YouTube embeds that respect your pr
 ===
 For the discussion that convinced me to go this route after my initial skepticism about its necessity, see the Google Fonts GitHub issue, "GDPR compliance."
 
+(888) 987-1881
+2093 Philadelphia Pike,
+Claymont, DE 19703
