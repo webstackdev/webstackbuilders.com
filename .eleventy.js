@@ -1,19 +1,24 @@
 // 11ty Plugins
 const directoryOutputPlugin = require('@11ty/eleventy-plugin-directory-output')
-const inclusiveLangPlugin = require('@11ty/eleventy-plugin-inclusive-language')
-const navigationPlugin = require("@11ty/eleventy-navigation")
+//const inclusiveLangPlugin = require('@11ty/eleventy-plugin-inclusive-language')
+const navigationPlugin = require('@11ty/eleventy-navigation')
 const pluginPageAssets = require('eleventy-plugin-page-assets')
 //const pluginShareHighlight = require('eleventy-plugin-share-highlight')
 const pluginRss = require('@11ty/eleventy-plugin-rss')
 const socialImages = require('@11tyrocks/eleventy-plugin-social-images')
 const syntaxHighlight = require('@11ty/eleventy-plugin-syntaxhighlight')
 
+// load environmental variables if not already loaded
+if (!process.env.ELEVENTY_ENV_VARS_INIT) {
+  require('dotenv').config()
+}
+
 // Local
 const eleventySetup = require('./eleventy')
 //const criticalCss = require('./eleventy/transforms/criticalCss')
 
 /** @param { import('./@types/eleventy').Config } config */
-module.exports = (eleventyConfig) => {
+module.exports = eleventyConfig => {
   /**
    * Use `.eleventyignore` for dev server files to watch instead of default `.gitignore`
    */
@@ -44,7 +49,10 @@ module.exports = (eleventyConfig) => {
   /**
    * Creates optimized images and responsive image tags
    */
-  eleventyConfig.addNunjucksAsyncShortcode('image', eleventySetup.nunjucksAsyncShortcodes.asyncImageHandler)
+  eleventyConfig.addNunjucksAsyncShortcode(
+    'image',
+    eleventySetup.nunjucksAsyncShortcodes.asyncImageHandler
+  )
 
   /**
    * Map layouts to the nunjucks file in _layouts
@@ -73,21 +81,21 @@ module.exports = (eleventyConfig) => {
   /**
    * Filters for use in templates
    */
-  Object.keys(eleventySetup.filters).forEach((filterName) => {
-      eleventyConfig.addFilter(filterName, eleventySetup.filters[filterName])
+  Object.keys(eleventySetup.filters).forEach(filterName => {
+    eleventyConfig.addFilter(filterName, eleventySetup.filters[filterName])
   })
 
   /**
    * Shortcodes and Nunjucks Tags for use in templates
    */
-  Object.keys(eleventySetup.shortcodes).forEach((shortcodeName) => {
+  Object.keys(eleventySetup.shortcodes).forEach(shortcodeName => {
     eleventyConfig.addShortcode(shortcodeName, eleventySetup.shortcodes[shortcodeName])
   })
 
   /**
    * Paired Shortcodes and Nunjucks Tags for use in templates
    */
-  Object.keys(eleventySetup.pairedShortcodes).forEach((pairedShortcodeName) => {
+  Object.keys(eleventySetup.pairedShortcodes).forEach(pairedShortcodeName => {
     eleventyConfig.addPairedShortcode(
       pairedShortcodeName,
       eleventySetup.pairedShortcodes[pairedShortcodeName]
@@ -100,20 +108,22 @@ module.exports = (eleventyConfig) => {
    * HTML minification and critical CSS.
    */
   if (process.env.ELEVENTY_ENV === 'production') {
-    Object.keys(eleventySetup.transforms).forEach((transformName) => {
+    Object.keys(eleventySetup.transforms).forEach(transformName => {
       //eleventyConfig.addTransform(transformName, eleventySetup.transforms[transformName])
     })
   }
 
   /**
-   * Global data
+   * Global data for use in build logging
    */
   eleventyConfig.addGlobalData('stats', () => {
     const now = new Date()
-    return ({
-      timestamp: new Intl.DateTimeFormat('en-US', { dateStyle: 'full', timeStyle: 'long' }).format(now),
-      env: process.env.ELEVENTY_ENV ?? 'development',
-    })
+    const dateFormat = { dateStyle: 'full', timeStyle: 'long' }
+    return {
+      timestamp: new Intl.DateTimeFormat('en-US', dateFormat).format(now),
+      // for use in templates
+      env: process.env.ELEVENTY_ENV,
+    }
   })
 
   /**
@@ -132,7 +142,7 @@ module.exports = (eleventyConfig) => {
   eleventyConfig.addCollection('articles', function (collection) {
     return collection
       .getFilteredByGlob('src/pages/articles/**/*.md')
-      .filter((item) => item.data.permalink !== false)
+      .filter(item => item.data.permalink !== false)
       .sort((a, b) => b.date - a.date)
   })
 
@@ -142,7 +152,7 @@ module.exports = (eleventyConfig) => {
   eleventyConfig.addCollection('featured', function (collection) {
     return collection
       .getFilteredByGlob('src/pages/articles/**/*.md')
-      .filter((item) => item.data.featured)
+      .filter(item => item.data.featured)
       .sort((a, b) => b.date - a.date)
   })
 
@@ -152,7 +162,7 @@ module.exports = (eleventyConfig) => {
   eleventyConfig.addCollection('casestudies', function (collection) {
     return collection
       .getFilteredByGlob('src/pages/case-studies/**/*.md')
-      .filter((item) => item.data.permalink !== false)
+      .filter(item => item.data.permalink !== false)
   })
 
   /**
@@ -161,7 +171,7 @@ module.exports = (eleventyConfig) => {
   eleventyConfig.addCollection('services', function (collection) {
     return collection
       .getFilteredByGlob('src/pages/services/**/*.md')
-      .filter((item) => item.data.active)
+      .filter(item => item.data.active)
   })
 
   return {

@@ -10,7 +10,9 @@ egrep -rnw --exclude-dir=node_modules --exclude=yarn.lock --exclude=yarn-error.l
 
 ```json
 critical
-cross-env
+cross-var
+dotenv
+dotenv-cli
 html-minifier // used in shortcodes
 netlify-lambda
 np // a better npm publish, used in package.json script
@@ -31,7 +33,7 @@ workbox-cli
 md5-file
 ```
 
-## npm-package-scripts
+## ./scripts/npm-package-scripts
 
 ```json
 yargs
@@ -95,6 +97,12 @@ ts-jest
 ts-loader
 ```
 
+## E2E Testing
+
+```json
+@playwright/test  // test runner for playwright. Bundles playwright with this package.
+```
+
 ## Typescript used in client-side script
 
 ```json
@@ -131,6 +139,7 @@ stylelint-scss
 
 ## MBX Dependencies
 
+```json
 @babel/plugin-transform-react-jsx
 @babel/plugin-transform-runtime
 @babel/preset-env
@@ -138,7 +147,6 @@ babel-loader
 clean-css
 cssesc
 dompurify
-dotenv
 focus-trap
 focus-visible
 html-entities
@@ -150,3 +158,4 @@ preact
 sanitize-html
 twitter
 encoding
+```

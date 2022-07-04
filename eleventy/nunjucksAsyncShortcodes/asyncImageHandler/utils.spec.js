@@ -52,24 +52,24 @@ describe(`Returns paths for the source image file, output directory, and <img> t
     mock.restore()
   })
 
-  test('Paths for absolute image filenames that are located side-by-side in Markdown file directories', () => {
-    const paths = getImagePaths('/avatars/john-smith.jpeg', 'articles/helloworld')
+  test('Absolute image filenames located side-by-side in Markdown file directories', () => {
+    const paths = getImagePaths('/avatars/john-smith.jpeg', '/')
     expect(paths).toMatchInlineSnapshot(`
       Object {
         "imagePath": "/var/www/eleventy/src/assets/images/avatars/john-smith.jpeg",
         "outputDir": "/var/www/eleventy/public/images/avatars",
-        "urlPath": "images/avatars/john-smith.jpeg",
+        "urlPath": "/images/avatars",
       }
     `) // urlPath: 'images'
   })
 
-  test('Paths for relative image filenames that are in the assets/images folder', () => {
-    const paths = getImagePaths('cover.jpeg', 'articles/helloworld')
+  test('Relative image filenames that are in the assets/images folder', () => {
+    const paths = getImagePaths('cover.jpeg', '/articles/helloworld')
     expect(paths).toMatchInlineSnapshot(`
       Object {
         "imagePath": "/var/www/eleventy/src/pages/articles/helloworld/cover.jpeg",
         "outputDir": "/var/www/eleventy/public/articles/helloworld",
-        "urlPath": "articles/helloworld/",
+        "urlPath": "/articles/helloworld",
       }
     `)
   })
@@ -125,12 +125,17 @@ describe(`Renders the Nunjucks template without error`, () => {
     highSrc: imageMetadataFixture['jpeg'][imageMetadataFixture['jpeg'].length - 1],
   }
 
-  test('Lazy image matches snapshot with same context', () => {
-    expect(renderTemplate(`picture.njk`, { lazy: true, ...context })).toMatchSnapshot()
-  })
-
   test('Non-lazy image matches snapshot with same context', () => {
     expect(renderTemplate(`picture.njk`, { lazy: false, ...context })).toMatchSnapshot()
+  })
+
+  const lazyContext = {
+    base64Placeholder: `data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==`,
+    ...context,
+  }
+
+  test('Lazy image matches snapshot with same context', () => {
+    expect(renderTemplate(`picture.njk`, { lazy: true, ...lazyContext })).toMatchSnapshot()
   })
 })
 

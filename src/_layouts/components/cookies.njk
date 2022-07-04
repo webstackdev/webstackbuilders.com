@@ -1,18 +1,18 @@
 <div id="cookie-banner-id" class="cookie-banner js-cookie-banner" style="opacity: 1; display: block;">
-  <a href="javascript:void(0)" class="cbtn btn_close_ck closecookiewebinar desk_button">X</a>
+  {# event.preventDefault() to prevent navigating away from here #}
+  <a href="#" class="cbtn btn_close_ck closecookiewebinar desk_button">
+    {% icon "close" %}
+  </a>
   <div class="col-sm-12">
     <p>
-      This site use cookies. Learn more in our <a href="/cookies">Cookies Policy</a> and <a href="/privacy">Privacy Policy</a>.
+      This site use cookies. Learn more in our <a href="/cookies">Cookies Policy</a> and <a href="/privacy">Privacy Policy</a>. @TODO: One cookie is mandatory for this site to work (theme settings and your cookie privacy customizations).
     </p>
   </div>
 
   <div class="col-sm-2">
-    <button class="cookie-btn cookie-allow-btn">Allow Cookie</button>
-    <button class="cookie-btn cookie-refuse-btn">Cancel</button>
+    <button class="cookie-btn cookie-allow-btn">Allow All</button>
+    <button class="cookie-btn cookie-customize-btn">Customize Settings</button>
   </div>
 
   {% include "../../assets/images/site/cookie.svg" %}
 </div>
-
-{# @TODO: see delayer.njk component, change 'src' to 'delay' here to use. Include in index.ts #}
-<script src="cookie.js" async></script>

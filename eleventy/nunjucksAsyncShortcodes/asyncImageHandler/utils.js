@@ -13,7 +13,8 @@ exports.checkForAltMetadata = (src, alt) => {
 }
 
 /**
- *  Use the original file slug in custom filenames for generated images. API from Eleventy images plugin.
+ * Use the original file slug in custom filenames for generated images.
+ * API from Eleventy images plugin.
  *
  * @param {string} id hash of the original image
  * @param {string} src original image path
@@ -29,21 +30,29 @@ exports.filenameFormat = (id, src, width, format, options) => {
 }
 
 /**
- * Image files are either in /public/images directory or in a Markdown page's folder next to index.md
- * Sources that are absolute paths are assumed relative to the images asset directory, otherwise assumed
- * to be in the Markdown file's directory.
+ * Image files are either in /public/images directory or in a Markdown page's folder
+ * next to index.md. Sources that are absolute paths are assumed relative to the images
+ * asset directory, otherwise assumed to be in the Markdown file's directory.
  */
 exports.getImagePaths = (src, pageUrl) => {
+  /*
+  pageUrl examples:
+  /articles/understanding-docker/
+  /articles/helloworld/
+  /
+  */
   if (src.startsWith('/')) {
     // Images included in Nunjucks or Javascript templates using the `image` shortcode are
-    // maintained in the assets/images folder and should be outputted to the /public/images directory.
+    // maintained in the assets/images folder and should be outputted to the /public/images
+    // directory.
     return {
       // Absolute path to the image file to be processed
       imagePath: path.join(process.cwd(), '/src/assets/images', src),
       // Project-relative path to the output image directory to write generated images to
       outputDir: path.join(process.cwd(), '/public/images', path.parse(src).dir),
-      // Directory for the <img src> attribute. e.g. /images/ for <img src="/images/MY_IMAGE.jpeg">
-      urlPath: path.join('images'),
+      // Directory for the <img src> attribute. e.g. /images/ for
+      // <img src="/images/MY_IMAGE.jpeg">
+      urlPath: path.join('/images/', path.parse(src).dir),
     }
   } else if (/^[^\\/:\*\?"<>\|]+$/.test(src)) {
     // src values that are not relative paths are assumed to be being used in a Markdown
@@ -56,7 +65,7 @@ exports.getImagePaths = (src, pageUrl) => {
       // Absolute path to the output image directory to write generated images to
       outputDir: path.join(process.cwd(), '/public', pageUrl),
       // Directory for the <img src> attribute. e.g. /images/ for <img src="/images/MY_IMAGE.jpeg">
-      urlPath: `${pageUrl}/`,
+      urlPath: `${pageUrl}`,
     }
   } else {
     throw new Error(`Couldn't find a strategy to process image source, source file: ${src}`)
@@ -103,10 +112,17 @@ exports.renderTemplate = (template, context) => {
   return env.render(template, context)
 }
 
+/**
+ * Returns a string with srcset for script to swap in
+ *
+ * @param [object] formatItems An array of objects for a media type like jpeg, each with a 'srcset' key
+ * @returns {String} a string of source sets formatted for a <picture> element
+ */
 const getDataSrcset = formatItems => {
   return formatItems
     .filter(imageObject => imageObject.width !== 1)
     .map(filtered => filtered.srcset)
     .join(', ')
 }
+// getDataSrcset() is used elsewhere in this file so exports is a separate statement
 exports.getDataSrcset = getDataSrcset

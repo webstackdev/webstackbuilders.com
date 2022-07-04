@@ -1,5 +1,3 @@
-/** Built-in dependencies */
-const path = require('path')
 /** Third party dependencies */
 const cssnano = require('cssnano')
 const del = require('del')
@@ -14,6 +12,8 @@ const sourcemaps = require('gulp-sourcemaps')
 const svgSprite = require('gulp-svg-sprite')
 const svgo = require('postcss-svgo')
 const { generateSW } = require('workbox-build')
+/** Local dependencies */
+const SWConfig = require('./workbox.config.js')
 
 const isDevelopment = process.env.ELEVENTY_ENV === 'development'
 
@@ -90,32 +90,7 @@ const logError = err => {
  * @TODO: This currently precaches *everything*
  */
 gulp.task('build:serviceworker', () => {
-  return generateSW({
-    // caching strategy to use
-    runtimeCaching: [
-      {
-        urlPattern: /\.(?:html|css|js)$/,
-        handler: 'StaleWhileRevalidate',
-        options: {
-          cacheName: 'webstackbuilders-cache',
-        },
-      },
-      {
-        urlPattern: /\.(?:png|jpg|jpeg|gif|bmp|webp|svg|ico)$/,
-        handler: 'CacheFirst',
-        options: {
-          cacheName: 'webstackbuilders-cache',
-        },
-      },
-    ],
-    // local directory relative to the current directory to match globPatterns against
-    globDirectory: './public/',
-    // track and cache all files that match this glob pattern
-    // prettier-ignore
-    globPatterns: ['**\/*.{js,html,css,png,jpg,gif}'],
-    // name of the service worker file created, must be in root directory to cover entire site
-    swDest: path.join('./public/', 'sw.js'),
-  }).then(({ count, size, warnings }) => {
+  return generateSW(SWConfig).then(({ count, size, warnings }) => {
     if (warnings.length > 0) {
       log.error('Warnings encountered while generating a service worker:' + warnings.join('\n'))
     }

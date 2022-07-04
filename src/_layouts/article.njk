@@ -10,6 +10,13 @@ layout: base
   aria-labelledby="{{ title | slug }}-title"
 >
   <header class="article__header">
+    {% if not cover %}
+      {% set cover = 'cover.webp' %}
+    {% endif %}
+    {% if not alt %}
+      {% set alt = ['Cover image for article ', title] | join %}
+    {% endif %}
+    {% image cover, alt %}
     <h1 id="{{ title | slug }}-title" class="article__title title" itemprop="headline">{{ title }}</h1>
     <div class="article__meta">
       <time class="article__date" itemprop="datePublished" datetime="{{ page.date | dateToISO }}">

@@ -4,8 +4,11 @@ slug: hello-world
 tags: code
 date: 2021-03-31
 ---
+
 A demo of the "Page" template and kitchen sink sample of styled elements.
+
 <!-- excerpt -->
+
 ## Full Front Matter Example:
 
 ```yaml
@@ -16,7 +19,7 @@ image: cover.jpg
 demo: https://emergency-site.dev/
 featured: true
 featuredImage: emergency.jpg
-featuredImageColor: "#5EBCB4"
+featuredImageColor: '#5EBCB4'
 ```
 
 # Header 1
@@ -42,7 +45,7 @@ end
 
 ### Small Image
 
-![Small Image](https://picsum.photos/200)
+{% image 'hello-world-printf.webp', 'Hello world printf example' %}
 
 ### Large image
 
@@ -58,7 +61,7 @@ end
 ## Short Codes
 
 {% callout "warning" %}
-This demo currently only works in [Chrome Canary](https://www.google.com/chrome/canary/). Download the latest version, then enable Container Queries under *chrome://flags* to see them in action.
+This demo currently only works in [Chrome Canary](https://www.google.com/chrome/canary/). Download the latest version, then enable Container Queries under _chrome://flags_ to see them in action.
 {% endcallout %}
 
 <figure class="extend">
@@ -68,10 +71,10 @@ This demo currently only works in [Chrome Canary](https://www.google.com/chrome/
 {% callout %}
 Some examples using this approach:
 
-* [EleventyOne](https://github.com/philhawksworth/eleventyone) by Phil Hawskworth
-* [Supermaya](https://github.com/MadeByMike/supermaya) by Mike Riethmuller
-* [Eleventastic](https://github.com/maxboeck/eleventastic) by me
-{% endcallout %}
+- [EleventyOne](https://github.com/philhawksworth/eleventyone) by Phil Hawskworth
+- [Supermaya](https://github.com/MadeByMike/supermaya) by Mike Riethmuller
+- [Eleventastic](https://github.com/maxboeck/eleventastic) by me
+  {% endcallout %}
 
 {% signup "By the way..." %}
 I'm running an email list for people interested in front-end development and static sites.

@@ -3,12 +3,11 @@
 <ul>
 {% for testimonial in testimonials %}
   <li>
+    {% set url = ["/avatars/", testimonial.avatar] | join %}
+    {% set alt = ["Photo of ", testimonial.name] | join %}
     <div>{{ testimonial.name }}</div>
     <div>{{ testimonial.organization }}</div>
-    <img
-      src="/avatars/{{ testimonial.avatar }}"
-      alt="photo of {{ testimonial.name }}"
-    />
+    {% image url, alt %}
     <p>{{ testimonial.text }}</p>
   </li>
 {% endfor %}

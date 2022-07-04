@@ -1,23 +1,37 @@
+/** Built-in dependencies */
+const path = require('path')
+
 module.exports = {
+  // ID to be prepended to cache names
   cacheId: 'webstackbuilders',
-  globDirectory: './public',
-  globPatterns: ['**/*.woff2'],
-  swDest: './dist/sw.js',
-  sourcemap: false,
+  // identify and delete precaches created by older service workers
   cleanupOutdatedCaches: true,
+  // whether the service worker should start controlling any existing clients on activation
   clientsClaim: true,
-  skipWaiting: true,
+  // local directory relative to the current directory to match globPatterns against
+  globDirectory: './public/',
+  // track and cache all files that match this glob pattern
+  // prettier-ignore
+  globPatterns: ['**\/*.{js,html,css,png,jpg,gif,woff2}'],
+  // caching strategy to use
   runtimeCaching: [
     {
-      urlPattern: /\.(?:png|jpg|jpeg|gif|webp|avif)$/,
+      urlPattern: /\.(?:html|css|js)$/,
+      handler: 'StaleWhileRevalidate',
+      options: {
+        cacheName: 'webstackbuilders-cache',
+      },
+    },
+    {
+      urlPattern: /\.(?:png|jpg|jpeg|gif|bmp|webp|svg|ico)$/,
       handler: 'CacheFirst',
       options: {
-        cacheName: 'images',
-        expiration: {
-          maxEntries: 50,
-          maxAgeSeconds: 60 * 60 * 24 * 365
-        }
-      }
-    }
-  ]
+        cacheName: 'webstackbuilders-cache',
+      },
+    },
+  ],
+  // add an unconditional call to skipWaiting() to the generated service worker
+  skipWaiting: true,
+  // name of the service worker file created, must be in root directory to cover entire site
+  swDest: path.join('./public/', 'service-worker.js'),
 }

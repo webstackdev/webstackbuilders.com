@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
   heroSvgAnimation()
 })
 
-// step 10, all assets loaded, the page has everything ready and users can interact with it
-window.addEventListener('load', () => {
-  //
+// all assets loaded, the page has everything ready and users can interact with it
+document.addEventListener('load', () => {
+  navigator.serviceWorker.register('/service-worker.js')
 })

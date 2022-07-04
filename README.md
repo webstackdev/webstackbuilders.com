@@ -162,6 +162,20 @@ Be careful for <title>, <link>, and <meta> tags that vary between pages.
 
 [Google Article on Streaming Service Worker Setup](https://developer.chrome.com/docs/workbox/faster-multipage-applications-with-streams/)
 
+## Environmental Variables
+
+Show what directories Eleventy is using for data, includes, input, and output; show what search globs Eleventy is using to find templates and what templates it finds.
+
+```json
+DEBUG=Eleventy\*
+```
+
+Non-core environment variable used in web scripts.
+
+```json
+ELEVENTY_ENV='production'|'development'
+```
+
 ## Plugins to Setup and Include
 
 - [eleventy-plugin-rss](https://www.npmjs.com/package/@11ty/eleventy-plugin-rss) A pack of Eleventy filters for generating Atom and JSON feeds using the Nunjucks templating engine.

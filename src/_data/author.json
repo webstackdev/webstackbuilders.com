@@ -1,19 +1,19 @@
 {
-    "name": "Kevin Brown",
-    "email": "kbrown@webstackbuilders.com",
-    "avatar": "/avatars/kevin-brown.jpg",
-    "social": {
-        "twitter": {
-            "name": "WebstackDev",
-            "url": "https://twitter.com/WebstackDev"
-        },
-        "github": {
-            "name": "webstackdev",
-            "url": "https://github.com/webstackdev"
-        },
-        "linkedin": {
-            "name": "@TODO:needorgpage",
-            "url": "https://www.linkedin.com/in/kevin-brown-b14b5298/"
-        }
+  "name": "Kevin Brown",
+  "email": "kbrown@webstackbuilders.com",
+  "avatar": "/avatars/kevin-brown.webp",
+  "social": {
+    "twitter": {
+      "name": "WebstackDev",
+      "url": "https://twitter.com/WebstackDev"
+    },
+    "github": {
+      "name": "webstackdev",
+      "url": "https://github.com/webstackdev"
+    },
+    "linkedin": {
+      "name": "@TODO:needorgpage",
+      "url": "https://www.linkedin.com/in/kevin-brown-b14b5298/"
     }
+  }
 }
