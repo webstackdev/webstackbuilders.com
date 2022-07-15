@@ -1,3 +1,8 @@
+/**
+ * Global site data available to all templates
+ */
+const { lang, locale, organization, title, description, domain } = require('../../package.json')
+
 let url
 switch (process.env.ELEVENTY_ENV) {
   case 'development':
@@ -7,15 +12,15 @@ switch (process.env.ELEVENTY_ENV) {
     url = `http://localhost:${process.env.ELEVENTY_TESTING_SERVER_PORT}`
     break
   default:
-    url = 'https://webstackbuilders.com'
+    url = `https://www.${domain}`
 }
 
 module.exports = {
+  description,
+  domain,
+  lang,
+  locale,
+  organization,
+  title,
   url,
-  name: 'Webstack Builders',
-  title: 'Webstack Builders Company Website',
-  description: 'This is the company website for Webstack Builders',
-  lang: 'en',
-  locale: 'en_US',
-  domain: 'webstackbuilders.com',
 }

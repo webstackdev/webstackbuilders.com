@@ -20,7 +20,7 @@
     // Nunjucks Syntax and Snippets
     "ronnidc.nunjucks",
     // Nunjucks formatting
-    "okitavera.vscode-nunjucks-formatter"
+    "okitavera.vscode-nunjucks-formatter",
     // JavaScript syntax highlighting for ES201x, React JSX, and GraphQL
     "mgmcdermott.vscode-language-babel",
     // Automatically scan and import TypeScript definition files in workspace

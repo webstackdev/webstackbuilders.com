@@ -1,6 +1,6 @@
 exports.filters = require('./filters')
 exports.handlers = require('./handlers')
-exports.library = require('./library')
+exports.markdown = require('./markdown')
 exports.nunjucksAsyncShortcodes = require('./nunjucksAsyncShortcodes')
 exports.pairedShortcodes = require('./pairedShortcodes')
 exports.shortcodes = require('./shortcodes')

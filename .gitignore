@@ -48,7 +48,7 @@ typings/
 # dotenv environment variable files
 .env*
 # Commit default dotenv environment variable file
-!.env.defaults
+!.env.local
 
 # Eleventy files
 public

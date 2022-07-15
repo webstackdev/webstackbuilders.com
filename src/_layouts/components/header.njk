@@ -1,8 +1,8 @@
 <header class="header" role="banner">
   <div class="header__inner container">
     <a class="header__brand" href="/" rel="home" aria-label="Go To Homepage">
-      {% include '../images/logo.njk' %}
-      <span class="header__text">{{ site.name }}</span>
+      {% filter indent(2, true) %}{% include '../images/logo.njk' %}{% endfilter %}
+      <span class="header__text">{{ site.organization }}</span>
     </a>
     <span class="header__nav">
       {% include "./navigation.njk" %}

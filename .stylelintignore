@@ -1,4 +1,3 @@
-
 **/node_modules
 _reset.scss
 _typography.scss
@@ -7,3 +6,4 @@ public/
 src/css/
 functions/template.html
 *.md
+*.njk

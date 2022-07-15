@@ -5,8 +5,8 @@ const { DateTime } = require('luxon')
 const slugifyLib = require('slugify')
 
 // local imports
-const excerpt = require('./excerpt')
-const squash = require('./squash')
+const { excerpt } = require('./excerpt')
+const { indentElement } = require('./indentElement')
 
 module.exports = {
   /**
@@ -15,9 +15,7 @@ module.exports = {
    *   {%- set autoDescription = currentPage.templateContent | excerpt | safe | striptags -%}
    */
   currentPage: function (allPages, currentPage) {
-    const matches = allPages.filter(
-      (page) => page.inputPath === currentPage.inputPath
-    )
+    const matches = allPages.filter(page => page.inputPath === currentPage.inputPath)
     if (matches && matches.length) {
       return matches[0]
     }
@@ -29,9 +27,7 @@ module.exports = {
    *   {{ build.timestamp | dateToFormat('yyyy') }}
    */
   dateToFormat: function (date, format) {
-    return DateTime.fromJSDate(date, { zone: 'utc' }).toFormat(
-      String(format)
-    )
+    return DateTime.fromJSDate(date, { zone: 'utc' }).toFormat(String(format))
   },
 
   /**
@@ -41,7 +37,7 @@ module.exports = {
   dateToISO: function (date) {
     return DateTime.fromJSDate(date, { zone: 'utc' }).toISO({
       includeOffset: false,
-      suppressMilliseconds: true
+      suppressMilliseconds: true,
     })
   },
 
@@ -73,9 +69,7 @@ module.exports = {
    *   {% set otherposts = collections.posts | excludeItemFromCollection(page) | slice(-10) %}
    */
   excludeItemFromCollection: function (collection, itemToExclude) {
-    return collection.filter(
-      (item) => item.inputPath !== itemToExclude.inputPath
-    )
+    return collection.filter(item => item.inputPath !== itemToExclude.inputPath)
   },
 
   /**
@@ -83,7 +77,7 @@ module.exports = {
    *   {%- set dark = themes|findById('dark') -%}
    */
   findById: function (array, id) {
-    return array.find((i) => i.id === id)
+    return array.find(i => i.id === id)
   },
 
   /**
@@ -94,6 +88,8 @@ module.exports = {
     if (num > 999) return (num / 1000).toFixed(1).replace(/\.0$/, '') + 'K'
     return num
   },
+
+  indentElement,
 
   /**
    * Usage:
@@ -108,7 +104,6 @@ module.exports = {
     }
     return chars.join('')
   },
-
 
   /**
    * Friendly date filter. Supported tokens:
@@ -138,7 +133,7 @@ module.exports = {
    *   {% set otherposts = collections.posts | excludePost(page) | slice(-10) %}
    */
   slice: function (array, start, end) {
-      return end ? array.slice(start, end) : array.slice(start)
+    return end ? array.slice(start, end) : array.slice(start)
   },
 
   /**
@@ -154,11 +149,6 @@ module.exports = {
       remove: /["]/g,
     })
   },
-
-  /**
-   * Make a search index string by removing duplicated words and less useful, common short words
-   */
-  squash,
 
   /**
    * Example using Liquid templating engine:

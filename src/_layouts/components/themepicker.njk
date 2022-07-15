@@ -1,7 +1,7 @@
 <div class="themepicker js-themepicker" data-nosnippet hidden>
   <h3 class="themepicker__title">Select Theme</h3>
   <ul class="themepicker__list" id="theme-menu">
-  {% for theme in themes %}
+  {%- for theme in themes %}
     <li class="themepicker__item">
       <button
         class="themepicker__btn js-themepicker-themeselect"
@@ -18,10 +18,10 @@
         </span>
       </button>
     </li>
-  {% endfor %}
+  {%- endfor %}
   </ul>
   <button class="iconbtn themepicker__close js-themepicker-close">
     <span class="sr-only">close themepicker</span>
-    {% icon "close" %}
+    {% filter indent(4, true) %}{% icon "close" -%}{% endfilter %}
   </button>
 </div>

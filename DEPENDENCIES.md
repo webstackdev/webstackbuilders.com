@@ -86,10 +86,16 @@ sharp // used in image lazy loading script
 ```json
 @babel/core
 @babel/preset-typescript
+@testing-library/jest-dom // DOM matchers
 @types/jest
+@types/jest-axe
 babel-jest
+canvas // allow JSDOM to use <canvas> elements instead of converting them to <div>
 cypress
+html-entities-decoder // used in eleventy/markdown/tests/replacements.spec.js
 jest
+jest-axe // accessibility testing
+jest-environment-jsdom // must be installed separately to use jsdom
 jsdom
 mock-cwd
 mock-fs

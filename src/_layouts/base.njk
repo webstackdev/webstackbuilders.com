@@ -1,31 +1,35 @@
+{#- Abbreviations to use in Markdown -#}
+{% include "./components/abbreviations.njk" %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    {% include "./components/head/meta.njk" %}
+    {% filter indent(4, true) %}{% include "./components/head/meta.njk" %}{% endfilter %}
     <link rel="preload" href="{{ '/fonts/baloo-2-v1-latin-regular.woff2' | url }}" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="{{ '/css/index.css' | url }}" />
     <link rel="stylesheet" href="{{ '/css/themes.css' | url }}">
-    <script>{% include "./components/initialtheme.njk" %}</script>
+    {#- Script tag with background colors keyed to theme names for setting initial bg color -#}
+    {% filter indent(4, true) %}{%- include "./components/initialtheme.njk" %}{% endfilter %}
   </head>
   <body>
     <a href="#main" class="sr-skip-link">skip to main content</a>
-    {% include "./images/sprites.njk" %}
-    {% include "./components/titlebar.njk" %}
-
+    {#- Layered sprite SVG -#}
+    {% filter indent(4, true) %}{% include "./images/sprites.njk" %}{% endfilter %}
+    {#- Sets Window Controls Overlay API for PWA title bar -#}
+    {% filter indent(4, true) %}{% include "./components/titlebar.njk" %}{% endfilter %}
+    {#- Page area #}
     <div class="layout" role="document">
-      {% include "./components/themepicker.njk" %}
-      {% include "./components/header.njk" %}
-
+      {% filter indent(6, true) %}{% include "./components/themepicker.njk" %}{% endfilter %}
+      {% filter indent(6, true) %}{% include "./components/header.njk" %}{% endfilter %}
+      {#- Main Content Area -#}
       <main class="main container" role="main" id="main" tabindex="-1">
         {{ content | safe }}
       </main>
-
-      {% include "./components/footer.njk" %}
+      {#- Footer -#}
+      {% filter indent(6, true) %}{% include "./components/footer.njk" %}{% endfilter %}
     </div>
-
-    {% include "./components/cookies.njk" %}
-
-    {# Main JS Bundle #}
+    {#- Cookies Overlay -#}
+    {% filter indent(4, true) %}{% include "./components/cookies.njk" %}{% endfilter %}
+    {#- Main JS Bundle -#}
     <script src="{{ '/js/index.js' | url }}?{{ cacheBust.mainJs }}" defer></script>
     {%- if layout == 'post' or layout == 'note' -%}
       <script src="{{ '/assets/scripts/webmentions.js' | url }}" defer></script>

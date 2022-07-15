@@ -1,53 +1,40 @@
-{%- set absolutePageUrl -%}{{ page.url | url | absoluteUrl(site.url) }}{%- endset -%}
-{%- set isArticle = layout == 'article' -%}
-
-{%- if isArticle -%}
-  {# Auto-Generate a Description for Articles  #}
-  {%- set currentPage = collections.all | currentPage(page) -%}
-  {%- set autoDescription = currentPage.templateContent | excerpt | safe | striptags -%}
-{% endif %}
-
-{# Page-Specific #}
-<meta name="description" content="{{ description or autoDescription or site.description }}">
-{%- if image -%}<meta name="image" content="{{ absolutePageUrl }}{{ image }}">{%- endif -%}
-
-<meta property="og:title" content="{{ title or site.title }}">
-<meta property="og:description" content="{{ description or autoDescription or site.description }}">
-<meta property="og:url" content="{{ absolutePageUrl }}">
-<meta property="og:image" content="{%- if image -%}{{ absolutePageUrl }}{{ image }}{%- else -%}{{ author.avatar | url | absoluteUrl(site.url) }}{%- endif -%}">
-<meta name="twitter:card" content="{% if isPost -%}summary_large_image{% else %}summary{% endif %}">
-
-{# Posts get additional meta tags #}
-{%- if isPost -%}
-  <meta property="og:type" content="article">
-  <meta property="article:published_time" content="{{ page.date | dateToISO }}">
+{#- Page-Specific -#}
+    <meta name="description" content="{{ description or autoDescription or site.description }}">
+{%- if image -%}
+    <meta name="image" content="{{ absolutePageUrl }}{{ image }}">
 {%- endif -%}
-
-{# General #}
-<meta property="og:site_name" content="{{ site.title }}">
-<meta property="og:locale" content="{{ site.locale }}">
-<meta name="twitter:site" content="@{{ author.social.twitter.name }}">
-<meta name="twitter:creator" content="@{{ author.social.twitter.name }}">
-
-
-
-{# JSON LD #}
-<script type="application/ld+json">
-{
-  "name":"{{ author.name }}",
-  "description":"{{ site.description }}",
-  "author": {
-    "@type":"Person",
-    "name":"{{ author.name }}"
-  },
-  "@type":"WebSite",
-  "url":"{{ site.url }}",
-  "image":"{{ author.avatar | url | absoluteUrl(site.url) }}",
-  "headline":"{{ site.title }}",
-  "sameAs":[
-    "{{ author.social.twitter.url }}",
-    "{{ author.social.github.url }}"
-  ],
-  "@context":"http://schema.org"
-}
-</script>
+    <meta property="og:title" content="{{ title or site.title }}">
+    <meta property="og:description" content="{{ description or autoDescription or site.description }}">
+    <meta property="og:url" content="{{ absolutePageUrl }}">
+    <meta property="og:image" content="{%- if image -%}{{ absolutePageUrl }}{{ image }}{%- else -%}{{ author.avatar | url | absoluteUrl(site.url) }}{%- endif -%}">
+    <meta name="twitter:card" content="{% if isPost -%}summary_large_image{% else %}summary{% endif %}">
+{#- Posts get additional meta tags -#}
+{%- if isPost -%}
+    <meta property="og:type" content="article">
+    <meta property="article:published_time" content="{{ page.date | dateToISO }}">
+{%- endif -%}
+{#- General -#}
+    <meta property="og:site_name" content="{{ site.title }}">
+    <meta property="og:locale" content="{{ site.locale }}">
+    <meta name="twitter:site" content="@{{ author.social.twitter.name }}">
+    <meta name="twitter:creator" content="@{{ author.social.twitter.name }}">
+{#- JSON LD -#}
+    <script type="application/ld+json">
+      {
+        "name":"{{ author.name }}",
+        "description":"{{ site.description }}",
+        "author": {
+          "@type":"Person",
+          "name":"{{ author.name }}"
+        },
+        "@type":"WebSite",
+        "url":"{{ site.url }}",
+        "image":"{{ author.avatar | url | absoluteUrl(site.url) }}",
+        "headline":"{{ site.title }}",
+        "sameAs":[
+          "{{ author.social.twitter.url }}",
+          "{{ author.social.github.url }}"
+        ],
+        "@context":"http://schema.org"
+      }
+    </script>

@@ -1,16 +1,6 @@
-// 11ty Plugins
-const directoryOutputPlugin = require('@11ty/eleventy-plugin-directory-output')
-//const inclusiveLangPlugin = require('@11ty/eleventy-plugin-inclusive-language')
-const navigationPlugin = require('@11ty/eleventy-navigation')
-const pluginPageAssets = require('eleventy-plugin-page-assets')
-//const pluginShareHighlight = require('eleventy-plugin-share-highlight')
-const pluginRss = require('@11ty/eleventy-plugin-rss')
-const socialImages = require('@11tyrocks/eleventy-plugin-social-images')
-const syntaxHighlight = require('@11ty/eleventy-plugin-syntaxhighlight')
-
 // load environmental variables if not already loaded
 if (!process.env.ELEVENTY_ENV_VARS_INIT) {
-  require('dotenv').config()
+  require('dotenv').config({ path: './.env.local' })
 }
 
 // Local
@@ -33,17 +23,21 @@ module.exports = eleventyConfig => {
   /**
    *  11ty Plugins
    */
-  eleventyConfig.addPlugin(directoryOutputPlugin)
-  eleventyConfig.addPlugin(navigationPlugin)
-  /*eleventyConfig.addPlugin(inclusiveLangPlugin, {
+  eleventyConfig.addPlugin(require('@11ty/eleventy-plugin-directory-output'))
+  eleventyConfig.addPlugin(require('@11ty/eleventy-navigation'))
+  /*eleventyConfig.addPlugin(require('@11ty/eleventy-plugin-inclusive-language'), {
     templateFormats: ['md', 'njk'], // default is 'md'
   })*/
-  eleventyConfig.addPlugin(pluginRss)
-  eleventyConfig.addPlugin(socialImages)
-  eleventyConfig.addPlugin(syntaxHighlight)
+  /** RSS feed generator, adds shortcode filters absoluteUrl, dateToRfc3339, dateToRfc822 */
+  eleventyConfig.addPlugin(require('@11ty/eleventy-plugin-rss'))
+  eleventyConfig.addPlugin(require('@11tyrocks/eleventy-plugin-social-images'))
+  //eleventyConfig.addPlugin(require('@11ty/eleventy-plugin-syntaxhighlight'))
   /** Copies PDF and video asset files to the public folder using same directory structure as input pages */
-  eleventyConfig.addPlugin(pluginPageAssets, eleventySetup.handlers.pluginPageAssetsConfig)
-  // eleventyConfig.addPlugin(pluginShareHighlight)
+  eleventyConfig.addPlugin(
+    require('eleventy-plugin-page-assets'),
+    eleventySetup.handlers.pluginPageAssetsConfig
+  )
+  // eleventyConfig.addPlugin(require('eleventy-plugin-share-highlight'))
   // eleventyConfig.addPlugin(criticalCss)
 
   /**
@@ -129,7 +123,7 @@ module.exports = eleventyConfig => {
   /**
    * Configured markdown-it instance, also used in markdown shortcodes
    */
-  eleventyConfig.setLibrary('md', eleventySetup.library.markdownLib)
+  eleventyConfig.setLibrary('md', eleventySetup.markdown.setup)
 
   /**
    * Use the 404 error page on dev server, Netlify picks it up automatically in production with a redirect

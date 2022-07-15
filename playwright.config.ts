@@ -7,7 +7,7 @@ import { devices } from '@playwright/test'
 const config: PlaywrightTestConfig = {
   testDir: './test/playwright',
   /* Folder for test artifacts such as screenshots, videos, traces, etc. */
-  outputDir: 'test/playwright/test-results/',
+  outputDir: './test/playwright/reports/',
   /* Maximum time one test can run for. */
   timeout: 30 * 1000,
   expect: {

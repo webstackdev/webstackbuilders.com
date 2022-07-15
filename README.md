@@ -183,7 +183,6 @@ ELEVENTY_ENV='production'|'development'
 - [eleventy-plugin-time-to-read](https://www.npmjs.com/package/eleventy-plugin-time-to-read) filter that approximates how long it would take a user to read a given text and outputs the result in your choice of language and format.
 - [@quasibit/eleventy-plugin-sitemap](https://www.npmjs.com/package/@quasibit/eleventy-plugin-sitemap) generate a sitemap using `ekalinin/sitemap` generator.
 - [@sardine/eleventy-plugin-external-links](https://www.npmjs.com/package/@sardine/eleventy-plugin-external-links) adds `target="_blank" rel="noreferrer"` to all external links to make them safer.
-- [eleventy-plugin-lazyimages](https://www.npmjs.com/package/eleventy-plugin-lazyimages) finds IMG elements in your markup, adds width and height attributes to the element, defers loading the image until it is in/near the viewport (lazy loading), and displays a blurry low-res placeholder until the image has loaded (LQIP).
 - [@sardine/eleventy-plugin-tinysvg](https://www.npmjs.com/package/@sardine/eleventy-plugin-tinysvg) inline SVG files and optimizes them with SVGO to keep them as small as possible.
 - [eleventy-plugin-meta-generator](https://www.npmjs.com/package/eleventy-plugin-meta-generator) adds a meta-generator tag to the head of the generated html files.
 - [eleventy-plugin-nesting-toc](https://www.npmjs.com/package/eleventy-plugin-nesting-toc) generates a nested table of content from page content using an filter.

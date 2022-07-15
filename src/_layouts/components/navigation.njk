@@ -1,5 +1,5 @@
 <nav class="nav js-nav" role="navigation" tabindex="-1">
-  {# Menu Toggle Button #}
+  {#- Menu Toggle Button #}
   <button
     class="iconbtn nav__togglebtn js-nav-toggle"
     aria-expanded="false"
@@ -13,8 +13,7 @@
       <span class="menuicon__bar"></span>
     </span>
   </button>
-
-  {# Nav Links  #}
+  {#- Nav Links  #}
   <div class="nav__content">
     <ul class="nav__menu js-nav-menu" id="nav-menu">
     {%- for item in collections.all | eleventyNavigation -%}
@@ -34,8 +33,7 @@
     {%- endfor -%}
     </ul>
   </div>
-
-  {# Menu BG Animation #}
+  {#- Menu BG Animation #}
   <div class="nav__bg">
       <div class="nav__bg__circle"></div>
   </div>

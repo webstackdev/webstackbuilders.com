@@ -1,8 +1,13 @@
+---
+eleventyExcludeFromCollections: true
+title: Site Manifest
+permalink: '/manifest.json'
+---
 {
-  "lang": "en",
+  "lang": "{{ site.organization }}",
   "dir": "ltr",
-  "name": "Webstack Builders, Inc.",
-  "short_name": "webstackbuilders",
+  "name": "{{ site.organization }}",
+  "short_name": "{{ site.name }}",
   "icons": [
     {
       "src": "/images/favicon/favicon-webapp-192x192.png",

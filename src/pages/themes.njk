@@ -12,20 +12,17 @@ eleventyExcludeFromCollections: true
   --color-primary-offset: {{ colors.primaryOffset }};
   --color-secondary: {{ colors.secondary }};
 {%- endmacro -%}
-
 {%- set default = themes|findById('default') -%}
 {%- set dark = themes|findById('dark') -%}
-
 :root {
   {{ colorscheme(default.colors) }}
 }
-
 @media(prefers-color-scheme: dark) {
   :root {
     {{ colorscheme(dark.colors) }}
   }
 }
-
+{# Loop for individual themes #}
 {% for theme in themes %}
 [data-theme='{{ theme.id }}'] {
   {{ colorscheme(theme.colors) }}

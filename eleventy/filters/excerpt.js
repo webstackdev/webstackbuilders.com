@@ -10,26 +10,20 @@
 const excerptMinimumLength = 80
 const excerptSeparator = '<!-- excerpt -->'
 
-module.exports = (content) => {
+exports.excerpt = content => {
   if (!content) return
   if (content.includes(excerptSeparator)) {
-      return content.substring(0, content.indexOf(excerptSeparator))
+    return content.substring(0, content.indexOf(excerptSeparator))
   } else if (content.length <= excerptMinimumLength) {
-      return content
+    return content
   }
   const excerptEnd = findExcerptEnd(content)
   return content.substring(0, excerptEnd)
 }
 
-const findExcerptEnd = (content) => {
+const findExcerptEnd = content => {
   if (content === '') return false
   const paragraphEnd = content.indexOf('</p>', 0) + 4
   if (paragraphEnd >= excerptMinimumLength) return paragraphEnd
-  return (
-    paragraphEnd +
-    findExcerptEnd(
-      content.substring(paragraphEnd),
-      paragraphEnd
-    )
-  )
+  return paragraphEnd + findExcerptEnd(content.substring(paragraphEnd), paragraphEnd)
 }

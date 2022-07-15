@@ -2,7 +2,7 @@
  * Usage in a Markdown file:
  * {% tag %}This contains some [**Markdown**](https://www.11ty.dev/docs/languages/markdown/){% endtag %}
  */
-const { markdownLib } = require('../library')
+const { markdownLib } = require('../markdown')
 const outdent = require('outdent')
 
 exports.customMarkdownShortcode = children => {

@@ -1,9 +1,10 @@
-    <!-- Facebook share metadata -->
-    <meta name="og:title" content="{% pageTitle %}" />
-    <meta name="og:description" content="{% pageDescription %}" />
-    <meta property="og:image" content="{% pageSocialImg %}" />
-    <!-- Twitter share metadata -->
-    <meta name="twitter:card" content="summary_large_image" />
-    {% if meta.twitterUsername %}
-    <meta name="twitter:creator" content="@{{ meta.twitterUsername }}" />
-    {% endif %}
+{#- Facebook share metadata -#}
+<meta name="og:title" content="{% pageTitle %}" />
+<meta name="og:description" content="{% pageDescription %}" />
+<meta property="og:image" content="{% pageSocialImg %}" />
+{#- Twitter share metadata #}
+<meta name="twitter:card" content="summary_large_image" />
+{%- if meta.twitterUsername -%}
+<meta name="twitter:creator" content="@{{ meta.twitterUsername }}" />
+{%- endif -%}
+
