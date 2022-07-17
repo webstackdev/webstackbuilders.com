@@ -1,11 +1,12 @@
 ---
-layout: base
-tags: nav
 title: Services
+date: 2021-03-31
+tags: site
+permalink: /services/
+layout: base
 eleventyNavigation:
   key: Services
   order: 3
-permalink: /services/
 ---
 <div class="page page--blog">
   <header class="page__header">
@@ -48,9 +49,17 @@ permalink: /services/
           <p class="articlelist__excerpt p-summary">
             {% if service.data.description %}
               {{ service.data.description }}
-            {% else %}
-              {{ service.templateContent | excerpt | striptags }}
+              {% set hasDescription = true %}
             {% endif %}
+            {%- if service.data.page.excerpt and (hasDescription !== true) -%}
+              {% renderTemplate "md" %}
+                {{ service.data.page.excerpt }}
+              {% endrenderTemplate %}
+              {% set hasExcerpt = true %}
+            {%- endif -%}
+            {%- if (hasExcerpt !== true) and (hasDescription !== true) -%}
+              <p>Should throw an error, if reached here it's because the page has no description set in the front matter and no excerpt separator set in the content body.</p>
+            {%- endif -%}
           </p>
         </li>
       {% endfor %}

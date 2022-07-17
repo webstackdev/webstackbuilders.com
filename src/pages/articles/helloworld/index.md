@@ -1,8 +1,8 @@
 ---
 title: 'Hello World'
 slug: hello-world
-tags: code
 date: 2021-03-31
+tags: code
 ---
 
 A demo of the "Page" template and kitchen sink sample of styled elements.
@@ -14,19 +14,18 @@ A demo of the "Page" template and kitchen sink sample of styled elements.
 ```yaml
 title: The Emergency Website Kit
 slug: emergency-website-kit
+date: 2021-03-31
 tags: code
-image: cover.jpg
-demo: https://emergency-site.dev/
 featured: true
-featuredImage: emergency.jpg
-featuredImageColor: '#5EBCB4'
+image: cover.jpg
+cardImage: emergency.jpg
 ```
 
 # Header 1
 
 [Link to another page](/about).
 
-### Header 2
+## Header 2
 
 ```js
 // Javascript code with syntax highlighting.

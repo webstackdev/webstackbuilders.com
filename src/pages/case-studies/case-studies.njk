@@ -1,7 +1,7 @@
 ---
 title: 'Case Studies'
-description: 'Past work and projects of Webstack Builders'
-tags: nav
+date: 2021-03-31
+tags: case-studies
 permalink: /case-studies/
 layout: base
 eleventyNavigation:
@@ -45,9 +45,17 @@ eleventyNavigation:
           <p class="articlelist__excerpt p-summary">
             {% if casestudy.data.description %}
               {{ casestudy.data.description }}
-            {% else %}
-              {{ casestudy.templateContent | excerpt | striptags }}
+              {% set hasDescription = true %}
             {% endif %}
+            {%- if casestudy.data.page.excerpt and (hasDescription !== true) -%}
+              {% renderTemplate "md" %}
+                {{ casestudy.data.page.excerpt }}
+              {% endrenderTemplate %}
+              {% set hasExcerpt = true %}
+            {%- endif -%}
+            {%- if (hasExcerpt !== true) and (hasDescription !== true) -%}
+              <p>Should throw an error, if reached here it's because the page has no description set in the front matter and no excerpt separator set in the content body.</p>
+            {%- endif -%}
           </p>
         </li>
       {% endfor %}

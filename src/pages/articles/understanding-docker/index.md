@@ -1,8 +1,8 @@
 ---
 title: 'Understanding Docker'
 slug: understanding-docker
-tags: code
 date: 2021-04-15
+tags: code
 ---
 
 # Understanding Docker

@@ -1,11 +1,12 @@
 ---
+title: All Articles
+date: 2021-03-31
+tags: article
+permalink: /articles/
 layout: base
-tags: nav
-title: Articles
 eleventyNavigation:
   key: Articles
   order: 4
-permalink: /articles/
 ---
 <div class="page page--blog">
   <header class="page__header">
@@ -48,9 +49,17 @@ permalink: /articles/
           <p class="articlelist__excerpt">
             {% if post.data.description %}
               {{ post.data.description }}
-            {% else %}
-              {{ post.templateContent | excerpt | striptags }}
+              {% set hasDescription = true %}
             {% endif %}
+            {%- if post.data.page.excerpt and (hasDescription !== true) -%}
+              {% renderTemplate "md" %}
+                {{ post.data.page.excerpt }}
+              {% endrenderTemplate %}
+              {% set hasExcerpt = true %}
+            {%- endif -%}
+            {%- if (hasExcerpt !== true) and (hasDescription !== true) -%}
+              <p>Should throw an error, if reached here it's because the page has no description set in the front matter and no excerpt separator set in the content body.</p>
+            {%- endif -%}
           </p>
         </li>
       {% endfor %}

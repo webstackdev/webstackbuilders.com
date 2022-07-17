@@ -3,7 +3,9 @@ if (!process.env.ELEVENTY_ENV_VARS_INIT) {
   require('dotenv').config({ path: './.env.local' })
 }
 
-// Local
+const { EleventyRenderPlugin } = require('@11ty/eleventy')
+
+// Local setup in the eleventy directory, like filters and shortcodes
 const eleventySetup = require('./eleventy')
 //const criticalCss = require('./eleventy/transforms/criticalCss')
 
@@ -126,9 +128,23 @@ module.exports = eleventyConfig => {
   eleventyConfig.setLibrary('md', eleventySetup.markdown.setup)
 
   /**
+   * Add a markdown renderer filter, use in *.11ty.js files as 'await this.renderTemplate(`# Title`)'
+   */
+  eleventyConfig.addPlugin(EleventyRenderPlugin)
+
+  /**
    * Use the 404 error page on dev server, Netlify picks it up automatically in production with a redirect
    */
   eleventyConfig.setBrowserSyncConfig(eleventySetup.handlers.pageNotFoundHandler)
+
+  /**
+   * The options object is passed straight through to gray-matter as gray matter options
+   */
+  eleventyConfig.setFrontMatterParsingOptions({
+    excerpt: true,
+    /** default excerpt separator is '---' */
+    excerpt_separator: '<!-- excerpt -->',
+  })
 
   /**
    * Collections: Articles

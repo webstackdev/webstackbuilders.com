@@ -9,6 +9,8 @@ egrep -rnw --exclude-dir=node_modules --exclude=yarn.lock --exclude=yarn-error.l
 ## Build and package.json
 
 ```json
+@github-docs/frontmatter // used in validateFrontmatter script
+chalk // used in validateFrontmatter script
 critical
 cross-var
 dotenv
@@ -19,6 +21,7 @@ np // a better npm publish, used in package.json script
 npm-run-all
 sass
 serve
+sprintf-js // used in validateFrontmatter script
 terser
 terser-webpack-plugin
 webpack

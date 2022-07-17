@@ -1,160 +1,114 @@
 /**
  * Filters to specify for use in .eleventy.js with `addFilter`
  */
-const { DateTime } = require('luxon')
-const slugifyLib = require('slugify')
 
-// local imports
-const { excerpt } = require('./excerpt')
+/**
+ * Gets the full data for the current page from collections using the page's path as a key
+ */
+const { currentPage } = require('./collections')
+exports.currentPage = currentPage
+
+/**
+ * Usage:
+ *   {{ build.timestamp | dateToFormat('yyyy') }}
+ * Friday, July 15, 2022 at 11:39:50 PM GMT+3
+ */
+const { dateToFormat } = require('./date')
+exports.dateToFormat = dateToFormat
+
+/**
+ * Usage:
+ *   <time dateTime="{{ post.date | dateToISO }}">{ post.date | readableDate }</time>
+ */
+const { dateToISO } = require('./date')
+exports.dateToISO = dateToISO
+
+/**
+ * Usage:
+ *   {{ webmention.published | dateFromISO | readableDate("dd LLL yyyy") }}
+ */
+const { dateFromISO } = require('./date')
+exports.dateFromISO = dateFromISO
+
+/**
+ * Indents an element by set width of spaces to help prettify template
+ * output when partials are deeply included. Whitespace is stripped out
+ * in production by minification, this is for developer experience only.
+ * Usage in Nunjucks template:
+ * {% filter indent(6, true) %}{% include "./something.njk" %}{% endfilter %}
+ */
 const { indentElement } = require('./indentElement')
+exports.indentElement = indentElement
 
-module.exports = {
-  /**
-   * Usage:
-   *   {%- set currentPage = collections.all | currentPage(page) -%}
-   *   {%- set autoDescription = currentPage.templateContent | excerpt | safe | striptags -%}
-   */
-  currentPage: function (allPages, currentPage) {
-    const matches = allPages.filter(page => page.inputPath === currentPage.inputPath)
-    if (matches && matches.length) {
-      return matches[0]
-    }
-    return null
-  },
+/**
+ * Example using Liquid templating engine:
+ *   {% assign taggers = tip.data.tags | exclude: "tips" %}
+ */
+const { exclude } = require('./collections')
+exports.exclude = exclude
 
-  /**
-   * Usage:
-   *   {{ build.timestamp | dateToFormat('yyyy') }}
-   */
-  dateToFormat: function (date, format) {
-    return DateTime.fromJSDate(date, { zone: 'utc' }).toFormat(String(format))
-  },
+/**
+ * Usage:
+ *   {% set otherposts = collections.posts | excludeItemFromCollection(page) | slice(-10) %}
+ */
+const { excludeItemFromCollection } = require('./collections')
+exports.excludeItemFromCollection = excludeItemFromCollection
 
-  /**
-   * Usage:
-   *   <time dateTime="{{ post.date | dateToISO }}">{ post.date | readableDate }</time>
-   */
-  dateToISO: function (date) {
-    return DateTime.fromJSDate(date, { zone: 'utc' }).toISO({
-      includeOffset: false,
-      suppressMilliseconds: true,
-    })
-  },
+/**
+ * Find item in associative array by key. Usage:
+ *   {%- set dark = themes|findById('dark') -%}
+ */
+const { findById } = require('./collections')
+exports.findById = findById
 
-  /**
-   * Usage:
-   *   {{ webmention.published | dateFromISO | readableDate("dd LLL yyyy") }}
-   */
-  dateFromISO: function (timestamp) {
-    return DateTime.fromISO(timestamp, { zone: 'utc' }).toJSDate()
-  },
+/**
+ * Friendly date filter. Supported tokens:
+ * https://moment.github.io/luxon/docs/manual/formatting.html#table-of-tokens
+ * Usage:
+ *   {{ date | readableDate('dd LLL yyyy') }}
+ */
+const { readableDate } = require('./date')
+exports.readableDate = readableDate
 
-  /**
-   * Split the content into excerpt and remainder based on the split delimeter '\n<!--more-->\n'.
-   * Usage:
-   *   {{ post.templateContent | excerpt | safe | striptags }}
-   */
-  excerpt,
+/**
+ * Print high numbers as "11K" for thousands. Usage:
+ *   {{ likeCount | humanizeNumber }}
+ */
+const { humanizeNumber } = require('./format')
+exports.humanizeNumber = humanizeNumber
 
-  /**
-   * Example using Liquid templating engine:
-   *   {% assign taggers = tip.data.tags | exclude: "tips" %}
-   */
-  exclude: function (values, itemToExclude) {
-    return values.filter(value => value !== itemToExclude)
-  },
+/**
+ * Usage:
+ *   <a href="mailto:{{ author.email | obfuscate | safe }}">
+ *     {{ author.email | obfuscate | safe }}
+ *   </a>
+ */
+const { obfuscate } = require('./format')
+exports.obfuscate = obfuscate
 
-  /**
-   * Usage:
-   *   {% set otherposts = collections.posts | excludeItemFromCollection(page) | slice(-10) %}
-   */
-  excludeItemFromCollection: function (collection, itemToExclude) {
-    return collection.filter(item => item.inputPath !== itemToExclude.inputPath)
-  },
+/**
+ * Sets or changes the extension on media files. Usage:
+ *   {{ imgsrc | setExt('webp') }}
+ */
+const { setExt } = require('./format')
+exports.setExt = setExt
 
-  /**
-   * Find item in associative array by key. Usage:
-   *   {%- set dark = themes|findById('dark') -%}
-   */
-  findById: function (array, id) {
-    return array.find(i => i.id === id)
-  },
+/**
+ * Usage:
+ *   {% set otherposts = collections.posts | excludePost(page) | slice(-10) %}
+ */
+const { slice } = require('./collections')
+exports.slice = slice
 
-  /**
-   * Print high numbers as "11K" for thousands. Usage:
-   *   {{ likeCount | humanizeNumber }}
-   */
-  humanizeNumber: function (num) {
-    if (num > 999) return (num / 1000).toFixed(1).replace(/\.0$/, '') + 'K'
-    return num
-  },
+/**
+ *  11ty has a built-in `slugify` filter
+ */
+const { slugify } = require('./format')
+exports.slugify = slugify
 
-  indentElement,
-
-  /**
-   * Usage:
-   *   <a href="mailto:{{ author.email | obfuscate | safe }}">
-   *     {{ author.email | obfuscate | safe }}
-   *   </a>
-   */
-  obfuscate: function (str) {
-    const chars = []
-    for (var i = str.length - 1; i >= 0; i--) {
-      chars.unshift(['&#', str[i].charCodeAt(), ';'].join(''))
-    }
-    return chars.join('')
-  },
-
-  /**
-   * Friendly date filter. Supported tokens:
-   * https://moment.github.io/luxon/docs/manual/formatting.html#table-of-tokens
-   * Usage:
-   *   {{ date | readableDate('dd LLL yyyy') }}
-   */
-  readableDate: function (date, format) {
-    const datetimeObj = DateTime.fromJSDate(date, { zone: 'utc' })
-    if (!format) {
-      format = datetimeObj.hour + datetimeObj.minute > 0 ? 'dd LLL yyyy - HH:mm' : 'dd LLL yyyy'
-    }
-    return datetimeObj.toFormat(format)
-  },
-
-  /**
-   * Sets or changes the extension on media files. Usage:
-   *   {{ imgsrc | setExt('webp') }}
-   */
-  setExt: function (path, ext) {
-    if (!ext) return path
-    return path.substr(0, path.lastIndexOf('.')) + `.${ext}`
-  },
-
-  /**
-   * Usage:
-   *   {% set otherposts = collections.posts | excludePost(page) | slice(-10) %}
-   */
-  slice: function (array, start, end) {
-    return end ? array.slice(start, end) : array.slice(start)
-  },
-
-  /**
-   *  11ty has a built-in `slugify` filter
-   */
-  // @TODO: refactor slugify to slugifyTitleAnchors in eleventy/library/markdown
-  slugify: function (str) {
-    if (!str) return
-
-    return slugifyLib(str, {
-      lower: true,
-      strict: true,
-      remove: /["]/g,
-    })
-  },
-
-  /**
-   * Example using Liquid templating engine:
-   *   {% assign category = collections.categories | withCategory: "articles" %}
-   */
-  withCategory: function (values, category) {
-    return values.find(value => value.data.key === category)
-  },
-}
+/**
+ * Example using Liquid templating engine:
+ *   {% assign category = collections.categories | withCategory: "articles" %}
+ */
+const { withCategory } = require('./collections')
+exports.withCategory = withCategory

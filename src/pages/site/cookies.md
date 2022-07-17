@@ -1,3 +1,10 @@
+---
+title: 'Cookie Policy'
+date: 2021-03-31
+permalink: /cookies/
+layout: page
+---
+
 Cookie Policy Template [Text Format]
 
 Last updated [Date]

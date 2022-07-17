@@ -1,5 +1,6 @@
 {
   "tags": "article",
   "layout": "article",
-  "permalink": "/articles/{{ page.fileSlug }}/"
+  "permalink": "/articles/{{ page.fileSlug }}/",
+  "featured": false
 }

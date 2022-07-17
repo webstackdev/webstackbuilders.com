@@ -1,3 +1,10 @@
+/**
+ * Indents an element by set width of spaces to help prettify template
+ * output when partials are deeply included. Whitespace is stripped out
+ * in production by minification, this is for developer experience only.
+ * Usage in Nunjucks template:
+ * {% filter indent(6, true) %}{% include "./something.njk" %}{% endfilter %}
+ */
 const normalize = (value, defaultValue) => {
   if (value === null || value === undefined || value === false) {
     return defaultValue

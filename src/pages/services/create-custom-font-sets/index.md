@@ -1,7 +1,8 @@
 ---
 title: 'Create Custom Font Sets'
-description: 'Create custom font sets use Font Forge'
+slug: 'custom-fonts'
 date: 2021-03-31
+tags: services
 ---
 
 # Create custom font sets use Font Forge

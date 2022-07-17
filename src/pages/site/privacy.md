@@ -1,6 +1,6 @@
 ---
 title: 'Privacy Policy'
-description: 'Privacy policy for the Webstack Builders corporate website.'
+date: 2021-03-31
 permalink: /privacy/
 layout: page
 ---

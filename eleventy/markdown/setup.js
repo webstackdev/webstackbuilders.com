@@ -27,6 +27,15 @@ const markdownItLibConfig = {
   },
 }
 
+/*
+@TODO: Markdown filters need access to the markdownIt instance. From .eleventy.js file:
+module.exports = function (eleventyConfig) {
+  eleventyConfig.addFilter("markdown", function (rawString) {
+    return markdown.renderInline(rawString);
+  });
+}
+*/
+
 /**
  * Renders header link with `title` being the Markdown document's heading text:
  *
@@ -133,6 +142,12 @@ const markdownMermaidConfig = {
  */
 const markdownShikiConfig = {
   theme: 'github-dark',
+  /*
+  theme: {
+    dark: 'github-dark',
+    light: 'github-light'
+  }
+  */
 }
 
 /**

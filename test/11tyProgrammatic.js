@@ -4,23 +4,23 @@
 
 // Output to JSON:
 const Eleventy = require('@11ty/eleventy')
-/*
-;(async function () {
+
+exports.eleventyProgrammatic = async filePath => {
   //  first argument is the input directory, second argument is the output directory.
-  let elev = new Eleventy('.', '_site', {
+  let eleventy = new Eleventy(filePath, 'public', {
     // --quiet
-    quietMode: true,
+    //quietMode: false,
 
     // --config
-    configPath: '.eleventy.js',
+    configPath: './.eleventy.js',
 
-    config: function (eleventyConfig) {
+    /*config: function (eleventyConfig) {
       // Do some custom Configuration API stuff
       // Works great with eleventyConfig.addGlobalData
-    },
+    },*/
   })
-  let json = await elev.toJSON()
-  // All results
-  console.log(json)
-})()
-*/
+
+  // Output a JSON structure (does not write to the file system)
+  const output = await eleventy.toJSON()
+  return output
+}

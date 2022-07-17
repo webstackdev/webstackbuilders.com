@@ -1,7 +1,7 @@
 ---
 title: 'About'
-description: 'Review feature info and customization details.'
-tags: nav
+date: 2021-03-31
+tags: site
 permalink: /about/
 layout: page
 eleventyNavigation:

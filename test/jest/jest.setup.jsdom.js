@@ -1,6 +1,8 @@
 /**
- * Executed before each test file is executed but after
- * the testing framework is installed in the environment
+ * This file is called by `setupFilesAfterEnv`, which executed before each test
+ * file is executed but after the testing framework is installed in the environment.
+ * The `beforeAll` and `beforeEach` Jest globals are called with resets for the
+ * JSDOM environment, which otherwise would retain state between tests (document object).
  */
 const { toHaveNoViolations } = require('jest-axe')
 const { TextEncoder, TextDecoder } = require('util')
