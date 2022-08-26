@@ -1,16 +1,37 @@
+const _ = require('lodash')
+const buildPaths = require('./scripts/build/paths')
+
 // load environmental variables if not already loaded
 if (!process.env.ELEVENTY_ENV_VARS_INIT) {
   require('dotenv').config({ path: './.env.local' })
 }
 
-const { EleventyRenderPlugin } = require('@11ty/eleventy')
-
 // Local setup in the eleventy directory, like filters and shortcodes
 const eleventySetup = require('./eleventy')
-//const criticalCss = require('./eleventy/transforms/criticalCss')
+const {
+  getBuildPathsGlobalData,
+  getSiteGlobalData,
+  getStatsGlobalData,
+} = require('./eleventy/config/globalData')
+const { addEleventyPlugins, disabled, enabled } = require('./eleventy/config/plugins')
 
-/** @param { import('./@types/eleventy').Config } config */
+/** @param { import('./@types/eleventyConfig').Config } eleventyConfig */
 module.exports = eleventyConfig => {
+  /**
+   * Build paths available as global variables for use in e.g. src/_generate templates
+   */
+  eleventyConfig.addGlobalData('buildPaths', getBuildPathsGlobalData())
+  /**
+   * Global data for use in build logging: `timestamp` and `env`
+   */
+  eleventyConfig.addGlobalData('stats', getStatsGlobalData())
+
+  /**
+   * Add site global data keys: `author`, `baseUrl`, `description`,
+   * `domain`, `email`, `lang`, `locale`, `organization`, `title`
+   */
+  eleventyConfig.addGlobalData('site', getSiteGlobalData())
+
   /**
    * Use `.eleventyignore` for dev server files to watch instead of default `.gitignore`
    */
@@ -22,33 +43,91 @@ module.exports = eleventyConfig => {
    */
   eleventyConfig.setWatchThrottleWaitTime(100) // in milliseconds
 
+  /** Setting for '@11ty/eleventy-plugin-directory-output' */
+  eleventyConfig.setQuietMode(true)
+
   /**
    *  11ty Plugins
    */
-  eleventyConfig.addPlugin(require('@11ty/eleventy-plugin-directory-output'))
-  eleventyConfig.addPlugin(require('@11ty/eleventy-navigation'))
-  /*eleventyConfig.addPlugin(require('@11ty/eleventy-plugin-inclusive-language'), {
-    templateFormats: ['md', 'njk'], // default is 'md'
-  })*/
-  /** RSS feed generator, adds shortcode filters absoluteUrl, dateToRfc3339, dateToRfc822 */
-  eleventyConfig.addPlugin(require('@11ty/eleventy-plugin-rss'))
-  eleventyConfig.addPlugin(require('@11tyrocks/eleventy-plugin-social-images'))
-  //eleventyConfig.addPlugin(require('@11ty/eleventy-plugin-syntaxhighlight'))
-  /** Copies PDF and video asset files to the public folder using same directory structure as input pages */
-  eleventyConfig.addPlugin(
-    require('eleventy-plugin-page-assets'),
-    eleventySetup.handlers.pluginPageAssetsConfig
-  )
-  // eleventyConfig.addPlugin(require('eleventy-plugin-share-highlight'))
-  // eleventyConfig.addPlugin(criticalCss)
+  addEleventyPlugins(eleventyConfig, {
+    /**
+     * Set navigation in frontmatter under 'eleventyNavigation' item with 'tag' and
+     * optional 'parent' elements, generates navigation and breadcrumbs from shortcode
+     * in Nunjucks or Liquid templates.
+     */
+    '@11ty/eleventy-navigation': enabled,
 
-  /**
-   * Creates optimized images and responsive image tags
-   */
-  eleventyConfig.addNunjucksAsyncShortcode(
-    'image',
-    eleventySetup.nunjucksAsyncShortcodes.asyncImageHandler
-  )
+    /**
+     * Group and sort Eleventy CLI verbose build output by directory with file size and benchmarks
+     */
+    '@11ty/eleventy-plugin-directory-output': enabled,
+
+    /**
+     * Outputs command line warnings for weasel words like "obviously", "basically", etc.
+     */
+    '@11ty/eleventy-plugin-inclusive-language': disabled,
+
+    /**
+     * RSS feed generator, adds shortcode filters absoluteUrl, dateToRfc3339, dateToRfc822.
+     */
+    '@11ty/eleventy-plugin-rss': enabled,
+
+    /**
+     * Generates images as headers for use in social shares
+     */
+    '@11tyrocks/eleventy-plugin-social-images': enabled,
+
+    /**
+     * Provides a shortcode to generate a JSON-LD script per-page including the <script> tag.
+     */
+    '@quasibit/eleventy-plugin-schema': enabled,
+
+    /**
+     * Provides a shortcode to generate a sitemap.xml file using _generate/sitemap.njk
+     */
+    '@quasibit/eleventy-plugin-sitemap': enabled,
+
+    /**
+     * Adds `target="_blank" rel="noreferrer"` to all external links
+     */
+    '@sardine/eleventy-plugin-external-links': enabled,
+
+    'eleventy-critical-css': disabled,
+
+    /**
+     * Generate a set of favicon icons from a single image file.
+     */
+    'eleventy-favicon': enabled,
+
+    /**
+     * Accessible emoji shortcode and filter. Usage:
+     * {% emoji "⚙️", "settings gear" %} or {{ "⚙️" | emoji: "settings gear" }}
+     */
+    'eleventy-plugin-emoji': enabled,
+
+    /**
+     * Generates a nested table of contents for use in an aside from page contents
+     */
+    'eleventy-plugin-nesting-toc': enabled,
+
+    /**
+     * Copies PDF and video asset files to the public folder using input page directory structure
+     */
+    'eleventy-plugin-page-assets': enabled,
+
+    /**
+     * Element embedded in a 'highlight' paired shortcode will bring up share options
+     * on hover, and insert the quoted text and a link to the current page on click.
+     * You can share it on any platform that registers as a share target. Like Medium.
+     */
+    'eleventy-plugin-share-highlight': disabled,
+
+    /**
+     * Adds filter for analyzing content input into the filter and returning a
+     * time-to-read estimate to use in text like 'This will take 3 minutes to read'.
+     */
+    'eleventy-plugin-time-to-read': enabled,
+  })
 
   /**
    * Map layouts to the nunjucks file in _layouts
@@ -59,68 +138,27 @@ module.exports = eleventyConfig => {
 
   /**
    * Watch compiled assets for changes. When the file or the files
-   * in this directory change Eleventy will trigger a build. Files
-   * are updated by Webpack workflow when scss or js files change.
+   * in this directory change Eleventy will trigger a build. Files are
+   * updated by Gulp and Webpack workflow when scss or js files change.
    */
-  eleventyConfig.addWatchTarget('./src/assets/scss/index.css')
-  eleventyConfig.addWatchTarget('./src/assets/script/index.js')
+  eleventyConfig.addWatchTarget(`${buildPaths.scssSourceDir}/index.css`)
+  eleventyConfig.addWatchTarget(`${buildPaths.jsSourceDir}/index.js`)
 
   /**
    * Files to pass through to the `public` folder. Strips `input` from the path (`src` here).
    */
+  // @TODO: Moving to Gulp task `build:assets`
   eleventyConfig.addPassthroughCopy('src/manifest.json')
   eleventyConfig.addPassthroughCopy('src/robots.txt')
-  eleventyConfig.addPassthroughCopy({ 'src/assets/images/favicon': 'images/favicon' })
   eleventyConfig.addPassthroughCopy({ 'src/assets/images/site': 'images/site' })
   eleventyConfig.addPassthroughCopy({ 'src/assets/fonts': 'fonts' })
 
   /**
-   * Filters for use in templates
+   * Cache eleventyConfig for the addExtensions dynamic extension loader. This system loads
+   * filters, shortcodes, and functions from the module exports used in `eleventy/index.js`.
    */
-  Object.keys(eleventySetup.filters).forEach(filterName => {
-    eleventyConfig.addFilter(filterName, eleventySetup.filters[filterName])
-  })
-
-  /**
-   * Shortcodes and Nunjucks Tags for use in templates
-   */
-  Object.keys(eleventySetup.shortcodes).forEach(shortcodeName => {
-    eleventyConfig.addShortcode(shortcodeName, eleventySetup.shortcodes[shortcodeName])
-  })
-
-  /**
-   * Paired Shortcodes and Nunjucks Tags for use in templates
-   */
-  Object.keys(eleventySetup.pairedShortcodes).forEach(pairedShortcodeName => {
-    eleventyConfig.addPairedShortcode(
-      pairedShortcodeName,
-      eleventySetup.pairedShortcodes[pairedShortcodeName]
-    )
-  })
-
-  /**
-   * Transforms
-   * @TODO: needs refactored, right now this is production build tasks like
-   * HTML minification and critical CSS.
-   */
-  if (process.env.ELEVENTY_ENV === 'production') {
-    Object.keys(eleventySetup.transforms).forEach(transformName => {
-      //eleventyConfig.addTransform(transformName, eleventySetup.transforms[transformName])
-    })
-  }
-
-  /**
-   * Global data for use in build logging
-   */
-  eleventyConfig.addGlobalData('stats', () => {
-    const now = new Date()
-    const dateFormat = { dateStyle: 'full', timeStyle: 'long' }
-    return {
-      timestamp: new Intl.DateTimeFormat('en-US', dateFormat).format(now),
-      // for use in templates
-      env: process.env.ELEVENTY_ENV,
-    }
-  })
+  const { extensionsInit } = require('./eleventy/utils/extensions')
+  extensionsInit(eleventyConfig, eleventySetup)
 
   /**
    * Configured markdown-it instance, also used in markdown shortcodes
@@ -128,9 +166,10 @@ module.exports = eleventyConfig => {
   eleventyConfig.setLibrary('md', eleventySetup.markdown.setup)
 
   /**
-   * Add a markdown renderer filter, use in *.11ty.js files as 'await this.renderTemplate(`# Title`)'
+   * Add a markdown renderer filter, use in *.11ty.js files as
+   * 'await this.renderTemplate(`# Title`)'. Must come after setLibrary('md', _) call.
    */
-  eleventyConfig.addPlugin(EleventyRenderPlugin)
+  eleventyConfig.addPlugin(require('@11ty/eleventy').EleventyRenderPlugin)
 
   /**
    * Use the 404 error page on dev server, Netlify picks it up automatically in production with a redirect
@@ -151,7 +190,7 @@ module.exports = eleventyConfig => {
    */
   eleventyConfig.addCollection('articles', function (collection) {
     return collection
-      .getFilteredByGlob('src/pages/articles/**/*.md')
+      .getFilteredByGlob(`${buildPaths.articlesSourceDir}/**/*.md`)
       .filter(item => item.data.permalink !== false)
       .sort((a, b) => b.date - a.date)
   })
@@ -161,7 +200,7 @@ module.exports = eleventyConfig => {
    */
   eleventyConfig.addCollection('featured', function (collection) {
     return collection
-      .getFilteredByGlob('src/pages/articles/**/*.md')
+      .getFilteredByGlob(`${buildPaths.articlesSourceDir}/**/*.md`)
       .filter(item => item.data.featured)
       .sort((a, b) => b.date - a.date)
   })
@@ -171,7 +210,7 @@ module.exports = eleventyConfig => {
    */
   eleventyConfig.addCollection('casestudies', function (collection) {
     return collection
-      .getFilteredByGlob('src/pages/case-studies/**/*.md')
+      .getFilteredByGlob(`${buildPaths.casestudiesSourceDir}/**/*.md`)
       .filter(item => item.data.permalink !== false)
   })
 
@@ -180,8 +219,18 @@ module.exports = eleventyConfig => {
    */
   eleventyConfig.addCollection('services', function (collection) {
     return collection
-      .getFilteredByGlob('src/pages/services/**/*.md')
+      .getFilteredByGlob(`${buildPaths.servicesSourceDir}/**/*.md`)
       .filter(item => item.data.active)
+  })
+
+  eleventyConfig.addCollection('sitemap', function (collection) {
+    return collection.getFilteredByTags(
+      `articles`,
+      `case-studies`,
+      `services`,
+      `testimonials`,
+      `site`
+    )
   })
 
   return {
@@ -194,14 +243,7 @@ module.exports = eleventyConfig => {
 
       /**
        * The top level directory/file/glob used to look for templates, such as Markdown
-       * files or 11ydata.js / 11ydata.json / (subdir|markdownFilename).json files
-       *
-       * 1. For `posts/subdir/my-first-blog-post.md`:
-       *   posts/subdir/my-first-blog-post.11tydata.js
-       *   posts/subdir/my-first-blog-post.11tydata.json
-       *   posts/subdir/my-first-blog-post.json
-       * 2. For all templates in subdir: posts/subdir/subdir.11tydata.js, etc.
-       * 3. For parent directory, applies to all subdirectories: posts/posts.11tydata.js , etc.
+       * files or 11ydata.js / 11ydata.json / (subdir|markdownFilename).json files.
        */
       input: 'src',
 

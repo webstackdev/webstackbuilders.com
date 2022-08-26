@@ -1,7 +1,7 @@
 const outdent = require('outdent')
 
-exports.spinner = () => {
-  const layer = (index) => `
+exports.spinner = _ => {
+  const layer = index => `
 <div class="spinner__layer spinner__layer--${index}">
   <div class="spinner__circle-clipper spinner__left">
     <div class="spinner__circle"></div>
@@ -17,7 +17,7 @@ exports.spinner = () => {
 
   const layers = []
   for (let i = 1; i <= 4; i++) {
-      layers.push(layer(i))
+    layers.push(layer(i))
   }
   const output = `
 <div class="spinner">

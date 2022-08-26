@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[` Gets correct path for absolute path parameter 1`] = `
+exports[`Async image handler tests Gets correct path for absolute path parameter 1`] = `
 "
 <picture>
   <source

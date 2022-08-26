@@ -1,19 +1,12 @@
 /**
  * Paired shortcodes to specify for use in .eleventy.js with `addPairedShortcode`
+ *
+ * Use the Configuration API 'getFilter' method to use a filter inside of a shortcode.
  */
 
 // local imports
 const { callout } = require('./callout')
+exports.callout = callout
+
 const { signup } = require('./signup')
-
-module.exports = {
-  /**
-   * Special formatting box for callouts in Markdown posts
-   */
-  callout,
-
-  /**
-   * Newsletter Signup CTA
-   */
-  signup,
-}
+exports.signup = signup

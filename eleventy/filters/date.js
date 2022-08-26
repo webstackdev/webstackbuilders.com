@@ -1,19 +1,53 @@
 const { DateTime } = require('luxon')
 
+// Create a DateTime from a JavaScript Date object. Uses the default zone.
+// DateTime.fromJSDate(date: Date, options: Object)
+
 /**
+ * Formats a date, defaults to May 16, 2017
+ *
  * Usage:
  *   {{ build.timestamp | dateToFormat('yyyy') }}
- * Friday, July 15, 2022 at 11:39:50 PM GMT+3
+ *
+ * @param _
+ * @param date
+ * @param format
  */
-exports.dateToFormat = (date, format) => {
+exports.dateToFormat = (_, date, format = "LLL dd', 'yyyy") => {
   return DateTime.fromJSDate(date, { zone: 'utc' }).toFormat(String(format))
 }
 
 /**
+ * Friendly date filter. Supported tokens:
+ * https://moment.github.io/luxon/docs/manual/formatting.html#table-of-tokens
+ * Usage:
+ *   {{ date | readableDate }}
+ *   {{ webmention.published | dateFromISO | readableDate }}
+ *
+ * @param _
+ * @param date
+ * @param format
+ */
+exports.readableDate = (_, date, format) => {
+  const datetimeObj = DateTime.fromJSDate(date, { zone: 'utc' })
+  if (!format) {
+    format = datetimeObj.hour + datetimeObj.minute > 0 ? 'dd LLL yyyy - HH:mm' : 'dd LLL yyyy'
+  }
+  return datetimeObj.toFormat(format)
+}
+
+/**
+ * Returns an ISO 8601-compliant string representation of this DateTime
+ *
+ * EXAMPLE: Friday, July 15, 2022 at 11:39:50 PM GMT+3
+ *
  * Usage:
  *   <time dateTime="{{ post.date | dateToISO }}">{ post.date | readableDate }</time>
+ *
+ * @param _
+ * @param date
  */
-exports.dateToISO = date => {
+exports.dateToISO = (_, date) => {
   return DateTime.fromJSDate(date, { zone: 'utc' }).toISO({
     includeOffset: false,
     suppressMilliseconds: true,
@@ -21,23 +55,14 @@ exports.dateToISO = date => {
 }
 
 /**
+ * Create a DateTime from an ISO 8601 string
+ *
  * Usage:
  *   {{ webmention.published | dateFromISO | readableDate("dd LLL yyyy") }}
+ *
+ * @param _
+ * @param timestamp
  */
-exports.dateFromISO = timestamp => {
+exports.dateFromISO = (_, timestamp) => {
   return DateTime.fromISO(timestamp, { zone: 'utc' }).toJSDate()
-}
-
-/**
- * Friendly date filter. Supported tokens:
- * https://moment.github.io/luxon/docs/manual/formatting.html#table-of-tokens
- * Usage:
- *   {{ date | readableDate('dd LLL yyyy') }}
- */
-exports.readableDate = (date, format) => {
-  const datetimeObj = DateTime.fromJSDate(date, { zone: 'utc' })
-  if (!format) {
-    format = datetimeObj.hour + datetimeObj.minute > 0 ? 'dd LLL yyyy - HH:mm' : 'dd LLL yyyy'
-  }
-  return datetimeObj.toFormat(format)
 }

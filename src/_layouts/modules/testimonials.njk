@@ -1,14 +1,14 @@
 {# This is the home page module for testimonials #}
 <h1>Testimonial</h1>
 <ul>
-{% for testimonial in testimonials %}
+{% for testimonial in collections.testimonials %}
   <li>
     {% set url = ["/avatars/", testimonial.avatar] | join %}
     {% set alt = ["Photo of ", testimonial.name] | join %}
     <div>{{ testimonial.name }}</div>
     <div>{{ testimonial.organization }}</div>
     {% image url, alt %}
-    <p>{{ testimonial.text }}</p>
+    <p>{{ testimonial.templateContent }}</p>
   </li>
 {% endfor %}
 </ul>

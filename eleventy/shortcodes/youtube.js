@@ -4,8 +4,8 @@
  */
 const outdent = require('outdent')
 
-exports.youtubeShortcode = id => {
-   const output =`
+exports.youtubeShortcode = (_, id) => {
+  const output = `
 <style>
 .video-wrapper {
   position: relative;

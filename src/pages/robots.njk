@@ -1,10 +1,9 @@
 ---
-title: www.robotstxt.org
-date: 2021-03-31
 permalink: '/robots.txt'
 eleventyExcludeFromCollections: true
+layout: null
 ---
 User-agent: *
 Disallow: /build.txt
 
-Sitemap: {{ site.url }}/sitemap.xml
+Sitemap: {{ '/sitemap.xml' | absoluteUrl }}

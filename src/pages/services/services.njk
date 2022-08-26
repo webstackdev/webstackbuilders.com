@@ -30,7 +30,7 @@ eleventyNavigation:
 
           <div class="articlelist__meta">
             <time class="articlelist__date dt-published" datetime="{{ service.date | dateToISO }}">
-              {{ service.date | readableDate('dd LLL yyyy') }}
+              {{ service.date | readableDate }}
             </time>
 
             {% if service.data.tags %}

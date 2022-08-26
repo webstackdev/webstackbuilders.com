@@ -4,17 +4,17 @@
 
 // @TODO: this code isn't used in production yet
 
-/*
+/**
 @TODO: would be nice to have diffing in code block like with prism
        using syntaxhighlight plugin and `diff-*` language prefix:
-
+ 
 ```diff-js
 +function myFunction() {
    // …
 -  return true;
  }
 ```
-*/
+ */
 
 /** Can do SVG rendering */
 

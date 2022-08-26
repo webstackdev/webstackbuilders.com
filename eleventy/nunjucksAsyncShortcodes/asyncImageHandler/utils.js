@@ -4,6 +4,9 @@ const nunjucks = require('nunjucks')
 
 /**
  * Eleventy image plugin fails when alt property isn't set so add better error description
+ *
+ * @param src
+ * @param alt
  */
 exports.checkForAltMetadata = (src, alt) => {
   if (!alt) {
@@ -16,14 +19,13 @@ exports.checkForAltMetadata = (src, alt) => {
  * Use the original file slug in custom filenames for generated images.
  * API from Eleventy images plugin.
  *
- * @param {string} id hash of the original image
+ * @param _
  * @param {string} src original image path
  * @param {number} width current width in px
  * @param {'jpeg'|'webp'} format current file format
- * @param {object} options set of options passed to the Image call
  * @returns String the image file name with extension
  */
-exports.filenameFormat = (id, src, width, format, options) => {
+exports.filenameFormat = (_, src, width, format) => {
   const extension = path.extname(src)
   const name = path.basename(src, extension)
   return `${name}-${width}w.${format}`
@@ -33,6 +35,9 @@ exports.filenameFormat = (id, src, width, format, options) => {
  * Image files are either in /public/images directory or in a Markdown page's folder
  * next to index.md. Sources that are absolute paths are assumed relative to the images
  * asset directory, otherwise assumed to be in the Markdown file's directory.
+ *
+ * @param src
+ * @param pageUrl
  */
 exports.getImagePaths = (src, pageUrl) => {
   /*
@@ -97,6 +102,9 @@ exports.pathsExist = (imagePath, outputDir, src) => {
 /**
  * Render a Nunjucks template using a new environment, so it doesn't pick up Eleventy's
  * configuration for the Nunjucks compiler.
+ *
+ * @param template
+ * @param context
  */
 exports.renderTemplate = (template, context) => {
   const env = new nunjucks.Environment(
@@ -116,7 +124,8 @@ exports.renderTemplate = (template, context) => {
  * Returns a string with srcset for script to swap in
  *
  * @param [object] formatItems An array of objects for a media type like jpeg, each with a 'srcset' key
- * @returns {String} a string of source sets formatted for a <picture> element
+ * @param formatItems
+ * @returns {string} a string of source sets formatted for a <picture> element
  */
 const getDataSrcset = formatItems => {
   return formatItems

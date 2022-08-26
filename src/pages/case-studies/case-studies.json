@@ -1,5 +1,0 @@
-{
-  "tags": "case-studies",
-  "layout": "page",
-  "permalink": "/case-studies/{{ page.fileSlug }}/"
-}

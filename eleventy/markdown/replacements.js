@@ -3,7 +3,7 @@
  * via the replacements plugin. Adds smart quotes, arrows, etc.
  */
 
-/*
+/**
  * @TODO: This file is a mess and needs a lot of work. Markdown-it has a built-in
  *        typographer that can be enabled globally. There are two plugins to add
  *        rules to the typographer, one with smart arrows and another with a nice
@@ -67,6 +67,10 @@ markdownReplacements.replacements.push({
 
 var ARROWS_RE = /--|==/
 
+/**
+ *
+ * @param state
+ */
 function smartArrows(state) {
   for (var blkIdx = state.tokens.length - 1; blkIdx >= 0; blkIdx--) {
     if (state.tokens[blkIdx].type !== 'inline') {
@@ -79,6 +83,10 @@ function smartArrows(state) {
   }
 }
 
+/**
+ *
+ * @param inlineTokens
+ */
 function doReplacementsInToken(inlineTokens) {
   var i, token
 

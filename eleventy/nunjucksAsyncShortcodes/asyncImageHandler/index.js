@@ -15,6 +15,7 @@ const ImageWidths = {
 }
 
 exports.asyncImageHandler = async function (
+  _,
   src,
   alt,
   className = '',

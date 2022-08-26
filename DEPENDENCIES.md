@@ -10,24 +10,36 @@ egrep -rnw --exclude-dir=node_modules --exclude=yarn.lock --exclude=yarn-error.l
 
 ```json
 @github-docs/frontmatter // used in validateFrontmatter script
+@types/node // used by Gulp
+@types/gulp // used by Gulp
+@types/serve-static // used in eleventy global type definitions in @types directory
+@yarnpkg/cli // used in Yarn plugin
 chalk // used in validateFrontmatter script
 critical
 cross-var
 dotenv
 dotenv-cli
 html-minifier // used in shortcodes
+lazypipe // used to factor out pipe() calls in gulp tasks for testing
+map-stream // testing Gulp pipe workflows
+markdown-frontmatter-processor // used in validateFrontmatter script to write dates back
 netlify-lambda
 np // a better npm publish, used in package.json script
 npm-run-all
+npm-scripts-info // use a scripts-info key in package.json w/ text messags for scripts
+plumber // used in Gulp tasks
+read-pkg-up // used in gulpfile dynamic templates to get npm-scripts-info
 sass
 serve
 sprintf-js // used in validateFrontmatter script
 terser
 terser-webpack-plugin
+ts-node // used by Gulp to load gulpfile.ts
 webpack
 webpack-cli
 webpack-merge
 workbox-cli
+vinyl-string // testing Gulp pipe workflows
 ```
 
 ## Cache busting script in \_data
@@ -39,7 +51,7 @@ md5-file
 ## ./scripts/npm-package-scripts
 
 ```json
-yargs
+
 ```
 
 ## Used in Gulpfile
@@ -80,11 +92,16 @@ luxon // date-time lib used in filters
 markdown-it
 markdown-it-anchor
 markdown-it-emoji
+posthtml // this and posthtml-urls used in 'htmlToAbsoluteUrls' filter over ride
+posthtml-urls
 postcss
 sharp // used in image lazy loading script
 ```
 
 ## Testing
+
+If you get red output in a passing test run from Jest, it could be console errors
+passed from other things besides Jest. You can quiet that with `jest-mock-console`
 
 ```json
 @babel/core
@@ -100,8 +117,10 @@ jest
 jest-axe // accessibility testing
 jest-environment-jsdom // must be installed separately to use jsdom
 jsdom
-mock-cwd
-mock-fs
+mock-cwd // mock the current working directory
+unionfs // for mocking filesystem
+memfs // for mocking filesystem
+rewire // used in eleventy/utils/extensions test to mock private vars
 ts-jest
 ts-loader
 ```
@@ -115,10 +134,9 @@ ts-loader
 ## Typescript used in client-side script
 
 ```json
-@types/markdown-it // still used?
+@types/markdown-it
 tslib
 typescript
-lazysizes // for image lazyload
 ```
 
 ## Linting
@@ -146,25 +164,31 @@ stylelint-order
 stylelint-scss
 ```
 
-## MBX Dependencies
+## Client-side libraries
+
+```json
+focus-trap
+lazysizes // for image lazyload
+lodash
+title-case // used in page title short code
+```
+
+## Pages in REMOVE directory dependencies
 
 ```json
 @babel/plugin-transform-react-jsx
 @babel/plugin-transform-runtime
 @babel/preset-env
+```
+
 babel-loader
 clean-css
 cssesc
 dompurify
-focus-trap
+encoding
 focus-visible
-html-entities
-html-minifier
 infinite-scroll
-lodash
 memfs
 preact
 sanitize-html
 twitter
-encoding
-```

@@ -1,7 +1,0 @@
-{%- set absolutePageUrl -%}{{ page.url | url | absoluteUrl(site.url) }}{%- endset -%}
-{%- set isArticle = layout == 'article' -%}
-{%- if isArticle -%}
-  {#- Auto-Generate a Description for Articles -#}
-  {%- set currentPage = collections.all | currentPage(page) -%}
-  {%- set autoDescription = currentPage.templateContent | excerpt | safe | striptags -%}
-{% endif %}

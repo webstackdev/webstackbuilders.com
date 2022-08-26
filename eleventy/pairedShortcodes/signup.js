@@ -3,34 +3,34 @@ const random = require('lodash/random')
 const Icon = require('../shortcodes/icon').icon
 const Spinner = require('./utils').spinner
 
-const SignupForm = (source) => {
+const SignupForm = (_, source) => {
   const MC = {
     url: 'https://dev.us18.list-manage.com/subscribe/post',
     user: '64781452976687d0f4f2ea370',
-    list: '772b9208b5'
+    list: '772b9208b5',
   }
 
   const examples = [
     {
       name: 'Sam',
-      email: 'sam@website.com'
+      email: 'sam@website.com',
     },
     {
       name: 'Alice',
-      email: 'alice@awesome.io'
+      email: 'alice@awesome.io',
     },
     {
       name: 'Bob',
-      email: 'bob@gmail.com'
+      email: 'bob@gmail.com',
     },
     {
       name: 'Lisa',
-      email: 'lisa@website.com'
+      email: 'lisa@website.com',
     },
     {
       name: 'Phil',
-      email: 'phil@website.com'
-    }
+      email: 'phil@website.com',
+    },
   ]
   const placeholder = examples[random(examples.length - 1)]
   const output = `
@@ -47,12 +47,16 @@ const SignupForm = (source) => {
     <div class="form__fields">
       <p class="form__field">
         <label for="mce-FNAME" class="form__label">First Name (optional)</label>
-        <input type="text" class="form__input" value="" name="FNAME" id="mce-FNAME" placeholder="${placeholder.name}">
+        <input type="text" class="form__input" value="" name="FNAME" id="mce-FNAME" placeholder="${
+          placeholder.name
+        }">
       </p>
 
       <p class="form__field">
         <label for="mce-EMAIL" class="form__label">Email Address</label>
-        <input type="email" class="form__input" value="" name="EMAIL" id="mce-EMAIL" placeholder="${placeholder.email}" required>
+        <input type="email" class="form__input" value="" name="EMAIL" id="mce-EMAIL" placeholder="${
+          placeholder.email
+        }" required>
       </p>
   </div>
 

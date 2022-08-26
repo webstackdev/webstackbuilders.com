@@ -1,147 +1,45 @@
 const restrictedGlobals = require('confusing-browser-globals')
-const level = process.env.NODE_ENV === 'production' ? 'error' : 'warn'
+const level = process.env['NODE_ENV'] === 'production' ? 'error' : 'warn'
 
-/** @type {import('@types/eslint').Linter.BaseConfig} */
-module.exports = {
+/** @typedef { import('eslint').Linter.BaseConfig } eslintConfig */
+const eslintConfig = {
+  /**
+   * Common sets of recommended rules included for all linted files
+   */
+  extends: [
+    /** Compatible with '@typescript-eslint/recommended' below */
+    'eslint:recommended',
+    /** For ESLint directive comments e.g. //eslint-disable-line */
+    'plugin:eslint-comments/recommended',
+    /** Linting of ES2015+/ES6+ import/export syntax, verify file paths and import names */
+    'plugin:import/recommended',
+    /** Axe accessibility linting rules */
+    'plugin:jsx-a11y/recommended',
+    /** ESLint's rules for Node.js */
+    'plugin:node/recommended',
+    /** Helps identify potential security hotspots but suffers a lot of false positives */
+    'plugin:security/recommended',
+  ],
+  /**
+   * Plugins used in common for all linted files
+   */
+  plugins: ['import', 'jsx-a11y', 'no-null', 'security'],
+  /** No globals are enabled for ESLint by default: 'writable', 'readonly', or 'off'. */
+  globals: {
+    NodeJS: 'readonly',
+  },
   env: {
     browser: true,
     commonjs: true,
     es6: true,
     node: true,
   },
-  extends: [
-    'eslint:recommended',
-    'plugin:@typescript-eslint/recommended',
-    'plugin:@typescript-eslint/recommended-requiring-type-checking',
-    'plugin:import/recommended',
-    'plugin:import/typescript',
-    'plugin:jest-dom/recommended',
-    'plugin:jsx-a11y/recommended',
-    'plugin:node/recommended',
-    'plugin:security/recommended',
-    'prettier', // must be last in list
-  ],
-  plugins: [
-    '@typescript-eslint',
-    'import',
-    'jest-dom',
-    'jsdoc',
-    'jsx-a11y',
-    'node',
-    'no-null',
-    'security',
-  ],
-  rules: {
-    // Base ESLint Rules
-    'arrow-body-style': 'off', // problematic rule with Prettier https://github.com/prettier/eslint-plugin-prettier/issues/65
-    camelcase: [level],
-    curly: [level, 'all'],
-    'import/no-unresolved': level,
-    'import/no-webpack-loader-syntax': level,
-    'import/order': [
-      level,
-      {
-        alphabetize: {
-          order: 'asc',
-          caseInsensitive: true,
-        },
-        'newlines-between': 'ignore',
-      },
-    ],
-    'new-cap': [level, { newIsCap: true, capIsNew: false }],
-    'no-new': level,
-    'no-null/no-null': 2,
-    'no-restricted-globals': ['error'].concat(restrictedGlobals),
-    'no-unused-expressions': [level, { allowShortCircuit: true, allowTernary: true }],
-    'no-unused-vars': [level, { varsIgnorePattern: '^_', argsIgnorePattern: '^_' }],
-    'no-useless-escape': 'off',
-    'prefer-arrow-callback': 'off', // problematic rule with Prettier https://github.com/prettier/eslint-plugin-prettier/issues/65
-    'prefer-object-spread': level,
-    'prefer-spread': level,
-
-    // Node Rules
-
-    // @TODO: When using transpilers (e.g. Babel), the file path to a source code may never be published.
-    // convertPath option tells to the rule, it needs to convert file paths.
-    // https://github.com/mysticatea/eslint-plugin-node/blob/master/docs/rules/no-unpublished-import.md
-    'node/no-unpublished-import': [
-      level,
-      {
-        allowModules: ['electron'],
-      },
-    ],
-
-    // TypeScript Rules
-
-    '@typescript-eslint/explicit-module-boundary-types': 'off', // avoid un-fixable lint errors reported within .js/.jsx files, https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/explicit-module-boundary-types.md
-    '@typescript-eslint/no-var-requires': 'off', // allow JS files to use `require`, overridden below for TS files
-    'no-unnecessary-type-assertion': true, //  prohibits using a type assertion that does not change the type of an expression
-    'no-object-literal-type-assertion': true, // casting to `any` and `unknown` is still allowed
-    'no-angle-bracket-type-assertion': true,
-
-    // JSDoc Rules
-    'jsdoc/check-access': 1,
-    'jsdoc/check-alignment': 1,
-    'jsdoc/check-examples': 1,
-    'jsdoc/check-indentation': 1,
-    'jsdoc/check-line-alignment': 1,
-    'jsdoc/check-param-names': 1,
-    'jsdoc/check-property-names': 1,
-    'jsdoc/check-syntax': 1,
-    'jsdoc/check-tag-names': 1,
-    'jsdoc/check-types': 1,
-    'jsdoc/check-values': 1,
-    'jsdoc/empty-tags': 1,
-    'jsdoc/implements-on-classes': 1,
-    'jsdoc/match-description': 1,
-    'jsdoc/multiline-blocks': 1,
-    'jsdoc/newline-after-description': 1,
-    'jsdoc/no-bad-blocks': 1,
-    'jsdoc/no-defaults': 1,
-    'jsdoc/no-multi-asterisks': 1,
-    'jsdoc/no-types': 1,
-    'jsdoc/tag-lines': 1,
-    'jsdoc/valid-types': 1,
-  },
-  overrides: [
-    {
-      files: ['*.ts', '*.tsx'],
-      parser: '@typescript-eslint/parser',
-      extends: ['plugin:@typescript-eslint/recommended', 'prettier'],
-      rules: {
-        '@typescript-eslint/ban-types': level,
-        '@typescript-eslint/explicit-module-boundary-types': level,
-        '@typescript-eslint/no-unused-vars': [
-          level,
-          { varsIgnorePattern: '^_', argsIgnorePattern: '^_' },
-        ],
-        '@typescript-eslint/no-var-requires': level,
-        camelcase: level,
-      },
-    },
-    {
-      files: ['*.test.*', '**/__mocks__/**'],
-      env: {
-        node: true,
-        es6: true,
-        commonjs: true,
-        jest: true,
-      },
-    },
-    {
-      files: ['.eslintrc.js', '*.config.js', 'jest.setup.js'],
-      env: {
-        node: true,
-        commonjs: true,
-        jest: true,
-      },
-    },
-  ],
-  settings: {
-    'import/parsers': {
-      '@typescript-eslint/parser': ['.ts', '.tsx'],
-    },
-  },
+  /**
+   * The 'project' and 'tsconfigRootDir' key/values could be moved into overrides,
+   * so that a separate tsconfig.eslint.json file isn't necessary. The issue is
+   * that eslint will exit on an error that the '.eslintrc.js' file isn't included
+   * in projects, and so either '.eslintrc.js' has to be excluded or explicitly included.
+   */
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
@@ -151,4 +49,190 @@ module.exports = {
     resolvePluginsRelativeTo: __dirname,
     sourceType: 'module',
   },
+  /**
+   * Plugin configuration objects
+   */
+  settings: {
+    /** Handle TypeScript with the eslint-plugin-import extensions */
+    'import/parsers': {
+      '@typescript-eslint/parser': ['**/*.+(ts|tsx)'],
+    },
+    'import/resolver': {
+      typescript: {
+        /**
+         * Always try to resolve types under `<root>@types` directory
+         * even it doesn't contain any source code, like `@types/unist`
+         */
+        alwaysTryTypes: true,
+        /** TSConfig for eslint-import-resolver-typescript */
+        project: './tsconfig.eslint.json',
+      },
+    },
+  },
+  /**
+   * Common rule settings for all linted files
+   */
+  rules: {
+    /** Issue with Prettier https://github.com/prettier/eslint-plugin-prettier/issues/65: */
+    'arrow-body-style': 'off',
+    camelcase: [level],
+    curly: [level, 'all'],
+    /** enable eslint-comments plugin */
+    'eslint-comments/no-unused-disable': level,
+    'import/no-unresolved': level,
+    'import/no-webpack-loader-syntax': level,
+    /** Recommending VS Code extension amatiasq.sort-imports */
+    'import/order': 'off',
+    'jsdoc/check-tag-names': [
+      level,
+      {
+        definedTags: ['TODO:'],
+        jsxTags: true,
+      },
+    ],
+    'new-cap': [level, { newIsCap: true, capIsNew: false }],
+    /** Doesn't seem to work with Yarn PnP, it resolves packages on disk to check import */
+    'node/no-extraneous-import': 'off',
+    'node/no-unpublished-import': [
+      level,
+      {
+        allowModules: ['electron'],
+      },
+    ],
+    /** Set to off because this package is not published as a library */
+    'node/no-unpublished-require': 'off',
+    'no-new': level,
+    /** Plugin that disallows null literals to encourage using undefined instead: */
+    'no-null/no-null': level,
+    'no-restricted-globals': ['error'].concat(restrictedGlobals),
+    'no-unused-expressions': [level, { allowShortCircuit: true, allowTernary: true }],
+    'no-unused-vars': [level, { varsIgnorePattern: '^_', argsIgnorePattern: '^_' }],
+    'no-useless-escape': 'off',
+    /** Issue with Prettier https://github.com/prettier/eslint-plugin-prettier/issues/65: */
+    'prefer-arrow-callback': 'off',
+    'prefer-object-spread': level,
+    'prefer-spread': level,
+    /** Too many false positives from using @TODO and no way to add add'l tags to rule */
+    'tsdoc/syntax': 'off', // tsdoc-characters-after-block-tag
+  },
+
+  /**
+   * Over-rides based on glob patterns for the common configuration above
+   */
+  overrides: [
+    /**
+     * Overrides for TypeScript files
+     */
+    {
+      files: ['**/*.+(ts|tsx)'],
+      parser: '@typescript-eslint/parser',
+      parserOptions: {
+        /** Required path to tsconfig to use rules which require type information */
+        project: './tsconfig.eslint.json',
+        tsconfigRootDir: __dirname,
+      },
+      extends: [
+        /** Enable all the recommended rules for TypeScript linting */
+        'plugin:@typescript-eslint/recommended',
+        /** Enable rules that require type-checking, disabled by default for performance */
+        'plugin:@typescript-eslint/recommended-requiring-type-checking',
+        /** Adds TypeScript support to eslint-plugin-import, can use `paths` in tsconfig.json */
+        'plugin:import/typescript',
+        /** Runs Prettier as ESLint rule and reports differences as ESLint issues */
+        'prettier', // must be last
+      ],
+      plugins: ['@typescript-eslint', 'eslint-plugin-tsdoc'],
+      rules: {
+        '@typescript-eslint/ban-types': level,
+        '@typescript-eslint/consistent-type-assertions': [
+          level,
+          { assertionStyle: 'as', objectLiteralTypeAssertions: 'allow-as-parameter' },
+        ],
+        /**
+         * Avoid un-fixable lint errors reported within .js/.jsx files
+         * https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/explicit-module-boundary-types.md
+         */
+        '@typescript-eslint/explicit-module-boundary-types': 'off',
+        '@typescript-eslint/no-unsafe-call': 'off',
+        '@typescript-eslint/no-unsafe-member-access': 'off',
+        '@typescript-eslint/no-unsafe-return': 'off',
+        '@typescript-eslint/no-unused-vars': [
+          level,
+          { varsIgnorePattern: '^_', argsIgnorePattern: '^_' },
+        ],
+        '@typescript-eslint/no-var-requires': level,
+        /** Prohibits using a type assertion that does not change the type of an expression. */
+        '@typescript-eslint/no-unnecessary-type-assertion': level,
+        /** Continue allowing triple-slash refs, TS wants to use 'import' syntax instead */
+        '@typescript-eslint/triple-slash-reference': 'off',
+        /** TypeScript allows ES modules, default from node/recommended is 'error' */
+        'node/no-missing-import': 'off',
+        /** Allow import declarations which import private modules, default 'error' */
+        'node/no-unpublished-import': 'off',
+        'node/no-unsupported-features/es-syntax': 'off',
+        /** Enable recommended rules for TSDoc linter */
+        'tsdoc/syntax': level,
+      },
+    },
+    /**
+     * Options that apply only to JavaScript files and not to TypeScript files
+     */
+    {
+      files: ['*.js'],
+      /** Recommended warnings for JSDoc linter */
+      extends: [
+        'plugin:jsdoc/recommended',
+        /** Runs Prettier as ESLint rule and reports differences as ESLint issues */
+        'prettier', // must be last
+      ],
+      plugins: ['jsdoc'],
+      rules: {
+        /**
+         * JSDoc Rules
+         */
+        'jsdoc/check-examples': 'off', // not supported yet in ESLint v8
+        'jsdoc/check-indentation': level,
+        'jsdoc/check-line-alignment': level,
+        'jsdoc/check-syntax': level,
+        /** Applies a regex to description so that it's text-only starting with a capital */
+        'jsdoc/match-description': 'off',
+        'jsdoc/no-bad-blocks': level,
+        'jsdoc/no-defaults': level,
+        'jsdoc/no-types': 'off',
+        /** JSDoc does not support import() for typedefs */
+        'jsdoc/valid-types': 'off',
+      },
+    },
+    /**
+     * Overrides for Jest files
+     */
+    {
+      files: ['*.spec.*', '**/__tests__/**', '**/__mocks__/**', '**/__fixtures__/**'],
+      extends: [
+        /** Best practices and anticipate common mistakes when writing tests with jest-dom */
+        'plugin:jest-dom/recommended',
+      ],
+      plugins: ['jest-dom'],
+      env: {
+        browser: true,
+        commonjs: true,
+        es6: true,
+        jest: true,
+        node: true,
+      },
+    },
+    /**
+     * Overrides for configuration files
+     */
+    {
+      files: ['.eslintrc.js', '*.config.*', 'jest.setup.*', 'gulpfile.ts'],
+      env: {
+        commonjs: true,
+        jest: true,
+        node: true,
+      },
+    },
+  ],
 }
+
+module.exports = eslintConfig

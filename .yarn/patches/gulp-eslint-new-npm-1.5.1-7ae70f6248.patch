@@ -1,0 +1,13 @@
+diff --git a/index.js b/index.js
+index 8d42bfa6cdda0a4474e54df26c1a7d153e32bcdc..25550571d0dd4285b428b27339bba1a426498723 100644
+--- a/index.js
++++ b/index.js
+@@ -12,7 +12,7 @@ const {
+     resolveFormatter,
+     resolveWriter,
+     writeResults
+-} = require('#util');
++} = require('./util');
+ const { promisify } = require('util');
+ const { dest }      = require('vinyl-fs');
+ 

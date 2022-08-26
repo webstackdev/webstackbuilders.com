@@ -14,7 +14,7 @@ exports.markdownContainerWarning = {
   /**
    * Renderer function for opening/closing tokens
    *
-   * @param {Object[]} tokens Opening and closing tokens
+   * @param {object[]} tokens Opening and closing tokens
    * @param {number} idx Integer indicating array index of token, 0 for opening and 1 for closing
    * @returns
    */

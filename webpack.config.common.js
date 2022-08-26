@@ -38,7 +38,14 @@ module.exports = {
         // Transpile and polyfill client-side JavaScript files.
         // All files with a `.ts` extension will be handled by `ts-loader`.
         test: /\.ts$/,
-        use: 'ts-loader',
+        use: [
+          {
+            loader: require.resolve(`ts-loader`),
+            options: {
+              configFile: 'tsconfig.webpack.json',
+            },
+          },
+        ],
         exclude: /node_modules/,
       },
     ],

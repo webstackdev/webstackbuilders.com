@@ -1,0 +1,7 @@
+{
+  "extends": "./tsconfig.common.json",
+  /**
+   * Files to include in compilation.
+   */
+  "include": ["src/assets/script/**/*", "lambda/**/*", "scripts/**/*", "test/**/*"]
+}

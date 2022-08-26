@@ -1,54 +1,35 @@
 /**
  * Shortcodes to specify for use in .eleventy.js with `addShortcode`
+ *
+ * Use the Configuration API 'getFilter' method to use a filter inside of a shortcode.
  */
-// local imports
+
+/**
+ * Determine the canonical URL for a page
+ */
+const { canonical } = require('./canonical')
+exports.canonical = canonical
+
+/**
+ * Allows using Markdown inside tags in a Nunjucks or other template file
+ */
 const { customMarkdownShortcode } = require('./markdown')
+exports.customMarkdownShortcode = customMarkdownShortcode
+
+/**
+ * Returns <svg> block for using SVG icon sprite by icon name
+ */
 const { icon } = require('./icon')
+exports.icon = icon
+
+/**
+ * Embed Youtube as shortcode in markdown by video ID
+ */
 const { youtubeShortcode } = require('./youtube')
+exports.youtubeShortcode = youtubeShortcode
 
-module.exports = {
-  /**
-   * Allows using Markdown inside tags in a Nunjucks or other template file
-   */
-  customMarkdownShortcode,
-
-  /**
-   * Returns <svg> block for using SVG icon sprite by icon name
-   */
-  icon,
-
-  /**
-   * Page description for meta headers
-   */
-  pageDescription: function () {
-    return this.page.description ?? this.ctx.site.title
-  },
-
-  /**
-   * Page description for meta headers
-   */
-  pageSocialImg: function () {
-    const slug = this.page.title ? this.page.title >>> slug : `home`
-    return `${this.ctx.site.url}/previews/${slug}.png`
-  },
-
-  /**
-   * Include the page name in the tab title if it's set
-   */
-  pageTitle: function () {
-    const title = this.page.title ? `${this.page.title} | ` : ''
-    return `${title}${this.ctx.site.title}`
-  },
-
-  /**
-   * Embeds a Youtube player in minified HTML
-   */
-  youtubeShortcode,
-
-  /**
-   * Get the year as a four-digit number
-   */
-  year: function () {
-    return new Date().getFullYear()
-  },
-}
+/**
+ * Get the year as a four-digit number
+ */
+const { year } = require('./year')
+exports.year = year

@@ -1,7 +1,7 @@
 {#- Facebook share metadata -#}
-<meta name="og:title" content="{% pageTitle %}" />
-<meta name="og:description" content="{% pageDescription %}" />
-<meta property="og:image" content="{% pageSocialImg %}" />
+<meta name="og:title" content="{% pageTitle pageTitle=this.page.title %}" />
+<meta name="og:description" content="{% pageDescription pageDescription=this.page.description %}" />
+<meta property="og:image" content="{% pageSocialImg slug=this.page.fileSlug %}" />
 {#- Twitter share metadata #}
 <meta name="twitter:card" content="summary_large_image" />
 {%- if meta.twitterUsername -%}

@@ -1,7 +1,7 @@
 ---
 title: All Articles
 date: 2021-03-31
-tags: article
+tags: articles
 permalink: /articles/
 layout: base
 eleventyNavigation:
@@ -30,7 +30,7 @@ eleventyNavigation:
 
           <div class="articlelist__meta">
             <time class="articlelist__date" datetime="{{ post.date | dateToISO }}">
-              {{ post.date | readableDate('dd LLL yyyy') }}
+              {{ post.date | readableDate }}
             </time>
 
             {% if post.data.tags %}
@@ -61,6 +61,8 @@ eleventyNavigation:
               <p>Should throw an error, if reached here it's because the page has no description set in the front matter and no excerpt separator set in the content body.</p>
             {%- endif -%}
           </p>
+          <p>It will take {{ post.data.templateContent | timeToRead }} to read this</p>
+
         </li>
       {% endfor %}
     </ol>

@@ -1,5 +1,11 @@
 /**
  * Filters to specify for use in .eleventy.js with `addFilter`
+ *
+ * Use the Configuration API 'getFilter' method to use a
+ * filter inside of another filter or shortcode.
+ *
+ * Filters take a single input on the left, modify this inline and return a single value:
+ *   {{ "mike" | upcase  }}
  */
 
 /**
@@ -31,16 +37,6 @@ const { dateFromISO } = require('./date')
 exports.dateFromISO = dateFromISO
 
 /**
- * Indents an element by set width of spaces to help prettify template
- * output when partials are deeply included. Whitespace is stripped out
- * in production by minification, this is for developer experience only.
- * Usage in Nunjucks template:
- * {% filter indent(6, true) %}{% include "./something.njk" %}{% endfilter %}
- */
-const { indentElement } = require('./indentElement')
-exports.indentElement = indentElement
-
-/**
  * Example using Liquid templating engine:
  *   {% assign taggers = tip.data.tags | exclude: "tips" %}
  */
@@ -62,20 +58,30 @@ const { findById } = require('./collections')
 exports.findById = findById
 
 /**
- * Friendly date filter. Supported tokens:
- * https://moment.github.io/luxon/docs/manual/formatting.html#table-of-tokens
- * Usage:
- *   {{ date | readableDate('dd LLL yyyy') }}
- */
-const { readableDate } = require('./date')
-exports.readableDate = readableDate
-
-/**
  * Print high numbers as "11K" for thousands. Usage:
  *   {{ likeCount | humanizeNumber }}
  */
 const { humanizeNumber } = require('./format')
 exports.humanizeNumber = humanizeNumber
+
+/**
+ * Indents an element by set width of spaces to help prettify template
+ * output when partials are deeply included. Whitespace is stripped out
+ * in production by minification, this is for developer experience only.
+ * Usage in Nunjucks template:
+ * {% filter indent(6, true) %}{% include "./something.njk" %}{% endfilter %}
+ */
+const { indentElement } = require('./indentElement')
+exports.indentElement = indentElement
+
+/**
+ * Identity filter for use in tests
+ *
+ * Usage:
+ *   {{ `test` | identity }}
+ */
+const { identity } = require('./identity')
+exports.identity = identity
 
 /**
  * Usage:
@@ -85,6 +91,15 @@ exports.humanizeNumber = humanizeNumber
  */
 const { obfuscate } = require('./format')
 exports.obfuscate = obfuscate
+
+/**
+ * Friendly date filter. Supported tokens:
+ * https://moment.github.io/luxon/docs/manual/formatting.html#table-of-tokens
+ * Usage:
+ *   {{ date | readableDate('dd LLL yyyy') }}
+ */
+const { readableDate } = require('./date')
+exports.readableDate = readableDate
 
 /**
  * Sets or changes the extension on media files. Usage:
@@ -99,12 +114,6 @@ exports.setExt = setExt
  */
 const { slice } = require('./collections')
 exports.slice = slice
-
-/**
- *  11ty has a built-in `slugify` filter
- */
-const { slugify } = require('./format')
-exports.slugify = slugify
 
 /**
  * Example using Liquid templating engine:

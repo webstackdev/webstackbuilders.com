@@ -31,7 +31,7 @@ eleventyNavigation:
 
           <div class="articlelist__meta">
             <time class="articlelist__date dt-published" datetime="{{ casestudy.date | dateToISO }}">
-              {{ casestudy.date | readableDate('dd LLL yyyy') }}
+              {{ casestudy.date | readableDate }}
             </time>
 
             {% if casestudy.data.tags %}

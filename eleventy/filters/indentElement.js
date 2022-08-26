@@ -4,45 +4,18 @@
  * in production by minification, this is for developer experience only.
  * Usage in Nunjucks template:
  * {% filter indent(6, true) %}{% include "./something.njk" %}{% endfilter %}
+ *
+ * @param _
+ * @param str
+ * @param width
+ * @param indentfirst
  */
-const normalize = (value, defaultValue) => {
-  if (value === null || value === undefined || value === false) {
-    return defaultValue
-  }
-  return value
-}
-
-const repeat = (char_, n) => {
-  var str = ''
-  for (let i = 0; i < n; i++) {
-    str += char_
-  }
+exports.indentElement = (_, str, width = 2, indentfirst = true) => {
+  if (!str) return ''
   return str
-}
-const copySafeness = (dest, target) => {
-  if (dest instanceof SafeString) {
-    return new SafeString(target)
-  }
-  return target.toString()
-}
-
-exports.indentElement = (str, width, indentfirst) => {
-  str = normalize(str, '')
-
-  if (str === '') {
-    return ''
-  }
-
-  width = width || 4
-  // let res = '';
-  const lines = str.split('\n')
-  const sp = repeat(' ', width)
-
-  const res = lines
-    .map((l, i) => {
-      return i === 0 && !indentfirst ? l : `${sp}${l}`
+    .split('\n')
+    .map((line, i) => {
+      return i === 0 && !indentfirst ? line : line.padStart(line.length + width, ' ')
     })
     .join('\n')
-
-  return copySafeness(str, res)
 }

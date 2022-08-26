@@ -4,6 +4,7 @@ date: 2021-03-31
 permalink: '/css/themes.css'
 eleventyExcludeFromCollections: true
 ---
+{# @TODO: maybe inject this into a CSS header script via a global, maybe using eleventyComputed in a javascript data template? #}
 {%- macro colorscheme(colors) -%}
   --color-bg: {{ colors.background }};
   --color-bg-offset: {{ colors.backgroundOffset }};

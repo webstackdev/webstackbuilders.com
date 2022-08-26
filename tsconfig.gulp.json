@@ -1,0 +1,19 @@
+{
+  "extends": "./tsconfig.common.json",
+  "ts-node": {
+    "compilerOptions": {
+      /**
+       * If set to `ESNext` or similar, the `ts-node` output will have import
+       * statements that Node without the `--experimental-modules` flag will
+       * throw on. Node with ES modules enabled requires the `type` key in
+       * `package.json` to be set to `module`, which is then in conflict with
+       * other JavaScript workflows in the project.
+       */
+      "module": "commonjs",
+    }
+  },
+  /**
+   * Files to include in compilation.
+   */
+  "include": ["./**/*"],
+}

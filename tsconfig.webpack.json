@@ -1,0 +1,11 @@
+{
+  "extends": "./tsconfig.common.json",
+  /**
+   * Files to include in compilation.
+   */
+  "include": ["src/assets/script/**/*"],
+  /**
+   * Don't compile tests into final bundle
+   */
+  "exclude": ["**/*.spec.*", "**/__mocks__/*", "**/__tests__/*"]
+}

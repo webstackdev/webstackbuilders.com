@@ -3,7 +3,7 @@ const markdownIt = require('markdown-it')()
 const outdent = require('outdent')
 const Icon = require('../shortcodes/icon').icon
 
-exports.callout = (content, type = 'info') => {
+exports.callout = (_, content, type = 'info') => {
   let icon
 
   switch (type) {

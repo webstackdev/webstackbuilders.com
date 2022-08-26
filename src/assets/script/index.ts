@@ -2,7 +2,7 @@
  * Site script. All scripts to include in the site must be included here.
  */
 import { heroSvgAnimation } from './animations'
-import { setupThemeSwitcher } from './themepicker'
+import { setupThemeSwitcher } from './modules'
 
 // Unhandled exception handler
 window.onerror = function (msg, source, lineno, colno, error) {
@@ -24,6 +24,7 @@ window.onerror = function (msg, source, lineno, colno, error) {
 document.addEventListener('DOMContentLoaded', () => {
   setupThemeSwitcher()
   heroSvgAnimation()
+  // @TODO: need to load share-highlight module
 })
 
 // all assets loaded, the page has everything ready and users can interact with it

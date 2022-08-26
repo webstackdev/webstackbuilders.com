@@ -31,7 +31,9 @@
     // Reload the TypeScript Language Server whenever it changes.
     "rbuckton.tsserver-live-reload",
     // Diagnostic data for workspace files based on webhint analysis.
-    "webhint.vscode-webhint"
+    "webhint.vscode-webhint",
+    "arcanis.vscode-zipfs",
+    "esbenp.prettier-vscode"
   ],
   "unwantedRecommendations": [
     // TSLint has been deprecated in favor of ESLint
