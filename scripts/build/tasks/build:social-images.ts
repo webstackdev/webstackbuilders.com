@@ -1,25 +1,30 @@
 /**
- * Images generated for social shares
+ * Images generated for social sharing from pages. Requires SCSS for the images
+ * and global data with metadata about each page to be generated before running.
+ * Takes an HTML template with an <h1></h1> element to use as an anchor, generates
+ * web pages for each image from the template and page metadata, and saves a
+ * snapshot png image of each to use for social shares.
  */
+import run from 'gulp-run-command'
 import type { TaskFunction } from 'gulp'
-import { dest } from 'gulp'
+import { buildDir, socialImagesBuildDir, tmpDir } from '../paths'
 import { log } from '../utils'
-import run from 'gulp-run'
-import { socialImagesBuildDir, socialImagesFormat } from '../paths'
 
-const task: TaskFunction = () => {
-  log(`Generating social share images`)
-    // npx eleventy-social-images --outputDir public --dataFile social/pages.json --templatePath social/template.html
-    /**
-     * @TODO:
-     * 1. validate incoming file paths. They should be to public/tmp/social
-     * 2. figure out how _generate is getting built.
-     * 3. Add last postbuild task to build to delete the public/tmp dir, and logic to
-     *    leave it if in dev mode
-     * 4. update templates to public/tmp dirs
-     */
-  return run('echo Hello World').exec()
-    .pipe(gulp.dest('output'))
+const task: TaskFunction = async done => {
+  log(`Compile social share images`)
+  const workingDir = `${buildDir}/${tmpDir}`
+  try {
+    await run(
+      `yarn eleventy-social-images --siteName 'Webstack Builders' --outputDir ${socialImagesBuildDir} --dataFile ${workingDir}/pages.json --templatePath ${workingDir}/template.html --stylesPath ${workingDir}/socialimages.css --width 600 --height 315 --deviceScaleFactor 2`
+    )()
+    done()
+  } catch (err) {
+    if (err instanceof Error) {
+      done(err)
+      return
+    }
+    throw err
+  }
 }
 
 export default task

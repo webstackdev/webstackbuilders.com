@@ -3,6 +3,6 @@ module.exports = {
   tags: 'case-studies',
   layout: 'page',
   eleventyComputed: {
-    permalink: data => '/case-studies/{{ data.slug }}/',
+    permalink: function (data) { return this.getPermalinkPath(data) }, // absolute
   },
 }

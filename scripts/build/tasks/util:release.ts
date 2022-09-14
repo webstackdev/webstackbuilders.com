@@ -1,19 +1,23 @@
 /**
- * 
+ * Issue release
  */
+import type { TaskFunction } from 'gulp'
+import run from 'gulp-run-command'
+import { log } from '../utils'
 
-import { isDevelopment, log } from '../utils'
-import { cssTargetDir } from '../paths'
-
-import type { GulpHelpTaskParamsFlattened } from '../baseTask'
-import gulp from 'gulp'
-
-export const taskParams: GulpHelpTaskParamsFlattened = {
-  /** All tasks that should be run before this one */
-  //dependencies: ['util:clean'],
-  /** Function to execute the task */
-  fn: done => {
-    log(`Compiling SCSS to production CSS bundle`)
-    // np --no-cleanup
-  },
+const task: TaskFunction = async done => {
+  log(`Releasing package`)
+  try {
+    await run('yarn np --no-cleanup')()
+    done()
+    return
+  } catch (err) {
+    if (err instanceof Error) {
+      done(err)
+      return
+    }
+    throw err
+  }
 }
+
+export default task

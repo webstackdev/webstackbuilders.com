@@ -1,10 +1,10 @@
 /**
  * Jest configuration for Node environment, set up with TypeScript
  */
-import type { Config } from 'jest'
 import commonJestConfig from './jest.config.common'
+import type { ConfigOptions } from './jest.config.common'
 
-const config: Config = {
+const config: ConfigOptions = {
   /** Add shared configuration options */
   ...commonJestConfig,
 
@@ -33,6 +33,8 @@ const config: Config = {
   ],
   /** Jest default environment is Node.js */
   testEnvironment: 'node',
+  /** Skip any tests that match these regexp pattern strings */
+  testPathIgnorePatterns: ['<rootDir>/scripts/build/__tests__/build:css:critical.spec.ts'],
 }
 
 export default config

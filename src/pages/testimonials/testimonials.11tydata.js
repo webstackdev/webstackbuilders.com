@@ -3,7 +3,6 @@
  */
 module.exports = {
   title: 'Testimonials',
-  date: 'Current',
   tags: 'testimonials',
   /** Don't generate a page output, only adding to collections to use elsewhere */
   permalink: false,

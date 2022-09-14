@@ -1,19 +1,32 @@
+/// <reference path='../../../@types/gulp-stylelint.d.ts' />
 /**
- * Lint SCSS Stylesheets
+ * Lint and write back fixes to SCSS Stylesheets
  */
-import { log, plumbedGulpSrc } from '../utils'
-
-import type { TaskFunction } from 'gulp'
+import { log } from '../utils'
+import { src, dest } from 'gulp'
+import gulpStylelint from 'gulp-stylelint'
 import lazypipe from 'lazypipe'
-import { scriptLintSourceGlobs } from '../paths'
+import type { TaskFunction } from 'gulp'
+import { scssSourceDir, scssWatchGlob } from '../paths'
+import stylelintConfig from '../../../.stylelintrc'
 
-export const lintScriptTask = lazypipe()
-  // stylelint --fix 'src/assets/css/**/*.scss' --custom-syntax postcss-scss
-  .pipe()
+export const formatSassTask = lazypipe()
+  .pipe(() => gulpStylelint({
+    config: stylelintConfig,
+    debug: false,
+    /** Autofix with fixes applied to the gulp stream */
+    fix: true,
+    reporters: [
+      { formatter: 'string', console: true }
+    ],
+  }))
 
 const task: TaskFunction = () => {
-  log(`Linting script source code`)
-  return plumbedGulpSrc(scriptLintSourceGlobs).pipe(lintScriptTask())
+  log(`Format SASS stylings source code`)
+  return src(scssWatchGlob)
+    .pipe(formatSassTask())
+    .pipe(dest(scssSourceDir))
+    .on('error', () => { log(`Style lint errors found`, `red`)})
 }
 
 export default task

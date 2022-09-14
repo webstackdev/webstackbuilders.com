@@ -1,4 +1,3 @@
-const path = require('path')
 const sharp = require('sharp')
 const Image = require('@11ty/eleventy-img')
 const {
@@ -10,10 +9,24 @@ const {
 } = require('./utils')
 
 const ImageWidths = {
-  ORIGINAL: null,
+  ORIGINAL: undefined,
   PLACEHOLDER: 24,
 }
 
+/**
+ * Shortcode to generate optimized images for production builds
+ *
+ * @param {object} _ - a curried EleventyConfig object
+ * @param {string} src - the name of the image fil, prepended with a backslash if the file is in the build `images` directory
+ * @param {string} alt - required alternative text for accessibility
+ * @param {string} className - class names to add to the outputted HTML
+ * @param {Array<number>} widths - responsive breakpoints for the image
+ * @param {string} baseFormat - format of the default file to generate e.g. jpeg
+ * @param {Array<string>} optimizedFormats - format to generate for optimized browsers e.g. webp
+ * @param {string} sizes - size for the image HTML, e.g. 100vw
+ * @param {boolean} lazy - whether the image file should be lazy-loaded
+ * @returns {string} an html snippet for the image
+ */
 exports.asyncImageHandler = async function (
   _,
   src,
@@ -26,14 +39,23 @@ exports.asyncImageHandler = async function (
   lazy = false
 ) {
   // All images require alt tag for accessibility
-  checkForAltMetadata(src, alt)
+  checkForAltMetadata(alt, src)
 
   // Need to skip the Image() call and return a built <img> tag with an external URL as src
   if (src.startsWith('http:') || src.startsWith('https:'))
     return `<img src="${src}" alt="${alt}" />`
 
+/*
+inputPath: "./src/pages/articles/helloworld/index.md",
+fileSlug: "helloworld",
+filePathStem: "/pages/articles/helloworld/index",
+outputFileExtension: "html",
+
+url: "/https:/www.webstackbuilders.com/pages/articles/helloworld/index/helloworld.html",
+outputPath: "public/https:/www.webstackbuilders.com/pages/articles/helloworld/index/helloworld.html",
+*/
   // Get paths based on whether image is in the images folder or in a Markdown file folder
-  const { imagePath, outputDir, urlPath } = getImagePaths(src, this.page.url)
+  const { imagePath, outputDir, urlPath } = getImagePaths(src, this.page.filePathStem)
 
   // Throws if the image path doesn't exist or the output directory can't be created
   pathsExist(imagePath, outputDir, src)

@@ -1,11 +1,7 @@
 /**
  * Make sure global data functions are working
  */
-const {
-  getBuildPathsGlobalData,
-  getSiteGlobalData,
-  getStatsGlobalData,
-} = require('./globalData')
+const { getBuildPathsGlobalData, getSiteGlobalData, getStatsGlobalData } = require('./globalData')
 
 describe('Build paths object works', () => {
   test('returns valid paths object', () => {
@@ -13,6 +9,53 @@ describe('Build paths object works', () => {
     expect(sut).toBeInstanceOf(Object)
     /** Make sure that at least the build directory is set */
     expect(sut[`buildDir`]).toEqual(expect.any(String))
+    expect(sut).toMatchInlineSnapshot(`
+      {
+        "articlesSourceDir": "src/pages/articles",
+        "assetBuildDir": "public/assets",
+        "assetSourceDir": "src/assets",
+        "buildDir": "public",
+        "buildPathsToClean": [
+          "public",
+        ],
+        "buildPathsToCreate": [
+          "public/css",
+          "public/js",
+          "public/fonts",
+          "public/images",
+          "public/tmp",
+        ],
+        "casestudiesSourceDir": "src/pages/case-studies",
+        "contentSourceDir": "src/pages",
+        "cssBuildDir": "public/css",
+        "faviconSvgBuildDir": "public/favicons",
+        "faviconSvgSourceFilename": "src/assets/site/favicon.svg",
+        "fontsBuildDir": "public/fonts",
+        "fontsSourceDir": "src/assets/fonts",
+        "imagesBuildDir": "public/images",
+        "jsBuildDir": "public/js",
+        "jsSourceDir": "src/assets/script",
+        "rssFeedBuildFilename": "feed/feed.xml",
+        "scriptSourceGlobs": [
+          "@types/**/*.{js,ts}",
+          "eleventy/**/*.{js,ts}",
+          "lambda/**/*.{js,ts}",
+          "scripts/**/*.{js,ts}",
+          "src/**/*.{js,ts}",
+          "!node_modules/**",
+        ],
+        "scssSourceDir": "src/assets/scss",
+        "scssWatchGlob": "src/assets/scss/**/*.scss",
+        "servicesSourceDir": "src/pages/services",
+        "siteImagesSourceDir": "src/assets/images/site",
+        "sitemapBuildFilename": "/sitemap.xml",
+        "socialImagesBuildDir": "public/images/previews",
+        "socialScssSourceFile": "src/assets/scss/socialimages.scss",
+        "spritesBuildDir": "src/_layouts/images",
+        "spritesSourceDir": "src/assets/icons",
+        "tmpDir": "tmp",
+      }
+    `)
   })
 })
 
@@ -38,7 +81,6 @@ describe(`Returns global data objects`, () => {
     expect(sut[`timestamp`]).toEqual(expect.any(String))
   })
 })
-
 
 describe('Site stats global data works', () => {
   test('returns valid stats object', () => {

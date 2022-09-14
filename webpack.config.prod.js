@@ -12,7 +12,7 @@ module.exports = merge(common, {
   optimization: {
     minimizer: [
       new TerserPlugin({
-        extractComments: false,
+        extractComments: true,
       }),
     ],
   },

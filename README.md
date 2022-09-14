@@ -1,5 +1,51 @@
 # Webstack Builders Corporate Website using Eleventy
 
+## Template content
+
+From the page object you can access `content` and within a collection you can use `templateContent` to get the rendered output not including layout wrappers.
+
+`frontMatter.content` holds the raw markdown content without the frontmatter part:
+
+```javascript
+---
+pagination:
+  data: collections.post
+  size: 10
+  alias: posts
+---
+{% for post in posts %}
+  {{ post.template.frontMatter.content | log }}
+{% endfor %}
+``
+
+### Error:
+
+`./src/pages/home/index.njk contains a circular reference (using collections) to its own templateContent. (via UsingCircularTemplateContentReferenceError)`
+
+One fix showed:
+
+```javascript
+-    markdownTemplateEngine: 'njk',
++    markdownTemplateEngine: false,
+```
+
+**I was having the same issue with a liquid template (for rendering tags with post excerpts), so the problem seems to be universal. I also use the excerpt short code (with a custom function), so I guess the access to templateContent inside the excerpt function might be the culprit.
+
+I have solved the problem (rather clumsily) with the following code snippet at the top of my excerpt function:**
+
+```javascript
+function excerpt(post){
+  // list of template pages that iterate over post
+  const iteratingTemplates = ['./src/index.liquid', './src/tags.liquid'];
+  if (iteratingTemplates.indexOf(post.inputPath)>-1) {
+    return null;
+  }
+ // now extract the excerpt from post.templateContent
+}
+```
+
+**Of course this means that templates which contain lists can never have excerpts and that you have to add your specific template names to your custom excerpt function. A better approach would probably be to check somewhere in post.template if the template matches post.inputPath, preventing a post from trying to excerpt itself. But I don't know enough how 11ty works to know where to look for that information or if such an approach is even possible.**
+
 ## Nunjucks syntax
 
 ```nunjucks
@@ -114,7 +160,7 @@ let page = {
   inputPath: './current/page/myFile.md',
 
   // Depends on your output directory (the default is _site)
-  // You probably won’t use this: `url` is better.
+  // You probably will not use this: `url` is better.
   // Note: This value will be `false` if `permalink` is set to `false`.
   outputPath: './_site/current/page/myFile/index.html',
 
@@ -132,6 +178,17 @@ This strategy avoids reloading the page template with inline SVGs and styles. It
 - Create a file containing only your website's footer markup.
 - Pull out each page's main content into a separate file, or set up your back end to conditionally serve only the page content based on an HTTP request header.
 
-Be careful for <title>, <link>, and <meta> tags that vary between pages.
+Be careful for `<title>`, `<link>`, and `<meta>` tags that vary between pages.
 
 [Google Article on Streaming Service Worker Setup](https://developer.chrome.com/docs/workbox/faster-multipage-applications-with-streams/)
+
+## CLI envs
+
+
+```bash
+clear && TS_NODE_PROJECT="tsconfig.gulp.json" yarn gulp build
+```
+
+```bash
+clear && TS_NODE_PROJECT="tsconfig.jest.json" yarn jest eleventy/nunjucksAsyncShortcodes/asyncImageHandler/utils.spec.js --projects test/jest/jest.config.node.ts
+```

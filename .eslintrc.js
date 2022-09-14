@@ -19,6 +19,8 @@ const eslintConfig = {
     'plugin:node/recommended',
     /** Helps identify potential security hotspots but suffers a lot of false positives */
     'plugin:security/recommended',
+    /** Lint TOML files */
+    'plugin:toml/standard',
   ],
   /**
    * Plugins used in common for all linted files
@@ -55,7 +57,7 @@ const eslintConfig = {
   settings: {
     /** Handle TypeScript with the eslint-plugin-import extensions */
     'import/parsers': {
-      '@typescript-eslint/parser': ['**/*.+(ts|tsx)'],
+      '@typescript-eslint/parser': ['**/*.ts'],
     },
     'import/resolver': {
       typescript: {
@@ -112,19 +114,54 @@ const eslintConfig = {
     'prefer-arrow-callback': 'off',
     'prefer-object-spread': level,
     'prefer-spread': level,
+    /** Getting false positives on HTMLElement.classList.add/.remove methods */
+    'security/detect-non-literal-fs-filename': 'off',
+    'security/detect-object-injection': 'off',
+    'security/detect-unsafe-regex': 'off',
     /** Too many false positives from using @TODO and no way to add add'l tags to rule */
     'tsdoc/syntax': 'off', // tsdoc-characters-after-block-tag
   },
 
   /**
-   * Over-rides based on glob patterns for the common configuration above
+   * Over-rides based on glob patterns for the common configuration above.
+   * The last override block has highest precedence. All config options are
+   * valid except `root` and `ignorePatterns`.
    */
   overrides: [
     /**
-     * Overrides for TypeScript files
+     * Options that apply only to JavaScript files and not to TypeScript files
      */
     {
-      files: ['**/*.+(ts|tsx)'],
+      files: ['**/*.js'],
+      /** Recommended warnings for JSDoc linter */
+      extends: [
+        'plugin:jsdoc/recommended',
+        /** Runs Prettier as ESLint rule and reports differences as ESLint issues */
+        'prettier', // must be last
+      ],
+      plugins: ['jsdoc'],
+      rules: {
+        /**
+         * JSDoc Rules
+         */
+        'jsdoc/check-examples': 'off', // not supported yet in ESLint v8
+        'jsdoc/check-indentation': level,
+        'jsdoc/check-line-alignment': level,
+        'jsdoc/check-syntax': level,
+        /** Applies a regex to description so that it's text-only starting with a capital */
+        'jsdoc/match-description': 'off',
+        'jsdoc/no-bad-blocks': level,
+        'jsdoc/no-defaults': level,
+        'jsdoc/no-types': 'off',
+        /** JSDoc does not support import() for typedefs */
+        'jsdoc/valid-types': 'off',
+      },
+    },
+    /**
+     * Settings for TypeScript files only
+     */
+    {
+      files: ['**/*.ts', '**/*.d.ts'],
       parser: '@typescript-eslint/parser',
       parserOptions: {
         /** Required path to tsconfig to use rules which require type information */
@@ -153,6 +190,8 @@ const eslintConfig = {
          * https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/explicit-module-boundary-types.md
          */
         '@typescript-eslint/explicit-module-boundary-types': 'off',
+        '@typescript-eslint/no-unsafe-argument': 'off',
+        '@typescript-eslint/no-unsafe-assignment': 'off',
         '@typescript-eslint/no-unsafe-call': 'off',
         '@typescript-eslint/no-unsafe-member-access': 'off',
         '@typescript-eslint/no-unsafe-return': 'off',
@@ -163,6 +202,7 @@ const eslintConfig = {
         '@typescript-eslint/no-var-requires': level,
         /** Prohibits using a type assertion that does not change the type of an expression. */
         '@typescript-eslint/no-unnecessary-type-assertion': level,
+        '@typescript-eslint/restrict-template-expressions': 'off',
         /** Continue allowing triple-slash refs, TS wants to use 'import' syntax instead */
         '@typescript-eslint/triple-slash-reference': 'off',
         /** TypeScript allows ES modules, default from node/recommended is 'error' */
@@ -175,54 +215,83 @@ const eslintConfig = {
       },
     },
     /**
-     * Options that apply only to JavaScript files and not to TypeScript files
+     * Settings for Javascript Jest files only
      */
     {
-      files: ['*.js'],
-      /** Recommended warnings for JSDoc linter */
-      extends: [
-        'plugin:jsdoc/recommended',
-        /** Runs Prettier as ESLint rule and reports differences as ESLint issues */
-        'prettier', // must be last
+      files: [
+        '**/*.spec.js',
+        '**/__tests__/**/*.js',
+        '**/__mocks__/**/*.js',
+        '**/__fixtures__/**/*.js',
       ],
-      plugins: ['jsdoc'],
-      rules: {
-        /**
-         * JSDoc Rules
-         */
-        'jsdoc/check-examples': 'off', // not supported yet in ESLint v8
-        'jsdoc/check-indentation': level,
-        'jsdoc/check-line-alignment': level,
-        'jsdoc/check-syntax': level,
-        /** Applies a regex to description so that it's text-only starting with a capital */
-        'jsdoc/match-description': 'off',
-        'jsdoc/no-bad-blocks': level,
-        'jsdoc/no-defaults': level,
-        'jsdoc/no-types': 'off',
-        /** JSDoc does not support import() for typedefs */
-        'jsdoc/valid-types': 'off',
-      },
-    },
-    /**
-     * Overrides for Jest files
-     */
-    {
-      files: ['*.spec.*', '**/__tests__/**', '**/__mocks__/**', '**/__fixtures__/**'],
       extends: [
         /** Best practices and anticipate common mistakes when writing tests with jest-dom */
         'plugin:jest-dom/recommended',
       ],
-      plugins: ['jest-dom'],
+      plugins: ['jest', 'jest-dom'],
+      rules: {
+        'jest/no-disabled-tests': 'off',
+        'jest/no-focused-tests': level,
+        'jest/no-identical-title': level,
+        'jest/prefer-to-have-length': level,
+        'jest/valid-expect': level,
+      },
       env: {
         browser: true,
         commonjs: true,
         es6: true,
         jest: true,
+        'jest/globals': true,
         node: true,
       },
     },
     /**
-     * Overrides for configuration files
+     * Settings for Typescript Jest files only
+     */
+    {
+      files: [
+        '**/*.spec.ts',
+        '**/__tests__/**/*.ts',
+        '**/__mocks__/**/*.ts',
+        '**/__fixtures__/**/*.ts',
+      ],
+      parser: '@typescript-eslint/parser',
+      parserOptions: {
+        /** Required path to tsconfig to use rules which require type information */
+        project: './tsconfig.eslint.json',
+        tsconfigRootDir: __dirname,
+      },
+      extends: [
+        /** Enable all the recommended rules for TypeScript linting */
+        'plugin:@typescript-eslint/recommended',
+        /** Best practices and anticipate common mistakes when writing tests with jest-dom */
+        'plugin:jest-dom/recommended',
+        /** Enable rules that require type-checking, disabled by default for performance */
+        'plugin:@typescript-eslint/recommended-requiring-type-checking',
+        /** Adds TypeScript support to eslint-plugin-import, can use `paths` in tsconfig.json */
+        'plugin:import/typescript',
+        /** Runs Prettier as ESLint rule and reports differences as ESLint issues */
+        'prettier', // must be last
+      ],
+      plugins: ['@typescript-eslint', 'eslint-plugin-tsdoc', 'jest', 'jest-dom'],
+      rules: {
+        'jest/no-disabled-tests': 'off',
+        'jest/no-focused-tests': level,
+        'jest/no-identical-title': level,
+        'jest/prefer-to-have-length': level,
+        'jest/valid-expect': level,
+      },
+      env: {
+        browser: true,
+        commonjs: true,
+        es6: true,
+        jest: true,
+        'jest/globals': true,
+        node: true,
+      },
+    },
+    /**
+     * Settings for configuration files only
      */
     {
       files: ['.eslintrc.js', '*.config.*', 'jest.setup.*', 'gulpfile.ts'],
@@ -231,6 +300,13 @@ const eslintConfig = {
         jest: true,
         node: true,
       },
+    },
+    /**
+     * Settings for TOML Files only
+     */
+    {
+      files: ['**/*.toml'],
+      parser: 'toml-eslint-parser',
     },
   ],
 }

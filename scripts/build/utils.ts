@@ -18,15 +18,6 @@ export interface GulpError {
 }
 
 /**
- * Logs any errors that are passed in
- *
- * @param error   - Error object to log.
- */
-export const logError = (error: GulpError): void => {
-  fancyLog(error.toString())
-}
-
-/**
  * Log a message or series of messages using chalk's blue color.
  *
  * @param message - Message(s) to write to the log.
@@ -42,4 +33,19 @@ export const log = (message: string | string[], color: logColor = `magenta`) => 
     // eslint-disable-next-line security/detect-object-injection
     fancyLog(chalk[color](message))
   }
+}
+
+/**
+ * Logs any errors that are passed in
+ *
+ * @param error   - Error object to log.
+ */
+log.error = (error: GulpError): void => {
+  log(error.toString(), `red`)
+}
+
+export const withError = (msg: string) => {
+  const err = new Error(msg) as unknown as GulpError
+  err.showStack = false
+  return err
 }

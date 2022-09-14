@@ -1,6 +1,12 @@
-import createFocusTrap from 'focus-trap'
+import { createFocusTrap } from 'focus-trap'
 import debounce from 'lodash/debounce'
-import { getWindowDimensions } from './utils'
+import type { FocusTrap } from 'focus-trap'
+import {
+  getNavElement,
+  getNavMenuElement,
+  getNavMenuToggleBtnElement,
+  getWindowDimensions
+} from './utils'
 
 const SELECTORS = {
   nav: '.js-nav',
@@ -15,36 +21,34 @@ const CLASSES = {
 }
 
 class Navigation {
+  isOpen: boolean
+  nav: HTMLElement
+  menu: HTMLUListElement
+  toggleBtn: HTMLButtonElement
+  focusTrap: FocusTrap
+
   constructor() {
     this.isOpen = false
-
-    this.nav = document.querySelector(SELECTORS.nav)
-    this.menu = this.nav.querySelector(SELECTORS.menu) // @TODO: Object is possibly 'null'
-    this.toggleBtn = this.nav.querySelector(SELECTORS.toggleBtn) // @TODO: Object is possibly 'null'
-
+    this.nav = getNavElement(SELECTORS.nav)
+    this.menu = getNavMenuElement(this.nav, SELECTORS.menu)
+    this.toggleBtn = getNavMenuToggleBtnElement(this.nav, SELECTORS.toggleBtn)
     this.focusTrap = createFocusTrap(this.nav, {
       onDeactivate: () => this.toggleMenu(false),
     })
-
-    this.bindEvents()
   }
 
   bindEvents() {
-    this.toggleBtn.addEventListener('click', () => this.toggleMenu()) // @TODO: Object is possibly 'null'
+    this.toggleBtn.addEventListener('click', () => this.toggleMenu())
     window.addEventListener('resize', debounce(Navigation.setScreenDiameter, 200))
-
     Navigation.setScreenDiameter()
   }
 
-  toggleMenu(force) {
-    // @TODO: Parameter 'force' implicitly has an 'any' type
-    this.isOpen = typeof force === 'boolean' ? force : !this.isOpen
-
-    document.body.classList.toggle(CLASSES.noScroll, this.isOpen) // @TODO: Object is possibly 'null'
-    this.nav.classList.toggle(CLASSES.navOpen, this.isOpen) // @TODO: Object is possibly 'null'
+  toggleMenu(force?: boolean) {
+    this.isOpen = force !== undefined ? force : !this.isOpen
+    document.body.classList.toggle(CLASSES.noScroll, this.isOpen)
+    this.nav.classList.toggle(CLASSES.navOpen, this.isOpen)
     this.toggleBtn.setAttribute('aria-expanded', String(this.isOpen))
 
-    // @TODO: Object is possibly 'null'
     window.setTimeout(() => {
       this.menu.classList.toggle(CLASSES.navMenuVisible, this.isOpen)
     }, 50)
@@ -56,7 +60,7 @@ class Navigation {
     }
   }
 
-  static setScreenDiameter() {
+  static setScreenDiameter(this: void) {
     const screen = getWindowDimensions()
     const diameter = Math.sqrt(screen.height ** 2 + screen.width ** 2)
     document.documentElement.style.setProperty('--diameter', `${diameter}px`)
@@ -64,5 +68,6 @@ class Navigation {
 }
 
 if (document.querySelector(SELECTORS.nav)) {
-  new Navigation()
+  const nav = new Navigation()
+  nav.bindEvents()
 }

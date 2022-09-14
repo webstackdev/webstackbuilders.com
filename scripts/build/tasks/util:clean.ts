@@ -4,13 +4,13 @@
 
 import type { TaskFunction } from 'gulp'
 import { buildPathsToClean } from '../paths'
-import del from 'del'
+import { sync } from 'del'
 import { log } from '../utils'
 
 const task: TaskFunction = done => {
   log(`Deleting build output directories`)
   try {
-    const deletedPaths = del.sync(buildPathsToClean)
+    const deletedPaths = sync(buildPathsToClean)
     if (!deletedPaths.length) {
       log(`  No build output directories to delete`, `yellow`)
       done()

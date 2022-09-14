@@ -2,7 +2,7 @@ import { Anticipate } from './anticipate'
 import { gsap } from 'gsap'
 
 export const heroSvgAnimation = () => {
-  if (document.getElementById('heroAnimation') == null) return
+  if (document.getElementById('heroAnimation') == undefined) return
 
   gsap.set('.monitorBottom', {
     transformOrigin: '50% 100%',

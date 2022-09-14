@@ -1,9 +1,13 @@
 /**
- * File paths used in Gulp tasks and shortcodes
+ * File paths used in Gulp tasks and shortcodes. Javascript so importable anywhere.
+ * Added to 'buildPaths' global object.
  */
 
 const buildDir = `public`
 exports.buildDir = buildDir
+
+const tmpDir = `tmp`
+exports.tmpDir = tmpDir
 
 /**
  * Content source directories
@@ -20,11 +24,17 @@ exports.casestudiesSourceDir = casestudiesSourceDir
 const servicesSourceDir = `${contentSourceDir}/services`
 exports.servicesSourceDir = servicesSourceDir
 
+const testimonialsSourceDir = `${contentSourceDir}/testimonials`
+exports.testimonialsSourceDir = testimonialsSourceDir
+
 /**
  * Asset source directories
  */
 const assetSourceDir = `src/assets`
 exports.assetSourceDir = assetSourceDir
+
+const imagesSourceDir = `${assetSourceDir}/images`
+exports.imagesSourceDir = imagesSourceDir
 
 const jsSourceDir = `${assetSourceDir}/script`
 exports.jsSourceDir = jsSourceDir
@@ -32,41 +42,51 @@ exports.jsSourceDir = jsSourceDir
 const scssSourceDir = `${assetSourceDir}/scss`
 exports.scssSourceDir = scssSourceDir
 
-const scssWatchGlob = `${scssSourceDir}/**/*`
+/**
+ * Watch globs
+ */
+
+const scssWatchGlob = `${scssSourceDir}/**/*.scss`
 exports.scssWatchGlob = scssWatchGlob
 
 /**
- * Constants for build target directories
+ * Asset build target directories
  */
+const assetBuildDir = `${buildDir}/assets`
+exports.assetBuildDir = assetBuildDir
+
 const jsBuildDir = `${buildDir}/js`
 exports.jsBuildDir = jsBuildDir
 
 const cssBuildDir = `${buildDir}/css`
 exports.cssBuildDir = cssBuildDir
 
-/**
- * Source and build target files for SCSS compilation of site's main style sheets
- */
-const scssSource = `${scssSourceDir}/index.scss`
-exports.scssSource = scssSource
-
-const cssTargetFilename = `index.css`
-exports.cssTargetFilename = cssTargetFilename
+const imagesBuildDir = `${buildDir}/images`
+exports.imagesBuildDir = imagesBuildDir
 
 /**
  * Social share image files and styling source and build targets
  */
-const socialScssSourceDir = `${scssSourceDir}/social.scss`
-exports.socialScssSourceDir = socialScssSourceDir
+const socialScssSourceFile = `${scssSourceDir}/socialimages.scss`
+exports.socialScssSourceFile = socialScssSourceFile
 
-const socialCssBuildDir = `social`
-exports.socialCssBuildDir = socialCssBuildDir
-
-const socialImagesBuildDir = `previews`
+const socialImagesBuildDir = `${imagesBuildDir}/previews`
 exports.socialImagesBuildDir = socialImagesBuildDir
 
-const socialImagesFormat = `png`
-exports.socialImagesFormat = socialImagesFormat
+/**
+ * Source and build target directory for font files
+ */
+const fontsSourceDir = `${assetSourceDir}/fonts`
+exports.fontsSourceDir = fontsSourceDir
+
+const fontsBuildDir = `${buildDir}/fonts`
+exports.fontsBuildDir = fontsBuildDir
+
+/**
+ * Source directory for site images
+ */
+const siteImagesSourceDir = `${assetSourceDir}/images/site`
+exports.siteImagesSourceDir = siteImagesSourceDir
 
 /**
  * Source and build target directory for sprite generation from SVG files
@@ -74,13 +94,13 @@ exports.socialImagesFormat = socialImagesFormat
 const spritesSourceDir = `${assetSourceDir}/icons`
 exports.spritesSourceDir = spritesSourceDir
 
-const spritesTargetDir = `src/_layouts/images`
-exports.spritesTargetDir = spritesTargetDir
+const spritesBuildDir = `src/_layouts/images`
+exports.spritesBuildDir = spritesBuildDir
 
 /**
  * Array of blobs that should be fed to Gulp src for dirs that should be linted
  */
-const scriptLintSourceGlobs = [
+const scriptSourceGlobs = [
   `@types/**/*.{js,ts}`,
   `eleventy/**/*.{js,ts}`,
   `lambda/**/*.{js,ts}`,
@@ -88,7 +108,7 @@ const scriptLintSourceGlobs = [
   `src/**/*.{js,ts}`,
   `!node_modules/**`,
 ]
-exports.scriptLintSourceGlobs = scriptLintSourceGlobs
+exports.scriptSourceGlobs = scriptSourceGlobs
 
 /**
  * Build target file for Sitemap for use in permalink in nunjucks template frontmatter
@@ -108,17 +128,24 @@ exports.rssFeedBuildFilename = rssFeedBuildFilename
 const faviconSvgSourceFilename = `${assetSourceDir}/site/favicon.svg`
 exports.faviconSvgSourceFilename = faviconSvgSourceFilename
 
-const faviconSvgTargetDir = `${buildDir}/favicons`
-exports.faviconSvgTargetDir = faviconSvgTargetDir
+const faviconSvgBuildDir = `${buildDir}/favicons`
+exports.faviconSvgBuildDir = faviconSvgBuildDir
 
 /**
  * The build paths that will be removed by the `util:clean` task before starting a new build
  */
-const buildPathsToClean = [buildDir, socialCssBuildDir]
+const buildPathsToClean = [buildDir]
 exports.buildPathsToClean = buildPathsToClean
 
 /**
  * The build paths that should be present on a new build
  */
-const buildPathsToCreate = [cssBuildDir, jsBuildDir]
+const buildPathsToCreate = [
+  cssBuildDir,
+  jsBuildDir,
+  fontsBuildDir,
+  imagesBuildDir,
+  socialImagesBuildDir,
+  tmpDir,
+]
 exports.buildPathsToCreate = buildPathsToCreate

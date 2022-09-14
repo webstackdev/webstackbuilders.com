@@ -1,17 +1,20 @@
 /// <reference path="../../../@types/@11ty/eleventy.d.ts" />
 /**
- * Call the Eleventy CLI programmatically to build the site HTML
+ * Run the Eleventy CLI to build the site HTML
  */
-import Eleventy from '@11ty/eleventy'
+//import Eleventy from '@11ty/eleventy'
+import run from 'gulp-run-command'
 import type { TaskFunction } from 'gulp'
 import { log } from '../utils'
 
 const task: TaskFunction = async done => {
   log(`Compiling HTML for production bundle`)
-  if (process.env.ELEVENTY_ENV === `development`) process.env.DEBUG=`Eleventy*`
+
   try {
-    const eleventy = new Eleventy()
-    await eleventy.write()
+    // Programmatic:
+    //const eleventy = new Eleventy()
+    //await eleventy.write()
+    await run('yarn run eleventy')()
     done()
   } catch (err) {
     if (err instanceof Error) {

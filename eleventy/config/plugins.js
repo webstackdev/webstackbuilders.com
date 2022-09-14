@@ -78,14 +78,12 @@ const pluginOptions = {
    */
   '@sardine/eleventy-plugin-external-links': undefined,
 
-  'eleventy-critical-css': undefined,
-
   /**
    * Generate a set of favicon icons from a single image file.
    */
   'eleventy-favicon': {
     /** The build directory and where the icon files will be copied over to */
-    destination: buildPaths.faviconSvgTargetDir,
+    destination: buildPaths.faviconSvgBuildDir,
   },
 
   /**
@@ -170,16 +168,15 @@ exports.addEleventyPlugins = (eleventyConfig, pluginSettings) => {
     /** Make sure the plugin is enabled in the eleventy config file */
     /* eslint-disable-next-line security/detect-object-injection */
     if (pluginSettings[pluginName] === disabled) return
-    /** Load the plugin */
+    /** Load and add the plugin */
+    /* eslint-disable-next-line security/detect-non-literal-require */
+    const plugin = require(`${pluginName}`)
     /* eslint-disable-next-line security/detect-object-injection */
     if (pluginOptions[pluginName]) {
-      /* eslint-disable-next-line security/detect-object-injection, security/detect-non-literal-require */
-      eleventyConfig.addPlugin(require(`${pluginName}`), pluginOptions[pluginName])
+      /* eslint-disable-next-line security/detect-object-injection */
+      eleventyConfig.addPlugin(plugin, pluginOptions[pluginName])
     } else {
-      /* eslint-disable-next-line security/detect-non-literal-require */
-      eleventyConfig.addPlugin(require(`${pluginName}`))
+      eleventyConfig.addPlugin(plugin)
     }
   })
-
-  //eleventyConfig.addPlugin(criticalCss)
 }

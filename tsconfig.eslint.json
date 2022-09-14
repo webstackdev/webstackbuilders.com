@@ -24,12 +24,12 @@
    * Files to include in compilation.
    */
   "include": [
-    "@types",
-    "eleventy",
-    "lambda",
-    "scripts",
-    "src",
-    "test",
+    "@types/**/*",
+    "eleventy/**/*",
+    "lambda/**/*",
+    "scripts/**/*",
+    "src/**/*",
+    "test/**/*",
 
     // these are the eslint-only inclusions
     ".eslintrc.js",

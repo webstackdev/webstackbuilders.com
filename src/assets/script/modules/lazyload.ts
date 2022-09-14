@@ -5,9 +5,7 @@ const config = {
   threshold: 0,
 }
 
-const loaded = 0
-
-function isImageElement(img: any): img is HTMLImageElement {
+function isImageElement(img: unknown): img is HTMLImageElement {
   return (img as HTMLImageElement).src !== undefined
 }
 

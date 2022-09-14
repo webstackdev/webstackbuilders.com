@@ -3,6 +3,8 @@ module.exports = {
   tags: 'services',
   layout: 'page',
   eleventyComputed: {
-    permalink: data => '/services/{{ data.slug }}/',
+    permalink: function (data) {
+      return this.getPermalinkPath(data)
+    }, // absolute
   },
 }

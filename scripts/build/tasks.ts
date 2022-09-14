@@ -1,4 +1,3 @@
-import type { TaskFunction } from 'gulp'
 /// <reference path="../../@types/npm-scripts-info.d.ts" />
 /**
  * Get the npm-scripts-info from package.json to use in setting 'description' field
@@ -8,6 +7,7 @@ import type { TaskFunction } from 'gulp'
 import getScriptsInfo from 'npm-scripts-info'
 import gulp from 'gulp'
 import { readdir } from 'fs/promises'
+import type { TaskFunction } from 'gulp'
 
 let _pkgScripts: { [key: string]: string }
 

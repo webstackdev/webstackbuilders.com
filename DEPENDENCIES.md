@@ -10,12 +10,13 @@ egrep -rnw --exclude-dir=node_modules --exclude=yarn.lock --exclude=yarn-error.l
 
 ```json
 @github-docs/frontmatter // used in validateFrontmatter script
+@types/jest // for jest config files
 @types/node // used by Gulp
 @types/gulp // used by Gulp
 @types/serve-static // used in eleventy global type definitions in @types directory
 @yarnpkg/cli // used in Yarn plugin
 chalk // used in validateFrontmatter script
-critical
+critical // used in gulp task for inlining critical CSS
 cross-var
 dotenv
 dotenv-cli
@@ -54,9 +55,10 @@ md5-file
 
 ```
 
-## Used in Gulpfile
+## Used in Gulpfile, some of this is mixed with above
 
 ```json
+@types/confusing-browser-globals
 cssnano
 del
 fancy-log
@@ -85,6 +87,9 @@ icon-gen // Favicon generator
 @11ty/eleventy-plugin-rss
 @11ty/eleventy-plugin-syntaxhighlight
 @11tyrocks/eleventy-plugin-social-images
+@quasibit/eleventy-plugin-schema
+@quasibit/eleventy-plugin-sitemap
+@sardine/eleventy-plugin-external-links
 eleventy-plugin-lazyimages
 eleventy-plugin-page-assets
 eleventy-plugin-share-highlight
@@ -106,6 +111,7 @@ passed from other things besides Jest. You can quiet that with `jest-mock-consol
 ```json
 @babel/core
 @babel/preset-typescript
+@testing-library/dom
 @testing-library/jest-dom // DOM matchers
 @types/jest
 @types/jest-axe

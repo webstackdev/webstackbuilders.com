@@ -1,19 +1,22 @@
 /**
- * 
+ * Build the production Javascript bundle
  */
+import run from 'gulp-run-command'
+import type { TaskFunction } from 'gulp'
+import { log } from '../utils'
 
-import { isDevelopment, log } from '../utils'
-import { cssTargetDir } from '../paths'
-
-import type { GulpHelpTaskParamsFlattened } from '../baseTask'
-import gulp from 'gulp'
-
-export const taskParams: GulpHelpTaskParamsFlattened = {
-  /** All tasks that should be run before this one */
-  //dependencies: ['util:clean'],
-  /** Function to execute the task */
-  fn: done => {
-    log(`Compiling SCSS to production CSS bundle`)
-    // webpack --progress --profile --config webpack.config.prod.js
-  },
+const task: TaskFunction = async done => {
+  log(``)
+  try {
+    await run('webpack --progress --profile --config webpack.config.prod.js')()
+    done()
+  } catch (err) {
+    if (err instanceof Error) {
+      done(err)
+      return
+    }
+    throw err
+  }
 }
+
+export default task

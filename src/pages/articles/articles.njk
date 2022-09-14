@@ -1,5 +1,6 @@
 ---
 title: All Articles
+type: post
 date: 2021-03-31
 tags: articles
 permalink: /articles/
@@ -61,7 +62,7 @@ eleventyNavigation:
               <p>Should throw an error, if reached here it's because the page has no description set in the front matter and no excerpt separator set in the content body.</p>
             {%- endif -%}
           </p>
-          <p>It will take {{ post.data.templateContent | timeToRead }} to read this</p>
+          <p>It will take {{ post.templateContent | timeToRead }} to read this</p>
 
         </li>
       {% endfor %}

@@ -9,3 +9,4 @@
   * https://developers.google.com/search/docs/advanced/structured-data
   * https://www.jsonschemavalidator.net/
   * https://json-ld.org/playground/
+- one E2E smoke test that just travels across the site map

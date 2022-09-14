@@ -3,18 +3,15 @@
  * CSS bundle and output it to the 'public' directory
  */
 
-import type { GulpHelpTaskParamsFlattened } from '../baseTask'
-import gulp from 'gulp'
+import { watch } from 'gulp'
+import type { TaskFunction } from 'gulp'
 import { log } from '../utils'
-import { scssWatchGlob } from '../paths'
+import { scssSourceDir } from '../paths'
+import buildCssTask from './build:css'
 
-export const taskParams: GulpHelpTaskParamsFlattened = {
-  /** All tasks that should be run before this one */
-  dependencies: ['build:css'],
-  /** Function to execute the task */
-  fn: done => {
-    log(`Watching SCSS files...`)
-    gulp.watch(scssWatchGlob)
-    done()
-  },
+const task: TaskFunction = () => {
+  log(`Watching for changes to source SCSS files`)
+  watch([scssSourceDir], {}, buildCssTask)
 }
+
+export default task

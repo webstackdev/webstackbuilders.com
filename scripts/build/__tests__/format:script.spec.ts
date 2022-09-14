@@ -7,6 +7,6 @@ import { pipeFile } from '../pipe'
 describe(`Formats JavaScript and TypeScript source files`, () => {
   test(`Lints JavaScript`, async () => {
     const sut = await pipeFile(`console.log(true)`, 'public/js/test.js', formatScriptTask)
-    expect(sut.contents?.toString()).toBe(`console.log(true)`)
+    expect(sut[0]).toBe(`console.log(true)`)
   })
 })

@@ -4,6 +4,10 @@
  */
 const outdent = require('outdent')
 
+// @TODO: Need to add computed data with `meta` tag for the JSON-LD schema generator
+//        plugin and make sure this runs before it does somehow
+//        https://github.com/quasibit/eleventy-plugin-schema/blob/master/demo/video.njk
+
 exports.youtubeShortcode = (_, id) => {
   const output = `
 <style>

@@ -1,0 +1,41 @@
+diff --git a/src/Plugins/RenderPlugin.js b/src/Plugins/RenderPlugin.js
+index e5ea016cf0f73927503e226ef5d451e2e0272f60..ddec2f9b2ced5e411ddb5f88cd1b3a1125f289b8 100644
+--- a/src/Plugins/RenderPlugin.js
++++ b/src/Plugins/RenderPlugin.js
+@@ -2,6 +2,8 @@ const fs = require("fs");
+ const fsp = fs.promises;
+ const isPlainObject = require("../Util/IsPlainObject");
+ const { TemplatePath } = require("@11ty/eleventy-utils");
++const EleventyBaseError = require('../EleventyBaseError');
++const EleventyErrorUtil = require('../EleventyErrorUtil');
+ 
+ // TODO add a first-class Markdown component to expose this using Markdown-only syntax (will need to be synchronous for markdown-it)
+ 
+@@ -202,8 +204,8 @@ function EleventyPlugin(eleventyConfig, options = {}) {
+         body(function (e, bodyContent) {
+           if (e) {
+             resolve(
+-              new EleventyShortcodeError(
+-                `Error with Nunjucks paired shortcode \`${shortcodeName}\`${EleventyErrorUtil.convertErrorToString(
++              new EleventyBaseError(
++                `Error with Nunjucks paired shortcode:\n${EleventyErrorUtil.convertErrorToString(
+                   e
+                 )}`
+               )
+@@ -222,13 +224,13 @@ function EleventyPlugin(eleventyConfig, options = {}) {
+             })
+             .catch(function (e) {
+               resolve(
+-                new EleventyShortcodeError(
+-                  `Error with Nunjucks paired shortcode \`${shortcodeName}\`${EleventyErrorUtil.convertErrorToString(
++                new EleventyBaseError(
++                  `Error with Nunjucks paired shortcode:\n${EleventyErrorUtil.convertErrorToString(
+                     e
+                   )}`
+                 ),
+                 null
+-              );
++              )
+             });
+         });
+       };

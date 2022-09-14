@@ -44,7 +44,7 @@ end
 
 ### Small Image
 
-{% image 'hello-world-printf.webp', 'Hello world printf example' %}
+{% asyncImageHandler 'hello-world-printf.webp', 'Hello world printf example' %}
 
 ### Large image
 

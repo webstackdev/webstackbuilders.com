@@ -1,17 +1,22 @@
+/// <reference path='../../../@types/gulp-prettier.d.ts' />
 import _ from 'lodash'
-import { src } from 'gulp'
+import { dest, src } from 'gulp'
 import gulpESLintNew from 'gulp-eslint-new'
 import lazypipe from 'lazypipe'
-
+import prettier from 'gulp-prettier'
 import type { TaskFunction } from 'gulp'
-
 import { log } from '../utils'
-import { scriptLintSourceGlobs } from '../paths'
+import { scriptSourceGlobs } from '../paths'
 
 /**
  * Format Javascript and Typescript
  */
+/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment */
 export const formatScriptTask = lazypipe()
+  /**
+   * Run Prettier before output is fed into ES Lint
+   */
+  .pipe(prettier)
   /**
    * Lint files. ESLint autofix option is set to false so no fixes are created.
    */
@@ -22,26 +27,23 @@ export const formatScriptTask = lazypipe()
    * Overwrite files with the fixed content provided by ESLint, should be
    * used in conjunction with the option fix in `gulpESLintNew(options)`.
    */
-  // eslint-disable-next-line @typescript-eslint/unbound-method
   .pipe(gulpESLintNew.fix)
   /**
    * Format all linted files in the stream once after piping through
    * gulpESLintNew. Outputs lint results to the console.
    */
-  // eslint-disable-next-line @typescript-eslint/unbound-method
   .pipe(gulpESLintNew.format)
   /**
    * Stop a task/stream if an ESLint error has been reported for
    * any file, but wait for all of them to be processed first.
    */
-  // eslint-disable-next-line @typescript-eslint/unbound-method
   .pipe(gulpESLintNew.failAfterError)
 
-const task: TaskFunction = done => {
+const task: TaskFunction = () => {
   log(`Linting script source code`)
-  return src(scriptLintSourceGlobs)
+  return src(scriptSourceGlobs)
     .pipe(formatScriptTask())
-    .on('end', () => done())
+    .pipe(dest('.'))
 }
 
 export default task

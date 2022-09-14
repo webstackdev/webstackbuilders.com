@@ -5,22 +5,22 @@
  */
 
 import * as dotenv from 'dotenv'
+import type { Config } from '@jest/types'
 
-import type { Config } from 'jest'
+export type ConfigOptions = Config.InitialOptions
 
 // load environmental variables if not already loaded
 if (!process.env['ELEVENTY_ENV_VARS_INIT']) {
   dotenv.config({ path: './.env.local' })
 }
 
-const config: Config = {
+const config: ConfigOptions = {
   /** Directory where Jest should output coverage files */
   coverageDirectory: `<rootDir>/coverage`,
   /** Config for ts-jest */
   globals: {
     'ts-jest': {
       tsconfig: './tsconfig.jest.json',
-      // useESM: true,
     },
   },
   /** Ignore any tests in the node_modules, .cache, or public directories */

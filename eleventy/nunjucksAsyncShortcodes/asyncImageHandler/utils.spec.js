@@ -19,37 +19,95 @@ const {
   checkForAltMetadata,
   filenameFormat,
   getImagePaths,
+  getOptimizedFileName,
+  getRootPathsFromFilePath,
+  isRelativeFilePath,
   pathsExist,
   renderTemplate,
   getDataSrcset,
+  stripLeadingSlash,
+  stripTrailingSlash,
 } = require('./utils')
 const { imageMetadataFixture } = require('./__fixtures__/imageMetadata')
 
 describe(`Check for alt metadata for image`, () => {
   test('Passes with alt text', () => {
-    expect(checkForAltMetadata('cover.jpeg', 'A cover image')).toBe(true)
+    expect(checkForAltMetadata('A cover image', 'cover.jpeg')).toBe(true)
   })
 
   test('Throw with empty string for alt text', () => {
-    expect(() => checkForAltMetadata('cover.jpeg', '')).toThrow()
+    expect(() => checkForAltMetadata('', 'cover.jpeg')).toThrow()
   })
 })
 
 describe(`Check that slug is generated from generated image metadata`, () => {
   test('Returns slug with valid parameters', () => {
-    const results = filenameFormat(null, 'images/cover.webp', 800, 'webp', null)
+    const results = filenameFormat(undefined, 'images/cover.webp', 800, 'webp', undefined)
     expect(results).toBe('cover-800w.webp')
   })
 
   test('Updates returned slug with format when it differs from src', () => {
-    const results = filenameFormat(null, 'images/cover.jpeg', 800, 'webp', null)
+    const results = filenameFormat(undefined, 'images/cover.jpeg', 800, 'webp', undefined)
     expect(results).toBe('cover-800w.webp')
   })
 
   test('Returns slug with the size used to build the string', () => {
     const size = 800
-    const results = filenameFormat(null, 'images/cover.webp', size, 'webp', null)
+    const results = filenameFormat(undefined, 'images/cover.webp', size, 'webp', undefined)
     expect(results).toContain(size.toString())
+  })
+})
+
+describe(`Strip leading slash regex`, () => {
+  test('Returns slash-leading string without slash', () => {
+    const results = stripLeadingSlash(`/my/path`)
+    expect(results).toBe(`my/path`)
+  })
+
+  test('Returns string that does not have a leading slash', () => {
+    const results = stripLeadingSlash(`my/path`)
+    expect(results).toBe(`my/path`)
+  })
+})
+
+describe(`Strip trailing slash regex`, () => {
+  test('Returns slash-trailing string without slash', () => {
+    const results = stripTrailingSlash(`my/path/`)
+    expect(results).toBe(`my/path`)
+  })
+
+  test('Returns string that does not have a trailing slash', () => {
+    const results = stripTrailingSlash(`my/path`)
+    expect(results).toBe(`my/path`)
+  })
+})
+
+describe(`Strips the filename and extension from a relative file path`, () => {
+  test('Single path returned with trailing slash', () => {
+    const results = getRootPathsFromFilePath(`/avatars/john-smith.jpeg`)
+    expect(results).toBe(`avatars/`)
+  })
+
+  test('Multiple paths returned with trailing slash', () => {
+    const results = getRootPathsFromFilePath(`/promo/test/cover.webp`)
+    expect(results).toBe(`promo/test/`)
+  })
+})
+
+describe(`Tests if the filename matches the relative handling strategy`, () => {
+  test(`File name alone matches`, () => {
+    const results = isRelativeFilePath(`cover.webp`)
+    expect(results).toBeTruthy()
+  })
+
+  test(`File name with leading relative path matches`, () => {
+    const results = isRelativeFilePath(`feature/great.jpeg`)
+    expect(results).toBeTruthy()
+  })
+
+  test(`Fails on absolute path in filename`, () => {
+    const results = isRelativeFilePath(`/great.jpeg`)
+    expect(results).toBeFalsy()
   })
 })
 
@@ -63,24 +121,80 @@ describe(`Returns paths for the source image file, output directory, and <img> t
     mock.restore()
   })
 
-  test('Absolute image filenames located side-by-side in Markdown file directories', () => {
-    const paths = getImagePaths('/avatars/john-smith.jpeg', '/')
+  test('Homepage image filenames located in Markdown home file directory point to image assets directory in build folder', () => {
+    const fileName = 'great-days.jpeg'
+    const filePathStem = '/pages/home'
+    const paths = getImagePaths(fileName, filePathStem)
     expect(paths).toMatchInlineSnapshot(`
-      Object {
-        "imagePath": "/var/www/eleventy/src/assets/images/avatars/john-smith.jpeg",
-        "outputDir": "/var/www/eleventy/public/images/avatars",
-        "urlPath": "/images/avatars",
+      {
+        "imagePath": "/var/www/eleventy/src/pages/home/great-days.jpeg",
+        "outputDir": "/var/www/eleventy/public/images/home",
+        "urlPath": "/images/home/great-days.jpeg",
       }
     `)
   })
 
-  test('Relative image filenames that are in the assets/images folder', () => {
-    const paths = getImagePaths('cover.jpeg', '/articles/helloworld')
+  test('Homepage image filenames with leading paths in image name located in Markdown home file directory point to image assets directory in build folder', () => {
+    const fileName = 'carousel/great-days.jpeg'
+    const filePathStem = '/pages/home'
+    const paths = getImagePaths(fileName, filePathStem)
     expect(paths).toMatchInlineSnapshot(`
-      Object {
-        "imagePath": "/var/www/eleventy/src/pages/articles/helloworld/cover.jpeg",
+      {
+        "imagePath": "/var/www/eleventy/src/pages/home/carousel/great-days.jpeg",
+        "outputDir": "/var/www/eleventy/public/images/home/carousel",
+        "urlPath": "/images/home/carousel/great-days.jpeg",
+      }
+    `)
+  })
+
+  test('Absolute image filenames without leading path located side-by-side in Markdown file directories', () => {
+    const fileName = '/john-smith.jpeg'
+    const filePathStem = '/pages/articles/helloworld/index'
+    const paths = getImagePaths(fileName, filePathStem)
+    expect(paths).toMatchInlineSnapshot(`
+      {
+        "imagePath": "/var/www/eleventy/src/assets/images/john-smith.jpeg",
+        "outputDir": "/var/www/eleventy/public/images/articles/helloworld",
+        "urlPath": "/images/john-smith.jpeg",
+      }
+    `)
+  })
+
+  test('Absolute image filenames located side-by-side in Markdown file directories', () => {
+    const fileName = '/avatars/john-smith.jpeg'
+    const filePathStem = '/pages/articles/helloworld/index'
+    const paths = getImagePaths(fileName, filePathStem)
+    expect(paths).toMatchInlineSnapshot(`
+      {
+        "imagePath": "/var/www/eleventy/src/assets/images/avatars/john-smith.jpeg",
+        "outputDir": "/var/www/eleventy/public/images/articles/helloworld",
+        "urlPath": "/images/avatars/john-smith.jpeg",
+      }
+    `)
+  })
+
+  test('Articles relative image returns correct paths', () => {
+    const fileName = 'cover.webp'
+    const filePathStem = '/pages/articles/helloworld/index'
+    const sut = getImagePaths(fileName, filePathStem)
+    expect(sut).toMatchInlineSnapshot(`
+      {
+        "imagePath": "/var/www/eleventy/src/pages/articles/helloworld/cover.webp",
         "outputDir": "/var/www/eleventy/public/articles/helloworld",
-        "urlPath": "/articles/helloworld",
+        "urlPath": "/articles/helloworld/cover.webp",
+      }
+    `)
+  })
+
+  test('Nested relative image returns correct paths', () => {
+    const fileName = 'feature/great.jpeg'
+    const filePathStem = '/pages/articles/helloworld/index'
+    const sut = getImagePaths(fileName, filePathStem)
+    expect(sut).toMatchInlineSnapshot(`
+      {
+        "imagePath": "/var/www/eleventy/src/pages/articles/helloworld/feature/great.jpeg",
+        "outputDir": "/var/www/eleventy/public/articles/helloworld",
+        "urlPath": "/articles/helloworld/feature/great.jpeg",
       }
     `)
   })

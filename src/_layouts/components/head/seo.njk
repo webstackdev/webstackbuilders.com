@@ -1,25 +1,18 @@
 {%- set pageUrl = page.url | absoluteUrl -%}
 {#- Page-Specific -#}
     <meta name="description" content="{{ description or autoDescription or site.description }}">
-{%- if image -%}
-    <meta name="image" content="{{ pageUrl }}{{ image }}">
-{%- endif -%}
-    <meta property="og:title" content="{{ title or site.title }}">
-    <meta property="og:description" content="{{ description or autoDescription or site.description }}">
+    {%- set pageTitle = title or site.title -%}
+    <meta name="og:title" content="{% pageTitle pageTitle=pageTitle %}" />
+    {%- set pageDescription = description or autoDescription or site.description -%}
+    <meta name="og:description" content="{% pageDescription pageDescription=pageDescription %}">
     <meta property="og:url" content="{{ pageUrl }}">
-    {# @TODO: this logic is wrong for determing the 'content' key, #}
-    {#        it's not building the right image path               #}
-    <meta property="og:image" content="{%- if cardImage -%}{{ pageUrl }}{{ image }}{%- else -%}{{ author.avatar | absoluteUrl }}{%- endif -%}">
-    <meta name="twitter:card" content="{% if isPost -%}summary_large_image{% else %}summary{% endif %}">
+{#- General -#}
+    <meta property="og:site_name" content="{{ site.title }}">
+    <meta property="og:locale" content="{{ site.locale }}">
+{#- JSON LD Schema.org markup -#}
+    {% jsonLdScript meta, type, tags %}
 {#- Posts get additional meta tags -#}
 {%- if layout == 'article' -%}
     <meta property="og:type" content="article">
     <meta property="article:published_time" content="{{ page.date | dateToISO }}">
 {%- endif -%}
-{#- General -#}
-    <meta property="og:site_name" content="{{ site.title }}">
-    <meta property="og:locale" content="{{ site.locale }}">
-    <meta name="twitter:site" content="@{{ author.social.twitter.name }}">
-    <meta name="twitter:creator" content="@{{ author.social.twitter.name }}">
-{#- JSON LD -#}
-    {% jsonLdScript meta, type, tags %}

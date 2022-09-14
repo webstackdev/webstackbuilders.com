@@ -10,13 +10,10 @@ layout: base
   aria-labelledby="{{ title | slug }}-title"
 >
   <header class="article__header">
-    {% if not cover %}
-      {% set cover = 'cover.webp' %}
-    {% endif %}
     {% if not alt %}
       {% set alt = ['Cover image for article ', title] | join %}
     {% endif %}
-    {% image cover, alt %}
+    {% asyncImageHandler cover, alt %}
 
     <h1 id="{{ title | slug }}-title" class="article__title title" itemprop="headline">
       {{ title }}
@@ -48,7 +45,7 @@ layout: base
       <a href="{{ page.url | absoluteUrl }}">{{ title }}</a>
       <p>
         <a rel="author" href="{{ site.baseUrl }}">{{ author.name }}</a>
-        {% image author.avatar, "Site author's avatar image" %}
+        {% asyncImageHandler author.avatar, "Site author's avatar image" %}
       </p>
     </div>
 

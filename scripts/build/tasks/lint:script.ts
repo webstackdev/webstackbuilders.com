@@ -2,33 +2,25 @@ import _ from 'lodash'
 import { src } from 'gulp'
 import gulpESLintNew from 'gulp-eslint-new'
 import lazypipe from 'lazypipe'
-
 import type { TaskFunction } from 'gulp'
-
-import { log } from '../utils'
-import { scriptLintSourceGlobs } from '../paths'
+import { log, withError } from '../utils'
+import { scriptSourceGlobs } from '../paths'
 
 /**
  * Lint Javascript and Typescript
  */
+/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment */
 export const lintScriptTask = lazypipe()
   /**
    * Lint files. ESLint autofix option is set to false so no fixes are created.
    */
-  //.pipe(function () {
-  //  return gulpESLintNew({ fix: false })
-  //})
-  .pipe(gulpESLintNew)
-  /**
-   * Overwrite files with the fixed content provided by ESLint, should be
-   * used in conjunction with the option fix in `gulpESLintNew(options)`.
-   */
-  //.pipe(gulpESLintNew.fix)
+  .pipe(function () {
+    return gulpESLintNew({ fix: false })
+  })
   /**
    * Format all linted files in the stream once after piping through
    * gulpESLintNew. Outputs lint results to the console.
    */
-  // eslint-disable-next-line @typescript-eslint/unbound-method
   .pipe(gulpESLintNew.format)
 
 
@@ -37,9 +29,13 @@ export const lintScriptTask = lazypipe()
 // See note in test also (skipped)
 const task: TaskFunction = (done) => {
   log(`Linting script source code`)
-   return src(scriptLintSourceGlobs)
-     .pipe(lintScriptTask())
-     .on('finish', () => done())
+  // @TODO: Error: premature close
+   return src(scriptSourceGlobs)
+    .pipe(lintScriptTask())
+    .on('finish', () => done())
+    .on('error', () => {
+      done(withError(`ES Lint found errors`) as unknown as Error)
+    })
 }
 
 export default task

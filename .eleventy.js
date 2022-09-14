@@ -92,8 +92,6 @@ module.exports = eleventyConfig => {
      */
     '@sardine/eleventy-plugin-external-links': enabled,
 
-    'eleventy-critical-css': disabled,
-
     /**
      * Generate a set of favicon icons from a single image file.
      */
@@ -150,15 +148,17 @@ module.exports = eleventyConfig => {
   // @TODO: Moving to Gulp task `build:assets`
   eleventyConfig.addPassthroughCopy('src/manifest.json')
   eleventyConfig.addPassthroughCopy('src/robots.txt')
-  eleventyConfig.addPassthroughCopy({ 'src/assets/images/site': 'images/site' })
-  eleventyConfig.addPassthroughCopy({ 'src/assets/fonts': 'fonts' })
 
   /**
    * Cache eleventyConfig for the addExtensions dynamic extension loader. This system loads
    * filters, shortcodes, and functions from the module exports used in `eleventy/index.js`.
    */
-  const { extensionsInit } = require('./eleventy/utils/extensions')
-  extensionsInit(eleventyConfig, eleventySetup)
+  eleventySetup.utils.extensionsInit(eleventyConfig, eleventySetup)
+
+  /**
+   * Add functions for use in Eleventy Javascript  *.11tydata.js directory files
+   */
+  eleventyConfig.addJavaScriptFunction('getPermalinkPath', eleventySetup.utils.getPermalinkPath)
 
   /**
    * Configured markdown-it instance, also used in markdown shortcodes
@@ -208,7 +208,7 @@ module.exports = eleventyConfig => {
   /**
    * Collections: Case Studies / Work / Portfolio
    */
-  eleventyConfig.addCollection('casestudies', function (collection) {
+  eleventyConfig.addCollection('case-studies', function (collection) {
     return collection
       .getFilteredByGlob(`${buildPaths.casestudiesSourceDir}/**/*.md`)
       .filter(item => item.data.permalink !== false)
@@ -223,14 +223,17 @@ module.exports = eleventyConfig => {
       .filter(item => item.data.active)
   })
 
+  /**
+   * Collections: Testimonials. These do not have pages generated for them.
+   */
+  eleventyConfig.addCollection('testimonials', function (collection) {
+    return collection
+      .getFilteredByGlob(`${buildPaths.testimonialsSourceDir}/**/*.md`)
+      .filter(item => item.data.active)
+  })
+
   eleventyConfig.addCollection('sitemap', function (collection) {
-    return collection.getFilteredByTags(
-      `articles`,
-      `case-studies`,
-      `services`,
-      `testimonials`,
-      `site`
-    )
+    return collection.getFilteredByTags(`articles`, `case-studies`, `services`, `site`)
   })
 
   return {

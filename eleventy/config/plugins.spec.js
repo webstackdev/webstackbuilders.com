@@ -11,7 +11,10 @@ describe('Dynamic plugin loader works', () => {
     addEleventyPlugins(eleventyConfig, pluginSettings)
 
     expect(mockAddPlugin.mock.calls.length).toBe(1)
-    expect(mockAddPlugin).toHaveBeenCalledWith('eleventy-favicon')
+    const firstMockParam = mockAddPlugin.mock.calls[0][1]
+    expect(firstMockParam && typeof firstMockParam === 'object').toBe(true)
+    const secondMockParam = mockAddPlugin.mock.calls[0][1]
+    expect(secondMockParam && typeof secondMockParam === 'object').toBe(true)
    })
 
   test('Throws if plugin is not valid', () => {

@@ -1,12 +1,13 @@
 /**
  * Jest configuration for JSDOM browser environment, set up with TypeScript
  */
-import type { Config } from 'jest'
 import commonJestConfig from './jest.config.common'
+import type { ConfigOptions } from './jest.config.common'
 
-const devServer = `http://localhost:${process.env['ELEVENTY_DEV_SERVER_PORT']}`
+const envServerPort = process.env['ELEVENTY_DEV_SERVER_PORT']
+const devServer = envServerPort ? `http://localhost:${envServerPort}` : 8081
 
-const config: Config = {
+const config: ConfigOptions = {
   /** Add shared configuration options */
   ...commonJestConfig,
 
@@ -27,6 +28,7 @@ const config: Config = {
     '<rootDir>/eleventy/pairedShortcodes',
     '<rootDir>/eleventy/shortcodes',
     '<rootDir>/src/assets/script',
+    '<rootDir>/scripts/build/__tests__/build:css:critical.spec.ts',
   ],
   /**
    * Executed before each test file is executed but after
@@ -54,6 +56,8 @@ const config: Config = {
     /** Some DOM APIs such as localStorage are unhappy with the default about:blank */
     url: devServer,
   },
+  /** Skip any tests that match these regexp pattern strings */
+  testPathIgnorePatterns: [],
 }
 
 export default config

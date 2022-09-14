@@ -1,19 +1,22 @@
 /**
  * Build the CSS bundle used to style social share images
  */
-
-import { log } from '../utils'
-import type { GulpHelpTaskParamsFlattened } from '../baseTask'
 import { buildCssTask } from './build:css'
-import { socialScssSourceDir, socialCssTargetDir } from '../paths'
+import { log } from '../utils'
+import { buildDir, socialScssSourceFile, tmpDir } from '../paths'
+import { dest, src } from 'gulp'
+import rename from 'gulp-rename'
+import type { TaskFunction } from 'gulp'
 
-export const taskParams: GulpHelpTaskParamsFlattened = {
-  /** Function to execute the task */
-  fn: done => {
-    log(`Compiling SCSS to production CSS bundle`)
-    return plumbedGulpSrc(socialScssSourceDir) // social.scss in assets
-      .pipe(buildCssTask)
-      .pipe(gulp.dest(socialCssTargetDir))
-      .on('end', done)
-  },
+const task: TaskFunction = () => {
+  log(`Compiling social styles SCSS to production CSS bundle`)
+  return src(socialScssSourceFile)
+    .pipe(buildCssTask())
+    .pipe(rename(`socialimages.css`))
+    .pipe(dest(`${buildDir}/${tmpDir}`))
+    .on('finish', () =>
+      log(`Social styles compiled to ${buildDir}/${tmpDir}/socialimages.css`, `yellow`)
+    )
 }
+
+export default task

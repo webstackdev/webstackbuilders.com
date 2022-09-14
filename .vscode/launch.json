@@ -8,7 +8,7 @@
       "program": "${workspaceRoot}/node_modules/.bin/eleventy",
       "stopOnEntry": false,
       "cwd": "${workspaceRoot}",
-      "env": { "ELEVENTY_ENV": "production" },
+      "env": { "ELEVENTY_ENV": "production", "DEBUG": "Eleventy*" },
       "console": "internalConsole",
       "runtimeVersion": "17.5.0"
     },
@@ -21,6 +21,18 @@
       "args": ["--watch"],
       "cwd": "${workspaceRoot}",
       "env": { "ELEVENTY_ENV": "development" },
+      "console": "internalConsole",
+      "runtimeVersion": "17.5.0"
+    },
+    {
+      "name": "gulp-build-lambda",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceRoot}/node_modules/.bin/gulp",
+      "stopOnEntry": false,
+      "args": ["build:lambda"],
+      "cwd": "${workspaceRoot}",
+      "env": { "TS_NODE_PROJECT": "tsconfig.gulp.json" },
       "console": "internalConsole",
       "runtimeVersion": "17.5.0"
     }

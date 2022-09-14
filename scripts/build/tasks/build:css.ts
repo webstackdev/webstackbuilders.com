@@ -3,7 +3,7 @@
  * CSS bundle and output it to the 'public' directory
  */
 
-import { cssBuildDir, cssTargetFilename, scssSource } from '../paths'
+import { cssBuildDir, scssSourceDir } from '../paths'
 import { isDevelopment, log } from '../utils'
 
 import type { TaskFunction } from 'gulp'
@@ -28,17 +28,17 @@ export const buildCssTask = lazypipe()
   .pipe(sass.sync)
   // add vendor prefixing and focused optimizations
   .pipe(() => postcss([svgo(), cssnano()]))
+  .pipe(() => rename(`index.css`))
   // source maps by default are written inline in the compiled CSS files if no path as param
   .pipe(() => gulpif(isDevelopment, sourcemaps.write('.')))
 
 const task: TaskFunction = () => {
   log(`Compiling SCSS to production CSS bundle`)
-  return src(scssSource) // index.scss include file in assets
+  return src(`${scssSourceDir}/index.scss`) // index.scss include file in assets
     .pipe(buildCssTask())
-    .pipe(rename(cssTargetFilename))
     .pipe(dest(cssBuildDir))
     .on('finish', () => {
-      log(`Production CSS bundle output to ${resolve(cssBuildDir, cssTargetFilename)}`)
+      log(`Production CSS bundle output to ${resolve(cssBuildDir, `index.css`)}`)
     })
 }
 

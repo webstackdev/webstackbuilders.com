@@ -43,6 +43,7 @@ export const setupThemeSwitcher = () => {
 
 const queryDocument = (selector: string): Element => {
   const element = document.querySelector(selector)
+  /* eslint-disable-next-line no-null/no-null */
   if (element === null)
     throw new Error(`Could not find document element for query selector ${selector}`)
   return element
@@ -55,7 +56,7 @@ const queryAllDocument = (selector: string): NodeListOf<Element> => {
   return elements
 }
 
-function isHtmlElement(element: any): element is HTMLElement {
+function isHtmlElement(element: unknown): element is HTMLElement {
   return element instanceof HTMLElement
 }
 
@@ -131,9 +132,7 @@ const togglePicker = (force?: boolean) => {
   const toggleBtn = queryDocument(SELECTORS.toggleBtn)
   if (!isHtmlElement(toggleBtn)) throw new Error('toggleBtn is not an HTML Element')
   toggleBtn.setAttribute('aria-expanded', String(IS_OPEN))
-
   const picker = queryDocument(SELECTORS.picker)
-
   if (IS_OPEN) {
     picker.removeAttribute('hidden')
     const pickerOpen = () => picker.classList.add(CLASSES.open)

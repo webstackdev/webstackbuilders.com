@@ -1,19 +1,28 @@
+/// <reference path="../../../@types/@11ty/eleventy.d.ts" />
 /**
- * 
+ * Run the Eleventy CLI in debug mode to build the site HTML
  */
+//import Eleventy from '@11ty/eleventy'
+import run from 'gulp-run-command'
+import type { TaskFunction } from 'gulp'
+import { log } from '../utils'
 
-import { isDevelopment, log } from '../utils'
-import { cssTargetDir } from '../paths'
-
-import type { GulpHelpTaskParamsFlattened } from '../baseTask'
-import gulp from 'gulp'
-
-export const taskParams: GulpHelpTaskParamsFlattened = {
-  /** All tasks that should be run before this one */
-  //dependencies: ['util:clean'],
-  /** Function to execute the task */
-  fn: done => {
-    log(`Compiling SCSS to production CSS bundle`)
-    // DEBUG=Eleventy* npx @11ty/eleventy
-  },
+const task: TaskFunction = async done => {
+  log(`Compiling HTML for production bundle in debug mode`)
+  process.env['DEBUG'] = `Eleventy*`
+  try {
+    // Programmatic:
+    //const eleventy = new Eleventy()
+    //await eleventy.write()
+    await run('yarn run eleventy')()
+    done()
+  } catch (err) {
+    if (err instanceof Error) {
+      done(err)
+      return
+    }
+    throw err
+  }
 }
+
+export default task

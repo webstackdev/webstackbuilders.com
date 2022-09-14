@@ -1,19 +1,23 @@
 /**
- *
+ * Run unit tests sequentially to avoid resource overload in CI environment
  */
+import type { TaskFunction } from 'gulp'
+import run from 'gulp-run-command'
+import { log } from '../utils'
 
-import { isDevelopment, log } from '../utils'
-import { cssTargetDir } from '../paths'
-
-import type { GulpHelpTaskParamsFlattened } from '../baseTask'
-import gulp from 'gulp'
-
-export const taskParams: GulpHelpTaskParamsFlattened = {
-  /** All tasks that should be run before this one */
-  //dependencies: ['util:clean'],
-  /** Function to execute the task */
-  fn: done => {
-    log(`Compiling SCSS to production CSS bundle`)
-    // NODE_OPTIONS=--experimental-vm-modules yarn jest --ci --runInBand
-  },
+const task: TaskFunction = async done => {
+  log(`Running unit tests with Jest`)
+  try {
+    await run('NODE_OPTIONS=--experimental-vm-modules yarn jest --ci --runInBand')()
+    done()
+    return
+  } catch (err) {
+    if (err instanceof Error) {
+      done(err)
+      return
+    }
+    throw err
+  }
 }
+
+export default task

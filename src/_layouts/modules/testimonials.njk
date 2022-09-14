@@ -3,11 +3,10 @@
 <ul>
 {% for testimonial in collections.testimonials %}
   <li>
-    {% set url = ["/avatars/", testimonial.avatar] | join %}
-    {% set alt = ["Photo of ", testimonial.name] | join %}
     <div>{{ testimonial.name }}</div>
     <div>{{ testimonial.organization }}</div>
-    {% image url, alt %}
+    {% set alt = ["Photo of ", testimonial.data.author.name] | join %}
+    {% asyncImageHandler testimonial.data.author.avatar, alt %}
     <p>{{ testimonial.templateContent }}</p>
   </li>
 {% endfor %}

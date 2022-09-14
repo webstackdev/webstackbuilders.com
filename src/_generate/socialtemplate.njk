@@ -1,6 +1,5 @@
 ---
-permalink: `${buildPaths.socialCssBuildDir}/template.html`
-permalinkBypassOutputDir: true
+permalink: "{{ buildPaths.tmpDir }}/template.html"
 eleventyExcludeFromCollections: true
 ---
 
@@ -20,9 +19,12 @@ eleventyExcludeFromCollections: true
   <body>
     <header>
       <div>
+        {# Empty <h1> element is required as a hook for the script to replace #}
         <h1></h1>
+        {# Custom template variables added as data-* attributes on elements to swap #}
+        <p data-description></p>
         <p>
-          <em>Published on</em>&nbsp;&nbsp;<strong>{{ meta.siteName }}</strong>
+          <em>Published on</em>&nbsp;&nbsp;<strong>{{ meta.siteName }}</strong> <small data-postdate></small>
         </p>
       </div>
     </header>

@@ -3,31 +3,17 @@
  */
 import { heroSvgAnimation } from './animations'
 import { setupThemeSwitcher } from './modules'
+import { promiseErrorHandler } from './modules/utils'
 
-// Unhandled exception handler
-window.onerror = function (msg, source, lineno, colno, error) {
-  const message = [
-    'Message: ' + msg,
-    'URL: ' + source,
-    'Line: ' + lineno,
-    'Column: ' + colno,
-    'Error object: ' + JSON.stringify(error),
-  ].join(' - ')
+import './errorHandlers'
 
-  alert(message)
-
-  // Prevent the firing of the default event handler
-  return true
-}
-
-// equivalent to jquery's document ready
 document.addEventListener('DOMContentLoaded', () => {
   setupThemeSwitcher()
   heroSvgAnimation()
   // @TODO: need to load share-highlight module
 })
 
-// all assets loaded, the page has everything ready and users can interact with it
+/** All assets loaded, the page has everything ready and users can interact with it */
 document.addEventListener('load', () => {
-  navigator.serviceWorker.register('/service-worker.js')
+  navigator.serviceWorker.register('/service-worker.js').catch(promiseErrorHandler)
 })

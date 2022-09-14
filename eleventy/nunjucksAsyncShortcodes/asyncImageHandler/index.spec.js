@@ -8,7 +8,7 @@ describe(`Async image handler tests`, () => {
     // Nunjucks provides shortcodes with a `this` parameter including page url
     const element = await asyncImageHandler.call(
       { page: { url: '/' } },
-      null,
+      undefined,
       '/avatars/test-red-dot.png',
       'test red dot alt text'
     )
