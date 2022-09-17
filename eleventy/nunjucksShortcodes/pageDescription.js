@@ -9,7 +9,11 @@
  * {% pageDescription pageDescription=this.page.description %}
  */
 function pageDescription(eleventyConfig, description) {
-  return description ?? eleventyConfig.globalData.site.title
+  if (typeof description !== 'string' && typeof description !== 'undefined')
+    throw new Error(
+      `Description passed to Nunjucks pageTitle shortcode is not a string, received:\n${description}`
+    )
+  return description ? description : eleventyConfig.globalData.site.title
 }
 
 exports.pageDescription = pageDescription

@@ -1,6 +1,8 @@
 //import { getTaskfiles } from './scripts/build/tasks'
 import { task } from 'gulp'
 
+// @TODO: see scripts/build/tasks.ts for a dynamic task loader that adds package descriptions from the `package.json` file
+
 /**
  * Build tasks
  */
@@ -20,21 +22,21 @@ import buildSocialImages from './scripts/build/tasks/build:social-images'
 import buildSocialStyles from './scripts/build/tasks/build:social-styles'
 import buildSprites from './scripts/build/tasks/build:sprites'
 
-task(`build`, build)
-task(`build:css`, buildCss)
 //task(`build:css-critical`, buildCssCritical)
+task(`build:css`, buildCss)
 task(`build:fonts`, buildFonts)
-task(`build:html`, buildHtml)
+task(`build:html:compress`, buildHtmlCompress)
 task(`build:html:debug`, buildHtmlDebug)
+task(`build:html:minify`, buildHtmlMinify)
+task(`build:html`, buildHtml)
 task(`build:images`, buildImages)
 task(`build:lambda`, buildLambda)
-task(`build:html:compress`, buildHtmlCompress)
-task(`build:html:minify`, buildHtmlMinify)
 task(`build:script`, buildScript)
 task(`build:service-worker`, buildServiceworker)
 task(`build:social-images`, buildSocialImages)
 task(`build:social-styles`, buildSocialStyles)
 task(`build:sprites`, buildSprites)
+task(`build`, build)
 
 /**
  * Formatting tasks
@@ -63,6 +65,30 @@ task(`lint:sass`, lintSass)
 task(`lint:script`, lintScript)
 
 /**
+ * Linting tasks
+ */
+import start from './scripts/build/tasks/start'
+
+task(`start`, start)
+
+/**
+ * Linting tasks
+ */
+import testAll from './scripts/build/tasks/test:all'
+import testCoverage from './scripts/build/tasks/test:coverage'
+import testE2e from './scripts/build/tasks/test:e2e'
+import testUnit from './scripts/build/tasks/test:unit'
+import testUnitCi from './scripts/build/tasks/test:unit:ci'
+import testUnitUpdateSnapshot from './scripts/build/tasks/test:unit:updateSnapshot'
+
+task(`test:all`, testAll)
+task(`test:coverage`, testCoverage)
+task(`test:e2e`, testE2e)
+task(`test:unit`, testUnit)
+task(`test:unit:ci`, testUnitCi)
+task(`test:unit:updateSnapshot`, testUnitUpdateSnapshot)
+
+/**
  * Utility tasks
  */
 import clean from './scripts/build/tasks/util:clean'
@@ -80,6 +106,16 @@ task(`util:version`, version)
 /**
  * Watch tasks
  */
+import watch from './scripts/build/tasks/watch'
+import watchCss from './scripts/build/tasks/watch:css'
+import watchHtml from './scripts/build/tasks/watch:html'
 import watchLambda from './scripts/build/tasks/watch:lambda'
+import watchScript from './scripts/build/tasks/watch:script'
+import watchTestUnit from './scripts/build/tasks/watch:test:unit'
 
+task(`watch`, watch)
+task(`watch:css`, watchCss)
+task(`watch:html`, watchHtml)
 task(`watch:lambda`, watchLambda)
+task(`watch:script`, watchScript)
+task(`watch:test:unit`, watchTestUnit)

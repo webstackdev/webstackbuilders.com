@@ -70,7 +70,10 @@ exports.imagesBuildDir = imagesBuildDir
 const socialScssSourceFile = `${scssSourceDir}/socialimages.scss`
 exports.socialScssSourceFile = socialScssSourceFile
 
-const socialImagesBuildDir = `${imagesBuildDir}/previews`
+const socialImagesDir = `previews`
+exports.socialImagesDir = socialImagesDir
+
+const socialImagesBuildDir = `${imagesBuildDir}/${socialImagesDir}`
 exports.socialImagesBuildDir = socialImagesBuildDir
 
 /**

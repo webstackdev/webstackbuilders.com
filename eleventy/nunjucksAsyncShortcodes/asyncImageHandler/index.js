@@ -45,15 +45,6 @@ exports.asyncImageHandler = async function (
   if (src.startsWith('http:') || src.startsWith('https:'))
     return `<img src="${src}" alt="${alt}" />`
 
-/*
-inputPath: "./src/pages/articles/helloworld/index.md",
-fileSlug: "helloworld",
-filePathStem: "/pages/articles/helloworld/index",
-outputFileExtension: "html",
-
-url: "/https:/www.webstackbuilders.com/pages/articles/helloworld/index/helloworld.html",
-outputPath: "public/https:/www.webstackbuilders.com/pages/articles/helloworld/index/helloworld.html",
-*/
   // Get paths based on whether image is in the images folder or in a Markdown file folder
   const { imagePath, outputDir, urlPath } = getImagePaths(src, this.page.filePathStem)
 

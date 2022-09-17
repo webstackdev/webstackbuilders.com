@@ -26,11 +26,9 @@ type logColor = `red` | `green` | `yellow` | `blue` | `magenta` | `cyan` | `whit
 export const log = (message: string | string[], color: logColor = `magenta`) => {
   if (message instanceof Array) {
     message.forEach((item) => {
-      // eslint-disable-next-line security/detect-object-injection
       fancyLog(chalk[color](item))
     })
   } else {
-    // eslint-disable-next-line security/detect-object-injection
     fancyLog(chalk[color](message))
   }
 }

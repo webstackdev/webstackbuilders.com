@@ -17,17 +17,17 @@ if (!process.env['ELEVENTY_ENV_VARS_INIT']) {
 const config: ConfigOptions = {
   /** Directory where Jest should output coverage files */
   coverageDirectory: `<rootDir>/coverage`,
-  /** Config for ts-jest */
-  globals: {
-    'ts-jest': {
-      tsconfig: './tsconfig.jest.json',
-    },
-  },
   /** Ignore any tests in the node_modules, .cache, or public directories */
   testPathIgnorePatterns: [`node_modules`, `<rootDir>/public`],
   /** Set up for Babel config for TypeScript code */
   transform: {
-    '.(ts|tsx)$': require.resolve(`ts-jest`),
+    '.(ts|tsx)$': [
+      'ts-jest',
+      {
+        tsconfig: './tsconfig.jest.json',
+      },
+    ],
+    //require.resolve(`ts-jest`),
   },
   verbose: true,
 }

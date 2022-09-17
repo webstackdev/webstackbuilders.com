@@ -28,7 +28,7 @@ const config: ConfigOptions = {
     '<rootDir>/eleventy/pairedShortcodes',
     '<rootDir>/eleventy/shortcodes',
     '<rootDir>/src/assets/script',
-    '<rootDir>/scripts/build/__tests__/build:css:critical.spec.ts',
+    '<rootDir>/scripts/build/__tests__/jsdom',
   ],
   /**
    * Executed before each test file is executed but after

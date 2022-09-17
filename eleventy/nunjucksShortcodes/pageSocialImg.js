@@ -1,4 +1,4 @@
-const { socialImagesBuildDir } = require(`../../scripts/build/paths`)
+const { socialImagesDir } = require(`../../scripts/build/paths`)
 
 /**
  * Absolute URL link to a social image for the page to use as share image
@@ -8,11 +8,12 @@ const { socialImagesBuildDir } = require(`../../scripts/build/paths`)
  * @returns {string} The formatted page description
  *
  * Usage:
- * {% pageSocialImg slug=this.page.fileSlug %}
+ * {% pageSocialImg this.page.fileSlug %}
  */
 function pageSocialImg(eleventyConfig, slug) {
+  const baseUrl = eleventyConfig.globalData.site.baseUrl
   const slugWithDefault = slug ?? 'home'
-  return `${eleventyConfig.globalData.site.baseUrl}/${socialImagesBuildDir}/${slugWithDefault}.png`
+  return `${baseUrl}/${socialImagesDir}/${slugWithDefault}.png`
 }
 
 exports.pageSocialImg = pageSocialImg

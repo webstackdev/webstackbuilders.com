@@ -2033,20 +2033,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jest/types@npm:^28.0.2":
-  version: 28.0.2
-  resolution: "@jest/types@npm:28.0.2"
-  dependencies:
-    "@jest/schemas": ^28.0.2
-    "@types/istanbul-lib-coverage": ^2.0.0
-    "@types/istanbul-reports": ^3.0.0
-    "@types/node": "*"
-    "@types/yargs": ^17.0.8
-    chalk: ^4.0.0
-  checksum: ffb166ed4a90aaeb8cdf04928f15cda8ac29076cb88963d7cfde4740daa5649d689f713b3f815ca7db49c01eda3a932b1d904d76877a5f3b5837a0a6fb727379
-  languageName: node
-  linkType: hard
-
 "@jest/types@npm:^29.0.3":
   version: 29.0.3
   resolution: "@jest/types@npm:29.0.3"
@@ -2172,22 +2158,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@microsoft/tsdoc-config@npm:0.16.1":
-  version: 0.16.1
-  resolution: "@microsoft/tsdoc-config@npm:0.16.1"
+"@microsoft/tsdoc-config@npm:0.16.2":
+  version: 0.16.2
+  resolution: "@microsoft/tsdoc-config@npm:0.16.2"
   dependencies:
-    "@microsoft/tsdoc": 0.14.1
+    "@microsoft/tsdoc": 0.14.2
     ajv: ~6.12.6
     jju: ~1.4.0
     resolve: ~1.19.0
-  checksum: 2b2121803caf6584fe0264ad16f8fa10de68438c0b82bd25f918606052af5312050f38b6abd4bcf3d40f120713aab144762a7a280fa22dd12e5571cd08e348e1
+  checksum: 12b0d703154076bcaac75ca42e804e4fc292672396441e54346d7eadd0d6b57f90980eda2b1bab89b224af86da34a2389f9054002e282011e795ca5919a4386f
   languageName: node
   linkType: hard
 
-"@microsoft/tsdoc@npm:0.14.1":
-  version: 0.14.1
-  resolution: "@microsoft/tsdoc@npm:0.14.1"
-  checksum: e4ad038ccff2cd96e0d53ee42e2136f0f5a925b16cfda14261f1c2eb55ba0088a0e3b08ff819b476ddc69b2242a391925fab7f6ae2afabb19b96f87e19c114fc
+"@microsoft/tsdoc@npm:0.14.2":
+  version: 0.14.2
+  resolution: "@microsoft/tsdoc@npm:0.14.2"
+  checksum: b167c89e916ba73ee20b9c9d5dba6aa3a0de25ed3d50050e8a344dca7cd43cb2e1059bd515c820369b6e708901dd3fda476a42bc643ca74a35671ce77f724a3a
   languageName: node
   linkType: hard
 
@@ -11453,13 +11439,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-tsdoc@npm:^0.2.16":
-  version: 0.2.16
-  resolution: "eslint-plugin-tsdoc@npm:0.2.16"
+"eslint-plugin-tsdoc@npm:^0.2.17":
+  version: 0.2.17
+  resolution: "eslint-plugin-tsdoc@npm:0.2.17"
   dependencies:
-    "@microsoft/tsdoc": 0.14.1
-    "@microsoft/tsdoc-config": 0.16.1
-  checksum: 37ca88b060b90223aa938656d267eead4291d5859e790f95eb8271eb8f315c16010e500fac4ef535710350e36d7394cecb7e61fbb3635568066008e3425dcac7
+    "@microsoft/tsdoc": 0.14.2
+    "@microsoft/tsdoc-config": 0.16.2
+  checksum: d143a5f1c5967812d75f246ae2776cb030f6e7966b981406c9df9352a9ab02b035f294cedb30054eac2c4a217ee4ab2ed9fb76292bdccda9438e54d2d7b0146e
   languageName: node
   linkType: hard
 
@@ -15789,21 +15775,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest-util@npm:^28.0.0":
-  version: 28.0.2
-  resolution: "jest-util@npm:28.0.2"
-  dependencies:
-    "@jest/types": ^28.0.2
-    "@types/node": "*"
-    chalk: ^4.0.0
-    ci-info: ^3.2.0
-    graceful-fs: ^4.2.9
-    picomatch: ^2.2.3
-  checksum: 3e50e73c93c36ebc378c22b47ba02bf0bbe093266553956a8186e2670080c125d9419b1efeadb4ce59561c28d2df9af15fa19e1fdb9c0b4c3a3fe7c2f0af51a7
-  languageName: node
-  linkType: hard
-
-"jest-util@npm:^29.0.3":
+"jest-util@npm:^29.0.0, jest-util@npm:^29.0.3":
   version: 29.0.3
   resolution: "jest-util@npm:29.0.3"
   dependencies:
@@ -17547,13 +17519,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"markdown-it-anchor@npm:^8.6.4":
-  version: 8.6.4
-  resolution: "markdown-it-anchor@npm:8.6.4"
+"markdown-it-anchor@npm:^8.6.5":
+  version: 8.6.5
+  resolution: "markdown-it-anchor@npm:8.6.5"
   peerDependencies:
     "@types/markdown-it": "*"
     markdown-it: "*"
-  checksum: bde310d0202450a228662921df9d9c2e95b3c5762512e8eed1d472fcc812fb20e6b4e98480cda88c8b56b0baf34ac70d6bf8404309c5a2321ebe62da43cd6fe6
+  checksum: 9a466279e52e3c04d67f1e706f2c14df9340e64ddac6eaad22ceaeca777e381103caa942464003e98765a7555bd1ccb5055b624565cb4522a7071dce6ae93460
   languageName: node
   linkType: hard
 
@@ -20913,12 +20885,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss-scss@npm:^4.0.2, postcss-scss@npm:^4.0.4":
+"postcss-scss@npm:^4.0.2":
   version: 4.0.4
   resolution: "postcss-scss@npm:4.0.4"
   peerDependencies:
     postcss: ^8.3.3
   checksum: b4f240dd5eeb0c21738b673d9caf9a06b9a6db665a5b1c815ee4ca10c4c74a67c54f11cd5a4970dea98475cbb9e6d846e05dd3e48924189c2ecbf1f50cd44aa4
+  languageName: node
+  linkType: hard
+
+"postcss-scss@npm:^4.0.5":
+  version: 4.0.5
+  resolution: "postcss-scss@npm:4.0.5"
+  peerDependencies:
+    postcss: ^8.3.3
+  checksum: 5cba2044db3a57ecec9ac64db28be42e145bae0e1c2e4322ef38674e4302b0854f5e16f91658b2bcff3d0f1dbbfb186a9871f988b16895c51993f431a74ed4db
   languageName: node
   linkType: hard
 
@@ -25331,13 +25312,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ts-jest@npm:28.0.8":
-  version: 28.0.8
-  resolution: "ts-jest@npm:28.0.8"
+"ts-jest@npm:29.0.1":
+  version: 29.0.1
+  resolution: "ts-jest@npm:29.0.1"
   dependencies:
     bs-logger: 0.x
     fast-json-stable-stringify: 2.x
-    jest-util: ^28.0.0
+    jest-util: ^29.0.0
     json5: ^2.2.1
     lodash.memoize: 4.x
     make-error: 1.x
@@ -25345,9 +25326,9 @@ __metadata:
     yargs-parser: ^21.0.1
   peerDependencies:
     "@babel/core": ">=7.0.0-beta.0 <8"
-    "@jest/types": ^28.0.0
-    babel-jest: ^28.0.0
-    jest: ^28.0.0
+    "@jest/types": ^29.0.0
+    babel-jest: ^29.0.0
+    jest: ^29.0.0
     typescript: ">=4.3"
   peerDependenciesMeta:
     "@babel/core":
@@ -25360,7 +25341,7 @@ __metadata:
       optional: true
   bin:
     ts-jest: cli.js
-  checksum: c72e9292709e77ce47ac7813cb24feaa9d01dc983598d29a821f224b5cc190dc7d67e17379cef089095404c00b9d582ee91c727916f9ec289cb1b723df408ae3
+  checksum: f126675beb0d103d440b0297dc331ce37ba0f1e1a8002f4e97bfeb9043cf21b4de03deebf11ac1f08b7e4978d87f6a1c71e398b1c2f8535df3b684338786408e
   languageName: node
   linkType: hard
 
@@ -26644,7 +26625,7 @@ __metadata:
     eslint-plugin-prettier: ^4.2.1
     eslint-plugin-security: ^1.5.0
     eslint-plugin-toml: ^0.3.1
-    eslint-plugin-tsdoc: ^0.2.16
+    eslint-plugin-tsdoc: ^0.2.17
     fancy-log: 2.0.0
     focus-trap: 7.0.0
     glob: 8.0.3
@@ -26677,7 +26658,7 @@ __metadata:
     markdown-it: ^13.0.1
     markdown-it-abbr: 1.0.4
     markdown-it-accessible-lists: 1.1.0
-    markdown-it-anchor: ^8.6.4
+    markdown-it-anchor: ^8.6.5
     markdown-it-attribution: 0.1.4
     markdown-it-attrs: 4.1.4
     markdown-it-bracketed-spans: 1.0.1
@@ -26717,7 +26698,7 @@ __metadata:
     outdent: 0.8.0
     plugin-error: ^2.0.0
     postcss: ^8.4.16
-    postcss-scss: ^4.0.4
+    postcss-scss: ^4.0.5
     postcss-svgo: 5.1.0
     posthtml: 0.16.6
     posthtml-urls: 1.0.0
@@ -26738,7 +26719,7 @@ __metadata:
     terser: 5.15.0
     terser-webpack-plugin: 5.3.6
     title-case: ^3.0.3
-    ts-jest: 28.0.8
+    ts-jest: 29.0.1
     ts-loader: 9.3.1
     ts-node: ^10.9.1
     tslib: 2.4.0

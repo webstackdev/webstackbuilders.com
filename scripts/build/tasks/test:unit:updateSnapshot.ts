@@ -8,7 +8,9 @@ import { log } from '../utils'
 const task: TaskFunction = async done => {
   log(`Running unit tests with Jest`)
   try {
-    await run('NODE_OPTIONS=--experimental-vm-modules yarn jest --updateSnapshot')()
+    await run('yarn jest --updateSnapshot', {
+      env: { NODE_OPTIONS: '--experimental-vm-modules' },
+    })()
     done()
     return
   } catch (err) {

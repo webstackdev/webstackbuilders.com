@@ -34,7 +34,7 @@ const config: ConfigOptions = {
   /** Jest default environment is Node.js */
   testEnvironment: 'node',
   /** Skip any tests that match these regexp pattern strings */
-  testPathIgnorePatterns: ['<rootDir>/scripts/build/__tests__/build:css:critical.spec.ts'],
+  testPathIgnorePatterns: ['<rootDir>/scripts/build/__tests__/jsdom'],
 }
 
 export default config

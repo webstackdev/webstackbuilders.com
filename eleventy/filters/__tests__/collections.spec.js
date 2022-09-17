@@ -1,7 +1,6 @@
 /**
  * Unit and integration test for collections filters.
  */
-// const { eleventyProgrammatic } = require('../../../test/11tyProgrammatic')
 const {
   currentPage,
   exclude,

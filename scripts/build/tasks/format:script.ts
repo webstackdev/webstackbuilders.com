@@ -11,7 +11,6 @@ import { scriptSourceGlobs } from '../paths'
 /**
  * Format Javascript and Typescript
  */
-/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment */
 export const formatScriptTask = lazypipe()
   /**
    * Run Prettier before output is fed into ES Lint

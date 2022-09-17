@@ -130,11 +130,9 @@ describe(`adds table tags to markdown`, () => {
     document.body.innerHTML = markdownItLib.render(gfmTable)
     const tableItem = queryByRole(document.body, 'table')
     expect(tableItem).toBeInTheDocument()
-    const tableHeaderItems = queryByRole(document.body, 'columnheader')
-    expect(tableHeaderItems).toBeInTheDocument()
+    const tableHeaderItems = queryAllByRole(document.body, 'columnheader')
     expect(tableHeaderItems).toHaveLength(2)
-    const tableRowItems = queryByRole(document.body, 'cell')
-    expect(tableRowItems).toBeInTheDocument()
+    const tableRowItems = queryAllByRole(document.body, 'cell')
     expect(tableRowItems).toHaveLength(4)
   })
 

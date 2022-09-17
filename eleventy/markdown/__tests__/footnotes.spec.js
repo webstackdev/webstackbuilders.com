@@ -36,8 +36,7 @@ belong to the previous footnote.
 
   test(`creates three footnotes`, () => {
     document.body.innerHTML = markdownItLib.render(footnotedText)
-    const listItems = queryByRole(document.body, 'listitem')
-    expect(listItems).toBeInTheDocument()
+    const listItems = queryAllByRole(document.body, 'listitem')
     expect(listItems).toHaveLength(3)
   })
 

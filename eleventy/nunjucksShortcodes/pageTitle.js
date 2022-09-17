@@ -8,11 +8,18 @@ const { titleCase } = require('title-case')
  * @returns {string} The formatted page title
  *
  * Usage:
- * {% pageTitle pageTitle=this.page.title %}
+ * {% pageTitle this.page.title %}
  */
 function pageTitle(eleventyConfig, title) {
-  const casedTitle = titleCase(title) ? `${titleCase(title)} | ` : ''
-  return `${casedTitle}${titleCase(eleventyConfig.globalData.site.title)}`
+  if (typeof title !== 'string') throw new Error(
+    `Title passed to Nunjucks pageTitle shortcode is not a string, received:\n${title}`
+  )
+  const seperator = ` | `
+  const casedPageTitle = titleCase(title)
+  const casedSiteTitle = titleCase(eleventyConfig.globalData.site.title)
+  const pageTitle = title ? `${casedPageTitle}${seperator}${casedSiteTitle}` : casedSiteTitle
+
+  return pageTitle
 }
 
 exports.pageTitle = pageTitle

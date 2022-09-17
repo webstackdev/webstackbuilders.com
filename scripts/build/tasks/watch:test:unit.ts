@@ -6,9 +6,11 @@ import run from 'gulp-run-command'
 import { log } from '../utils'
 
 const task: TaskFunction = async done => {
-  log(`Running unit tests with Jest`)
+  log(`Watching unit tests with Jest`)
   try {
-    await run('NODE_OPTIONS=--experimental-vm-modules yarn jest --watch')()
+    await run('yarn jest --watch', {
+      env: { NODE_OPTIONS: '--experimental-vm-modules' },
+    })()
     done()
     return
   } catch (err) {

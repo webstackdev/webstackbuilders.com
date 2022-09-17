@@ -6,11 +6,9 @@ const { eleventyConfig } = require('../../__fixtures__/eleventyConfig')
 
 describe(`Shortcode for page title`, () => {
   test(`Returns formatted page description and site description when passed`, () => {
-    formattedTitleRegex = /.*My Page Title.*My Site Title.*/
+    const formattedTitleRegex = /.*My Page Title.*My Site Title.*/
     expect(
-      pageTitle(eleventyConfig, {
-        pageTitle: `My page title`,
-      })
+      pageTitle(eleventyConfig, `My page title`)
     ).toMatch(formattedTitleRegex)
   })
 })

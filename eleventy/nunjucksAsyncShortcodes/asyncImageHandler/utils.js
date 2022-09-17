@@ -151,11 +151,9 @@ exports.pathsExist = (imagePath, outputDir, fileName) => {
     )
   }
 
-  /* eslint-disable security/detect-non-literal-fs-filename */
   if (!fs.existsSync(outputDir)) {
     fs.mkdirSync(outputDir, { recursive: true })
   }
-  /* eslint-enable security/detect-non-literal-fs-filename */
   return true
 }
 

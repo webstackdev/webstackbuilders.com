@@ -6,6 +6,7 @@ import path from 'path'
 
 jest.mock('fs', () => {
   const fs = jest.requireActual('fs')
+  /* eslint-disable-next-line @typescript-eslint/no-var-requires */
   const unionfs = require('unionfs').default
   unionfs.reset = () => {
     // fss is unionfs' list of overlays
@@ -13,8 +14,9 @@ jest.mock('fs', () => {
   }
   return unionfs.use(fs)
 })
-
+/* eslint-disable-next-line @typescript-eslint/no-var-requires */
 const fs = require('fs')
+/* eslint-disable-next-line @typescript-eslint/no-var-requires */
 const { Volume } = require('memfs')
 
 describe(`Task functions work`, () => {
@@ -29,7 +31,7 @@ describe(`Task functions work`, () => {
     fs.reset()
   })
 
-  test(`package script info has 'build' script defined`, async () => {
+  test.skip(`package script info has 'build' script defined`, () => {
     fs.use(vol)
     //const pkgScriptInfo = await loadpkgScripts()
     //expect(pkgScriptInfo).toHaveProperty('custom')

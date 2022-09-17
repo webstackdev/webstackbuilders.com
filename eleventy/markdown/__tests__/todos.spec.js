@@ -15,8 +15,7 @@ describe(`GitHub style todo lists from - [ ] and - [x] markdown items`, () => {
 
   test(`two list items created`, () => {
     document.body.innerHTML = markdownItLib.render(todoListMarkdown)
-    const listItems = queryByRole(document.body, 'listitem')
-    expect(listItems).toBeInTheDocument()
+    const listItems = queryAllByRole(document.body, 'listitem')
     expect(listItems).toHaveLength(2)
   })
 

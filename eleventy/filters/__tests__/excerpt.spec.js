@@ -4,14 +4,25 @@
  * Usage:
  * {{ post.templateContent | excerpt | striptags }}
  */
-const path = require(`path`)
-const { eleventyProgrammatic } = require('../../../test/11tyProgrammatic')
+const path = require('path')
+const EleventyProgrammatic = require('@11ty/eleventy')
+
+const configPath = path.resolve('./.eleventy.js')
+const templateFixturePath = path.resolve(`eleventy/filters/__fixtures__/excerpt.11ty.js`)
 
 describe(`excerpt filter tests`, () => {
   test.skip(`excerpt filter passes integration test`, async () => {
-    const excerptJson = await eleventyProgrammatic(
-      path.resolve(`eleventy/filters/__fixtures__/excerpt.11ty.js`)
-    )
-    expect(excerptJson).toMatchInlineSnapshot()
+    let results = new EleventyProgrammatic(templateFixturePath, `_`, {
+      quietMode: true,
+      configPath,
+      /*config: function (eleventyConfig) {
+        eleventyConfig.setFrontMatterParsingOptions({
+          excerpt: true,
+          excerpt_separator: '<!-- excerpt -->',
+        })
+      },*/
+    })
+    let jsonResults = await results.toJSON()
+    expect(jsonResults).toMatchInlineSnapshot(`using eleventy programmatic isn't returning the excerpt separately, not sure how to get it to`)
   })
 })

@@ -228,13 +228,24 @@ const eslintConfig = {
         /** Best practices and anticipate common mistakes when writing tests with jest-dom */
         'plugin:jest-dom/recommended',
       ],
-      plugins: ['jest', 'jest-dom'],
+      plugins: ['jest', 'jest-dom', 'jsdoc'],
       rules: {
         'jest/no-disabled-tests': 'off',
         'jest/no-focused-tests': level,
         'jest/no-identical-title': level,
         'jest/prefer-to-have-length': level,
         'jest/valid-expect': level,
+        'jsdoc/check-examples': 'off', // not supported yet in ESLint v8
+        'jsdoc/check-indentation': level,
+        'jsdoc/check-line-alignment': level,
+        'jsdoc/check-syntax': level,
+        /** Applies a regex to description so that it's text-only starting with a capital */
+        'jsdoc/match-description': 'off',
+        'jsdoc/no-bad-blocks': level,
+        'jsdoc/no-defaults': level,
+        'jsdoc/no-types': 'off',
+        /** JSDoc does not support import() for typedefs */
+        'jsdoc/valid-types': 'off',
       },
       env: {
         browser: true,
@@ -275,11 +286,36 @@ const eslintConfig = {
       ],
       plugins: ['@typescript-eslint', 'eslint-plugin-tsdoc', 'jest', 'jest-dom'],
       rules: {
+        /** Relax Typescript rules in test files */
+        '@typescript-eslint/explicit-module-boundary-types': 'off',
+        '@typescript-eslint/no-unsafe-argument': 'off',
+        '@typescript-eslint/no-unsafe-assignment': 'off',
+        '@typescript-eslint/no-unsafe-call': 'off',
+        '@typescript-eslint/no-unsafe-member-access': 'off',
+        '@typescript-eslint/no-unsafe-return': 'off',
+        '@typescript-eslint/no-unused-vars': [
+          level,
+          { varsIgnorePattern: '^_', argsIgnorePattern: '^_' },
+        ],
+        '@typescript-eslint/no-var-requires': level,
+        /** Prohibits using a type assertion that does not change the type of an expression. */
+        '@typescript-eslint/no-unnecessary-type-assertion': level,
+        '@typescript-eslint/restrict-template-expressions': 'off',
+        /** Continue allowing triple-slash refs, TS wants to use 'import' syntax instead */
+        '@typescript-eslint/triple-slash-reference': 'off',
+        '@typescript-eslint/unbound-method': 'off',
         'jest/no-disabled-tests': 'off',
         'jest/no-focused-tests': level,
         'jest/no-identical-title': level,
         'jest/prefer-to-have-length': level,
         'jest/valid-expect': level,
+        /** TypeScript allows ES modules, default from node/recommended is 'error' */
+        'node/no-missing-import': 'off',
+        /** Allow import declarations which import private modules, default 'error' */
+        'node/no-unpublished-import': 'off',
+        'node/no-unsupported-features/es-syntax': 'off',
+        /** Enable recommended rules for TSDoc linter */
+        'tsdoc/syntax': level,
       },
       env: {
         browser: true,

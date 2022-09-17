@@ -25,8 +25,7 @@ describe(`adds unordered list tags with role to markdown`, () => {
 
   test(`adds three list items`, () => {
     document.body.innerHTML = markdownItLib.render(`* List\n* List\n* List`)
-    const listItems = queryByRole(document.body, 'listitem')
-    expect(listItems).toBeInTheDocument()
+    const listItems = queryAllByRole(document.body, 'listitem')
     expect(listItems).toHaveLength(3)
   })
 

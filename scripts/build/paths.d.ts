@@ -25,6 +25,7 @@ export const siteImagesSourceDir: string
 export const sitemapBuildFilename: string
 export const socialCssBuildDir: string
 export const socialImagesBuildDir: string
+export const socialImagesDir: string
 export const socialScssSourceFile: string
 export const spritesBuildDir: string
 export const spritesSourceDir: string
