@@ -1,0 +1,13 @@
+/**
+ * Alignment utility classes
+ */
+.u-align-center {
+  text-align: center !important;
+}
+.u-align-right {
+  text-align: right !important;
+}
+.u-align-middle {
+  align-items: center;
+  display: inline-flex;
+}

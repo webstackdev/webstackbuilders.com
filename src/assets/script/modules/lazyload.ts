@@ -1,12 +1,10 @@
+import { isImageElement } from '../utils/assertions'
+
 // create config object: rootMargin and threshold
 // are two properties exposed by the interface
 const config = {
   rootMargin: '0px 0px 50px 0px',
   threshold: 0,
-}
-
-function isImageElement(img: unknown): img is HTMLImageElement {
-  return (img as HTMLImageElement).src !== undefined
 }
 
 const preloadImage = (img: Element) => {

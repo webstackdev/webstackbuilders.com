@@ -1,7 +1,9 @@
 /**
  * Custom element definitions for eleventy-plugin-share-highlight
  */
-import { getSlotElement, isShadowRoot, promiseErrorHandler } from './utils'
+import { isShadowRoot } from '../utils/assertions'
+import { getSlotElement } from '../utils/selectors'
+import { promiseErrorHandler } from '../errors/handlers'
 
 interface IShareData {
   url: string
@@ -175,7 +177,9 @@ class ShareHighlight extends HTMLElement {
   }
 }
 
-// Register custom element
-if ('customElements' in window) {
-  customElements.define('share-highlight', ShareHighlight)
+export const registerShareHighlight = () => {
+  // Register custom element
+  if ('customElements' in window) {
+    customElements.define('share-highlight', ShareHighlight)
+  }
 }

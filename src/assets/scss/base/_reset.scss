@@ -64,11 +64,6 @@ body {
   color: var(--color-primary);
 }
 
-::-moz-selection {
-  background: var(--color-primary-offset);
-  color: var(--color-primary);
-}
-
 /**
  * Create a root stacking context
  */
@@ -90,10 +85,12 @@ body {
 }
 
 a {
-  color: var(--color-primary);
+  color: var(--color-text);
+  //outline-width: 0;
+  text-decoration: underline dotted var(--color-primary);
 
   @include hover-focus {
-    color: var(--color-primary-offset);
+    color: blue;
   }
 }
 

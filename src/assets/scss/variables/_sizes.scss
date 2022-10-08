@@ -1,0 +1,38 @@
+/**
+ * Grid breakpoints: defines the minimum and maximum dimensions at which the layout
+ * will change, adapting to different screen sizes, for use in media queries.
+ */
+$breakpoints: (
+  md: 670px,
+  lg: 940px,
+  xl: 1260px
+);
+
+/**
+ * Container max widths
+ */
+$container-max-width: 1200px;
+$container-narrow-max-width: 41rem;
+
+/**
+ * Z-Index Stack: control the order of layers in the application
+ */
+$z-layers: (
+  // Used for PWA titlebar in stand-alone desktop app display mode
+  'titlebar': 9999,
+  'modal': 999,
+  // Navigation floats above main content
+  'nav': 100,
+  // Content overlay is for elements like spinners
+  'content-overlay': 30
+);
+
+/**
+ * Common shared styles
+ */
+$border-radius: 0.25rem;
+$spacing-x: 2rem;
+$spacing-y: 2rem;
+
+$box-shadow: 0 2px 16px rgba(0, 0, 0, 0.15);
+$box-shadow-elevated: 0 6px 12px 0 rgba(0, 0, 0, 0.1);

@@ -6,9 +6,11 @@ permalink: /cookies/
 layout: page
 ---
 
-Cookie Policy Template [Text Format]
+# Cookie Policy Template [Text Format]
 
 Last updated [Date]
+
+ One cookie is mandatory for this site to work (theme settings and your cookie privacy customizations).
 
 This Cookie Policy explains how [Company Name], doing business as [Company Short Name] (“Company,” “we,” “us,” and “our“) uses cookies and similar technologies to recognize you when you visit our websites at [Website URLs] (“Websites“). It explains what these technologies are and why we use them, as well as your rights to control our use of them.
 

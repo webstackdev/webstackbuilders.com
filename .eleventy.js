@@ -172,9 +172,16 @@ module.exports = eleventyConfig => {
   eleventyConfig.addPlugin(require('@11ty/eleventy').EleventyRenderPlugin)
 
   /**
-   * Use the 404 error page on dev server, Netlify picks it up automatically in production with a redirect
+   * BrowserSyncConfig configuration
    */
-  eleventyConfig.setBrowserSyncConfig(eleventySetup.handlers.pageNotFoundHandler)
+  eleventyConfig.setBrowserSyncConfig({
+    callbacks: {
+      /** Use the 404 error page on dev server. This provides the redirect. */
+      ready: eleventySetup.handlers.pageNotFoundHandler,
+    },
+    /** Add additional files to watch for HMR */
+    files: ['./public/css/**/*.css', './public/js/**/*.js'],
+  })
 
   /**
    * The options object is passed straight through to gray-matter as gray matter options

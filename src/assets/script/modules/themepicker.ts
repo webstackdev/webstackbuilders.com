@@ -8,6 +8,9 @@ interface MetaColorsWindow extends Window {
 
 declare let window: MetaColorsWindow
 
+import { isHtmlElement } from '../utils/assertions'
+import { queryDocument, queryAllDocument } from '../utils/selectors'
+
 let ACTIVE_THEME = 'default'
 let IS_OPEN = false
 
@@ -39,25 +42,6 @@ export const setupThemeSwitcher = () => {
 
   setActiveItem()
   bindEvents()
-}
-
-const queryDocument = (selector: string): Element => {
-  const element = document.querySelector(selector)
-  /* eslint-disable-next-line no-null/no-null */
-  if (element === null)
-    throw new Error(`Could not find document element for query selector ${selector}`)
-  return element
-}
-
-const queryAllDocument = (selector: string): NodeListOf<Element> => {
-  const elements = document.querySelectorAll(selector)
-  if (elements.length === 0)
-    throw new Error(`Could not find any document elements for query selector ${selector}`)
-  return elements
-}
-
-function isHtmlElement(element: unknown): element is HTMLElement {
-  return element instanceof HTMLElement
 }
 
 const bindEvents = () => {

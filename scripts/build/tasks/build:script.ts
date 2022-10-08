@@ -8,7 +8,7 @@ import { log } from '../utils'
 const task: TaskFunction = async done => {
   log(``)
   try {
-    await run('webpack --progress --profile --config webpack.config.prod.js')()
+    await run('webpack --progress --config webpack.config.prod.js')()
     done()
   } catch (err) {
     if (err instanceof Error) {

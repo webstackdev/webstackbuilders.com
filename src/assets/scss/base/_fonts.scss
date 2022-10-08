@@ -1,3 +1,15 @@
+/**
+ * Typography: font, line-height, and color for body text, headings, and more.
+ */
+
+$font-size-root: 100%;
+$font-size-base: 1rem;
+$line-height: 1.625;
+$font-family-sans-serif: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+$font-family-serif: 'Noe Display', Georgia, Times, serif;
+$font-family-monospace: 'Fira Code', Menlo, Monaco, Consolas, 'Andale Mono', 'Courier New', monospace;
+$font-family-base: $font-family-sans-serif;
+
 @font-face {
   font-display: swap;
   font-family: "Baloo 2";

@@ -65,11 +65,20 @@ task(`lint:sass`, lintSass)
 task(`lint:script`, lintScript)
 
 /**
- * Linting tasks
+ * Start a production server task
  */
 import start from './scripts/build/tasks/start'
 
 task(`start`, start)
+
+/**
+ * Generate statistics
+ */
+import htmlStats from './scripts/build/tasks/stats:html'
+import scriptStats from './scripts/build/tasks/stats:script'
+
+task(`stats:html`, htmlStats)
+task(`stats:script`, scriptStats)
 
 /**
  * Linting tasks
@@ -94,13 +103,11 @@ task(`test:unit:updateSnapshot`, testUnitUpdateSnapshot)
 import clean from './scripts/build/tasks/util:clean'
 import release from './scripts/build/tasks/util:release'
 import setup from './scripts/build/tasks/util:setup'
-import stats from './scripts/build/tasks/util:stats'
 import version from './scripts/build/tasks/util:version'
 
 task(`util:clean`, clean)
 task(`util:release`, release)
 task(`util:setup`, setup)
-task(`util:stats`, stats)
 task(`util:version`, version)
 
 /**

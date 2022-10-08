@@ -7,7 +7,7 @@
 {#-  -#}
 {#- % include 'seo.njk' %#}
 {#- Open Graph meta tags for Twitter and Facebook social shares -#}
-{% filter indent(2, true) %}{% include "./social.njk" %}{% endfilter %}
+{% include "./social.njk" %}
 {#- Favicons using 'eleventy-favicon' plugin -#}
 {% favicon buildPaths.faviconSvgSourceFilename %}
 {#- Web manifest file for Progressive Web Application app usage #}

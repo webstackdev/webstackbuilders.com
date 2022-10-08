@@ -128,7 +128,7 @@ exports.rssFeedBuildFilename = rssFeedBuildFilename
 /**
  * Source SVG file to use for generating favicon files
  */
-const faviconSvgSourceFilename = `${assetSourceDir}/site/favicon.svg`
+const faviconSvgSourceFilename = `${imagesSourceDir}/site/favicon.svg`
 exports.faviconSvgSourceFilename = faviconSvgSourceFilename
 
 const faviconSvgBuildDir = `${buildDir}/favicons`

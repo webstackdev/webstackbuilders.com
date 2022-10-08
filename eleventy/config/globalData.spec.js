@@ -30,7 +30,7 @@ describe('Build paths object works', () => {
         "contentSourceDir": "src/pages",
         "cssBuildDir": "public/css",
         "faviconSvgBuildDir": "public/favicons",
-        "faviconSvgSourceFilename": "src/assets/site/favicon.svg",
+        "faviconSvgSourceFilename": "src/assets/images/site/favicon.svg",
         "fontsBuildDir": "public/fonts",
         "fontsSourceDir": "src/assets/fonts",
         "imagesBuildDir": "public/images",

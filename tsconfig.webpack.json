@@ -3,7 +3,7 @@
   /**
    * Files to include in compilation.
    */
-  "include": ["src/assets/script/**/*"],
+  "include": ["src/assets/script/**/*", "test/jest/__fixtures__/**/*"],
   /**
    * Don't compile tests into final bundle
    */

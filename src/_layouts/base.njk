@@ -1,32 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    {% filter indent(4, true) %}{% include "./components/head/meta.njk" %}{% endfilter %}
+    {% include "./components/head/meta.njk" %}
     <link rel="preload" href="{{ '/fonts/baloo-2-v1-latin-regular.woff2' | url }}" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="{{ '/css/index.css' | url }}" />
     <link rel="stylesheet" href="{{ '/css/themes.css' | url }}">
     {#- Script tag with background colors keyed to theme names for setting initial bg color -#}
-    {% filter indent(4, true) %}{%- include "./components/initialtheme.njk" %}{% endfilter %}
+    {%- include "./components/initialtheme.njk" %}
   </head>
   <body>
     <a href="#main" class="sr-skip-link">skip to main content</a>
     {#- Layered sprite SVG -#}
-    {% filter indent(4, true) %}{% include "./images/sprites.njk" %}{% endfilter %}
+    {% include "./images/sprites.njk" %}
     {#- Sets Window Controls Overlay API for PWA title bar -#}
-    {% filter indent(4, true) %}{% include "./components/titlebar.njk" %}{% endfilter %}
+    {% include "./components/titlebar.njk" %}
     {#- Page area #}
     <div class="layout" role="document">
-      {% filter indent(6, true) %}{% include "./components/themepicker.njk" %}{% endfilter %}
-      {% filter indent(6, true) %}{% include "./components/header.njk" %}{% endfilter %}
+      {% include "./components/themepicker.njk" %}
+      {% include "./components/header.njk" %}
       {#- Main Content Area -#}
       <main class="main container" role="main" id="main" tabindex="-1">
         {{ content | safe }}
       </main>
       {#- Footer -#}
-      {% filter indent(6, true) %}{% include "./components/footer.njk" %}{% endfilter %}
+      {% include "./components/footer.njk" %}
     </div>
     {#- Cookies Overlay -#}
-    {% filter indent(4, true) %}{% include "./components/cookies.njk" %}{% endfilter %}
+    {% include "./modals/cookieConsent.njk" %}
     {#- Main JS Bundle -#}
     <script src="{{ '/js/index.js' | url }}?{{ cacheBust.mainJs }}" defer></script>
     {%- if layout == 'post' or layout == 'note' -%}

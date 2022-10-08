@@ -83,7 +83,7 @@ const pluginOptions = {
    */
   'eleventy-favicon': {
     /** The build directory and where the icon files will be copied over to */
-    destination: buildPaths.faviconSvgBuildDir,
+    destination: buildPaths.imagesBuildDir,
   },
 
   /**

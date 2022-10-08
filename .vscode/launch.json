@@ -43,11 +43,12 @@
       "program": "${workspaceRoot}/node_modules/.bin/jest",
       "stopOnEntry": false,
       "args": [
-        "eleventy/filters/__tests__/excerpt.spec.js", "--projects=test/jest/jest.config.node.ts"
+        "test/jest/__tests__/loadJsdom.spec.ts",
+        "--projects=test/jest/jest.config.node.ts"
       ],
       "cwd": "${workspaceRoot}",
-      "env": { "TS_NODE_PROJECT": "tsconfig.gulp.json" },
-      "console": "internalConsole",
+      "env": { "TS_NODE_PROJECT": "tsconfig.jest.json" },
+      "console": "integratedTerminal",
       "runtimeVersion": "17.5.0"
     }
   ]

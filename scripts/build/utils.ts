@@ -1,8 +1,6 @@
 import chalk from 'chalk'
 import fancyLog from 'fancy-log'
 
-export const isDevelopment = process.env[`ELEVENTY_ENV`] === `development`
-
 /**
  * Error object coming from gulp
  */

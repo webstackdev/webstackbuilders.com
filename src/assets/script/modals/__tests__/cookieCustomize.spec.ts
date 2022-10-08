@@ -1,0 +1,1 @@
+// need to use an encrypted cookie to store user's cookie preferences or allow all

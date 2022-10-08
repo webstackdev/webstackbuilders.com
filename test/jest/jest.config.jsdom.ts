@@ -5,7 +5,9 @@ import commonJestConfig from './jest.config.common'
 import type { ConfigOptions } from './jest.config.common'
 
 const envServerPort = process.env['ELEVENTY_DEV_SERVER_PORT']
-const devServer = envServerPort ? `http://localhost:${envServerPort}` : 8081
+const devServer = envServerPort
+  ? `http://localhost:${envServerPort}`
+  : `http://localhost:8081`
 
 const config: ConfigOptions = {
   /** Add shared configuration options */
@@ -36,7 +38,7 @@ const config: ConfigOptions = {
    */
   setupFilesAfterEnv: [`<rootDir>/test/jest/jest.setup.jsdom.ts`],
   /** Jest default environment is Node.js */
-  testEnvironment: 'jsdom',
+  testEnvironment: '<rootDir>/test/jest/jest-environment-jsdom-tscompile.js',
   /** Options passed to JSDOM constructor to override defaults */
   testEnvironmentOptions: {
     /**

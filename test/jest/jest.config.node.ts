@@ -30,7 +30,13 @@ const config: ConfigOptions = {
     '<rootDir>/eleventy/utils',
     '<rootDir>/lambda',
     '<rootDir>/scripts',
+    '<rootDir>/test/jest/__tests__',
   ],
+  /**
+   * Executed before each test file is executed but after
+   * the testing framework is installed in the environment
+   */
+  setupFilesAfterEnv: [`<rootDir>/test/jest/jest.setup.node.ts`],
   /** Jest default environment is Node.js */
   testEnvironment: 'node',
   /** Skip any tests that match these regexp pattern strings */

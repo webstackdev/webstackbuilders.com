@@ -88,7 +88,7 @@ const eslintConfig = {
     'jsdoc/check-tag-names': [
       level,
       {
-        definedTags: ['TODO:'],
+        definedTags: ['TODO:', 'jest-environment'],
         jsxTags: true,
       },
     ],
@@ -178,7 +178,7 @@ const eslintConfig = {
         /** Runs Prettier as ESLint rule and reports differences as ESLint issues */
         'prettier', // must be last
       ],
-      plugins: ['@typescript-eslint', 'eslint-plugin-tsdoc'],
+      plugins: ['@typescript-eslint'],
       rules: {
         '@typescript-eslint/ban-types': level,
         '@typescript-eslint/consistent-type-assertions': [
@@ -191,6 +191,7 @@ const eslintConfig = {
          */
         '@typescript-eslint/explicit-module-boundary-types': 'off',
         '@typescript-eslint/no-unsafe-argument': 'off',
+        '@typescript-eslint/no-non-null-assertion': 'off',
         '@typescript-eslint/no-unsafe-assignment': 'off',
         '@typescript-eslint/no-unsafe-call': 'off',
         '@typescript-eslint/no-unsafe-member-access': 'off',
@@ -210,8 +211,6 @@ const eslintConfig = {
         /** Allow import declarations which import private modules, default 'error' */
         'node/no-unpublished-import': 'off',
         'node/no-unsupported-features/es-syntax': 'off',
-        /** Enable recommended rules for TSDoc linter */
-        'tsdoc/syntax': level,
       },
     },
     /**
@@ -284,10 +283,12 @@ const eslintConfig = {
         /** Runs Prettier as ESLint rule and reports differences as ESLint issues */
         'prettier', // must be last
       ],
-      plugins: ['@typescript-eslint', 'eslint-plugin-tsdoc', 'jest', 'jest-dom'],
+      plugins: ['@typescript-eslint', 'jest', 'jest-dom'],
       rules: {
         /** Relax Typescript rules in test files */
         '@typescript-eslint/explicit-module-boundary-types': 'off',
+        '@typescript-eslint/no-empty-function': 'off',
+        '@typescript-eslint/no-non-null-assertion': 'off',
         '@typescript-eslint/no-unsafe-argument': 'off',
         '@typescript-eslint/no-unsafe-assignment': 'off',
         '@typescript-eslint/no-unsafe-call': 'off',
@@ -314,8 +315,6 @@ const eslintConfig = {
         /** Allow import declarations which import private modules, default 'error' */
         'node/no-unpublished-import': 'off',
         'node/no-unsupported-features/es-syntax': 'off',
-        /** Enable recommended rules for TSDoc linter */
-        'tsdoc/syntax': level,
       },
       env: {
         browser: true,

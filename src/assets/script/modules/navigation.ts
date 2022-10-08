@@ -1,12 +1,8 @@
 import { createFocusTrap } from 'focus-trap'
 import debounce from 'lodash/debounce'
 import type { FocusTrap } from 'focus-trap'
-import {
-  getNavElement,
-  getNavMenuElement,
-  getNavMenuToggleBtnElement,
-  getWindowDimensions
-} from './utils'
+import { getNavElement, getNavMenuElement, getNavMenuToggleBtnElement } from '../utils/selectors'
+import { getWindowDimensions } from '../utils/window'
 
 const SELECTORS = {
   nav: '.js-nav',
@@ -67,7 +63,9 @@ class Navigation {
   }
 }
 
-if (document.querySelector(SELECTORS.nav)) {
-  const nav = new Navigation()
-  nav.bindEvents()
+export const setupNavigation = () => {
+  if (document.querySelector(SELECTORS.nav)) {
+    const nav = new Navigation()
+    nav.bindEvents()
+  }
 }

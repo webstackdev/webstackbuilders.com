@@ -9,13 +9,6 @@ textarea:focus {
 }
 
 /**
- * Focus-visible polyfill
- */
-.js-focus-visible :focus:not(.focus-visible) {
-  outline: none;
-}
-
-/**
  * Sections excluded from the tabindex
  */
 [tabindex='-1']:focus {

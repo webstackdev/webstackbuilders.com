@@ -65,16 +65,6 @@ const { humanizeNumber } = require('./format')
 exports.humanizeNumber = humanizeNumber
 
 /**
- * Indents an element by set width of spaces to help prettify template
- * output when partials are deeply included. Whitespace is stripped out
- * in production by minification, this is for developer experience only.
- * Usage in Nunjucks template:
- * {% filter indent(6, true) %}{% include "./something.njk" %}{% endfilter %}
- */
-const { indentElement } = require('./indentElement')
-exports.indentElement = indentElement
-
-/**
  * Identity filter for use in tests
  *
  * Usage:

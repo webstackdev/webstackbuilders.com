@@ -1,51 +1,64 @@
+@charset "UTF-8";
+
 /** General SCSS */
-@import 'base/variables';
-//@import 'base/themes';
-@import 'base/colors';
+@import 'variables/animations';
+@import 'variables/colors';
+@import 'variables/sizes';
+@import 'variables/themes';
 
 /** Utility SCSS */
 @import 'utils/functions';
 @import 'utils/mixins';
+@import 'utils/spinner';
+@import 'utils/utility';
 
 /** Base SCSS */
 @import 'base/accessibility';
 @import 'base/animation';
 @import 'base/focus';
 @import 'base/fonts';
+@import 'base/form';
 @import 'base/layout';
+@import 'base/markdown';
+@import 'base/page';
+@import 'base/print';
 @import 'base/reset';
 @import 'base/typography';
-@import 'base/utility';
 
 /** Components SCSS */
-@import 'components/about';
-@import 'components/alert';
-@import 'components/article';
-@import 'components/articlelist';
-@import 'components/button';
 @import 'components/callout';
-@import 'components/cookies';
-@import 'components/featuredarticles';
+@import 'components/featurePanel';
 @import 'components/footer';
-@import 'components/form';
 @import 'components/header';
 @import 'components/hero';
-@import 'components/icon';
 @import 'components/logo';
-@import 'components/markdown';
 @import 'components/nav';
-@import 'components/otherarticles';
-@import 'components/page';
-@import 'components/responsive-image';
+@import 'components/responsiveImage';
 @import 'components/sharer';
 @import 'components/signup';
-@import 'components/spinner';
-@import 'components/testimonials';
-@import 'components/titlebar';
-@import 'components/topbanner';
+@import 'components/themePicker';
+@import 'components/titleBar';
+@import 'components/topBanner';
+
+/** Element SCSS */
+@import 'elements/alert';
+@import 'elements/button';
+@import 'elements/icon';
+
+/** Modals SCSS */
+@import 'modals/cookieConsent';
+@import 'modals/cookieCustomize';
+
+/** Page SCSS */
+@import 'pages/about';
+@import 'pages/articles/featured';
+@import 'pages/articles/item';
+@import 'pages/articles/list';
+@import 'pages/articles/other';
+@import 'pages/testimonials';
 
 /** Vendor SCSS */
 @import 'vendor/codetab';
 @import 'vendor/expandable';
 @import 'vendor/namedCodeBlock';
-@import 'vendor/share-highlight';
+@import 'vendor/shareHighlight';

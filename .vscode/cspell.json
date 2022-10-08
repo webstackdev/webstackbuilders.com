@@ -1,10 +1,12 @@
 {
   "words": [
+    "addl",
     "amatiasq",
     "atrule",
     "baloo",
     "bfcache",
     "Btns",
+    "cbtn",
     "cmake",
     "cnst",
     "codecov",
@@ -64,6 +66,7 @@
     "themebtn",
     "tinysvg",
     "Trackpselect",
+    "tscompile",
     "tsdoc",
     "tsimporter",
     "tydata",
