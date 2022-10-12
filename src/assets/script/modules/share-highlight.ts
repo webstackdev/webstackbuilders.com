@@ -1,7 +1,7 @@
 /**
  * Custom element definitions for eleventy-plugin-share-highlight
  */
-import { isShadowRoot } from '../utils/assertions'
+import { isShadowRoot } from '../utils/assertions/elements'
 import { getSlotElement } from '../utils/selectors'
 import { promiseErrorHandler } from '../errors/handlers'
 

@@ -10,19 +10,19 @@ const getFixturePath = (fileName: string) => {
 }
 
 describe(`tsCompile compiles inline Typescript script`, () => {
-  test(`tsCompile compiles valid Typescript`, async () => {
+  test(`compiles valid Typescript`, async () => {
     const fixturePath = getFixturePath(`compileTs_1.ts`)
     const sut = await tsCompile(fixturePath)
     expect(sut).toEqual(expect.stringContaining(`const foo = (input) => { return input; };`))
   })
 
-  test(`tsCompile strips typings`, async () => {
+  test(`strips typings`, async () => {
     const fixturePath = getFixturePath(`compileTs_2.ts`)
     const sut = await tsCompile(fixturePath)
     expect(sut).toEqual(expect.stringContaining(`const bar = 7;`))
   })
 
-  test(`tsCompile bundles external dependencies`, async () => {
+  test(`bundles external dependencies`, async () => {
     const fixturePath = getFixturePath(`compileTs_3.ts`)
     const sut = await tsCompile(fixturePath)
     expect(sut).toEqual(expect.stringContaining(`node_modules/lodash/lodash.js`))
@@ -30,9 +30,19 @@ describe(`tsCompile compiles inline Typescript script`, () => {
     expect((sut as string).length).toBeGreaterThanOrEqual(1000)
   })
 
-  test(`tsCompile imports local dependencies`, async () => {
+  test(`imports local dependencies`, async () => {
     const fixturePath = getFixturePath(`compileTs_4.ts`)
     const sut = await tsCompile(fixturePath)
     expect(sut).toEqual(expect.stringContaining(`const myFunc = (input) => {`))
+  })
+
+  test(`throws if script file does not exist`, async () => {
+    const fixturePath = getFixturePath(`nonexistent.ts`)
+    await expect(tsCompile(fixturePath)).rejects.toThrow()
+  })
+
+  test(`throws if script path is a directory`, async () => {
+    const fixturePath = getFixturePath(`compileTs`)
+    await expect(tsCompile(fixturePath)).rejects.toThrow()
   })
 })

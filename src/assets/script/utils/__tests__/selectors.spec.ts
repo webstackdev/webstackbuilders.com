@@ -10,7 +10,7 @@ import {
   isSlotElement,
   isType1Element,
   isUlElement,
-} from '../assertions'
+} from '../assertions/elements'
 import {
   getBodyElement,
   getHtmlElement,

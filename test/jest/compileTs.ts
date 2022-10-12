@@ -1,6 +1,7 @@
 /**
  * Inline Typescript compiler for use in passing string script to JSDOM
  */
+import { statSync } from 'fs'
 import { resolve } from 'path'
 import MemoryFs from 'memory-fs'
 import webpack from 'webpack'
@@ -45,6 +46,19 @@ const getWebpackConfig = (entryFile: string): webpack.Configuration => {
   }
 }
 
+export const entryFileExists = (entryFile: string) => {
+  try {
+    const exists = statSync(entryFile).isFile() // throws if path does not exist
+    if (!exists) throw new Error(`'entryFile' exists but is not a file.`)
+    return true
+  } catch(err: unknown) {
+    throw new Error(`File path passed to tsCompile is not valid:\n${entryFile}.\n${err}`)
+  }
+}
+
+/**
+ * Determines if an object is a Webpack Stats object passed to a compile run callback
+ */
 export function isStatsObject(input: unknown): input is webpack.Stats {
   if (
     input &&
@@ -57,7 +71,14 @@ export function isStatsObject(input: unknown): input is webpack.Stats {
   return false
 }
 
+/**
+ * Compiles a TS file to JS
+ *
+ * @param entryFile - A relative path from the project root to the TypeScript file to compile
+ * @returns - A JavaScript string
+ */
 export const tsCompile = async (entryFile: string) => {
+  entryFileExists(entryFile)
   const compiler = webpack(getWebpackConfig(entryFile))
   compiler.outputFileSystem = new MemoryFs()
 

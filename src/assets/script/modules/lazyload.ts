@@ -1,4 +1,4 @@
-import { isImageElement } from '../utils/assertions'
+import { isImageElement } from '../utils/assertions/elements'
 
 // create config object: rootMargin and threshold
 // are two properties exposed by the interface

@@ -4,9 +4,12 @@
  * The `beforeAll` and `beforeEach` Jest globals are called with resets for the
  * JSDOM environment, which otherwise would retain state between tests (document object).
  */
-import 'jest-extended'
-import 'jest-extended/all'
-
+import { TextDecoder, TextEncoder } from 'util'
+import { beforeAll, beforeEach, expect } from '@jest/globals'
+import { toHaveNoViolations } from 'jest-axe'
+/** Add `jest-dom` to JSDom environment browser globals */
+import '@testing-library/jest-dom'
+import './extendMatchers'
 /* eslint-disable @typescript-eslint/unbound-method */
 
 /** Provide global DOM types */
@@ -19,23 +22,8 @@ declare global {
   }
 }
 
-/**
- * Add `jest-dom` so that we have a JSDom environment with browser globals in this file
- */
-import '@testing-library/jest-dom'
-
-import { TextDecoder, TextEncoder } from 'util'
-import { beforeAll, beforeEach, expect } from '@jest/globals'
-import { toHaveNoViolations } from 'jest-axe'
-import { toHaveInProtoChain } from './matchers'
-
-/** Add custom Jest matchers */
-expect.extend({ toHaveInProtoChain })
-
-/**
- * Add Axe accessibility expectations to global expect object
- */
-expect.extend(toHaveNoViolations) // TS2304: Cannot find name 'expect'
+/** Add Axe accessibility expectations to global expect object */
+expect.extend(toHaveNoViolations)
 
 /**
  * Polyfill to provide TextEncoder and TextDecoder for JSDom

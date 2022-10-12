@@ -1,3 +1,4 @@
+import { describe, expect, test } from '@jest/globals'
 import { mockCwd } from 'mock-cwd'
 import testingSchema from './schemas/__fixtures__/testing'
 import testing2Schema from './schemas/__fixtures__/testing2'

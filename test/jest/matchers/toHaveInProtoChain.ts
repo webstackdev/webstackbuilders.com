@@ -1,25 +1,5 @@
-/**
- * Custom Jest matchers
- */
-
-type Constructor = {
-  new (...args: unknown[]): unknown
-}
-
-export function isConstructor(fn: unknown): fn is Constructor {
-  const handler = {
-    construct() {
-      return handler
-    },
-  }
-  if (typeof fn !== 'function') return false
-  try {
-    const ProxiedFn = new Proxy(fn as Constructor, handler)
-    return !!new ProxiedFn()
-  } catch (e) {
-    return false
-  }
-}
+import type { MatcherFunction } from 'expect'
+import { isConstructible, type Constructor } from './assertions'
 
 export const inProtoChain = (BaseFn: Constructor, TestFn: Constructor) => {
   /* eslint-disable-next-line @typescript-eslint/ban-types */
@@ -29,17 +9,17 @@ export const inProtoChain = (BaseFn: Constructor, TestFn: Constructor) => {
 /**
  * Jest symmetric matcher to test if expected is in the prototype
  * chain of given constructor functions.
- * 
+ *
  * @param expected - The constructor function to test its prototype chain for matches
  * @param chain - The constructor functions to check if they are in expected's prototype chain
  */
-export function toHaveInProtoChain(expected: unknown, ...chain: unknown[]) {
+export const toHaveInProtoChain: MatcherFunction = function (expected: unknown, ...chain: unknown[]) {
   const errMssg = `Actual and all parameters to toHaveInProtoChain must be constructors`
-  if (!isConstructor(expected)) throw new Error(errMssg)
+  if (!isConstructible(expected)) throw new Error(errMssg)
   let pass = true
   let failedParamId = 0
   chain.forEach((testFn, step) => {
-    if (!isConstructor(testFn)) throw new Error(errMssg)
+    if (!isConstructible(testFn)) throw new Error(errMssg)
     if (!inProtoChain(expected, testFn)) {
       pass = false
       failedParamId = step
@@ -56,3 +36,8 @@ export function toHaveInProtoChain(expected: unknown, ...chain: unknown[]) {
   }
 }
 
+declare module 'expect' {
+  interface Matchers<R> {
+    toHaveInProtoChain(...chain: Constructor[]): R
+  }
+}

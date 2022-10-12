@@ -1,14 +1,14 @@
 /**
  * Cookie consent modal event listeners
  */
-import { getCookieConsentWrapper } from './getters'
+import { getters } from './getters'
 
 /**
  * Close button and dismiss
  */
 
 const handleDismissCookieModal = () => {
-  const wrapper = getCookieConsentWrapper()
+  const wrapper = getters.getCookieConsentWrapper()
   wrapper.style.display = `none`
   localStorage.setItem(`COOKIE_BANNER_VISIBLE`, `false`)
 }

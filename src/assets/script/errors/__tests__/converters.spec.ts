@@ -12,10 +12,9 @@ import {
   extractMetadaFromStackTrace,
   normalizeMessage,
 } from '../converters'
-import { isString } from '../../utils/assertions'
+import { isString } from '../../utils/assertions/primitives'
 import { PromiseRejectionEvent } from '../../@types/PromiseRejectionEvent'
 
-/* eslint-disable-next-line @typescript-eslint/no-empty-function */
 const voidFn = () => {}
 
 describe(`extractMetadaFromStackTrace correctly pulls metadata from stack trace`, () => {
@@ -170,9 +169,7 @@ describe(`Integration test for normalizeMessage`, () => {
       promise: new Promise(voidFn),
       reason: `test promise rejection`,
     }
-    const sut = normalizeMessage(
-      new PromiseRejectionEvent(`unhandledrejection`, RejectionInit)
-    )
+    const sut = normalizeMessage(new PromiseRejectionEvent(`unhandledrejection`, RejectionInit))
     expect(sut.message).toEqual(expect.stringContaining(`test promise rejection`))
   })
 

@@ -1,7 +1,7 @@
 /**
  * Tests for error handling routines and custom errors
  */
-import { afterEach, describe, expect, test } from '@jest/globals'
+import { afterEach, describe, expect, jest, test } from '@jest/globals'
 import { ClientScriptErrorParams } from '../ClientScriptError'
 import { logError } from '../logger'
 

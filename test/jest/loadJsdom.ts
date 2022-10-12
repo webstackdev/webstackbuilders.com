@@ -1,7 +1,7 @@
 /**
- *
+ * Test helper methods to load JSDOM and add script to the DOM
  */
-
+import { curry } from 'lodash'
 import { resolve } from 'path'
 import { JSDOM } from 'jsdom'
 import { loadHtmlTemplate } from './loadHtmlTemplate'
@@ -16,8 +16,25 @@ import { tsCompile } from './compileTs'
  * @param dirName - The `__dirname` Node variable from the file that has a `__fixtures__` directory
  * @returns - Absolute path to the Eleventy template fixture
  */
-export const getFixturePath = (fileName: string, dirName: string) => {
+export const getFixturePath = (dirName: string, fileName: string) => {
   return resolve(dirName, `../__fixtures__`, fileName)
+}
+
+/**
+ * Get a `getFixturePath` function with the current directory curried
+ *
+ * @param dirName - The directory of the test file, use `__dirname`
+ */
+export const getCurriedFixturePath = (dirName: string) => curry(getFixturePath)(dirName)
+
+/**
+ * Convenience method to extract the document object from a JSDOM object
+ */
+export const getDocumentFromDom = (dom: JSDOM) => {
+  const {
+    window: { document },
+  } = dom
+  return document
 }
 
 /**
@@ -34,15 +51,25 @@ export const addScript = async (scriptPath: string, document: Document) => {
 }
 
 /**
+ * Return a JSDOM object
+ *
+ * @param templatePath - Absolute path to the Eleventy template fixture
+ * @returns JSDOM window object
+ */
+export const loadDom = async (templatePath: string) => {
+  const json = await loadHtmlTemplate(templatePath)
+  const html = json.content
+  return new JSDOM(html, { runScripts: `dangerously` })
+}
+
+/**
  *
  * @param templatePath - Absolute path to the Eleventy template fixture
  * @param scriptPath - Absolute path to the script file that should be compiled
  * @returns JSDOM window object
  */
 export const loadDomWithScript = async (templatePath: string, scriptPath: string) => {
-  const json = await loadHtmlTemplate(templatePath)
-  const html = json.content
-  const dom = new JSDOM(html, { runScripts: `dangerously` })
+  const dom = await loadDom(templatePath)
   const { window } = dom
   await addScript(scriptPath, window[`document`])
   return dom

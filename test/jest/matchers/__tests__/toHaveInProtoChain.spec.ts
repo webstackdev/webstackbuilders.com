@@ -2,9 +2,10 @@
  * Tests for custom matchers
  */
 import { describe, expect, test } from '@jest/globals'
-import { inProtoChain, toHaveInProtoChain } from '../matchers'
+import { inProtoChain } from '../toHaveInProtoChain'
+//import { isSyncExpectationResult, type SyncExpectationResult } from '../assertions'
 
-describe(`toHaveInProtoChain works`, () => {
+describe(`inProtoChain helper method works`, () => {
   test(`inProtoChain returns true for child class`, () => {
     class ParentClass {}
     class ChildClass extends ParentClass {}
@@ -33,25 +34,21 @@ describe(`toHaveInProtoChain works`, () => {
     const sut = inProtoChain(ClassOne, ClassTwo)
     expect(sut).toBeFalsy()
   })
+})
 
+describe(`toHaveInProtoChain custom matcher works`, () => {
   test(`toHaveInProtoChain checks full chain`, () => {
     class ParentClass {}
     class ChildClass extends ParentClass {}
     class GrandchildClass extends ChildClass {}
 
-    const sut = toHaveInProtoChain(GrandchildClass, ParentClass, ChildClass)
-
-    expect(sut).toMatchObject({ pass: true })
-    expect(sut.message()).toEqual(expect.stringContaining(`not`))
+    expect(GrandchildClass).toHaveInProtoChain(ChildClass, ParentClass)
   })
 
   test(`toHaveInProtoChain returns false for unrelated classes`, () => {
     class ClassOne {}
     class ClassTwo {}
 
-    const sut = toHaveInProtoChain(ClassOne, ClassTwo)
-
-    expect(sut).toMatchObject({ pass: false })
-    expect(sut.message()).toEqual(expect.not.stringContaining(`not`))
+    expect(ClassOne).not.toHaveInProtoChain(ClassTwo)
   })
 })

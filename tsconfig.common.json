@@ -13,22 +13,29 @@
     "checkJs": true,
     /** Include a shim to ensure compatibility between ESM and CJS in the emitted JavaScript */
     "esModuleInterop": true,
-    /** Force case sensitivity for file names on all file systems instead of using the file system's rules */
+    /**
+     * Force case sensitivity for file names on all file systems instead of using the
+     * file system's rules
+     */
     "forceConsistentCasingInFileNames": true,
     /**
      * Import helper functions from `tslib` once per project instead of
      * inlining them per-file. Requires installing `tslib` as a dependency.
      */
     "importHelpers": true,
-    /** Warn on code that can not be correctly interpreted by a single-file transpilation process like Babel */
+    /**
+     * Warn on code that can not be correctly interpreted by a single-file transpilation
+     * process like Babel
+     */
     "isolatedModules": false,
     /** Type declaration files to include. */
     "lib": ["DOM", "ESNext", "WebWorker"],
     /** Module code to generate as output.  */
     "module": "ESNext",
     /**
-     * 'node' for Node.js CommonJS implementation, 'node12' or 'nodenext' for Node.js ECMAScript Module Support
-     * from TypeScript 4.5 onwards. Note that tsconfig JSON Schema doesn't support ESM options yet so it errors.
+     * 'node' for Node.js CommonJS implementation, 'node12' or 'nodenext' for Node.js
+     * ECMAScript Module Support from TypeScript 4.5 onwards. Note that tsconfig JSON
+     * Schema doesn't support ESM options yet so it errors.
      */
     "moduleResolution": "node",
     /** Unix EOL */
@@ -54,7 +61,10 @@
     "noUnusedLocals": true,
     /** Report errors on unused parameters. */
     "noUnusedParameters": true,
-    /** Allow using scoped paths in import statements by remapping to lookup locations relative to the baseUrl. */
+    /**
+     * Allow using scoped paths in import statements by remapping to lookup locations
+     * relative to the baseUrl.
+     */
     "paths": {
       "@script/*": ["./src/assets/script/*"]
     },
@@ -66,21 +76,23 @@
      */
     "resolveJsonModule": true,
     /**
-     * Skip type checking of all declaration files in `node_modules`, only doing so on explicit imports.
+     * Skip type checking of all declaration files in `node_modules`, only doing so on
+     * explicit imports.
      */
     "skipLibCheck": true,
     /** Generate source maps */
     "sourceMap": true,
     /**
-     * Enable all of the strict mode family options: `alwaysStrict`, `strictNullChecks`, `strictBindCallApply`,
-     * `strictFunctionTypes`, `strictPropertyInitialization`, `noImplicitAny`, `noImplicitThis`, and
-     * `useUnknownInCatchVariables`.
+     * Enable all of the strict mode family options: `alwaysStrict`, `strictNullChecks`,
+     * `strictBindCallApply`, `strictFunctionTypes`, `strictPropertyInitialization`,
+     * `noImplicitAny`, `noImplicitThis`, and `useUnknownInCatchVariables`.
      */
     "strict": true,
     /**
-     * Changes which JS features are downleveled and which are left intact. Choosing an unnecessarily low
-     * target will cause the bundle size to bloat with polyfills. Webhint will read this and `browserslist`
-     * in `package.json`, and give warnings if they get out of sync.
+     * Changes which JS features are downleveled and which are left intact. Choosing
+     * an unnecessarily low target will cause the bundle size to bloat with polyfills.
+     * Webhint will read this and `browserslist` in `package.json`, and give warnings
+     if they get out of sync.
      */
     "target": "ES2017",
     /**

@@ -224,10 +224,12 @@ const eslintConfig = {
         '**/__fixtures__/**/*.js',
       ],
       extends: [
+        /** DOM testing library */
+        'plugin:testing-library/dom',
         /** Best practices and anticipate common mistakes when writing tests with jest-dom */
         'plugin:jest-dom/recommended',
       ],
-      plugins: ['jest', 'jest-dom', 'jsdoc'],
+      plugins: ['testing-library', 'jest', 'jest-dom', 'jsdoc'],
       rules: {
         'jest/no-disabled-tests': 'off',
         'jest/no-focused-tests': level,
@@ -274,6 +276,8 @@ const eslintConfig = {
       extends: [
         /** Enable all the recommended rules for TypeScript linting */
         'plugin:@typescript-eslint/recommended',
+        /** DOM testing library */
+        'plugin:testing-library/dom',
         /** Best practices and anticipate common mistakes when writing tests with jest-dom */
         'plugin:jest-dom/recommended',
         /** Enable rules that require type-checking, disabled by default for performance */
@@ -283,7 +287,7 @@ const eslintConfig = {
         /** Runs Prettier as ESLint rule and reports differences as ESLint issues */
         'prettier', // must be last
       ],
-      plugins: ['@typescript-eslint', 'jest', 'jest-dom'],
+      plugins: ['@typescript-eslint', 'testing-library', 'jest', 'jest-dom'],
       rules: {
         /** Relax Typescript rules in test files */
         '@typescript-eslint/explicit-module-boundary-types': 'off',

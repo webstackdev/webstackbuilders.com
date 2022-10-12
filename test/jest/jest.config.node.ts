@@ -31,6 +31,7 @@ const config: ConfigOptions = {
     '<rootDir>/lambda',
     '<rootDir>/scripts',
     '<rootDir>/test/jest/__tests__',
+    '<rootDir>/test/jest/matchers/__tests__',
   ],
   /**
    * Executed before each test file is executed but after

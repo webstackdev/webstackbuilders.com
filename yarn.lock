@@ -1656,9 +1656,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eslint/eslintrc@npm:^1.3.2":
-  version: 1.3.2
-  resolution: "@eslint/eslintrc@npm:1.3.2"
+"@eslint/eslintrc@npm:^1.3.3":
+  version: 1.3.3
+  resolution: "@eslint/eslintrc@npm:1.3.3"
   dependencies:
     ajv: ^6.12.4
     debug: ^4.3.2
@@ -1669,7 +1669,7 @@ __metadata:
     js-yaml: ^4.1.0
     minimatch: ^3.1.2
     strip-json-comments: ^3.1.1
-  checksum: 2074dca47d7e1c5c6323ff353f690f4b25d3ab53fe7d27337e2592d37a894cf60ca0e85ca66b50ff2db0bc7e630cc1e9c7347d65bb185b61416565584c38999c
+  checksum: f03e9d6727efd3e0719da2051ea80c0c73d20e28c171121527dbb868cd34232ca9c1d0525a66e517a404afea26624b1e47895b6a92474678418c2f50c9566694
   languageName: node
   linkType: hard
 
@@ -2418,15 +2418,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@playwright/test@npm:1.26.1":
-  version: 1.26.1
-  resolution: "@playwright/test@npm:1.26.1"
+"@playwright/test@npm:1.27.0":
+  version: 1.27.0
+  resolution: "@playwright/test@npm:1.27.0"
   dependencies:
     "@types/node": "*"
-    playwright-core: 1.26.1
+    playwright-core: 1.27.0
   bin:
     playwright: cli.js
-  checksum: 872bc58dfa8f8a94547b69aaf7e88178213e2201a17aced1b425ef6b13bdd2b53e7274ae8f7ca57dfc189b214be5da5e3290f80b03e5bf5bdc4f3ff0ccd38375
+  checksum: ee72ba5f00b0ebc344e2ea710f8c8c11b82f187bbce4f90918a93081b24c50ac18dc4b6f0b56509a06c17d9bf6a0e4482cf62d9021a6db05cd403b5bcc65e13f
   languageName: node
   linkType: hard
 
@@ -2693,9 +2693,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@testing-library/dom@npm:^8.18.1":
-  version: 8.18.1
-  resolution: "@testing-library/dom@npm:8.18.1"
+"@testing-library/dom@npm:^8.19.0":
+  version: 8.19.0
+  resolution: "@testing-library/dom@npm:8.19.0"
   dependencies:
     "@babel/code-frame": ^7.10.4
     "@babel/runtime": ^7.12.5
@@ -2705,7 +2705,7 @@ __metadata:
     dom-accessibility-api: ^0.5.9
     lz-string: ^1.4.4
     pretty-format: ^27.0.2
-  checksum: 432a7da2bb626b11375b22e22d12c02317b35d69c0f69972c03bd0104895b496f21dc5b9d4447adef6e0c9acb3c0a64337f7d38c9667dbbacf09d5cd523394dd
+  checksum: 6bb93fef96703b6c47cf1b7cc8f71d402a9576084a94ba4e9926f51bd7bb1287fbb4f6942d82bd03fc6f3d998ae97e60f6aea4618f3a1ce6139597d2a4ecb7b9
   languageName: node
   linkType: hard
 
@@ -3298,10 +3298,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:18.8.2":
-  version: 18.8.2
-  resolution: "@types/node@npm:18.8.2"
-  checksum: b7c74dea0e835fb7faf69b4a2e87d43c1d228d88adacdff464d9e92d18a0b43bec6147b9eb3287650ac75fe5af730c53391869d02175e6b032dcb99ae2f54c92
+"@types/node@npm:18.8.3":
+  version: 18.8.3
+  resolution: "@types/node@npm:18.8.3"
+  checksum: 9201adc6dc389644c9f478f950ef8926a93e5827865dcd80d7d12fefacab665c96879c87cd6ec74d5eccdd998c4603d02e1e07a35d71a63fe4c20670a381f6ef
   languageName: node
   linkType: hard
 
@@ -3709,7 +3709,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/utils@npm:5.39.0":
+"@typescript-eslint/utils@npm:5.39.0, @typescript-eslint/utils@npm:^5.13.0":
   version: 5.39.0
   resolution: "@typescript-eslint/utils@npm:5.39.0"
   dependencies:
@@ -8697,12 +8697,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"create-playwright@npm:1.17.119":
-  version: 1.17.119
-  resolution: "create-playwright@npm:1.17.119"
+"create-playwright@npm:1.17.120":
+  version: 1.17.120
+  resolution: "create-playwright@npm:1.17.120"
   bin:
     create-playwright: index.js
-  checksum: d70e61ad90f4091f7ac3d2552717dae33eb58975804e7ce4a5f58458d01a287377da149b4fddbefb752a4c6db8120b500c784c17ce9a7b55b1c4d1f8f9df6dbf
+  checksum: 1f7436549fef7b926f9384833a093fc56148f963d6b7a27761a80e3b36c6e77327ee836f1d1c81f4151ddfb4b9e5115d2f20cde142ad0e95b62518848357c332
   languageName: node
   linkType: hard
 
@@ -11541,6 +11541,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"eslint-plugin-testing-library@npm:^5.7.2":
+  version: 5.7.2
+  resolution: "eslint-plugin-testing-library@npm:5.7.2"
+  dependencies:
+    "@typescript-eslint/utils": ^5.13.0
+  peerDependencies:
+    eslint: ^7.5.0 || ^8.0.0
+  checksum: 33ab09b0bc77b80ea61b9bac4d48ca3f83916a0cb9deaf0e8d2eaab80707346feb7e808a68a625fa27baf278d1d8130b1ca5d2f8eb0904804793601d8f1c8f40
+  languageName: node
+  linkType: hard
+
 "eslint-plugin-toml@npm:^0.3.1":
   version: 0.3.1
   resolution: "eslint-plugin-toml@npm:0.3.1"
@@ -11724,13 +11735,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:^8.24.0":
-  version: 8.24.0
-  resolution: "eslint@npm:8.24.0"
+"eslint@npm:^8.25.0":
+  version: 8.25.0
+  resolution: "eslint@npm:8.25.0"
   dependencies:
-    "@eslint/eslintrc": ^1.3.2
+    "@eslint/eslintrc": ^1.3.3
     "@humanwhocodes/config-array": ^0.10.5
-    "@humanwhocodes/gitignore-to-minimatch": ^1.0.2
     "@humanwhocodes/module-importer": ^1.0.1
     ajv: ^6.10.0
     chalk: ^4.0.0
@@ -11769,7 +11779,7 @@ __metadata:
     text-table: ^0.2.0
   bin:
     eslint: bin/eslint.js
-  checksum: ca293ce7116599b742d7ab4d43db469beec22f40dd272092d809498be3cff3a7c567769f9763bdf6799aac13dd53447b93a99629b7b54092783046eb57eaced6
+  checksum: 7acf2693b522b573657b53d2245b5522d3a131e4224b1cbf01e2c3579632fdbf62599284f68bc483e6e4eba23ae3643c9544744e0214a86e727cc361cedcd0fa
   languageName: node
   linkType: hard
 
@@ -15564,18 +15574,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest-diff@npm:^29.0.0":
-  version: 29.0.3
-  resolution: "jest-diff@npm:29.0.3"
-  dependencies:
-    chalk: ^4.0.0
-    diff-sequences: ^29.0.0
-    jest-get-type: ^29.0.0
-    pretty-format: ^29.0.3
-  checksum: 1e12b63ea6254ea25146b6fb19f8b2d1ba334e1b8b635a007767c17dc272728afbdf41ccccce26c2a40cd9c7f3176bcfed53be2572927a3fc7b1ee5fff43eb26
-  languageName: node
-  linkType: hard
-
 "jest-diff@npm:^29.1.2":
   version: 29.1.2
   resolution: "jest-diff@npm:29.1.2"
@@ -15637,18 +15635,6 @@ __metadata:
     jest-mock: ^29.1.2
     jest-util: ^29.1.2
   checksum: 9af99f8ede5f99781dc88e5fef164292a95cb3b4291ed117c6755fb6048bd8b0a4b597efd87d673976c8a3d2f1d42265613dbfddef628bc9af290d303a061737
-  languageName: node
-  linkType: hard
-
-"jest-extended@npm:^3.1.0":
-  version: 3.1.0
-  resolution: "jest-extended@npm:3.1.0"
-  dependencies:
-    jest-diff: ^29.0.0
-    jest-get-type: ^29.0.0
-  peerDependencies:
-    jest: ">=27.2.5"
-  checksum: 1656670f7c58419f2ab1ff177db03b79e974faae88b4bdeaa4188fe962a623d77a78df0f9f06dc8a8a945c6e8d081fa48a8d3cf220434cc2ef7831dfa4ee9413
   languageName: node
   linkType: hard
 
@@ -20660,12 +20646,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"playwright-core@npm:1.26.1":
-  version: 1.26.1
-  resolution: "playwright-core@npm:1.26.1"
+"playwright-core@npm:1.27.0":
+  version: 1.27.0
+  resolution: "playwright-core@npm:1.27.0"
   bin:
     playwright: cli.js
-  checksum: 6347224c28c1ec21d49b659ae35452955e2d8a8ff7aa578f0a0dbb1eccfbcea97e7400446335e966c2a1cbb356381d78131ea65e4a2f19a3eccfb58d33aed0ca
+  checksum: e45565af0c33c34ccf7b513d8e84eda5101f0e12d495e9e1c2bfe16b675ddcdd8f064c449a1bd908365f2f126c8d40cc14bf95976e881e2e1620cd239240ed23
   languageName: node
   linkType: hard
 
@@ -21362,17 +21348,6 @@ __metadata:
     ansi-styles: ^5.0.0
     react-is: ^18.0.0
   checksum: 7fde4e2d6fd57cef8cf2fa9d5560cc62126de481f09c65dccfe89a3e6158a04355cff278853ace07fdf7f2f48c3d77877c00c47d7d3c1c028dcff5c322300d79
-  languageName: node
-  linkType: hard
-
-"pretty-format@npm:^29.0.3":
-  version: 29.0.3
-  resolution: "pretty-format@npm:29.0.3"
-  dependencies:
-    "@jest/schemas": ^29.0.0
-    ansi-styles: ^5.0.0
-    react-is: ^18.0.0
-  checksum: 239aa73b09919b195353e62530908b43883af66e3ba8ecb5fda77578b20f297fd774fcf53abbedcb6cfff72521e8a220052a49e6a0e29418082d06386da27bac
   languageName: node
   linkType: hard
 
@@ -26843,11 +26818,11 @@ __metadata:
     "@jest/globals": ^29.1.2
     "@jest/types": ^29.1.2
     "@liradb2000/markdown-it-mermaid": 0.4.4
-    "@playwright/test": 1.26.1
+    "@playwright/test": 1.27.0
     "@quasibit/eleventy-plugin-schema": ^1.10.0
     "@quasibit/eleventy-plugin-sitemap": ^2.2.0
     "@sardine/eleventy-plugin-external-links": ^1.4.0
-    "@testing-library/dom": ^8.18.1
+    "@testing-library/dom": ^8.19.0
     "@testing-library/jest-dom": 5.16.5
     "@types/11ty__eleventy-img": ^2.0.1
     "@types/aws-lambda": ^8.10.106
@@ -26870,7 +26845,7 @@ __metadata:
     "@types/markdown-it": 12.2.3
     "@types/memory-fs": ^0.3.3
     "@types/mkdirp": ^1.0.2
-    "@types/node": 18.8.2
+    "@types/node": 18.8.3
     "@types/nunjucks": ^3.2.1
     "@types/prettier": ^2.7.1
     "@types/serve-static": ^1.15.0
@@ -26887,7 +26862,7 @@ __metadata:
     canvas: 2.10.1
     chalk: ^4.1.2
     confusing-browser-globals: ^1.0.11
-    create-playwright: 1.17.119
+    create-playwright: 1.17.120
     critical: 4.0.1
     cross-var: 1.1.0
     cssnano: ^5.1.13
@@ -26900,7 +26875,7 @@ __metadata:
     eleventy-plugin-page-assets: 0.3.0
     eleventy-plugin-share-highlight: 0.1.4
     eleventy-plugin-time-to-read: ^1.2.0
-    eslint: ^8.24.0
+    eslint: ^8.25.0
     eslint-config-prettier: ^8.5.0
     eslint-import-resolver-typescript: ^3.5.1
     eslint-plugin-eslint-comments: ^3.2.0
@@ -26913,6 +26888,7 @@ __metadata:
     eslint-plugin-node: ^11.1.0
     eslint-plugin-prettier: ^4.2.1
     eslint-plugin-security: ^1.5.0
+    eslint-plugin-testing-library: ^5.7.2
     eslint-plugin-toml: ^0.3.1
     fancy-log: 2.0.0
     focus-trap: 7.0.0
@@ -26936,7 +26912,7 @@ __metadata:
     jest: 29.1.2
     jest-axe: 6.0.0
     jest-environment-jsdom: 29.1.2
-    jest-extended: ^3.1.0
+    jest-get-type: ^29.0.0
     jsdom: 20.0.1
     katex: 0.16.2
     lazypipe: ^1.0.2

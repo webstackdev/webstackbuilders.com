@@ -8,7 +8,7 @@ import {
   isNavElement,
   isSlotElement,
   isUlElement,
-} from './assertions'
+} from './assertions/elements'
 
 
 export const queryDocument = (selector: string): Element => {

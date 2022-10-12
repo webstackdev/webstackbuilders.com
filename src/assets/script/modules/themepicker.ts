@@ -8,7 +8,7 @@ interface MetaColorsWindow extends Window {
 
 declare let window: MetaColorsWindow
 
-import { isHtmlElement } from '../utils/assertions'
+import { isHtmlElement } from '../utils/assertions/elements'
 import { queryDocument, queryAllDocument } from '../utils/selectors'
 
 let ACTIVE_THEME = 'default'

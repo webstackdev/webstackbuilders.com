@@ -20,3 +20,29 @@
     </li>
   </menu>
 </div>
+
+export declare interface MatcherUtils {
+  dontThrow(): void;
+  equals: EqualsFunction;
+  utils: typeof jestMatcherUtils & {
+    iterableEquality: Tester;
+    subsetEquality: Tester;
+  };
+}
+
+export declare interface MatcherState {
+  assertionCalls: number;
+  currentTestName?: string;
+  error?: Error;
+  expand?: boolean;
+  expectedAssertionsNumber: number | null;
+  expectedAssertionsNumberError?: Error;
+  isExpectingAssertions: boolean;
+  isExpectingAssertionsError?: Error;
+  isNot?: boolean;
+  promise?: string;
+  suppressedErrors: Array<Error>;
+  testPath?: string;
+}
+
+export declare type MatcherContext = MatcherUtils & Readonly<MatcherState>
