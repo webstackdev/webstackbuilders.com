@@ -1,3 +1,4 @@
+/// <reference path="../../../../@types/@jest/globals/expect.d.ts" />
 /**
  * From 'jest-extended', but that library does not compile due to bad typings
  */

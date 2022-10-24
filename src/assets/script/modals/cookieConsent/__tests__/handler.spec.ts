@@ -7,8 +7,6 @@ import { describe, expect, test } from '@jest/globals'
 //import { getFixturePath, loadDomWithScript } from '../../../../../../test/jest/loadJsdom'
 //import { cookieModalHandler } from '../handler'
 
-//global.setImmediate = setImmediate
-
 //const templatePath = resolve(`src/_layouts/components/cookies.njk`)
 
 describe('Sets cookie modal visible', () => {

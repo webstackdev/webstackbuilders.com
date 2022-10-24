@@ -1,6 +1,6 @@
 /**
  * Type guards for primitives
  */
-export function isString(message: unknown): message is string {
-  return typeof message === `string` || message instanceof String
+export function isString(value: unknown): value is string {
+  return typeof value === `string` || value instanceof String
 }

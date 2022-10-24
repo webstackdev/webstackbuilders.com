@@ -4,131 +4,22 @@
  * The `beforeAll` and `beforeEach` Jest globals are called with resets for the
  * JSDOM environment, which otherwise would retain state between tests (document object).
  */
-import { TextDecoder, TextEncoder } from 'util'
-import { beforeAll, beforeEach, expect } from '@jest/globals'
+import { beforeAll, beforeEach, expect, jest } from '@jest/globals'
 import { toHaveNoViolations } from 'jest-axe'
 /** Add `jest-dom` to JSDom environment browser globals */
 import '@testing-library/jest-dom'
-import './extendMatchers'
-/* eslint-disable @typescript-eslint/unbound-method */
-
-/** Provide global DOM types */
-declare global {
-  interface Document {
-    [key: string]: unknown
-  }
-  interface Window {
-    [key: string]: unknown
-  }
-}
+import { setQuietMode, unsetQuietMode } from './jsdomQuietMode'
+import {
+  removeRootAttributes,
+  removeRootChildElements,
+  restoreRootBaseElements,
+  //setupEventListenerProxies,
+  //removeEventListenerProxies,
+} from './setup'
+import './utils/extendMatchers'
 
 /** Add Axe accessibility expectations to global expect object */
 expect.extend(toHaveNoViolations)
-
-/**
- * Polyfill to provide TextEncoder and TextDecoder for JSDom
- */
-global.TextEncoder = TextEncoder
-global.TextDecoder = TextDecoder as unknown as typeof global.TextDecoder
-
-/**
- * Data structure to maintain state of JSDom 'document' and 'window' objects between tests
- */
-type NodeMapper = { document: Document; window: Window }
-type NodeName = keyof NodeMapper
-type eventListenerRecord = {
-  type: string
-  listener: EventListenerOrEventListenerObject
-  options?: boolean | AddEventListenerOptions
-}
-type SideEffects = {
-  [K in NodeName]: {
-    addEventListener: {
-      fn: NodeMapper[K]['addEventListener']
-      refs: eventListenerRecord[]
-    }
-    keys: string[]
-  }
-}
-
-const sideEffects: SideEffects = {
-  document: {
-    addEventListener: {
-      fn: document.addEventListener,
-      refs: [],
-    },
-    keys: Object.keys(document),
-  },
-  window: {
-    addEventListener: {
-      fn: window.addEventListener,
-      refs: [],
-    },
-    keys: Object.keys(window),
-  },
-}
-const nodeNames = Object.keys(sideEffects) as unknown as NodeName[]
-
-/**
- * Replace addEventListener with mock so that they can be
- * cached and removed on reset between tests
- */
-const mockAddEventListener = (nodeName: NodeName) => {
-  global[nodeName].addEventListener = (
-    type: string,
-    listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
-  ) => {
-    const storedListeners = sideEffects[nodeName].addEventListener
-    /** Store listener reference so it can be removed during reset */
-    storedListeners.refs.push({ type, listener, options })
-    /** Call original window.addEventListener */
-    storedListeners.fn(type, listener, options)
-  }
-}
-
-/**
- * Add to the DOM object default key array to prevent removal during reset
- */
-const addCachedKey = (nodeName: NodeName) => {
-  sideEffects[nodeName].keys.push('addEventListener')
-}
-
-/** Remove attributes on root element */
-const removeRootAttributes = (rootElement: HTMLElement) => {
-  Array.from(rootElement.attributes).forEach(attr => rootElement.removeAttribute(attr.name))
-}
-
-/** Remove elements (faster than setting innerHTML) */
-const removeRootChildElements = (rootElement: HTMLElement) => {
-  while (rootElement.firstChild) {
-    rootElement.removeChild(rootElement.firstChild)
-  }
-}
-
-/** Restore base elements **/
-const restoreRootBaseElements = (rootElement: HTMLElement) => {
-  rootElement.innerHTML = '<head></head><body></body>'
-}
-
-/** Remove listeners */
-const removeGlobalListeners = (nodeName: NodeName) => {
-  const refs = sideEffects[nodeName].addEventListener.refs
-  while (refs.length) {
-    // ! is non-null assertion operator since pop() widens type to include 'undefined'
-    const { type, listener, options } = refs.pop()!
-    global[nodeName].removeEventListener(type, listener, options)
-  }
-}
-
-/** Remove any added keys to the global JSDOM Windows and Document objects */
-const removeGlobalKeys = (nodeName: NodeName) => {
-  Object.keys(global[nodeName])
-    .filter(key => !sideEffects[nodeName].keys.includes(key))
-    .forEach(key => {
-      delete global[nodeName][key]
-    })
-}
 
 /**
  * Soft reset for JSDOM environment and globals. Removes side effects from tests,
@@ -144,24 +35,28 @@ const removeGlobalKeys = (nodeName: NodeName) => {
  */
 beforeAll(() => {
   /** Add spy on addEventListener */
-  nodeNames.forEach(nodeName => {
-    mockAddEventListener(nodeName)
-    addCachedKey(nodeName)
-  })
+  //setupEventListenerProxies()
 })
 
 beforeEach(() => {
   const rootElement = document.documentElement
-
   removeRootAttributes(rootElement)
   removeRootChildElements(rootElement)
-
-  nodeNames.forEach(nodeName => {
-    removeGlobalListeners(nodeName)
-    removeGlobalKeys(nodeName)
-  })
-
   restoreRootBaseElements(rootElement)
+
+  //removeEventListenerProxies()
+
+  /**
+   * Suppress console output from JSDOM's browser console outlet to avoid a wall of red
+   * error messages in tests that intentionally throw, but allow enabling for debugging.
+   *
+   * @example add pragma at top of file in a docblock:
+   * @jest-environment-options {"JSDOM_QUIET_MODE": false}
+   * @jest-environment-options {"something_else": false}
+   */
+  setQuietMode({ isQuietMode: globalThis.JSDOM_QUIET_MODE }, jest)
 })
 
-/* eslint-enable @typescript-eslint/unbound-method */
+afterEach(() => {
+  unsetQuietMode({ isQuietMode: globalThis.JSDOM_QUIET_MODE })
+})

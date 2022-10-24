@@ -192,3 +192,7 @@ clear && TS_NODE_PROJECT="tsconfig.gulp.json" yarn gulp build
 ```bash
 clear && TS_NODE_PROJECT="tsconfig.jest.json" yarn jest eleventy/nunjucksAsyncShortcodes/asyncImageHandler/utils.spec.js --projects test/jest/jest.config.node.ts
 ```
+
+```bash
+clear && egrep -rnw './' --exclude-dir=node_modules --exclude-dir=.yarn -e 'searchString'
+```

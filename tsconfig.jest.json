@@ -3,5 +3,11 @@
   /**
    * Files to include in compilation.
    */
-  "include": ["src/assets/script/**/*", "lambda/**/*", "scripts/**/*", "test/**/*"]
+  "include": [
+    "jest/jest.config.jsdom.ts",
+    "src/assets/script/**/*",
+    "lambda/**/*",
+    "scripts/**/*",
+    "test/**/*"
+  ]
 }

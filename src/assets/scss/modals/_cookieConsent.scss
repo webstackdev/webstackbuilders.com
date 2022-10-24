@@ -5,11 +5,6 @@
 
 $cookie-modal-background: $color-gray-1; // var(--color-primary)
 
-/** Modal is hidden until user interaction or time-out */
-#cookie-modal-id {
-  //display: none;
-}
-
 .cookie-modal {
   background-color: $cookie-modal-background;
   border-radius: 10px;

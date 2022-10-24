@@ -1,4 +1,9 @@
-import { getters } from '../getters'
+import { getCookieConsentWrapper } from '../getters'
 
-const sut = getters.getCookieConsentWrapper()
-console.log(sut)
+try {
+  const wrapper = getCookieConsentWrapper()
+  wrapper.setAttribute(`data-testid`, `test-element`)
+} catch (err) {
+  /** Pass error message back to test */
+  document.querySelector(`body`)!.innerHTML = (err as Error).message
+}

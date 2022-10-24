@@ -20,10 +20,11 @@ export const autoLoadDuration = 5 * 1000
 export const addDelayedExecutionScripts = (scriptsFiredOnUserInteraction: ScriptInit[]) => {
   /** Run the scripts after a delay if no user interaction has occurred */
   const runScripts = () => scriptsFiredOnUserInteraction.forEach(script => script())
-  const autoLoadTimeout = setTimeout(runScripts, autoLoadDuration)
+
+  //const autoLoadTimeout = setTimeout(runScripts, autoLoadDuration)
 
   const triggerScripts = (_: Event) => {
-    clearTimeout(autoLoadTimeout)
+    //clearTimeout(autoLoadTimeout)
     runScripts()
     eventList.forEach(event => document.removeEventListener(event, triggerScripts, false))
   }

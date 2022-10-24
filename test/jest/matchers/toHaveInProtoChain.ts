@@ -35,9 +35,3 @@ export const toHaveInProtoChain: MatcherFunction = function (expected: unknown, 
           `Expected provided function to be in prototype chain of actual, testing parameter number ${failedParamId}`,
   }
 }
-
-declare module 'expect' {
-  interface Matchers<R> {
-    toHaveInProtoChain(...chain: Constructor[]): R
-  }
-}

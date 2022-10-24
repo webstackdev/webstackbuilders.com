@@ -1,8 +1,8 @@
 /**
  * Add event handlers to cookie consent modal and initialize visible setting in local storage
  */
-import { getters } from './getters'
-import { listeners } from './listeners'
+import * as getters from './getters'
+import * as listeners from './listeners'
 
 export const cookieModalHandler = () => {
   /* eslint-disable-next-line no-null/no-null */

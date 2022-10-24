@@ -5,7 +5,7 @@ import { isAnchorElement, isButtonElement, isDivElement } from '../../utils/asse
 import { ClientScriptError } from '../../errors/ClientScriptError'
 
 /** Gets the HTMLDivElement wrapping the cookie consent modal */
-const getCookieConsentWrapper = () => {
+export const getCookieConsentWrapper = () => {
   const wrapper = document.getElementById(`cookie-modal-id`)
   if (!isDivElement(wrapper)) {
     throw new ClientScriptError(`Cookie consent modal wrapper with id 'cookie-modal-id' not found`)
@@ -14,7 +14,7 @@ const getCookieConsentWrapper = () => {
 }
 
 /** Gets the close HTMLButtonElement */
-const getCookieConsentCloseBtn = () => {
+export const getCookieConsentCloseBtn = () => {
   const closeBtn = document.querySelector(`.cookie-modal__close-btn`)
   if (!isButtonElement(closeBtn)) {
     throw new ClientScriptError(
@@ -25,7 +25,7 @@ const getCookieConsentCloseBtn = () => {
 }
 
 /** Gets the HTMLButtonElement wrapping the cookie consent modal */
-const getCookieConsentAllowLink = () => {
+export const getCookieConsentAllowLink = () => {
   const allowLink = document.querySelector(`.cookie-modal__link-allow`)
   if (!isAnchorElement(allowLink)) {
     throw new ClientScriptError(
@@ -36,7 +36,7 @@ const getCookieConsentAllowLink = () => {
 }
 
 /** Gets the HTMLButtonElement wrapping the cookie consent modal */
-const getCookieConsentAllowBtn = () => {
+export const getCookieConsentAllowBtn = () => {
   const allowBtn = document.querySelector(`.cookie-modal__btn-allow`)
   if (!isButtonElement(allowBtn)) {
     throw new ClientScriptError(
@@ -44,11 +44,4 @@ const getCookieConsentAllowBtn = () => {
     )
   }
   return allowBtn
-}
-
-export const getters = {
-  getCookieConsentWrapper,
-  getCookieConsentCloseBtn,
-  getCookieConsentAllowLink,
-  getCookieConsentAllowBtn,
 }

@@ -1,3 +1,4 @@
+/// <reference path="../../../../@types/@jest/globals/expect.d.ts" />
 /**
  * Tests for custom matchers
  */

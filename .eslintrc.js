@@ -88,7 +88,7 @@ const eslintConfig = {
     'jsdoc/check-tag-names': [
       level,
       {
-        definedTags: ['TODO:', 'jest-environment'],
+        definedTags: ['TODO:', 'jest-environment', 'jest-environment-options'],
         jsxTags: true,
       },
     ],
@@ -180,6 +180,7 @@ const eslintConfig = {
       ],
       plugins: ['@typescript-eslint'],
       rules: {
+        '@typescript-eslint/ban-ts-comment': 'off',
         '@typescript-eslint/ban-types': level,
         '@typescript-eslint/consistent-type-assertions': [
           level,
@@ -247,6 +248,7 @@ const eslintConfig = {
         'jsdoc/no-types': 'off',
         /** JSDoc does not support import() for typedefs */
         'jsdoc/valid-types': 'off',
+        'testing-library/prefer-screen-queries': 'off',
       },
       env: {
         browser: true,
@@ -289,6 +291,7 @@ const eslintConfig = {
       ],
       plugins: ['@typescript-eslint', 'testing-library', 'jest', 'jest-dom'],
       rules: {
+        '@typescript-eslint/ban-ts-comment': 'off',
         /** Relax Typescript rules in test files */
         '@typescript-eslint/explicit-module-boundary-types': 'off',
         '@typescript-eslint/no-empty-function': 'off',
@@ -319,6 +322,7 @@ const eslintConfig = {
         /** Allow import declarations which import private modules, default 'error' */
         'node/no-unpublished-import': 'off',
         'node/no-unsupported-features/es-syntax': 'off',
+        'testing-library/prefer-screen-queries': 'off',
       },
       env: {
         browser: true,

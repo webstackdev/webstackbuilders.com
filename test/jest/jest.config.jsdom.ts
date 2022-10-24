@@ -30,15 +30,16 @@ const config: ConfigOptions = {
     '<rootDir>/eleventy/pairedShortcodes',
     '<rootDir>/eleventy/shortcodes',
     '<rootDir>/src/assets/script',
-    '<rootDir>/scripts/build/__tests__/jsdom',
+    '<rootDir>/scripts/build/__tests__/jsdom-env',
+    '<rootDir>/test/jest/__tests__/jsdom-env',
   ],
   /**
    * Executed before each test file is executed but after
    * the testing framework is installed in the environment
    */
   setupFilesAfterEnv: [`<rootDir>/test/jest/jest.setup.jsdom.ts`],
-  /** Jest default environment is Node.js */
-  testEnvironment: '<rootDir>/test/jest/jest-environment-jsdom-tscompile.js',
+  /** Custom Jest environment */
+  testEnvironment: '<rootDir>/test/jest/environment/browser-env.ts',
   /** Options passed to JSDOM constructor to override defaults */
   testEnvironmentOptions: {
     /**

@@ -5,7 +5,7 @@ const scriptsFiredOnUserInteraction: ScriptInit = () => {
   document.body.appendChild(document.createElement('hr'))
 }
 
-addDelayedExecutionScripts([scriptsFiredOnUserInteraction, scriptsFiredOnUserInteraction])
+addDelayedExecutionScripts([scriptsFiredOnUserInteraction])
 
 const event = new Event('mousemove')
 document.dispatchEvent(event)

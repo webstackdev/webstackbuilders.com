@@ -1,4 +1,4 @@
-<div id="cookie-modal-id" class="cookie-modal">
+<div id="cookie-modal-id" class="cookie-modal" style="display:none;">
   <button type="button" aria-label="Close" class="cookie-modal__close-btn">
     {% icon "close" %}
   </button>
@@ -20,29 +20,3 @@
     </li>
   </menu>
 </div>
-
-export declare interface MatcherUtils {
-  dontThrow(): void;
-  equals: EqualsFunction;
-  utils: typeof jestMatcherUtils & {
-    iterableEquality: Tester;
-    subsetEquality: Tester;
-  };
-}
-
-export declare interface MatcherState {
-  assertionCalls: number;
-  currentTestName?: string;
-  error?: Error;
-  expand?: boolean;
-  expectedAssertionsNumber: number | null;
-  expectedAssertionsNumberError?: Error;
-  isExpectingAssertions: boolean;
-  isExpectingAssertionsError?: Error;
-  isNot?: boolean;
-  promise?: string;
-  suppressedErrors: Array<Error>;
-  testPath?: string;
-}
-
-export declare type MatcherContext = MatcherUtils & Readonly<MatcherState>
