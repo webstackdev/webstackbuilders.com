@@ -1,6 +1,6 @@
 import { JSDOM, ResourceLoader } from 'jsdom'
 import { version } from '../../../package.json'
-import { getVirtualConsole } from './helpers'
+import { getVirtualConsole } from './virtualConsole'
 
 export interface EnvOptions {
   html?: string

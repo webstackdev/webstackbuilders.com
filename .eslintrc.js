@@ -153,6 +153,10 @@ const eslintConfig = {
         'jsdoc/no-bad-blocks': level,
         'jsdoc/no-defaults': level,
         'jsdoc/no-types': 'off',
+        'jsdoc/require-param': 'off',
+        'jsdoc/require-param-type': 'off',
+        'jsdoc/require-returns': 'off',
+        'jsdoc/require-returns-type': 'off',
         /** JSDoc does not support import() for typedefs */
         'jsdoc/valid-types': 'off',
       },

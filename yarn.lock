@@ -4925,7 +4925,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"acorn-walk@npm:^8.0.0, acorn-walk@npm:^8.0.2, acorn-walk@npm:^8.1.1":
+"acorn-walk@npm:^8.0.0, acorn-walk@npm:^8.0.2, acorn-walk@npm:^8.1.1, acorn-walk@npm:^8.2.0":
   version: 8.2.0
   resolution: "acorn-walk@npm:8.2.0"
   checksum: 1715e76c01dd7b2d4ca472f9c58968516a4899378a63ad5b6c2d668bba8da21a71976c14ec5f5b75f887b6317c4ae0b897ab141c831d741dc76024d8745f1ad1
@@ -4965,6 +4965,15 @@ __metadata:
   bin:
     acorn: bin/acorn
   checksum: e0f79409d68923fbf1aa6d4166f3eedc47955320d25c89a20cc822e6ba7c48c5963d5bc657bc242d68f7a4ac9faf96eef033e8f73656da6c640d4219935fdfd0
+  languageName: node
+  linkType: hard
+
+"acorn@npm:^8.7.0":
+  version: 8.8.1
+  resolution: "acorn@npm:8.8.1"
+  bin:
+    acorn: bin/acorn
+  checksum: 4079b67283b94935157698831967642f24a075c52ce3feaaaafe095776dfbe15d86a1b33b1e53860fc0d062ed6c83f4284a5c87c85b9ad51853a01173da6097f
   languageName: node
   linkType: hard
 
@@ -26778,6 +26787,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"vm2@npm:^3.9.11":
+  version: 3.9.11
+  resolution: "vm2@npm:3.9.11"
+  dependencies:
+    acorn: ^8.7.0
+    acorn-walk: ^8.2.0
+  bin:
+    vm2: bin/vm2
+  checksum: aab39e6e4b59146d24abacd79f490e854a6e058a8b23d93d2be5aca7720778e2605d2cc028ccc4a5f50d3d91b0c38be9a6247a80d2da1a6de09425cc437770b4
+  languageName: node
+  linkType: hard
+
 "void-elements@npm:^3.1.0":
   version: 3.1.0
   resolution: "void-elements@npm:3.1.0"
@@ -27279,6 +27300,7 @@ __metadata:
     unionfs: ^4.4.0
     vinyl: ^2.2.1
     vinyl-string: ^1.0.2
+    vm2: ^3.9.11
     webpack: 5.74.0
     webpack-bundle-analyzer: ^4.6.1
     webpack-cli: 4.10.0

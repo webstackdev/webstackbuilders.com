@@ -3,8 +3,7 @@
  */
 import { curry } from 'lodash'
 import { resolve } from 'path'
-import { loadHtmlTemplate } from './loadHtmlTemplate'
-import { tsCompile } from './compileTs'
+import { loadHtmlTemplate, tsCompile } from './'
 
 /**
  * Method to build an absolute path to a fixture when a test follows the convention
@@ -29,22 +28,39 @@ export const getCurriedFixturePath = (dirName: string) => curry(getFixturePath)(
 /**
  * Method to add a compiled script string to a <script> element in a JSDOM instance
  *
- * @param scriptPath - Absolute path to the script file that should be compiled
+ * @param script - Compiled string of script
  * @param document - JSDOM document object with an Eleventy template to add a script to
  */
-export const addScript = async (scriptPath: string, document: Document) => {
-  const script = await tsCompile(scriptPath)
+export const attachScript = (script: string, document: Document) => {
   const scriptTag = document.createElement(`script`)
   scriptTag.innerHTML = script
   document.head.appendChild(scriptTag)
 }
 
+/**
+ * Method to compile a script and add it to a <script> element in a JSDOM instance
+ *
+ * @param scriptPath - Absolute path to the script file that should be compiled
+ * @param document - JSDOM document object with an Eleventy template to add a script to
+ */
+export const addScript = async (scriptPath: string, document: Document) => {
+  const script = await tsCompile(scriptPath)
+  attachScript(script, document)
+}
+
+/**
+ * Method to compile an HTML template e.g. Nunjucks and attach it in a JSDOM instance
+ *
+ * @param templatePath - Absolute path to the HTML template file that should be compiled
+ * @param document - JSDOM document object with an Eleventy template to add a script to
+ */
 export const loadDom = async (templatePath: string, document: Document): Promise<void> => {
   const json = await loadHtmlTemplate(templatePath)
   document.body.innerHTML = json.content
 }
 
 /**
+ * Compiles and attaches an HTML template to the JSDOM, and does the same with a script file
  *
  * @param templatePath - Absolute path to the Eleventy template fixture
  * @param scriptPath - Absolute path to the script file that should be compiled

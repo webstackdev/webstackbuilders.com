@@ -18,6 +18,9 @@ const config: ConfigOptions = {
     color: 'yellow',
   },
 
+  /** Ensure spare thread available for helper workers with Eleventy and Webconfig */
+  maxWorkers: '75%',
+
   /** Set this correctly to avoid getting a confusing error message when it is
    * referenced later in a path string. It will say something like 'Module
    * <rootDir>/config/polyfills.js in the setupFiles option was not found.'

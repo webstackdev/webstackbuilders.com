@@ -1,3 +1,4 @@
+/// <reference path="../@types/global.jsdom.d.ts" />
 /**
  * Custom Jest environment to add globals. Environment setup/teardown methods here
  *  are executed before/after every test file in its own environment. Added as a
@@ -9,51 +10,19 @@ import { ModuleMocker } from 'jest-mock'
 import { installCommonGlobals } from 'jest-util'
 import { JSDOM } from 'jsdom'
 import type { Context } from 'vm'
-import type {
-  EnvironmentContext,
-  JestEnvironment,
-  JestEnvironmentConfig
-} from '@jest/environment'
+import type { EnvironmentContext, JestEnvironment, JestEnvironmentConfig } from '@jest/environment'
 import type { LegacyFakeTimers, ModernFakeTimers } from '@jest/fake-timers'
 import type { Global } from '@jest/types'
-import { isJsdomSetOnGlobal, errorEventListener } from './error'
 import { getJsdomQuietModeFlag } from '../jsdomQuietMode'
 import { getJsdomInstance } from './jsdomEnv'
-import {
-  getCustomExportConditions,
-  getLegacyFakeTimers,
-  getModernFakeTimers,
-} from './helpers'
-import { addEventHandlerArgsProcessor, removeEventHandlerArgsProcessor } from './listeners'
+import { getCustomExportConditions, getLegacyFakeTimers, getModernFakeTimers } from './helpers'
+import * as listeners from './listeners'
+import { ListenerState } from './state'
 
-/**
- * Merge project declarations with global DOM types
- */
-/* eslint-disable no-var */
-declare global {
-  /** Accessible both as `window.JSDOM_QUIET_MODE` as well as `JSDOM_QUIET_MODE` directly */
-  var JSDOM_QUIET_MODE: boolean
-  /** State to swap in unhandled exception emitter if no user error listeners registered */
-  var USER_ERROR_LISTENER_COUNT: number
-
-  /**  Merge this interface definition with the Document interface defined in lib.dom.d.ts */
-  //interface Document {
-  //[key: string]: unknown
-  //}
-
-  /** Merge this interface definition with the Window interface defined in lib.dom.d.ts */
-  interface Window {
-    /**
-     * The `Window` interface does not have an `Error.stackTraceLimit`
-     * property, but `JSDOMEnvironment` assumes it is there.
-     */
-    Error: {
-      stackTraceLimit: number
-    }
-    //[key: string]: unknown
-  }
+export const isJsdomSetOnGlobal = () => {
+  /* eslint-disable-next-line no-null/no-null */
+  if (globalThis === null) throw new Error('JSDOM did not return a Window object')
 }
-/* eslint-enable no-var */
 
 /**
  * Custom Jest JSDOM environment that resets the complete environment between test
@@ -84,17 +53,17 @@ export default class JSDomTscompileEnvironment implements JestEnvironment<number
    * Quiet mode to silence JSDOM's virtual console output and avoid
    * a wall of red output on tests that are intended to throw.
    */
-  JSDOM_QUIET_MODE: boolean
-  /**
-   * beforeEach and afterEach handlers to silence JSDOM's
-   * console output in test as set by pragma.
-   */
-  USER_ERROR_LISTENER_COUNT: number
+  jsdomQuietMode: boolean
+  /** Global state for resetting event listeners between tests */
+  eventListenerState: ListenerState
 
   constructor(config: JestEnvironmentConfig, context: EnvironmentContext) {
     const { projectConfig } = config
     const { globals: projectGlobalsToInstall, testEnvironmentOptions } = projectConfig
 
+    /**
+     * One JSDOM instance per test file
+     */
     this.dom = getJsdomInstance(context.console, testEnvironmentOptions)
 
     /**
@@ -121,27 +90,39 @@ export default class JSDomTscompileEnvironment implements JestEnvironment<number
     installCommonGlobals(global as unknown as typeof globalThis, projectGlobalsToInstall)
     /** Maybe unnecessary */
     global.Buffer = Buffer
-
     /** Error-message stack size is set by default to 10 */
     this.global.Error.stackTraceLimit = 100
 
-    // Report uncaught errors.
-    this.errorEventListener = errorEventListener
-    global.addEventListener('error', errorEventListener)
+    /**
+     * EVENT HANDLER GETTERS AND SETTERS
+     */
 
-    // Don't report errors as uncaught if the user listens to 'error' event.
-    // In that case, we assume there might be custom error handling logic.
-    const originalAddListener = global.addEventListener.bind(global)
-    global.addEventListener = function (...args: Parameters<typeof global.addEventListener>) {
-      addEventHandlerArgsProcessor(args)
-      return originalAddListener.apply(this, args)
-    }
+    /**
+     * Provide a default error handler if no client-provided error handlers added. Set
+     * before ListenerState is initialized so that the default error handler isn't tracked.
+     */
+    this.errorEventListener = listeners.errorEventListener
+    global.addEventListener('error', listeners.errorEventListener)
 
-    const originalRemoveListener = global.removeEventListener.bind(global)
-    global.removeEventListener = function (...args: Parameters<typeof global.addEventListener>) {
-      removeEventHandlerArgsProcessor(args)
-      return originalRemoveListener.apply(this, args)
-    }
+    /**
+     * Initialize listener state that's used to track event handlers added and removed
+     * so that the JSDOM environment can be reset between test cases without re-initializing
+     * JSDOM which incurs a 100 ms penalty per instantiation.
+     */
+    this.eventListenerState = new ListenerState(global as unknown as Window, global.document)
+    /** Set as global in both Jest runner and test environment realms */
+    global.EVENT_LISTENER_STATE = this.eventListenerState
+    Object.assign(globalThis, {
+      EVENT_LISTENER_STATE: this.eventListenerState,
+    })
+
+    /**
+     * Set up tracking Window and Document add and remove event listeners
+     */
+    global.addEventListener = listeners.wrapWindowAddEventListener.bind(this)
+    global.removeEventListener = listeners.wrapWindowRemoveEventListener.bind(this)
+    global.document.addEventListener = listeners.wrapDocumentAddEventListener.bind(this)
+    global.document.removeEventListener = listeners.wrapDocumentRemoveEventListener.bind(this)
 
     /**
      * SET INHERITED CLASS PROPERTIES
@@ -161,12 +142,11 @@ export default class JSDomTscompileEnvironment implements JestEnvironment<number
     /**
      * SET GLOBAL STATE
      */
-    this.JSDOM_QUIET_MODE = getJsdomQuietModeFlag(context)
-    this.USER_ERROR_LISTENER_COUNT = 0
-    /** Make global state available in test suites */
-    Object.assign(global, {
-      JSDOM_QUIET_MODE: this.JSDOM_QUIET_MODE,
-      USER_ERROR_LISTENER_COUNT: this.USER_ERROR_LISTENER_COUNT,
+    this.jsdomQuietMode = getJsdomQuietModeFlag(context)
+    /** Set as global in both Jest runner and test environment realms */
+    global.JSDOM_QUIET_MODE = this.jsdomQuietMode
+    Object.assign(globalThis, {
+      JSDOM_QUIET_MODE: this.jsdomQuietMode,
     })
   }
 
@@ -217,6 +197,17 @@ export default class JSDomTscompileEnvironment implements JestEnvironment<number
     this.dom = null
     this.fakeTimers = null
     this.fakeTimersModern = null
+
+    // @TODO: Should this be `delete global.EVENT_LISTENER_STATE`? Should `this.` be deleted? Is there any difference between `global` and `globalThis` here (where it's not shadows by the const)?
+    global.EVENT_LISTENER_STATE = undefined
+    Object.assign(globalThis, {
+      EVENT_LISTENER_STATE: undefined,
+    })
+
+    global.JSDOM_QUIET_MODE = undefined
+    Object.assign(globalThis, {
+      JSDOM_QUIET_MODE: undefined,
+    })
   }
 
   /**

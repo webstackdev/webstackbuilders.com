@@ -4,18 +4,12 @@
  * The `beforeAll` and `beforeEach` Jest globals are called with resets for the
  * JSDOM environment, which otherwise would retain state between tests (document object).
  */
-import { beforeAll, beforeEach, expect, jest } from '@jest/globals'
+import { beforeEach, expect, jest } from '@jest/globals'
 import { toHaveNoViolations } from 'jest-axe'
 /** Add `jest-dom` to JSDom environment browser globals */
 import '@testing-library/jest-dom'
 import { setQuietMode, unsetQuietMode } from './jsdomQuietMode'
-import {
-  removeRootAttributes,
-  removeRootChildElements,
-  restoreRootBaseElements,
-  //setupEventListenerProxies,
-  //removeEventListenerProxies,
-} from './setup'
+import * as reset from './environment/reset'
 import './utils/extendMatchers'
 
 /** Add Axe accessibility expectations to global expect object */
@@ -32,28 +26,22 @@ expect.extend(toHaveNoViolations)
  * - Remove attributes on <html> element
  * - Removes all DOM elements
  * - Resets document.documentElement HTML to <head></head><body></body>
+ *
+ * Suppress console output from JSDOM's browser console outlet to avoid a wall of red
+ * error messages in tests that intentionally throw, but allow enabling for debugging.
+ *
+ * @example add pragma at top of file in a docblock:
+ * @jest-environment-options {"JSDOM_QUIET_MODE": false}
+ * @jest-environment-options {"something_else": false}
  */
-beforeAll(() => {
-  /** Add spy on addEventListener */
-  //setupEventListenerProxies()
-})
 
 beforeEach(() => {
   const rootElement = document.documentElement
-  removeRootAttributes(rootElement)
-  removeRootChildElements(rootElement)
-  restoreRootBaseElements(rootElement)
-
-  //removeEventListenerProxies()
-
-  /**
-   * Suppress console output from JSDOM's browser console outlet to avoid a wall of red
-   * error messages in tests that intentionally throw, but allow enabling for debugging.
-   *
-   * @example add pragma at top of file in a docblock:
-   * @jest-environment-options {"JSDOM_QUIET_MODE": false}
-   * @jest-environment-options {"something_else": false}
-   */
+  reset.removeRootAttributes(rootElement)
+  reset.removeRootChildElements(rootElement)
+  reset.restoreRootBaseElements(rootElement)
+  reset.removeTrackedGlobalEventListeners()
+  reset.removeGlobalKeys()
   setQuietMode({ isQuietMode: globalThis.JSDOM_QUIET_MODE }, jest)
 })
 

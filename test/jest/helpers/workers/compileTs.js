@@ -1,17 +1,16 @@
 /**
  * Inline Typescript compiler for use in passing string script to JSDOM
  */
-import MemoryFs from 'memory-fs'
-import webpack from 'webpack'
-import { resolve } from 'path'
-import { statSync } from 'fs'
-import { checkFakedTimerStatus, ensureRealTimers, restoreTimers } from '../environment'
+const MemoryFs = require('memory-fs')
+const webpack = require('webpack')
+const { resolve } = require('path')
+const { statSync } = require('fs')
 
 const outputDirPath = resolve('tmp')
 const outputFilename = 'app.min.js'
 const outputPath = resolve(outputDirPath, outputFilename)
 
-const getWebpackConfig = (entryFile: string): webpack.Configuration => {
+const getWebpackConfig = entryFile => {
   return {
     mode: 'development',
     devtool: 'hidden-source-map',
@@ -47,12 +46,12 @@ const getWebpackConfig = (entryFile: string): webpack.Configuration => {
   }
 }
 
-export const entryFileExists = (entryFile: string) => {
+const entryFileExists = (entryFile) => {
   try {
     const exists = statSync(entryFile).isFile() // throws if path does not exist
     if (!exists) throw new Error(`'entryFile' exists but is not a file.`)
     return true
-  } catch(err: unknown) {
+  } catch(err) {
     throw new Error(`File path passed to tsCompile is not valid:\n${entryFile}.\n${err}`)
   }
 }
@@ -60,13 +59,13 @@ export const entryFileExists = (entryFile: string) => {
 /**
  * Determines if an object is a Webpack Stats object passed to a compile run callback
  */
-export function isStatsObject(input: unknown): input is webpack.Stats {
+function isStatsObject(input) {
   if (
     input &&
     typeof input === 'object' &&
-    typeof (input as webpack.Stats)['hasErrors'] === 'function' &&
-    typeof (input as webpack.Stats)['hasWarnings'] === 'function' &&
-    typeof (input as webpack.Stats)['toString'] === 'function'
+    typeof input['hasErrors'] === 'function' &&
+    typeof input['hasWarnings'] === 'function' &&
+    typeof input['toString'] === 'function'
   )
     return true
   return false
@@ -78,18 +77,14 @@ export function isStatsObject(input: unknown): input is webpack.Stats {
  * @param entryFile - A relative path from the project root to the TypeScript file to compile
  * @returns - A JavaScript string
  */
-export const tsCompile = async (entryFile: string) => {
+const tsCompile = async (entryFile) => {
   entryFileExists(entryFile)
-
-  const fakedTimerStatus = checkFakedTimerStatus()
-  ensureRealTimers(fakedTimerStatus)
 
   const compiler = webpack(getWebpackConfig(entryFile))
   compiler.outputFileSystem = new MemoryFs()
 
-  return new Promise<string>((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     compiler.run((err, stats) => {
-      restoreTimers(fakedTimerStatus)
       if (err) return reject(err)
       if (!isStatsObject(stats)) return reject(`stats object in tsCompile is not valid`)
       if (stats.hasErrors() || stats.hasWarnings()) {
@@ -102,10 +97,12 @@ export const tsCompile = async (entryFile: string) => {
           )
         )
       }
-      const result = (compiler.outputFileSystem as unknown as MemoryFs)
+      const result = compiler.outputFileSystem
         .readFileSync(outputPath)
         .toString()
       resolve(result)
     })
   })
 }
+
+module.exports = tsCompile

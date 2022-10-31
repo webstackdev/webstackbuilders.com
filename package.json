@@ -273,6 +273,7 @@
     "unionfs": "^4.4.0",
     "vinyl": "^2.2.1",
     "vinyl-string": "^1.0.2",
+    "vm2": "^3.9.11",
     "webpack": "5.74.0",
     "webpack-bundle-analyzer": "^4.6.1",
     "webpack-cli": "4.10.0",

@@ -43,8 +43,9 @@
       "program": "${workspaceRoot}/node_modules/.bin/jest",
       "stopOnEntry": false,
       "args": [
-        "src/assets/script/modals/cookieConsent/__tests__/getters.spec.ts",
-        "--projects=test/jest/jest.config.jsdom.ts"
+        //"src/assets/script/modals/cookieConsent/__tests__/getters.spec.ts",
+        "test/jest/__tests__/node-env/loadHtmlTemplate.spec.ts",
+        "--projects=test/jest/jest.config.node.ts"
       ],
       "cwd": "${workspaceRoot}",
       "env": { "TS_NODE_PROJECT": "tsconfig.jest.json" },

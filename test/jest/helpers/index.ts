@@ -1,9 +1,9 @@
-export { tsCompile } from './compileTs'
-export { loadHtmlTemplate, type EleventyJson } from './loadHtmlTemplate'
+export { loadHtmlTemplate, tsCompile } from './vm'
 export {
   addScript,
+  attachScript,
   getFixturePath,
   getCurriedFixturePath,
   loadDom,
   loadDomWithScript,
-} from './loadJsdom'
+} from './utilities'

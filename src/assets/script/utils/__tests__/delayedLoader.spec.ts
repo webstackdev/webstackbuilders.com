@@ -7,7 +7,7 @@ import { afterEach, beforeEach, describe, expect, jest, test } from '@jest/globa
 import {
   getCurriedFixturePath,
   loadDomWithScript,
-} from '../../../../../test/jest/helpers/loadJsdom'
+} from '../../../../../test/jest/helpers/utilities'
 
 const getRelFixturePath = (filename: string) => `src/assets/script/utils/__fixtures__/${filename}`
 const getFixturePath = getCurriedFixturePath(__dirname)
@@ -23,13 +23,13 @@ describe(`delayedLoader fires scripts`, () => {
     jest.useRealTimers()
   })
 
-  test.skip(`delayedLoader runs script after timeout if no user interaction`, async () => {
+  test(`delayedLoader runs script after timeout if no user interaction`, async () => {
     await loadDomWithScript(templatePath, getRelFixturePath(`delayedLoader_1.ts`), document)
     jest.runAllTimers()
     expect(document.querySelectorAll(`hr`)).toHaveLength(2)
   })
 
-  test.skip(`delayedLoader test`, async () => {
+  test.skip(`delayedLoader test x`, async () => {
     await loadDomWithScript(templatePath, getRelFixturePath(`delayedLoader_1.ts`), document)
     const body = document.querySelector(`body`)!
     body.innerHTML = `<span>TEST</span>`

@@ -2,19 +2,9 @@
  * Helpers for custom Jest environment class
  */
 import { LegacyFakeTimers, ModernFakeTimers } from '@jest/fake-timers'
-import { VirtualConsole } from 'jsdom'
 import type { ModuleMocker } from 'jest-mock'
 import type { Config } from '@jest/types'
 import { isString } from '../../../src/assets/script/utils/assertions'
-
-export const getVirtualConsole = (console: Console) => {
-  const virtualConsole = new VirtualConsole()
-  virtualConsole.sendTo(console, { omitJSDOMErrors: true })
-  virtualConsole.on('jsdomError', error => {
-    console.error(error)
-  })
-  return virtualConsole
-}
 
 export const getLegacyFakeTimers = (
   globalObject: typeof globalThis,
