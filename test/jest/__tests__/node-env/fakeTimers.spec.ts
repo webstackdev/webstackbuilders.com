@@ -1,70 +1,44 @@
 /**
- * Tests for test setup fake timer handling routines
+ * Tests for fake timer detection in Node environment
  */
-import { describe, expect, test } from '@jest/globals'
-import { checkFakedTimerStatus, ensureRealTimers, restoreTimers } from '../../environment/fakeTimers'
+import { describe, expect, test, afterEach, beforeEach } from '@jest/globals'
+import { checkFakedTimerStatus } from '../../helpers/fakeTimers'
 
 describe(`isTimerFaked works`, () => {
   test(`isTimerFaked returns true with fake timers`, () => {
     jest.useFakeTimers()
-    const { isTimerFaked } = checkFakedTimerStatus()
-    expect(isTimerFaked).toBeTruthy()
+    expect(checkFakedTimerStatus()).toBeTruthy()
     jest.useRealTimers()
   })
 
   test(`isTimerFaked returns false with real timers`, () => {
     jest.useRealTimers()
-    const { isTimerFaked } = checkFakedTimerStatus()
-    expect(isTimerFaked).toBeFalsy()
+    expect(checkFakedTimerStatus()).toBeFalsy()
+  })
+
+
+  test(`turning faked timers on then off works`, () => {
+    jest.useFakeTimers()
+    jest.useRealTimers()
+    expect(checkFakedTimerStatus()).toBeFalsy()
   })
 })
 
-describe(`ensureRealTimers works`, () => {
-  test(`ensureRealTimers sets real timers if timers are faked`, () => {
+describe(`isTimerFaked works when fake timers set in before blocks`, () => {
+  beforeEach(() => {
     jest.useFakeTimers()
-    ensureRealTimers({ isTimerFaked: true })
-    const { isTimerFaked } = checkFakedTimerStatus()
-    expect(isTimerFaked).toBeFalsy()
   })
 
-  test(`ensureRealTimers does nothing if real timers are in use`, () => {
-    jest.useRealTimers()
-    ensureRealTimers({ isTimerFaked: false })
-    const { isTimerFaked } = checkFakedTimerStatus()
-    expect(isTimerFaked).toBeFalsy()
-  })
-})
-
-describe(`ensureRealTimers handles outstanding timers`, () => {
-  test(`ensureRealTimers throws if fake timers in use and timers are outstanding`, () => {
-    jest.useFakeTimers()
-    setImmediate(() => {})
-    expect(() => ensureRealTimers({ isTimerFaked: true })).toThrowError()
+  afterEach(() => {
     jest.useRealTimers()
   })
 
-  test(`ensureRealTimers does nothing if real timers in use and timers are outstanding`, () => {
-    jest.useRealTimers()
-    setImmediate(() => {})
-    ensureRealTimers({ isTimerFaked: false })
-    const { isTimerFaked } = checkFakedTimerStatus()
-    expect(isTimerFaked).toBeFalsy()
-  })
-})
-
-describe(`restoreTimers works`, () => {
-  test(`restoreTimers restores fake timers when fake timers in use in test`, () => {
-    jest.useFakeTimers()
-    restoreTimers({ isTimerFaked: true })
-    const { isTimerFaked } = checkFakedTimerStatus()
-    expect(isTimerFaked).toBeTruthy()
-    jest.useRealTimers()
+  test(`isTimerFaked returns true with fake timers`, () => {
+    expect(checkFakedTimerStatus()).toBeTruthy()
   })
 
-  test(`restoreTimers does nothing when real timers in use in test`, () => {
+  test(`isTimerFaked returns false with real timers`, () => {
     jest.useRealTimers()
-    restoreTimers({ isTimerFaked: false })
-    const { isTimerFaked } = checkFakedTimerStatus()
-    expect(isTimerFaked).toBeFalsy()
+    expect(checkFakedTimerStatus()).toBeFalsy()
   })
 })

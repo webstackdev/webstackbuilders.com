@@ -3,7 +3,7 @@
  */
 import { curry } from 'lodash'
 import { resolve } from 'path'
-import { loadHtmlTemplate, tsCompile } from './'
+import { loadHtmlTemplate, tsCompile } from './workers'
 
 /**
  * Method to build an absolute path to a fixture when a test follows the convention

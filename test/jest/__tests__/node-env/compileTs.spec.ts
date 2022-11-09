@@ -3,12 +3,14 @@
  */
 import { resolve } from 'path'
 import { describe, expect, test } from '@jest/globals'
-import { tsCompile } from '../../helpers'
+import tsCompile from '../../helpers/workers/compileTs'
 import { isString } from '../../../../src/assets/script/utils/assertions/primitives'
 
 const getFixturePath = (fileName: string) => {
   return resolve(__dirname, '../../__fixtures__/compileTs', fileName)
 }
+
+type tsCompile = (entryFile: string) => Promise<string>
 
 describe(`tsCompile compiles inline Typescript script`, () => {
   test(`compiles valid Typescript`, async () => {
@@ -46,34 +48,5 @@ describe(`tsCompile compiles inline Typescript script`, () => {
   test(`throws if script path is a directory`, async () => {
     const fixturePath = getFixturePath(`compileTs`)
     await expect(tsCompile(fixturePath)).rejects.toThrow()
-  })
-})
-
-describe(`tsCompile handles fake timers`, () => {
-  test(`compiles when fake timers in use`, async () => {
-    jest.useFakeTimers()
-    const fixturePath = getFixturePath(`compileTs_1.ts`)
-    const sut = await tsCompile(fixturePath)
-    expect(sut).toEqual(expect.stringContaining(`const foo = (input) => { return input; };`))
-    jest.useRealTimers()
-  })
-})
-
-describe(`tsCompile handles outstanding timers`, () => {
-  test(`ensureRealTimers throws if fake timers in use and timers are outstanding`, async () => {
-    jest.useFakeTimers()
-    setImmediate(() => {})
-    const fixturePath = getFixturePath(`compileTs_1.ts`)
-    await expect(tsCompile(fixturePath)).rejects.toThrow(Error)
-    jest.useRealTimers()
-  })
-
-  test(`ensureRealTimers does nothing if real timers in use and timers are outstanding`, async () => {
-    jest.useRealTimers()
-    setImmediate(() => {})
-    const fixturePath = getFixturePath(`compileTs_1.ts`)
-    await expect(tsCompile(fixturePath)).resolves.toEqual(
-      expect.stringContaining(`const foo = (input) => { return input; };`)
-    )
   })
 })

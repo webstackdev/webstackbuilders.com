@@ -1,4 +1,4 @@
-export { loadHtmlTemplate, tsCompile } from './vm'
+export { loadHtmlTemplate, tsCompile } from './workers'
 export {
   addScript,
   attachScript,

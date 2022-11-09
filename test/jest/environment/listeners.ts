@@ -25,24 +25,10 @@ export function wrapWindowAddEventListener(
   /** Used by error event listener added in environment */
   if (type === 'error') getState().incrementErrorListenerCount()
   /** Store listener reference on addEventListener call so it can be removed during reset */
-  getState().addEventListenerToTracking(`window`, { type, listener, options })
+  getState().addEventListenerToTracking(type, listener, options)
   /** Call original window or document global addEventListener */
   getState().callOriginalAddEventListener(`window`, { type, listener, options })
   return this.eventListenerState.originalWindowAddEventListener.apply(this, [
-    type,
-    listener,
-    options,
-  ])
-}
-
-export function wrapWindowRemoveEventListener(
-  this: JSDomTscompileEnvironment,
-  type: string,
-  listener: EventListenerOrEventListenerObject,
-  options?: boolean | AddEventListenerOptions | undefined
-) {
-  if (type === 'error') getState().decrementErrorListenerCount()
-  return this.eventListenerState.originalWindowRemoveEventListener.apply(this, [
     type,
     listener,
     options,
@@ -58,24 +44,10 @@ export function wrapDocumentAddEventListener(
   /** Used by error event listener added in environment */
   if (type === 'error') getState().incrementErrorListenerCount()
   /** Store listener reference on addEventListener call so it can be removed during reset */
-  getState().addEventListenerToTracking(`window`, { type, listener, options })
+  getState().addEventListenerToTracking(type, listener, options)
   /** Call original window or document global addEventListener */
   getState().callOriginalAddEventListener(`window`, { type, listener, options })
   return this.eventListenerState.originalDocumentAddEventListener.apply(this, [
-    type,
-    listener,
-    options,
-  ])
-}
-
-export function wrapDocumentRemoveEventListener(
-  this: JSDomTscompileEnvironment,
-  type: string,
-  listener: EventListenerOrEventListenerObject,
-  options?: boolean | AddEventListenerOptions | undefined
-) {
-  if (type === 'error') getState().decrementErrorListenerCount()
-  return this.eventListenerState.originalDocumentRemoveEventListener.apply(this, [
     type,
     listener,
     options,

@@ -4,7 +4,7 @@
 import type { jest as Jest } from '@jest/globals'
 
 export interface quietModeHandlerParam {
-  isQuietMode: boolean
+  isQuietMode: boolean | undefined
 }
 export const setQuietMode = ({ isQuietMode }: quietModeHandlerParam, jest: typeof Jest) => {
   if (isQuietMode) {

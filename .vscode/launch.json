@@ -1,6 +1,7 @@
 {
   "version": "0.2.0",
   "configurations": [
+
     {
       "name": "eleventy-build",
       "type": "node",
@@ -44,7 +45,7 @@
       "stopOnEntry": false,
       "args": [
         //"src/assets/script/modals/cookieConsent/__tests__/getters.spec.ts",
-        "test/jest/__tests__/node-env/loadHtmlTemplate.spec.ts",
+        "test/jest/__tests__/node-env/tasks.spec.ts",
         "--projects=test/jest/jest.config.node.ts"
       ],
       "cwd": "${workspaceRoot}",

@@ -11,13 +11,10 @@ export type EventListenerRecord = {
   options?: boolean | AddEventListenerOptions
 }
 
-export type removalCb = (
-  nodeName: NodeName,
-  { type, listener, options }: EventListenerRecord
-) => void
+export type removalCb = ({ type, listener, options }: EventListenerRecord) => void
 type removalCbs = removalCb | removalCb[]
 
-function isListenerStateInstance(input: unknown): input is ListenerState {
+export function isListenerStateInstance(input: unknown): input is ListenerState {
   const isDefined = !!input
   const isInstanceOf = input instanceof ListenerState
   if (isDefined && isInstanceOf) return true
@@ -33,80 +30,36 @@ export const getState = (): ListenerState => {
 }
 
 export class ListenerState {
+  private eventListenerRefs: EventListenerRecord[] = []
+  private trackedWindowProperties: string[]
+  private trackedDocumentProperties: string[]
   public originalWindowAddEventListener: Window['addEventListener']
-  public originalWindowRemoveEventListener: Window['removeEventListener']
-  private windowAddEventListenerRefs: EventListenerRecord[] = []
-  private windowTrackedKeys: string[]
   public originalDocumentAddEventListener: Document['addEventListener']
-  public originalDocumentRemoveEventListener: Document['removeEventListener']
-  private documentAddEventListenerRefs: EventListenerRecord[] = []
-  private documentTrackedKeys: string[]
   public nodeNames: NodeName[]
   private errorListenerCount: number
-  public isListenerStateInstance: boolean
+  public instanceToken: boolean
 
   constructor(window: Window, document: Document) {
     /** Initialize tracked keys that should not be removed from global objects during reset */
-    this.windowTrackedKeys = Object.keys(window)
-    this.windowTrackedKeys.push('addEventListener')
-    this.documentTrackedKeys = Object.keys(document)
-    this.documentTrackedKeys.push('addEventListener')
+    this.trackedWindowProperties = Object.keys(window)
+    this.trackedDocumentProperties = Object.keys(document)
     /** Cache bound original event listeners */
     this.originalWindowAddEventListener = window.addEventListener.bind(window)
-    this.originalWindowRemoveEventListener = window.removeEventListener.bind(window)
     this.originalDocumentAddEventListener = document.addEventListener.bind(document)
-    this.originalDocumentRemoveEventListener = document.removeEventListener.bind(document)
     /** Global objects to manage */
     this.nodeNames = ['document', 'window']
     this.errorListenerCount = 0
-    this.isListenerStateInstance = true
+    /** Always last */
+    this.instanceToken = true
   }
 
-  /** Enable instanceof checks across realms for object instances */
+  /** Enable instanceof checks across realms and into Jest's VM for object instances */
   static [Symbol.hasInstance](instance: unknown) {
     return (
       instance &&
       typeof instance === 'object' &&
-      (instance as ListenerState)['isListenerStateInstance' as keyof ListenerState]
+      (instance as ListenerState)['instanceToken' as keyof ListenerState]
     )
-  }
-
-  /**
-   * Get the original add event listener by node name
-   */
-  callOriginalAddEventListener(
-    nodeName: NodeName,
-    { type, listener, options }: EventListenerRecord
-  ) {
-    if (nodeName === `document`) {
-      this.originalDocumentAddEventListener(type, listener, options)
-    } else {
-      this.originalWindowAddEventListener(type, listener, options)
-    }
-  }
-
-  /**
-   * Store listener reference on addEventListener call so it can be removed during reset
-   */
-  addEventListenerToTracking(nodeName: NodeName, ref: EventListenerRecord) {
-    this[`${nodeName}AddEventListenerRefs`].push(ref)
-  }
-
-  /**
-   * Reset event listeners
-   */
-  resetEventListenerTracking(cb: removalCbs) {
-    const cbArr = Array.isArray(cb) ? cb : [cb]
-    this.nodeNames.forEach(nodeName => {
-      const refs = this[`${nodeName}AddEventListenerRefs`]
-      while (refs.length) {
-        // pop() widens type to include 'undefined'
-        const ref = refs.pop()!
-        cbArr.forEach(callback => {
-          callback(nodeName, ref)
-        })
-      }
-    })
   }
 
   getErrorListenerCount() {
@@ -121,14 +74,57 @@ export class ListenerState {
     this.errorListenerCount++
   }
 
+  /** Store listener referencewhen added so it can be removed during reset */
+  addEventListenerToTracking = (
+    type: string,
+    listener: EventListenerOrEventListenerObject,
+    options?: boolean | AddEventListenerOptions
+  ) => {
+    this.eventListenerRefs.push({ type, listener, options })
+    this.incrementErrorListenerCount()
+  }
+
+  getEventListenerRefsCount() {
+    return this.eventListenerRefs.length
+  }
+
+  resetEventListenerTracking(cb: removalCbs) {
+    const cbArr = Array.isArray(cb) ? cb : [cb]
+    while (this.getEventListenerRefsCount()) {
+      const ref = this.eventListenerRefs.pop()! // pop() widens type to include 'undefined'
+      cbArr.forEach(callback => callback(ref))
+    }
+  }
+
+  callOriginalAddEventListener(
+    nodeName: NodeName,
+    { type, listener, options }: EventListenerRecord
+  ) {
+    if (nodeName === `document`) {
+      this.originalDocumentAddEventListener(type, listener, options)
+    } else {
+      this.originalWindowAddEventListener(type, listener, options)
+    }
+  }
+
   /**
-   * Array filter callback to check if a given key on the 'window' or 'document global
+   * Array filter callback to check if a given key on the 'window' or 'document' global
    * objects should be ignored as keys are removed in cleanup, because it is tracked here
    */
-  filterTrackedGlobalKeys(nodeName: NodeName) {
-    const trackedKeys = this[`${nodeName}TrackedKeys`]
-    return function (key: string) {
-      return !trackedKeys.includes(key)
+  filterTrackedGlobalProperties(nodeName: NodeName) {
+    return (key: string) => {
+      if (
+        /** addEventListener not returned from Object.keys(window) */
+        key === `addEventListener` ||
+        /** Don't remove the state object from globals */
+        key === `EVENT_LISTENER_STATE` ||
+        key === `WORKER_POOL` ||
+        (nodeName === `window` && this.trackedWindowProperties.includes(key)) ||
+        (nodeName === `document` && this.trackedDocumentProperties.includes(key))
+      ) {
+        return false
+      }
+      return true
     }
   }
 }

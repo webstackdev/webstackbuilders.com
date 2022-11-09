@@ -18,6 +18,7 @@ import { getJsdomInstance } from './jsdomEnv'
 import { getCustomExportConditions, getLegacyFakeTimers, getModernFakeTimers } from './helpers'
 import * as listeners from './listeners'
 import { ListenerState } from './state'
+import { WorkerPool } from '../helpers/workers/pool'
 
 export const isJsdomSetOnGlobal = () => {
   /* eslint-disable-next-line no-null/no-null */
@@ -56,6 +57,8 @@ export default class JSDomTscompileEnvironment implements JestEnvironment<number
   jsdomQuietMode: boolean
   /** Global state for resetting event listeners between tests */
   eventListenerState: ListenerState
+  /** Global state for workers used in tests */
+  workerPool: WorkerPool
 
   constructor(config: JestEnvironmentConfig, context: EnvironmentContext) {
     const { projectConfig } = config
@@ -75,6 +78,11 @@ export default class JSDomTscompileEnvironment implements JestEnvironment<number
      * with a document, or null if none is available. The `jsdom.jsdom` function
      * returns `window.document` and to use the window it is necessary to use
      * `window.document.defaultView` which normally references the first window.
+     *
+     * From Jest documentation on `testEnvironment` Config option, used to pass
+     * the path to this custom environment:  "You can also pass variables from this
+     * module to your test suites by assigning them to `this.global` object. This
+     * will make them available in your test suites as global variables."
      */
     this.global = this.dom.window.document.defaultView as unknown as Global.Global
     /**
@@ -117,12 +125,21 @@ export default class JSDomTscompileEnvironment implements JestEnvironment<number
     })
 
     /**
+     * Initialize worker pool state for workers that need a Node environment inside a
+     * JSDOM test environment.
+     */
+    this.workerPool = new WorkerPool()
+    /** Set as global in both Jest runner and test environment realms */
+    global.WORKER_POOL = this.workerPool
+    Object.assign(globalThis, {
+      WORKER_POOL: this.workerPool,
+    })
+
+    /**
      * Set up tracking Window and Document add and remove event listeners
      */
     global.addEventListener = listeners.wrapWindowAddEventListener.bind(this)
-    global.removeEventListener = listeners.wrapWindowRemoveEventListener.bind(this)
     global.document.addEventListener = listeners.wrapDocumentAddEventListener.bind(this)
-    global.document.removeEventListener = listeners.wrapDocumentRemoveEventListener.bind(this)
 
     /**
      * SET INHERITED CLASS PROPERTIES
@@ -168,6 +185,8 @@ export default class JSDomTscompileEnvironment implements JestEnvironment<number
 
   /** Runs after each test file */
   async teardown(): Promise<void> {
+    await this.workerPool.cleanup()
+
     if (this.fakeTimers) this.fakeTimers.dispose()
     if (this.fakeTimersModern) this.fakeTimersModern.dispose()
 

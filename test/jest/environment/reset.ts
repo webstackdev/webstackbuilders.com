@@ -7,30 +7,40 @@ import { getState, type removalCb } from './state'
  * Remove tracked global listeners from both state and the DOM
  */
 export const removeTrackedGlobalEventListeners = () => {
-  /**
-   * Remove tracked event listener from global 'window' and 'document' objects
-   */
-  const removeGlobalEventListenerCallback: removalCb = (nodeName, { type, listener, options }) => {
-    globalThis[nodeName].removeEventListener(type, listener, options)
+  const removeWindowEventListenerCb: removalCb = ({ type, listener, options }) => {
+    globalThis['window'].removeEventListener(type, listener, options)
   }
-  /**
-   * Callback is called on each event listener removed from
-   * tracking for 'window' and 'document' global objects.
-   */
-  const state = getState()
-  state.resetEventListenerTracking(removeGlobalEventListenerCallback)
+
+  const removeDocumentEventListenerCb: removalCb = ({ type, listener, options }) => {
+    globalThis['document'].removeEventListener(type, listener, options)
+  }
+
+  getState().resetEventListenerTracking([
+    removeWindowEventListenerCb,
+    removeDocumentEventListenerCb,
+  ])
 }
 
 /**
  * Remove any added keys to the global JSDOM Windows and Document objects
  */
-export const removeGlobalKeys = () => {
-  getState().nodeNames.forEach(globalName => {
-    Object.keys(global[globalName])
-      .filter(getState().filterTrackedGlobalKeys(globalName))
-      .forEach(key => {
-        // @ts-ignore no index signature of type 'string' on global
-        delete globalThis[globalName][key]
+export const removeGlobalProperties = () => {
+  getState().nodeNames.forEach(nodeName => {
+    Object.keys(globalThis[nodeName])
+      .filter(getState().filterTrackedGlobalProperties(nodeName))
+      .forEach(property => {
+        try {
+          // @ts-ignore no index signature of type 'string' on global
+          delete globalThis[nodeName][property]
+        } catch (err: unknown) {
+          if (err instanceof TypeError) {
+            throw new Error(
+              `Attempted to remove property '${property}' but it is an own non-configurable property`
+            )
+          }
+          throw err
+        }
+
       })
   })
 }

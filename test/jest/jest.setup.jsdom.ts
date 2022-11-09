@@ -41,10 +41,10 @@ beforeEach(() => {
   reset.removeRootChildElements(rootElement)
   reset.restoreRootBaseElements(rootElement)
   reset.removeTrackedGlobalEventListeners()
-  reset.removeGlobalKeys()
-  setQuietMode({ isQuietMode: globalThis.JSDOM_QUIET_MODE }, jest)
+  reset.removeGlobalProperties()
+  setQuietMode({ isQuietMode: !!globalThis.JSDOM_QUIET_MODE }, jest)
 })
 
 afterEach(() => {
-  unsetQuietMode({ isQuietMode: globalThis.JSDOM_QUIET_MODE })
+  unsetQuietMode({ isQuietMode: !!globalThis.JSDOM_QUIET_MODE })
 })

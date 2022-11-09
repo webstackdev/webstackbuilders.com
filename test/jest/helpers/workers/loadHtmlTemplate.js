@@ -1,4 +1,7 @@
 /// <reference path="../../../../@types/@11ty/eleventy.d.ts" />
+/**
+ * This file is called from within a worker thread when the Eleventy task is executed
+ */
 const { statSync } = require('fs')
 const Eleventy = require('@11ty/eleventy')
 

@@ -6,17 +6,18 @@ import type { ConfigOptions } from './jest.config.common'
 
 const config: ConfigOptions = {
   /** Add shared configuration options */
+  // @TODO: could also be done as a preset, uses <rootDir>. Not sure if it will compile TS.
+  // preset: './jest.config.common',
   ...commonJestConfig,
+
+  cacheDirectory: '<rootDir>/.cache/jest-node',
 
   displayName: {
     name: 'NODE',
     color: 'blue',
   },
   bail: 1,
-  /** Set this correctly to avoid getting a confusing error message when it is
-   * referenced later in a path string. It will say something like 'Module
-   * <rootDir>/config/polyfills.js in the setupFiles option was not found.'
-   */
+  /** Jest will make the path to this directory the <rootDir> for all paths */
   rootDir: './../../',
 
   /** A list of paths to directories that Jest should use to search for test files */
@@ -40,6 +41,8 @@ const config: ConfigOptions = {
   setupFilesAfterEnv: [`<rootDir>/test/jest/jest.setup.node.ts`],
   /** Jest default environment is Node.js */
   testEnvironment: 'node',
+  /**  Glob patterns Jest uses to detect test files. Default shown. */
+  testMatch: ['**/__tests__/**/*.[jt]s?(x)', '**/?(*.)+(spec|test).[jt]s?(x)'],
   /** Skip any tests that match these regexp pattern strings */
   testPathIgnorePatterns: ['<rootDir>/scripts/build/__tests__/jsdom'],
 }

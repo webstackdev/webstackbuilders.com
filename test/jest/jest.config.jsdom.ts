@@ -11,7 +11,11 @@ const devServer = envServerPort
 
 const config: ConfigOptions = {
   /** Add shared configuration options */
+  // @TODO: could also be done as a preset, uses <rootDir>. Not sure if it will compile TS.
+  // preset: './jest.config.common',
   ...commonJestConfig,
+
+  cacheDirectory: '<rootDir>/.cache/jest-jsdom',
 
   displayName: {
     name: 'JSDOM',
@@ -21,10 +25,7 @@ const config: ConfigOptions = {
   /** Ensure spare thread available for helper workers with Eleventy and Webconfig */
   maxWorkers: '75%',
 
-  /** Set this correctly to avoid getting a confusing error message when it is
-   * referenced later in a path string. It will say something like 'Module
-   * <rootDir>/config/polyfills.js in the setupFiles option was not found.'
-   */
+  /** Jest will make the path to this directory the <rootDir> for all paths */
   rootDir: './../../',
 
   /** A list of paths to directories that Jest should use to search for test files */
@@ -62,6 +63,8 @@ const config: ConfigOptions = {
     /** Some DOM APIs such as localStorage are unhappy with the default about:blank */
     url: devServer,
   },
+  /**  Glob patterns Jest uses to detect test files. Default shown. */
+  testMatch: ['**/__tests__/**/*.[jt]s?(x)', '**/?(*.)+(spec|test).[jt]s?(x)'],
   /** Skip any tests that match these regexp pattern strings */
   testPathIgnorePatterns: [],
 }

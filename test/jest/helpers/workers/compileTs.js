@@ -1,5 +1,6 @@
 /**
- * Inline Typescript compiler for use in passing string script to JSDOM
+ * Inline Typescript compiler for use in passing string script to JSDOM. This file
+ * is called from within a worker thread when the Webpack task is executed.
  */
 const MemoryFs = require('memory-fs')
 const webpack = require('webpack')
