@@ -45,8 +45,8 @@
       "stopOnEntry": false,
       "args": [
         //"src/assets/script/modals/cookieConsent/__tests__/getters.spec.ts",
-        "test/jest/__tests__/node-env/tasks.spec.ts",
-        "--projects=test/jest/jest.config.node.ts"
+        "src/assets/script/modals/cookieConsent/__tests__/getters.spec.ts",
+        "--projects=test/jest/jest.config.jsdom.ts"
       ],
       "cwd": "${workspaceRoot}",
       "env": { "TS_NODE_PROJECT": "tsconfig.jest.json" },

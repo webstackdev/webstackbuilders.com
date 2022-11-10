@@ -2187,8 +2187,8 @@ __metadata:
   linkType: hard
 
 "@mapbox/node-pre-gyp@npm:^1.0.0":
-  version: 1.0.9
-  resolution: "@mapbox/node-pre-gyp@npm:1.0.9"
+  version: 1.0.10
+  resolution: "@mapbox/node-pre-gyp@npm:1.0.10"
   dependencies:
     detect-libc: ^2.0.0
     https-proxy-agent: ^5.0.0
@@ -2201,7 +2201,7 @@ __metadata:
     tar: ^6.1.11
   bin:
     node-pre-gyp: bin/node-pre-gyp
-  checksum: 1b9c4c87a68d200daa13151d0fe033aa7aa8f7b26f3585255424dd8dfee2ec672c3e9bea4071c624469bc0aebbbcde08f8a300c8a958db52c50abadd5fb56920
+  checksum: 1a98db05d955b74dad3814679593df293b9194853698f3f5f1ed00ecd93128cdd4b14fb8767fe44ac6981ef05c23effcfdc88710e7c1de99ccb6f647890597c8
   languageName: node
   linkType: hard
 
@@ -7671,7 +7671,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"canvas@npm:2.10.2":
+"canvas@npm:^2.10.2":
   version: 2.10.2
   resolution: "canvas@npm:2.10.2"
   dependencies:
@@ -27234,7 +27234,7 @@ __metadata:
     "@typescript-eslint/parser": ^5.42.0
     "@yarnpkg/cli": 3.2.4
     browser-sync: ^2.27.10
-    canvas: 2.10.2
+    canvas: ^2.10.2
     chalk: ^4.1.2
     confusing-browser-globals: ^1.0.11
     create-playwright: 1.17.122

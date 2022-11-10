@@ -108,7 +108,6 @@ describe('Loads a template file', () => {
     await tasks.cleanup()
   })
 
-  // @TODO: test is not loading the manual mock for pool.ts, although other tests are
   test.skip('loadHtmlTemplate works with fake timers', async () => {
     // here due to scope
     jest.isolateModules(() => {
@@ -117,12 +116,12 @@ describe('Loads a template file', () => {
     })
     jest.mock('../../helpers/workers/pool') // must follow require
 
-    //jest.useFakeTimers()
+    jest.useFakeTimers()
     const sut = await tasks.loadHtmlTemplate(templatePath)
     expect(sut).toContain(
       `<p id="test__paragraph">This is a <a id="test__anchor" href="/test">test template</a>.</p>`
     )
     await tasks.cleanup()
-    //jest.useRealTimers()
+    jest.useRealTimers()
   })
 })

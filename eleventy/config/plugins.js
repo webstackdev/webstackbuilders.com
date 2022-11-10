@@ -11,6 +11,7 @@ exports.disabled = disabled
 const enabled = true
 exports.enabled = enabled
 
+/** Set to `undefined` if the plugin has no options or an options object is not provided */
 const pluginOptions = {
   /**
    * Set navigation in frontmatter under 'eleventyNavigation' item with 'tag' and
@@ -166,14 +167,20 @@ exports.addEleventyPlugins = (eleventyConfig, pluginSettings) => {
         `Plugin name '${pluginName}' in .eleventy.js file plugin settings is not in the plugins options. Did you forget to add it to eleventy/config/plugins.js?`
       )
     /** Make sure the plugin is enabled in the eleventy config file */
-    /* eslint-disable-next-line security/detect-object-injection */
     if (pluginSettings[pluginName] === disabled) return
+
     /** Load and add the plugin */
-    /* eslint-disable-next-line security/detect-non-literal-require */
-    const plugin = require(`${pluginName}`)
-    /* eslint-disable-next-line security/detect-object-injection */
+    let plugin
+    try {
+      /* eslint-disable-next-line security/detect-non-literal-require */
+      plugin = require(`${pluginName}`) // "@11ty/eleventy-navigation"
+    } catch (err) {
+      throw new Error(
+        `Error requiring Eleventy plugin in config 'addEleventyPlugins': ${pluginName}:\n${err}`
+      )
+    }
+
     if (pluginOptions[pluginName]) {
-      /* eslint-disable-next-line security/detect-object-injection */
       eleventyConfig.addPlugin(plugin, pluginOptions[pluginName])
     } else {
       eleventyConfig.addPlugin(plugin)

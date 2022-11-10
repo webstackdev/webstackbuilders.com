@@ -111,7 +111,11 @@ module.exports = eleventyConfig => {
     /**
      * Copies PDF and video asset files to the public folder using input page directory structure
      */
-    'eleventy-plugin-page-assets': enabled,
+    // throwing on `require` in `addEleventyPlugins` but error message swallowed
+    // node-canvas doesn't work with worker threads yet:
+    // https://github.com/Automattic/node-canvas/issues/1394
+    // "Module did not self-register: '/home/kevin/Repos/webstackdev/eleventy.webstackbuilders.com/node_modules/canvas/build/Release/canvas.node'."
+    'eleventy-plugin-page-assets': disabled,
 
     /**
      * Element embedded in a 'highlight' paired shortcode will bring up share options

@@ -16,11 +16,29 @@ const Eleventy = require('@11ty/eleventy')
 const loadHtmlTemplate = async (templatePath) => {
   statSync(templatePath)
   const templateOutput = new Eleventy(templatePath, '/tmp', { quietMode: true })
-  const jsonArray = await templateOutput.toJSON()
-  if (!jsonArray || jsonArray.length === 0 || jsonArray[0] === undefined) {
-    throw new Error(`Eleventy had no output for template file ${templatePath}`)
-  }
-  return jsonArray[0]['content']
+  return templateOutput.toJSON()
+    .then((jsonArray) => {
+      if (!jsonArray || jsonArray.length === 0 || jsonArray[0] === undefined) {
+        throw new Error(`Eleventy had no output for template file ${templatePath}`)
+      }
+      return Promise.resolve(jsonArray[0]['content'])
+    })
 }
 
 module.exports = loadHtmlTemplate
+
+
+
+
+
+  /*
+const loadHtmlTemplate = async (templatePath) => {
+  statSync(templatePath)
+  const templateOutput = new Eleventy(templatePath, '/tmp', { quietMode: true })
+  const jsonArray = await templateOutput.toJSON()
+  if (!jsonArray || jsonArray.length === 0 || jsonArray[0] === undefined) {
+    throw new Error(`Eleventy had no output for template file ${templatePath}`)
+  }*/
+  /** Same as: return Promise.resolve(jsonArray[0]['content']) */
+  //return jsonArray[0]['content']
+//}

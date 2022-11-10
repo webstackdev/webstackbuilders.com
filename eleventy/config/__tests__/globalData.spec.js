@@ -1,7 +1,7 @@
 /**
  * Make sure global data functions are working
  */
-const { getBuildPathsGlobalData, getSiteGlobalData, getStatsGlobalData } = require('./globalData')
+const { getBuildPathsGlobalData, getSiteGlobalData, getStatsGlobalData } = require('../globalData')
 
 describe('Build paths object works', () => {
   test('returns valid paths object', () => {
