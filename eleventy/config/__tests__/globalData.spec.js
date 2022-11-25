@@ -1,6 +1,7 @@
 /**
  * Make sure global data functions are working
  */
+const { describe, expect, test } = require('@jest/globals')
 const { getBuildPathsGlobalData, getSiteGlobalData, getStatsGlobalData } = require('../globalData')
 
 describe('Build paths object works', () => {

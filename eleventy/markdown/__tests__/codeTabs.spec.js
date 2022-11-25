@@ -1,9 +1,10 @@
 /**
  * Integration test for code tabs markdown plugin
  */
-const { queryByLabelText, queryByText, queryByRole } = require(`@testing-library/dom`)
-const { axe } = require(`../../../test/jest/accessibility`)
-const { markdownItLib } = require(`../setup`)
+const { describe, expect, test } = require('@jest/globals')
+const { getByLabelText, getByText, queryByRole } = require('@testing-library/dom')
+const { axe } = require('../../../test/jest/accessibility')
+const { markdownItLib } = require('../setup')
 
 describe(`add abbreviations to markdown`, () => {
   const firstCodeTab = "```javascript [g1:js]\nconsole.log('hello');\n```"
@@ -14,16 +15,16 @@ describe(`add abbreviations to markdown`, () => {
     document.body.innerHTML = htmlString
     const listElement = queryByRole(document.body, 'list')
     expect(listElement).toBeInTheDocument()
-    expect(queryByLabelText(document.body, `js`)).toBeInTheDocument()
-    expect(queryByLabelText(document.body, `ts`)).toBeInTheDocument()
+    expect(getByLabelText(document.body, `js`)).toBeInTheDocument()
+    expect(getByLabelText(document.body, `ts`)).toBeInTheDocument()
   })
 
   test(`adds code block for each language given`, () => {
     document.body.innerHTML = htmlString
     const listElement = queryByRole(document.body, 'list')
     expect(listElement).toBeInTheDocument()
-    expect(queryByText(document.body, `console.log('hello');`)).toBeInTheDocument()
-    expect(queryByText(document.body, `print('hello')`)).toBeInTheDocument()
+    expect(getByText(document.body, `console.log('hello');`)).toBeInTheDocument()
+    expect(getByText(document.body, `print('hello')`)).toBeInTheDocument()
   })
 
   test(`container block passes accessibility check`, async () => {

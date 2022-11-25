@@ -15,7 +15,7 @@ eleventyNavigation:
   </header>
 
   <div class="page__content">
-    {%- set casestudieslist = collections.case-studies -%}
+    {%- set casestudieslist = collections.casestudies -%}
     <ol reversed class="articlelist" start="{{ casestudieslist.length }}">
       {% for casestudy in casestudieslist | reverse %}
         <li class="articlelist__item h-entry {% if casestudy.data.draft %}articlelist__item--draft{% endif %}">

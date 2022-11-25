@@ -1,5 +1,3 @@
-export type { EleventyJson } from '../pool'
-
 const originalPoolModule = jest.requireActual<typeof import('../pool')>('../pool')
 export const { isWorkerPoolInstance, WorkerPool } = originalPoolModule
 

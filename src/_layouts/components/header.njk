@@ -1,19 +1,19 @@
+{# Hidden modal shown when theme picker icon selected #}
+{% include "./themepicker.njk" %}
 <header class="header" role="banner">
-  <div class="header__inner container">
-    <a class="header__brand" href="/" rel="home" aria-label="Go To Homepage">
+  {# Branding #}
+  <span class="header__brand">
+    <a class="header__brand-anchor" href="/" rel="home" aria-label="Go To Homepage">
       {% include '../images/logo.njk' %}
-      <span class="header__text">{{ site.organization }}</span>
+      <span class="header__brand-name">{{ site.organization }}</span>
     </a>
-    <span class="header__nav">
-      {% include "./navigation.njk" %}
-        <button
-          class="icon-btn header__themebtn js-themepicker-toggle"
-          aria-expanded="false"
-          aria-controls="theme-menu"
-        >
-          <span class="sr-only">Toggle theme switcher</span>
-          {% icon "theme" %}
-        </button>
-    </span>
-  </div>
+  </span>
+  {# Theme picker icon #}
+  <span class="header__themepicker-icon">
+    {% include "./themepickerIcon.njk" %}
+  </span>
+  {# Navigation #}
+  <span class="header__main-nav">
+    {% include "./navigation.njk" %}
+  </span>
 </header>

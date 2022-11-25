@@ -1,13 +1,14 @@
 /**
  * Integration test for abbreviation markdown plugin
  */
+const { describe, expect, test } = require('@jest/globals')
 const { queryAllByRole, queryByRole, queryByText } = require(`@testing-library/dom`)
 const { axe } = require(`../../../test/jest/accessibility`)
 const { markdownItLib } = require(`../setup`)
 
 describe(`adds footnotes to markdown`, () => {
   const footnotedText = `
-Here is a footnote reference,[^1] and another.[^longnote] Here is an inline note.^[Inlines notes are easier to write.]
+Here is a footnote reference,[^1] and another.[^longnote] Here is an inline note.^[Inline notes are easier to write.]
 
 [^1]: Here is the footnote.
 

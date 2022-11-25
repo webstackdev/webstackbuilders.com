@@ -56,7 +56,7 @@ export const addScript = async (scriptPath: string, document: Document) => {
  */
 export const loadDom = async (templatePath: string, document: Document): Promise<void> => {
   const json = await loadHtmlTemplate(templatePath)
-  document.body.innerHTML = json.content
+  document.body.innerHTML = json
 }
 
 /**

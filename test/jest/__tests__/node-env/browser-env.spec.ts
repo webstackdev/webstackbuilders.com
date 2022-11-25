@@ -36,7 +36,7 @@ describe('JSDomTscompileEnvironment', () => {
     const sut = getJsdomEnv()
     expect(isJsdom(sut.dom)).toBeTruthy()
     // @ts-ignore type of dom is narrowed but TS can't see that expect short-circuits test
-    expect(sut.dom.window.location.href).toBe('http://localhost/')
+    expect(sut.dom.window.location.href).toBe('http://localhost:8081/')
   })
 
   it('should respect url option passed as option', () => {

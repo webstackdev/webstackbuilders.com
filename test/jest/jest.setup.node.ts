@@ -3,3 +3,5 @@
  * file is executed but after the testing framework is installed in the environment.
  */
 import './utils/extendMatchers'
+
+jest.setTimeout(30 * 1000)

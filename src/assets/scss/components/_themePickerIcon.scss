@@ -1,0 +1,15 @@
+.themepicker__toggle-btn {
+  display: none;
+
+  @supports (color: var(--fake-var)) {
+    display: flex;
+  }
+  @include mq(md) {
+    margin-right: 2rem;
+  }
+  @include mq(lg) {
+    margin-left: 1rem;
+    margin-right: 0;
+    order: initial;
+  }
+}

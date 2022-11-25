@@ -1,16 +1,17 @@
 /**
  * Integration test for Mermaid JavaScript based diagramming and charting tool markdown-it plugin
  */
+const { describe, expect, test } = require('@jest/globals')
 const { axe } = require(`../../../test/jest/accessibility`)
 const { markdownItLib } = require(`../setup`)
 
 /**
 @TODO: D3 uses ES Modules, so run breaks with current Jest configuration. From CLI output:
- 
+
 Out of the box Jest supports Babel, which will be used to transform your files into valid JS based on your Babel configuration.
- 
+
 By default "node_modules" folder is ignored by transformers.
- 
+
 Here's what you can do:
   • If you are trying to use ECMAScript Modules, see https://jestjs.io/docs/ecmascript-modules for how to enable it.
   • If you are trying to use TypeScript, see https://jestjs.io/docs/getting-started#using-typescript

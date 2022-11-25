@@ -4,9 +4,9 @@
  * Usage:
  * {{ post.templateContent | excerpt | striptags }}
  */
+const { describe, expect, test } = require('@jest/globals')
 const path = require('path')
 const EleventyProgrammatic = require('@11ty/eleventy')
-
 const configPath = path.resolve('./.eleventy.js')
 const templateFixturePath = path.resolve(`eleventy/filters/__fixtures__/excerpt.11ty.js`)
 

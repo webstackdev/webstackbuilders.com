@@ -1,8 +1,8 @@
 /**
  * Integration test for named code blocks markdown-it plugin
  */
+const { describe, expect, test } = require('@jest/globals')
 const { queryByText } = require(`@testing-library/dom`)
-
 const { axe } = require(`../../../test/jest/accessibility`)
 const { markdownItLib } = require(`../setup`)
 

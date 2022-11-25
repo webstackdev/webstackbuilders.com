@@ -15,11 +15,11 @@ describe(`Lint SCSS files`, () => {
   })
 
   // @TODO: getting "You are trying to `import` a file after the Jest environment has been torn down" error, the pipeFile is not handling a done callback so time outs
-  test.skip(`Fails after linting SCSS file with style errors`, /*async*/ () => {
+  test.skip(`Fails after linting SCSS file with style errors`, async () => {
     // Unexpected missing end-of-source newline
     const scssStyles = '$foo: red; body { background: $foo; }'
-    //expect(pipeFile(scssStyles, 'tests.css', lintSassTask)).rejects.toEqual({
-    //  error: 'User with 3 not found.',
-    //})
+    await expect(pipeFile(scssStyles, 'tests.css', lintSassTask)).rejects.toEqual({
+      error: 'User with 3 not found.',
+    })
   })
 })

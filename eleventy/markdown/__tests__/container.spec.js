@@ -1,6 +1,7 @@
 /**
  * Integration test for container markdown plugin
  */
+const { describe, expect, test } = require('@jest/globals')
 const { queryByText } = require(`@testing-library/dom`)
 const { markdownItLib } = require(`../setup`)
 const { axe } = require(`../../../test/jest/accessibility`)

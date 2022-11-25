@@ -10,7 +10,7 @@ const Eleventy = require('@11ty/eleventy')
  * the data cascade and includes.
  *
  * @param {string} templatePath - Absolute path to the Eleventy template fixture
- * @returns {object} JSDOM window object
+ * @returns {string} - the string content of the template
  * @throws {Error} - throws Error if file doesn't exist
  */
 const loadHtmlTemplate = async (templatePath) => {
@@ -26,19 +26,3 @@ const loadHtmlTemplate = async (templatePath) => {
 }
 
 module.exports = loadHtmlTemplate
-
-
-
-
-
-  /*
-const loadHtmlTemplate = async (templatePath) => {
-  statSync(templatePath)
-  const templateOutput = new Eleventy(templatePath, '/tmp', { quietMode: true })
-  const jsonArray = await templateOutput.toJSON()
-  if (!jsonArray || jsonArray.length === 0 || jsonArray[0] === undefined) {
-    throw new Error(`Eleventy had no output for template file ${templatePath}`)
-  }*/
-  /** Same as: return Promise.resolve(jsonArray[0]['content']) */
-  //return jsonArray[0]['content']
-//}

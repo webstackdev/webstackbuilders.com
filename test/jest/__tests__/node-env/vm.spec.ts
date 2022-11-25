@@ -1,5 +1,5 @@
 import { describe, expect, test } from '@jest/globals'
-import { loadHtmlTemplate, tsCompile } from '../../helpers/vm'
+import { loadHtmlTemplate, tsCompile } from '../../helpers'
 import { resolve } from 'path'
 
 const getFixturePath = (fileName: string) => {

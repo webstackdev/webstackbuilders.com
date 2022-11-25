@@ -5,7 +5,7 @@ import commonJestConfig from './jest.config.common'
 import type { ConfigOptions } from './jest.config.common'
 
 const envServerPort = process.env['ELEVENTY_DEV_SERVER_PORT']
-const devServer = envServerPort
+export const devServer = envServerPort
   ? `http://localhost:${envServerPort}`
   : `http://localhost:8081`
 
@@ -34,6 +34,7 @@ const config: ConfigOptions = {
     '<rootDir>/eleventy/pairedShortcodes',
     '<rootDir>/eleventy/shortcodes',
     '<rootDir>/src/assets/script',
+    '<rootDir>/src/_layouts',
     '<rootDir>/scripts/build/__tests__/jsdom-env',
     '<rootDir>/test/jest/__tests__/jsdom-env',
   ],

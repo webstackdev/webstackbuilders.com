@@ -1,4 +1,4 @@
-.nav {
+.main-nav {
   align-items: center;
   display: flex;
 
@@ -44,7 +44,7 @@
   }
 
   // Nav Link
-  &__link {
+  &__item-link {
     align-items: center;
     color: var(--color-text);
     display: flex;
@@ -107,13 +107,13 @@
       }
     }
 
-    &__link {
+    &__item-link {
       color: #fff !important;
       padding: 1.5rem;
       text-transform: none;
     }
 
-    &__num {
+    &__num { // @TODO: what is this?
       color: var(--color-text-offset);
       font-family: var(--font-family-base);
       font-size: 0.5em;
@@ -132,27 +132,27 @@
 /**
  * Navigation Open State (mobile only)
  */
-.nav--open {
+.main-nav--open {
   @include mq-down(lg) {
     .nav__content {
       display: flex;
     }
 
-    .nav__menu--visible {
+    .main-nav__menu--visible {
       opacity: 1;
       transform: translateY(0);
     }
 
-    .nav__togglebtn {
+    .main-nav__togglebtn {
         color: #fff;
         background-color: transparent;
     }
 
-    .nav__bg {
+    .main-nav__bg {
       visibility: visible;
     }
 
-    .nav__bg__circle {
+    .main-nav__bg-circle {
       transform: scale(1);
     }
   }
@@ -161,7 +161,7 @@
 /**
  * Navigation Background Animation
  */
-.nav__bg {
+.main-nav__bg {
     position: fixed;
     z-index: getZIndexValue('nav') - 1;
     top: 16px;
@@ -172,7 +172,7 @@
     pointer-events: none;
     visibility: hidden;
 
-    &__circle {
+    &-circle {
       backface-visibility: hidden;
       background-color: #000;
       border-radius: 50%;
@@ -203,17 +203,39 @@
 /**
  * Navigation Menu Button Icon
  */
-.menuicon {
-  cursor: pointer;
-  display: block;
-  height: 16px;
-  margin: 0 auto;
-  position: relative;
-  transform: translate(0, -1px) rotate(0deg);
-  transition: 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
-  width: 24px;
+.main-nav {
+  &__menu-icon {
+    cursor: pointer;
+    display: block;
+    height: 16px;
+    margin: 0 auto;
+    position: relative;
+    transform: translate(0, -1px) rotate(0deg);
+    transition: 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    width: 24px;
 
-  &__bar {
+    // Animate to "X" when Nav is open
+    .main-nav--open & {
+      transform: translate(-1px, 0) rotate(270deg);
+
+      .main-nav__menuicon-bar {
+        &:nth-child(1),
+        &:nth-child(4) {
+        left: 50%;
+        top: 50%;
+        width: 0;
+        }
+        &:nth-child(2) {
+          transform: rotate(45deg);
+        }
+        &:nth-child(3) {
+          transform: rotate(-45deg);
+        }
+      }
+    }
+  }
+
+  &__menuicon-bar {
     background-color: currentColor;
     display: block;
     height: 3px;
@@ -232,26 +254,6 @@
     }
     &:nth-child(4) {
       top: 100%;
-    }
-  }
-
-  // Animate to "X" when Nav is open
-  .nav--open & {
-    transform: translate(-1px, 0) rotate(270deg);
-
-    .menuicon__bar {
-      &:nth-child(1),
-      &:nth-child(4) {
-      left: 50%;
-      top: 50%;
-      width: 0;
-      }
-      &:nth-child(2) {
-        transform: rotate(45deg);
-      }
-      &:nth-child(3) {
-        transform: rotate(-45deg);
-      }
     }
   }
 }

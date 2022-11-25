@@ -1,8 +1,9 @@
-/// <reference path="../../../../../@types/expect.ts" />
+/// <reference path="../../../../../@types/@jest/globals/expect.d.ts" />
 /**
  * Tests for error handling routines and custom errors
  */
 import { describe, expect, test } from '@jest/globals'
+import type { Constructor } from '../../../../../test/jest/matchers/assertions'
 import { ClientScriptError } from '../ClientScriptError'
 import { isClientScriptError } from '../assertions'
 
@@ -32,13 +33,13 @@ describe(`ClientScriptError class is constructible`, () => {
 
 describe(`ClientScriptError has proper inheritance and props set`, () => {
   test(`Instance`, () => {
-    expect(ClientScriptError).toHaveInProtoChain(Error)
+    expect(ClientScriptError).toHaveInProtoChain(Error as Constructor)
   })
 
   test(`Extended`, () => {
     class SubError extends ClientScriptError {}
     const sut = new SubError(`test message`)
-    expect(SubError).toHaveInProtoChain(Error, ClientScriptError)
+    expect(SubError).toHaveInProtoChain(Error as Constructor, ClientScriptError)
     //expect(sut).toHaveProperty(`name`, `SubError`)
     expect(sut).toHaveProperty(`message`, `test message`)
   })
@@ -50,7 +51,7 @@ describe(`ClientScriptError has proper inheritance and props set`, () => {
       }
     }
     const sut = new HttpError(404, `test message`)
-    expect(HttpError).toHaveInProtoChain(Error, ClientScriptError)
+    expect(HttpError).toHaveInProtoChain(Error as Constructor, ClientScriptError)
     //expect(sut).toHaveProperty(`name`, `HttpError`)
     expect(sut).toHaveProperty(`message`, `test message`)
     expect(sut).toHaveProperty(`code`, 404)
@@ -64,7 +65,7 @@ describe(`ClientScriptError has proper inheritance and props set`, () => {
       }
     }
     const sut = new RenamedError(`test`, `test message`)
-    expect(RenamedError).toHaveInProtoChain(Error, ClientScriptError)
+    expect(RenamedError).toHaveInProtoChain(Error as Constructor, ClientScriptError)
     expect(sut).toHaveProperty(`name`, `test`)
     expect(sut).toHaveProperty(`message`, `test message`)
   })

@@ -3,8 +3,8 @@
  * <ol> and <ul> elements to preserve accessibility when using `list-style: none`
  * or CSS that removes the bullet or number indicators of list items.
  */
+const { describe, expect, test } = require('@jest/globals')
 const { queryAllByRole, queryByRole } = require(`@testing-library/dom`)
-
 const { axe } = require(`../../../test/jest/accessibility`)
 const { markdownItLib } = require(`../setup`)
 

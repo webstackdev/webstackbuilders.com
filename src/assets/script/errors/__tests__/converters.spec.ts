@@ -1,4 +1,4 @@
-/// <reference path="../../../../../@types/expect.d.ts" />
+/// <reference path="../../../../../@types/@jest/globals/expect.d.ts" />
 /**
  * Tests for error converters to ClientScriptError
  */

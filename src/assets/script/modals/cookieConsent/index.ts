@@ -1,1 +1,1 @@
-export { cookieModalHandler } from './handler'
+export { showCookieConsentModal } from './handlers'

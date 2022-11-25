@@ -1,6 +1,7 @@
 /**
  * Integration test for attributes markdown plugin to add attributes to spans
  */
+const { describe, expect, test } = require('@jest/globals')
 const { queryByRole, queryByText } = require(`@testing-library/dom`)
 const { axe } = require(`../../../test/jest/accessibility`)
 const { markdownItLib } = require(`../setup`)

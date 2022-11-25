@@ -1,8 +1,8 @@
 /**
  * Integration test for external anchor markdown plugin
  */
+const { describe, expect, test } = require('@jest/globals')
 const { queryByRole } = require(`@testing-library/dom`)
-
 const { axe } = require(`../../../test/jest/accessibility`)
 const { markdownItLib } = require(`../setup`)
 

@@ -1,12 +1,12 @@
-{# WARNING: this file is not watched when in `yarn start` mode #}
+{#- WARNING: this file is not watched when in `yarn start` mode #}
 {%- if lazy %}
 <picture class="lazy-picture" data-lazy-state="unseen">
   {%- for item in items %}
   <source
-    {# Type and srcset for the low-res placeholder image #}
+    {#- Type and srcset for the low-res placeholder image #}
     type="{{ item[0].sourceType }}"
     srcset="{{ item[0].srcset }}"
-    {# Full-size image source set will be swapped in by script #}
+    {#- Full-size image source set will be swapped in by script #}
     data-srcset="{{ item | getDataSrcset }}"
     sizes="{{ sizes }}"
     class="lazy"

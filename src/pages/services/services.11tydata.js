@@ -1,4 +1,5 @@
 module.exports = {
+  active: true,
   date: 'Created', // default, resolves to the file created date
   tags: 'services',
   layout: 'page',

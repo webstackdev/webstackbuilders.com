@@ -1,5 +1,6 @@
 const _ = require('lodash')
 const buildPaths = require('./scripts/build/paths')
+const { EleventyRenderPlugin } = require('@11ty/eleventy')
 
 // load environmental variables if not already loaded
 if (!process.env.ELEVENTY_ENV_VARS_INIT) {
@@ -17,6 +18,9 @@ const { addEleventyPlugins, disabled, enabled } = require('./eleventy/config/plu
 
 /** @param { import('./@types/eleventyConfig').Config } eleventyConfig */
 module.exports = eleventyConfig => {
+  /** built-in plugin to render templates from templates */
+  eleventyConfig.addPlugin(EleventyRenderPlugin)
+
   /**
    * Build paths available as global variables for use in e.g. src/_generate templates
    */
@@ -219,7 +223,7 @@ module.exports = eleventyConfig => {
   /**
    * Collections: Case Studies / Work / Portfolio
    */
-  eleventyConfig.addCollection('case-studies', function (collection) {
+  eleventyConfig.addCollection('casestudies', function (collection) {
     return collection
       .getFilteredByGlob(`${buildPaths.casestudiesSourceDir}/**/*.md`)
       .filter(item => item.data.permalink !== false)

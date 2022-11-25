@@ -1,71 +1,62 @@
 /**
  * Cookie consent modal event listeners
  */
-import * as getters from './getters'
+type eventHandler = (event: Event) => void
 
-/**
- * Close button and dismiss
- */
-
-export const handleDismissCookieModal = () => {
-  const wrapper = getters.getCookieConsentWrapper()
-  wrapper.style.display = `none`
-  localStorage.setItem(`COOKIE_BANNER_VISIBLE`, `false`)
+const getClickEventListener = (handler: eventHandler) => {
+  function clickListener (event: MouseEvent) {
+    if (event.type === `click`) handler(event)
+  }
+  return clickListener
 }
 
-/** Event handler to dismiss modal on close button click */
-export const dismissClickEventHandler = (event: MouseEvent) => {
-  if (event.type === 'click') handleDismissCookieModal()
+const getEnterKeyEventListener = (handler: eventHandler) => {
+  function keypressListener (event: KeyboardEvent) {
+    /**
+     * isComposing indicates that an Input-Method Editor is composing text, such as
+     * when a CMYK character is being composed or a virtual keyboard is accepting
+     * handwritten input for recognition. Also protect against this being called for
+     * `keydown` event and a key being held down.
+     */
+    if (event.isComposing || event.repeat) return
+    if (event.key === `Enter`) handler(event)
+  }
+  return keypressListener
 }
 
-/** Event handler to dismiss modal on esc keypress */
-export const dismissOnEscEventHandler = (event: KeyboardEvent) => {
-  if (event.key === `Escape`) handleDismissCookieModal()
+const getTouchendEventListener = (handler: eventHandler) => {
+  function touchendEventHandler (event: TouchEvent) {
+    if (event.type === `touchend`) handler(event)
+  }
+  return touchendEventHandler
 }
 
-/** Event handler to dismiss modal on close button touch end */
-export const dismissOnTouchendEventHandler = (event: TouchEvent) => {
-  if (event.type === `touchend`) handleDismissCookieModal()
+const getEscapeKeyEventListener = (handler: eventHandler) => {
+  function keypressListener(event: KeyboardEvent) {
+    /**
+     * isComposing indicates that an Input-Method Editor is composing text, such as
+     * when a CMYK character is being composed or a virtual keyboard is accepting
+     * handwritten input for recognition. Also protect against this being called for
+     * `keydown` event and a key being held down.
+     */
+    if (event.isComposing || event.repeat) return
+    if (event.key === `Escape`) handler(event)
+  }
+  return keypressListener
 }
 
-/**
- * `Allow All` button event handlers
- */
-
-export const handleAllowAllCookies = () => {
-  //
+export const addButtonEventListeners = (element: HTMLButtonElement, handler: eventHandler) => {
+  element.addEventListener(`click`, getClickEventListener(handler))
+  element.addEventListener(`keyup`, getEnterKeyEventListener(handler))
+  element.addEventListener(`touchend`, getTouchendEventListener(handler))
 }
 
-/** Event handler for 'Allow All' on link click */
-export const allowBtnClickEventHandler = (event: MouseEvent) => {
-  if (event.type === `click`) handleAllowAllCookies()
+export const addLinkEventListeners = (element: HTMLAnchorElement, handler: eventHandler) => {
+  element.addEventListener(`click`, getClickEventListener(handler))
+  element.addEventListener(`keyup`, getEnterKeyEventListener(handler))
+  element.addEventListener(`touchend`, getTouchendEventListener(handler))
 }
 
-/** Event handler for 'Allow All' on Enter keypress */
-export const allowBtnEnterEventHandler = (event: KeyboardEvent) => {
-  if (event.key === `Enter`) handleAllowAllCookies()
-}
-
-/** Event handler for 'Allow All' button touch end */
-export const allowBtnEnterKeyupEventHandler = (event: TouchEvent) => {
-  if (event.type === `touchend`) handleAllowAllCookies()
-}
-
-/**
- * `Allow All` link event handlers
- */
-
-/** Event handler for 'Allow All' on link click */
-export const allowLinkClickEventHandler = (event: MouseEvent) => {
-  if (event.type === `click`) handleAllowAllCookies()
-}
-
-/** Event handler for 'Allow All' on Enter keypress */
-export const allowLinkEnterEventHandler = (event: KeyboardEvent) => {
-  if (event.key === `Enter`) handleAllowAllCookies()
-}
-
-/** Event handler for 'Allow All' link touch end */
-export const allowLinkTouchendKeyupEventHandler = (event: TouchEvent) => {
-  if (event.type === `touchend`) handleAllowAllCookies()
+export const addWrapperEventListeners = (element: HTMLDivElement, handler: eventHandler) => {
+  element.addEventListener(`keyup`, getEscapeKeyEventListener(handler))
 }

@@ -1,6 +1,7 @@
 /**
  * Integration test for Github-style todo lists markdown plugin
  */
+const { describe, expect, test } = require('@jest/globals')
 const { queryAllByRole, queryByRole, queryByLabelText } = require(`@testing-library/dom`)
 const { axe } = require(`../../../test/jest/accessibility`)
 const { markdownItLib } = require(`../setup`)

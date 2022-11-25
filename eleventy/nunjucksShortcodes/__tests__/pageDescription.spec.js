@@ -1,6 +1,7 @@
 /**
  * Unit tests for page description shortcode
  */
+const { describe, expect, test } = require('@jest/globals')
 const { pageDescription } = require('../pageDescription')
 const { eleventyConfig } = require('../../__fixtures__/eleventyConfig')
 

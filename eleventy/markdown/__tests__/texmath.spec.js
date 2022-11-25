@@ -1,6 +1,7 @@
 /**
  * Integration test for Texmath markdown-it plugin
  */
+const { describe, expect, test } = require('@jest/globals')
 const { axe } = require(`../../../test/jest/accessibility`)
 const { markdownItLib } = require(`../setup`)
 

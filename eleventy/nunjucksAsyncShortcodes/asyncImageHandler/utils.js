@@ -1,12 +1,5 @@
-const fs = require('fs')
 const path = require('path')
 const nunjucks = require('nunjucks')
-const {
-  buildDir,
-  imagesBuildDir,
-  imagesSourceDir,
-} = require('../../../scripts/build/paths')
-const { normalizeFilePathStem } = require('../../utils/permalinks')
 
 /**
  * Eleventy image plugin fails when alt property isn't set so add better error description
@@ -54,108 +47,16 @@ const getRootPathsFromFilePath = filePath => stripLeadingSlash(filePath.replace(
 exports.getRootPathsFromFilePath = getRootPathsFromFilePath
 
 /**
- * Tests whether a filename matches the relative strategy
+ * Tests whether a file path is a relative path
  *
- * @param {string} fileName - the file path passed to asyncImageHandler from a shortcode
+ * @param {string} filePath - the file path passed to asyncImageHandler from a shortcode
  * @returns {boolean} whether the filename matches
  */
-const isRelativeFilePath = fileName => {
-  if (fileName.startsWith(`/`) || fileName.endsWith(`/`)) return false
-  return /^[^:\*\?"<>\|]+$/.test(fileName)
+const isRelativeFilePath = filePath => {
+  if (filePath.startsWith(`/`)) return false
+  return /^[^:\*\?"<>\|]+$/.test(filePath)
 }
 exports.isRelativeFilePath = isRelativeFilePath
-
-/**
- * Image files are either in /public/images directory or in a Markdown page's folder
- * next to index.md. Sources that are absolute paths are assumed relative to the images
- * asset directory, otherwise assumed to be in the Markdown file's directory.
- *
- * @param {string} fileName - The path in the build output directory to the image.
- * @param {string} filePathStem - Eleventy's 'page.filePathStem' value.
- * @returns {object} - An object with 'imagePath', 'outputDir', and 'urlPath' keys.
- */
-exports.getImagePaths = (fileName, filePathStem) => {
-  const relativeFilePath = normalizeFilePathStem(filePathStem)
-  const rootPaths = getRootPathsFromFilePath(fileName)
-  if (filePathStem.startsWith(`/pages/home`)) {
-    /**
-     * Absolute images used on the home page are output to the `images/home` folder
-     * in the build dir
-     */
-    return {
-      /** Absolute path to the image file to be processed */
-      imagePath: path.join(process.cwd(), `src/pages/home/`, fileName),
-      /** Project-relative path to the output image directory to write generated images to */
-      outputDir: stripTrailingSlash(path.join(process.cwd(), imagesBuildDir, `home`, rootPaths)),
-      /**
-       * Directory for the <img src> attribute. e.g. /images/home/ for
-       * <img src="/images/home/MY_IMAGE.jpeg">
-       */
-      urlPath: path.join('/images/home/', fileName),
-    }
-  } else if (fileName.startsWith('/')) {
-    /**
-     * Images included in Nunjucks or Javascript templates using the `image`
-     * shortcode are maintained in the assets/images folder and should be
-     * outputted to the /public/images directory.
-     */
-    const normalizedFileName = stripLeadingSlash(fileName)
-    return {
-      /** Absolute path to the image file to be processed */
-      imagePath: path.join(process.cwd(), imagesSourceDir, normalizedFileName),
-      /** Project-relative path to the output image directory to write generated images to */
-      outputDir: stripTrailingSlash(path.join(process.cwd(), imagesBuildDir, relativeFilePath)),
-      /**
-       * Directory for the <img src> attribute. e.g. /images/ for
-       * <img src="/images/MY_IMAGE.jpeg">
-       */
-      urlPath: path.join('/images/', fileName),
-    }
-  } else if (isRelativeFilePath(fileName)) {
-    /**
-     * `fileName` values that are not relative paths are assumed to be being used in
-     * a Markdown page, because images directly used in templates so far have been
-     * maintained in the assets/images folder. This keeps image files for Markdown
-     * pages in the page folder, next to index.md
-     */
-    return {
-      /** Absolute path to the image file to be processed */
-      imagePath: path.join(process.cwd(), `src/pages`, relativeFilePath, fileName),
-      /** Absolute path to the output image directory to write generated images to */
-      outputDir: stripTrailingSlash(path.join(process.cwd(), buildDir, relativeFilePath)),
-      /**
-       * Directory for the <img src> attribute. e.g. /images/ for
-       * <img src="/images/MY_IMAGE.jpeg">
-       */
-      urlPath: path.join(`/`, relativeFilePath, fileName),
-    }
-  } else {
-    throw new Error(`Couldn't find a strategy to process image source, source file: ${fileName}`)
-  }
-}
-
-/**
- * Make sure the image path given points to an image file, and the output dir has been created
- *
- * @param {string} imagePath - An absolute path to the image file to be processed
- * @param {string} outputDir - Absolute path to the output image directory to write generated images to
- * @param {string} fileName - Name of the image file passed to the Nunjucks image shortcode
- * @returns {boolean|undefined} - Returns true if path either exists or is created
- */
-exports.pathsExist = (imagePath, outputDir, fileName) => {
-  try {
-    fs.accessSync(imagePath)
-  } catch (error) {
-    throw new Error(
-      `Image path passed from template to image handler is not a valid path:\nSource image file name: ${fileName}\nSource image file path: ${imagePath}\nOutput directory: ${outputDir}\n${error.name}: ${error.message}`
-    )
-  }
-
-  if (!fs.existsSync(outputDir)) {
-    fs.mkdirSync(outputDir, { recursive: true })
-  }
-  return true
-}
 
 /**
  * Render a Nunjucks template using a new environment, so it doesn't pick up Eleventy's

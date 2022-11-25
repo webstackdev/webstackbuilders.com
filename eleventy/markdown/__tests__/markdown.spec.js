@@ -1,7 +1,8 @@
 /**
  * Integration test for markdown-it CommonMark rules, GFM tables, and GFM strikethrough
  */
-const { queryAllByRole, queryByRole, queryByText, within } = require(`@testing-library/dom`)
+const { describe, expect, test } = require('@jest/globals')
+const { queryAllByRole, queryByRole, getByText, within } = require(`@testing-library/dom`)
 const decode = require(`html-entities-decoder`)
 
 const { axe } = require(`../../../test/jest/accessibility`)
@@ -11,7 +12,7 @@ describe(`converts double quotes to smart quotes`, () => {
   test(`single asterisk generates HTML <> tags`, () => {
     document.body.innerHTML = markdownItLib.render(`"my test"`)
     const expectedContent = decode(`&#x201C;`) + `my test` + decode(`&#x201D;`)
-    expect(queryByText(document, /my test/i)).toHaveTextContent(expectedContent)
+    expect(getByText(document, /my test/i)).toHaveTextContent(expectedContent)
   })
 })
 
@@ -19,19 +20,19 @@ describe(`converts single quotes to smart quotes`, () => {
   test(`single asterisk generates HTML <> tags`, () => {
     document.body.innerHTML = markdownItLib.render(`'my test'`)
     const expectedContent = decode(`&#x2018;`) + `my test` + decode(`&#x2019;`)
-    expect(queryByText(document, /my test/i)).toHaveTextContent(expectedContent)
+    expect(getByText(document, /my test/i)).toHaveTextContent(expectedContent)
   })
 })
 
 describe(`adds italics to markdown using emphasis tags`, () => {
   test(`single asterisk generates HTML <> tags`, () => {
     document.body.innerHTML = markdownItLib.render(`*Italic*`)
-    expect(queryByText(document, /Italic/i).nodeName === `EM`).toBeTruthy()
+    expect(getByText(document, /Italic/i).nodeName === `EM`).toBeTruthy()
   })
 
   test(`double underlines generates HTML <> tags`, () => {
     document.body.innerHTML = markdownItLib.render(`_Italic_`)
-    expect(queryByText(document, /Italic/i).nodeName === `EM`).toBeTruthy()
+    expect(getByText(document, /Italic/i).nodeName === `EM`).toBeTruthy()
   })
 
   test(`italics passes accessibility check`, async () => {
@@ -43,12 +44,12 @@ describe(`adds italics to markdown using emphasis tags`, () => {
 describe(`adds <strong> tags to markdown`, () => {
   test(`double asterisks generates HTML <> tags`, () => {
     document.body.innerHTML = markdownItLib.render(`**Bold**`)
-    expect(queryByText(document, /Bold/i).nodeName === `STRONG`).toBeTruthy()
+    expect(getByText(document, /Bold/i).nodeName === `STRONG`).toBeTruthy()
   })
 
   test(`double underlines generates HTML <> tags`, () => {
     document.body.innerHTML = markdownItLib.render(`__Bold__`)
-    expect(queryByText(document, /Bold/i).nodeName === `STRONG`).toBeTruthy()
+    expect(getByText(document, /Bold/i).nodeName === `STRONG`).toBeTruthy()
   })
 
   test(`strong passes accessibility check`, async () => {
@@ -91,7 +92,7 @@ describe(`horizontal rule adds <hr> tags to markdown`, () => {
 describe(`adds inline code tags to markdown`, () => {
   test(`backticks generates HTML <> tags`, () => {
     document.body.innerHTML = markdownItLib.render('`Inline code` with backticks')
-    expect(queryByText(document, /Inline code/i).nodeName === `CODE`).toBeTruthy()
+    expect(getByText(document, /Inline code/i).nodeName === `CODE`).toBeTruthy()
   })
 
   test(`inline code passes accessibility check`, async () => {
@@ -145,7 +146,7 @@ describe(`adds table tags to markdown`, () => {
 describe(`adds strikethrough tags to markdown`, () => {
   test(`content between two sets of double tildes generates HTML <> tags`, () => {
     document.body.innerHTML = markdownItLib.render(`~~This was mistaken text~~`)
-    expect(queryByText(document, /This was mistaken text/i).nodeName === `S`).toBeTruthy()
+    expect(getByText(document, /This was mistaken text/i).nodeName === `S`).toBeTruthy()
   })
 
   test(`strikethrough passes accessibility check`, async () => {

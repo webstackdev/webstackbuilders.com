@@ -1,3 +1,4 @@
+const { describe, expect, test } = require('@jest/globals')
 const { addEleventyPlugins, disabled, enabled } = require('../plugins')
 const { mergeConfig } = require('../__fixtures__/TemplateConfig')
 
@@ -16,7 +17,7 @@ describe('Dynamic plugin loader works', () => {
     expect(firstMockParam && typeof firstMockParam === 'object').toBe(true)
     const secondMockParam = mockAddPlugin.mock.calls[0][1]
     expect(secondMockParam && typeof secondMockParam === 'object').toBe(true)
-   })
+  })
 
   test('Throws if plugin is not valid', () => {
     const eleventyConfig = {

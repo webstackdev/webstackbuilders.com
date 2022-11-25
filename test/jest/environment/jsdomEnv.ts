@@ -1,6 +1,7 @@
 import { JSDOM, ResourceLoader } from 'jsdom'
 import { version } from '../../../package.json'
 import { getVirtualConsole } from './virtualConsole'
+import { devServer } from '../jest.config.jsdom'
 
 export interface EnvOptions {
   html?: string
@@ -26,7 +27,7 @@ export const getJsdomInstance = (virtConsole?: Console, options: EnvOptions = En
     pretendToBeVisual: true,
     resources,
     runScripts: 'dangerously',
-    url: 'http://localhost/',
+    url: devServer,
     virtualConsole: getVirtualConsole(virtConsole ?? console),
     ...mergedOptions,
   })

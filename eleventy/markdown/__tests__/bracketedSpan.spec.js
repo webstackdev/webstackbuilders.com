@@ -2,7 +2,8 @@
  * Integration test for bracketed span markdown plugin. This plugin allows adding
  * a <span> wrapper around content that is enclosed in brackets in Markdown.
  */
-const { queryAllByRole, queryByRole, queryByText } = require(`@testing-library/dom`)
+const { describe, expect, test } = require('@jest/globals')
+const { queryByText } = require(`@testing-library/dom`)
 const { axe } = require(`../../../test/jest/accessibility`)
 const { markdownItLib } = require(`../setup`)
 

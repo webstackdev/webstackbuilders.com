@@ -6,14 +6,29 @@
  */
 import { beforeEach, expect, jest } from '@jest/globals'
 import { toHaveNoViolations } from 'jest-axe'
-/** Add `jest-dom` to JSDom environment browser globals */
-import '@testing-library/jest-dom'
 import { setQuietMode, unsetQuietMode } from './jsdomQuietMode'
 import * as reset from './environment/reset'
 import './utils/extendMatchers'
 
+/** Add `jest-dom` to JSDom environment browser globals */
+import '@testing-library/jest-dom'
+import '@testing-library/jest-dom/extend-expect'
+
+/** Add mocked local and session storage */
+import 'jest-localstorage-mock'
+
+/**
+ * Eleventy templates that end up calling 'sharp' require this workaround for
+ * worker threads, with sharp called before worker threads are initialized:
+ * https://sharp.pixelplumbing.com/install#worker-threads
+ */
+import 'sharp'
+
 /** Add Axe accessibility expectations to global expect object */
 expect.extend(toHaveNoViolations)
+
+/** JSDOM tests suites with lots of tests and worker threads exceed default 5s timeout */
+jest.setTimeout(30 * 1000)
 
 /**
  * Soft reset for JSDOM environment and globals. Removes side effects from tests,
@@ -42,7 +57,19 @@ beforeEach(() => {
   reset.restoreRootBaseElements(rootElement)
   reset.removeTrackedGlobalEventListeners()
   reset.removeGlobalProperties()
+  /** Whether script running in JSDOM sandbox should output to the console */
   setQuietMode({ isQuietMode: !!globalThis.JSDOM_QUIET_MODE }, jest)
+  /** Fully reset the stubbed local and session storage state between tests */
+  localStorage.clear()
+  /**
+   * Reset cookies between tests. No access to tough-cookie CookieJar instance here:
+   * https://github.com/jsdom/jsdom/blob/04f6c13f4a4d387c7fc979b8f62c6f68d8a0c639/lib/api.js#L58
+   */
+  type KeyValueTuple = [key: string, value: string]
+  document.cookie.split('; ').forEach(keyValue => {
+    const tuple: KeyValueTuple = keyValue.split('=') as KeyValueTuple
+    document.cookie = `${tuple[0]}=;Max-Age=-99999999;`
+  })
 })
 
 afterEach(() => {

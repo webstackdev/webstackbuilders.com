@@ -1,8 +1,8 @@
 /**
  * Integration test for markdown-it CommonMark rules, GFM tables, and GFM strikethrough
  */
-const { queryByRole, queryByText, within } = require(`@testing-library/dom`)
-
+const { describe, expect, test } = require('@jest/globals')
+const { queryByRole, getByText, within } = require(`@testing-library/dom`)
 const { axe } = require(`../../../test/jest/accessibility`)
 const { markdownItLib } = require(`../setup`)
 
@@ -15,17 +15,17 @@ describe(`adds open state collapsables to markdown with +++ content +++ syntax`,
     expect(detailsElement).toHaveAttribute(`open`)
   })
 
-  test(`open state collapsable has <summary> HTML tag nexted in <details> tag`, () => {
+  test(`open state collapsable has <summary> HTML tag nested in <details> tag`, () => {
     document.body.innerHTML = markdownItLib.render(openStateMarkdown)
     const detailsElement = queryByRole(document.body, `group`)
     expect(detailsElement).toBeInTheDocument()
-    expect(within(detailsElement).queryByText(/Click me!/)).toBeInTheDocument()
-    expect(queryByText(document.body, /Click me!/).nodeName === `SUMMARY`).toBeTruthy()
+    expect(within(detailsElement).getByText(/Click me!/)).toBeInTheDocument()
+    expect(getByText(document.body, /Click me!/).nodeName === `SUMMARY`).toBeTruthy()
   })
 
   test(`open state collapsable has nested <span> tag with non-breaking space as content`, () => {
     document.body.innerHTML = markdownItLib.render(openStateMarkdown)
-    const summaryElement = queryByText(document.body, /Click me!/)
+    const summaryElement = getByText(document.body, /Click me!/)
     expect(summaryElement).toBeInTheDocument()
     const spanElement = summaryElement.querySelector(`span`)
     expect(spanElement).not.toBeNull()
@@ -56,17 +56,17 @@ describe(`adds closed state collapsables to markdown with >>> content >>> syntax
     expect(detailsElement).not.toHaveAttribute(`open`)
   })
 
-  test(`closed state collapsable has <summary> HTML tag nexted in <details> tag`, () => {
+  test(`closed state collapsable has <summary> HTML tag nested in <details> tag`, () => {
     document.body.innerHTML = markdownItLib.render(closedStateMarkdown)
     const detailsElement = queryByRole(document.body, `group`)
     expect(detailsElement).toBeInTheDocument()
-    expect(within(detailsElement).queryByText(/Click me!/)).toBeInTheDocument()
-    expect(queryByText(document.body, /Click me!/).nodeName === `SUMMARY`).toBeTruthy()
+    expect(within(detailsElement).getByText(/Click me!/)).toBeInTheDocument()
+    expect(getByText(document.body, /Click me!/).nodeName === `SUMMARY`).toBeTruthy()
   })
 
   test(`closed state collapsable has nested <span> tag with non-breaking space as content`, () => {
     document.body.innerHTML = markdownItLib.render(closedStateMarkdown)
-    const summaryElement = queryByText(document.body, /Click me!/)
+    const summaryElement = getByText(document.body, /Click me!/)
     expect(summaryElement).toBeInTheDocument()
     const spanElement = summaryElement.querySelector(`span`)
     expect(spanElement).not.toBeNull()

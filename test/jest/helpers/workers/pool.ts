@@ -5,14 +5,6 @@
 import { resolve } from 'path'
 import { StaticPool } from 'node-worker-threads-pool'
 
-export interface EleventyJson {
-  content: string
-  inputPath: string
-  outputPath: string
-  url: string
-}
-
-
 export type OrchestratorType = 'tsCompile' | 'loadHtmlTemplate'
 export type OrchestratorParamType<T> = {
   helperType: T
@@ -21,7 +13,7 @@ export type OrchestratorParamType<T> = {
 export type OrchestratorReturnType<T> = T extends 'tsCompile'
   ? Promise<string>
   : T extends 'loadHtmlTemplate'
-  ? Promise<EleventyJson>
+  ? Promise<string>
   : /** Throw type error if new OrchestratorType added and return case not updated */
     never
 export type OrchestratorFn = <T extends OrchestratorType>({

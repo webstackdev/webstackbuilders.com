@@ -16,7 +16,7 @@ import { cssBuildDir, scssSourceDir } from '../paths'
 
 const sass = gulpSass(dartSass)
 
-export const buildCssTaskPipe = lazypipe()
+export const watchCssTaskPipe = lazypipe()
   .pipe(sourcemaps.init)
   // synchronous mode w/Dart SASS is 2x as fast as async since Node removed fibers in v16
   /* eslint-disable-next-line @typescript-eslint/unbound-method */
@@ -25,10 +25,10 @@ export const buildCssTaskPipe = lazypipe()
   // source maps by default are written inline in the compiled CSS files if no path as param
   .pipe(() => sourcemaps.write('.'))
 
-const buildCssTask: TaskFunction = () => {
-  log(`Compiling SCSS to production CSS bundle`)
+const watchCssTask: TaskFunction = () => {
+  log(`Compiling SCSS to development CSS bundle`)
   return src(`${scssSourceDir}/index.scss`) // index.scss include file in assets
-    .pipe(buildCssTaskPipe())
+    .pipe(watchCssTaskPipe())
     .pipe(dest(cssBuildDir))
     .on('finish', () => {
       log(`Development CSS bundle output to ${resolve(cssBuildDir, `index.css`)}`)
@@ -37,7 +37,7 @@ const buildCssTask: TaskFunction = () => {
 
 const task: TaskFunction = () => {
   log(`Watching for changes to source SCSS files`)
-  watch([scssSourceDir], {}, buildCssTask)
+  watch([scssSourceDir], {}, watchCssTask)
 }
 
-export default series(buildCssTask, task)
+export default series(watchCssTask, task)

@@ -9,9 +9,9 @@ eleventyNavigation:
   key: Articles
   order: 4
 ---
-<div class="page page--blog">
+<div class="page">
   <header class="page__header">
-    <h1 class="page__title">{{ title }}</h1>
+    <h1 class="page__subtitle">{{ title }}</h1>
   </header>
 
   <div class="page__content">
@@ -19,6 +19,7 @@ eleventyNavigation:
     <ol reversed class="articlelist" start="{{ articlelist.length }}">
       {% for post in articlelist | reverse %}
         <li class="articlelist__item">
+          {# Article Title #}
           <h2 class="articlelist__title">
             <a
               href="{{ post.url | url }}"
@@ -30,17 +31,18 @@ eleventyNavigation:
           </h2>
 
           <div class="articlelist__meta">
+            {# Article Date #}
             <time class="articlelist__date" datetime="{{ post.date | dateToISO }}">
               {{ post.date | readableDate }}
             </time>
-
+            {# Article Tags #}
             {% if post.data.tags %}
               <span aria-hidden="true">&sdot;</span>
               <span class="articlelist__tags">
                 {{ post.data.tags|join(', ') }}
               </span>
             {% endif %}
-
+            {# Article Draft Status #}
             {% if post.data.draft %}
               <span aria-hidden="true">&sdot;</span>
               <span class="articlelist__status">(Draft)</span>
@@ -48,10 +50,12 @@ eleventyNavigation:
           </div>
 
           <p class="articlelist__excerpt">
+            {# Article Description #}
             {% if post.data.description %}
               {{ post.data.description }}
               {% set hasDescription = true %}
             {% endif %}
+            {# Article Excerpt #}
             {%- if post.data.page.excerpt and (hasDescription !== true) -%}
               {% renderTemplate "md" %}
                 {{ post.data.page.excerpt }}
@@ -62,8 +66,8 @@ eleventyNavigation:
               <p>Should throw an error, if reached here it's because the page has no description set in the front matter and no excerpt separator set in the content body.</p>
             {%- endif -%}
           </p>
+          {# Article Time To Read #}
           <p>It will take {{ post.templateContent | timeToRead }} to read this</p>
-
         </li>
       {% endfor %}
     </ol>

@@ -16,7 +16,7 @@ if (!process.env['ELEVENTY_ENV_VARS_INIT']) {
 
 const config: ConfigOptions = {
   /** Directory where Jest should output coverage files */
-  coverageDirectory: `<rootDir>/coverage`,
+  //coverageDirectory: `<rootDir>/coverage`,
   /** Force Jest globals e.g. expect, describe, etc. to be imported from @jest/globals */
   // injectGlobals: false,
   /** Activates native OS notifications for test results, requires `node-notifier` package */
@@ -36,9 +36,9 @@ const config: ConfigOptions = {
         tsconfig: './tsconfig.jest.json',
       },
     ],
-    //require.resolve(`ts-jest`),
+    //require.resolve(`ts-jest`), // getting errors with canvas not compiling correctly
   },
-  verbose: true,
+  //verbose: true, // getting errors with canvas not compiling correctly
 }
 
 export default config

@@ -1,3 +1,4 @@
+const { describe, expect, test } = require('@jest/globals')
 const { slugifyTitleAnchors } = require('../util')
 
 describe(`Title anchors are properly slugified`, () => {
@@ -31,7 +32,7 @@ describe(`Title anchors are properly slugified`, () => {
     expect(result).toBe(`h-punctuation`)
   })
 
-  // @TODO: This is failin with h-punctuation- received
+  // @TODO: This is failing with h-punctuation- received
   test.skip(`other punctuation is removed`, () => {
     const result = slugifyTitleAnchors(`Punctuation: .,\/#!$%\^\*;{}=_~()`)
     expect(result).toBe(`h-punctuation`)

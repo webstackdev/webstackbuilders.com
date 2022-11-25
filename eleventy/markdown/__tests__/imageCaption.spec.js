@@ -1,7 +1,8 @@
 /**
  * Integration test for image caption markdown plugin
  */
-const { queryByAltText, queryByRole, within } = require(`@testing-library/dom`)
+const { describe, expect, test } = require('@jest/globals')
+const { getByAltText, queryByRole } = require(`@testing-library/dom`)
 
 const { axe } = require(`../../../test/jest/accessibility`)
 const { markdownItLib } = require(`../setup`)
@@ -12,7 +13,7 @@ describe(`adds image tags to markdown`, () => {
     const imageElement = queryByRole(document.body, 'img')
     expect(imageElement).toBeInTheDocument()
     expect(imageElement).toHaveAttribute(`src`, `http://url/a.png`)
-    expect(queryByAltText(document.body, `Image`)).toBeInTheDocument()
+    expect(getByAltText(document.body, `Image`)).toBeInTheDocument()
   })
 
   test(`brackets on image text after ! and bracket-colon after an empty line generate HTML <img> tags`, () => {

@@ -6,16 +6,25 @@
  */
 import { clearImmediate, setImmediate } from 'timers'
 import { TextDecoder, TextEncoder } from 'util'
+import { Event as CircusEvent, State as CircusState } from 'jest-circus'
 import { ModuleMocker } from 'jest-mock'
 import { installCommonGlobals } from 'jest-util'
 import { JSDOM } from 'jsdom'
 import type { Context } from 'vm'
-import type { EnvironmentContext, JestEnvironment, JestEnvironmentConfig } from '@jest/environment'
+import type {
+  EnvironmentContext,
+  JestEnvironment,
+  JestEnvironmentConfig
+} from '@jest/environment'
 import type { LegacyFakeTimers, ModernFakeTimers } from '@jest/fake-timers'
 import type { Global } from '@jest/types'
 import { getJsdomQuietModeFlag } from '../jsdomQuietMode'
 import { getJsdomInstance } from './jsdomEnv'
-import { getCustomExportConditions, getLegacyFakeTimers, getModernFakeTimers } from './helpers'
+import {
+  getCustomExportConditions,
+  getLegacyFakeTimers,
+  getModernFakeTimers
+} from './helpers'
 import * as listeners from './listeners'
 import { ListenerState } from './state'
 import { WorkerPool } from '../helpers/workers/pool'
@@ -99,7 +108,7 @@ export default class JSDomTscompileEnvironment implements JestEnvironment<number
     /** Maybe unnecessary */
     global.Buffer = Buffer
     /** Error-message stack size is set by default to 10 */
-    this.global.Error.stackTraceLimit = 100
+    global.Error.stackTraceLimit = 100
 
     /**
      * EVENT HANDLER GETTERS AND SETTERS
@@ -217,7 +226,6 @@ export default class JSDomTscompileEnvironment implements JestEnvironment<number
     this.fakeTimers = null
     this.fakeTimersModern = null
 
-    // @TODO: Should this be `delete global.EVENT_LISTENER_STATE`? Should `this.` be deleted? Is there any difference between `global` and `globalThis` here (where it's not shadows by the const)?
     global.EVENT_LISTENER_STATE = undefined
     Object.assign(globalThis, {
       EVENT_LISTENER_STATE: undefined,
@@ -247,5 +255,47 @@ export default class JSDomTscompileEnvironment implements JestEnvironment<number
     }
     return null
   }
+
+  // @TODO: Move the beforeEach / afterEach from jest.setup.jsdom.ts to here so the environment can be packaged separately. Not sure if the hooks are called if no beforeEach / afterEach methods are defined, or how to tell between the multiple beforeEach calls in the current setup.
+  async handleTestEvent(event: CircusEvent, _: CircusState) {
+    if (event.name === 'hook_start') {
+      if (`beforeEach` === event.hook.type) {
+        //
+      } else if (`afterEach` === event.hook.type) {
+        //
+      }
+    }
+  }
 }
 /* eslint-enable no-null/no-null, @typescript-eslint/require-await */
+
+/*
+// Example output from 'event.hook':
+hook_start, hook: beforeEach
+<ref *1> {
+  asyncError: ErrorWithStack
+      at jestAdapter (/home/kevin/Repos/webstackdev/eleventy.webstackbuilders.com/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:44:11)
+      ...
+  fn: [Function (anonymous)],
+  parent: {
+    type: 'describeBlock',
+    children: [ [Object] ],
+    hooks: [ [Circular *1], [Object], [Object] ],
+    mode: undefined,
+    name: 'ROOT_DESCRIBE_BLOCK',
+    parent: undefined,
+    tests: []
+  },
+  seenDone: false,
+  timeout: undefined,
+  type: 'beforeEach'
+}
+
+hook_start, hook: beforeEach
+<ref *1> {
+  asyncError: ErrorWithStack
+      at Object.<anonymous> (/home/kevin/Repos/webstackdev/eleventy.webstackbuilders.com/test/jest/jest.setup.jsdom.ts:42:11)
+      ...
+  type: 'beforeEach'
+}
+*/

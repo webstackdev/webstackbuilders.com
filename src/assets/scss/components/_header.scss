@@ -1,44 +1,41 @@
+$logo-height: 86.394562px;
+$logo-width: 88.360085px;
+$logo-scale-full: 100%;
+
 .header {
+  // flex alignment items
+  align-content: space-between;
   align-items: center;
   display: flex;
   justify-content: space-between;
-  padding: 1rem 0;
 
   &__brand {
+    //
+  }
+
+  &__brand-anchor {
     align-items: center;
     color: var(--text-color);
     display: flex;
+    .logo {
+      height: calc(#{$logo-height} * #{$logo-scale-full});
+      width: calc(#{$logo-width} * #{$logo-scale-full});
+    }
   }
 
-  &__text {
+  &__brand-name {
     font-weight: 700;
   }
 
-  &__nav {
-    align-items: center;
-    display: flex;
+  &__themepicker-icon {
+    margin-right: 1rem;
   }
 
-  // Theme Button
-  &__themebtn {
-    display: none;
-    margin-right: 1rem;
-    order: -1;
-
-    @supports (color: var(--fake-var)) {
-      display: flex;
-    }
-    @include mq(md) {
-      margin-right: 2rem;
-    }
-    @include mq(lg) {
-      margin-left: 1rem;
-      margin-right: 0;
-      order: initial;
-    }
+  &__main-nav {
+    align-items: center;
   }
 
   @include mq(md) {
-    padding: 3.125rem 0;
+    padding: .5rem;
   }
 }

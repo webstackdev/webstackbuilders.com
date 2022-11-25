@@ -1,7 +1,7 @@
 /**
  * Integration test for definition lists markdown plugin
  */
-
+const { describe, expect, test } = require('@jest/globals')
 const { queryAllByRole, getByText } = require(`@testing-library/dom`)
 const { axe } = require(`../../../test/jest/accessibility`)
 const { markdownItLib } = require(`../setup`)

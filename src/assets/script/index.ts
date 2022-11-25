@@ -3,8 +3,9 @@
  */
 import { addAllLoaderEventListeners, addErrorEventListeners } from './utils/listeners'
 import type { ScriptInit } from './@types/general'
-//import { heroSvgAnimation } from './animations'
-//import { cookieModalHandler } from './modals/cookies'
+/** Client scripts */
+import { heroSvgAnimation } from './animations'
+import { showCookieConsentModal } from './modals/cookieConsent'
 //import { registerShareHighlight } from './modules/share-highlight'
 //import { setupNavigation } from './modules/navigation'
 //import { setupThemeSwitcher } from './modules/themepicker'
@@ -26,7 +27,7 @@ export const scriptsFiredOnLoaded: ScriptInit[] = [
  * function that will be called with no parameters after the event fires.
  */
 export const scriptsFiredOnDomLoaded: ScriptInit[] = [
-  //heroSvgAnimation,
+  heroSvgAnimation,
   //registerShareHighlight,
   //setupNavigation,
   //setupThemeSwitcher,
@@ -37,7 +38,7 @@ export const scriptsFiredOnDomLoaded: ScriptInit[] = [
  * or after a delay (default 5 seconds), whichever occurs first.
  */
 export const scriptsFiredOnUserInteraction: ScriptInit[] = [
-  //cookieModalHandler,
+  showCookieConsentModal,
 ]
 
 /** Add global load event handlers */

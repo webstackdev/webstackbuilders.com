@@ -1,6 +1,7 @@
 /**
  * Integration test for markdown-it CommonMark rules, GFM tables, and GFM strikethrough
  */
+const { describe, expect, test } = require('@jest/globals')
 const { markdownItLib } = require(`../setup`)
 
 describe(`embeds Youtube player from markdown`, () => {

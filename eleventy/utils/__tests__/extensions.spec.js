@@ -1,6 +1,7 @@
 /**
  * Unit tests for extensions loader logic
  */
+const { describe, expect, test } = require('@jest/globals')
 const _ = require('lodash')
 const rewire = require('rewire')
 const extensions = rewire('../extensions')
@@ -12,7 +13,6 @@ const {
   _getExtensionFnName,
   _curryExtension,
   _addExtensionsByType,
-  _appendAddFnToEleventySetup,
 } = extensions
 
 describe(`Handles extension type validation`, () => {

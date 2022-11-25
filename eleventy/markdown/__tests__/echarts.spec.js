@@ -2,8 +2,7 @@
  * Integration test for Apache Echarts ECharts interactive charting
  * and data visualization library for browser markdown-it plugin.
  */
-const { queryAllByRole, queryByRole } = require(`@testing-library/dom`)
-
+const { describe, expect, test } = require('@jest/globals')
 const { axe } = require(`../../../test/jest/accessibility`)
 const { markdownItLib } = require(`../setup`)
 

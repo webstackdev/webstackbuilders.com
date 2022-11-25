@@ -1,6 +1,18 @@
 .articlelist {
   @include container-narrow;
 
+  &__date {
+    display: block;
+  }
+
+  &__excerpt {
+    @include body-text();
+
+    .articlelist__item--draft & {
+      opacity: 0.5;
+    }
+  }
+
   &__item {
       margin-bottom: 3rem;
 
@@ -17,14 +29,15 @@
     }
   }
 
-  &__title {
-    margin-bottom: 0;
-  }
-
   &__meta {
     color: var(--color-text-offset);
     font-size: 1.125rem;
     margin-bottom: 1rem;
+  }
+
+  &__status {
+    color: var(--color-secondary);
+    font-weight: 700;
   }
 
   &__tags {
@@ -34,16 +47,7 @@
     text-transform: uppercase;
   }
 
-  &__status {
-    color: var(--color-secondary);
-    font-weight: 700;
-  }
-
-  &__excerpt {
-      @include body-text();
-
-      .articlelist__item--draft & {
-        opacity: 0.5;
-      }
+  &__title {
+    margin-bottom: 0;
   }
 }

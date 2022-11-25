@@ -2,8 +2,8 @@
  * Integration test for markdown-it Twitter like
  * mentions in markdown using @twittername syntax
  */
+const { describe, expect, test } = require('@jest/globals')
 const { queryByRole } = require(`@testing-library/dom`)
-
 const { axe } = require(`../../../test/jest/accessibility`)
 const { markdownItLib } = require(`../setup`)
 

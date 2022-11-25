@@ -16,7 +16,7 @@ const config: ConfigOptions = {
     name: 'NODE',
     color: 'blue',
   },
-  bail: 1,
+  // bail: 1,  // showing as unknown config value, broken on Jest update?
   /** Jest will make the path to this directory the <rootDir> for all paths */
   rootDir: './../../',
 

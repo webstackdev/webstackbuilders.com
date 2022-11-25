@@ -26,7 +26,7 @@
       "runtimeVersion": "17.5.0"
     },
     {
-      "name": "gulp-task",
+      "name": "gulp-task-build-html-debug",
       "type": "node",
       "request": "launch",
       "program": "${workspaceRoot}/node_modules/.bin/gulp",
@@ -45,8 +45,8 @@
       "stopOnEntry": false,
       "args": [
         //"src/assets/script/modals/cookieConsent/__tests__/getters.spec.ts",
-        "src/assets/script/modals/cookieConsent/__tests__/getters.spec.ts",
-        "--projects=test/jest/jest.config.jsdom.ts"
+        "test/jest/__tests__/node-env/tasks.spec.ts",
+        "--projects=test/jest/jest.config.node.ts"
       ],
       "cwd": "${workspaceRoot}",
       "env": { "TS_NODE_PROJECT": "tsconfig.jest.json" },

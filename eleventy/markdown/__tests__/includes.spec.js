@@ -1,7 +1,8 @@
 /**
  * Integration test for markdown includes plugin
  */
-const { queryByRole, queryByText } = require(`@testing-library/dom`)
+const { describe, expect, test } = require('@jest/globals')
+const { queryByRole } = require(`@testing-library/dom`)
 const { axe } = require(`../../../test/jest/accessibility`)
 const { markdownItLib } = require(`../setup`)
 

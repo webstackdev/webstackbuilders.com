@@ -1,6 +1,7 @@
 /**
  * Unit tests for shortcode for social image for page
  */
+const { describe, expect, test } = require('@jest/globals')
 const { pageSocialImg } = require('../pageSocialImg')
 const { eleventyConfig } = require('../../__fixtures__/eleventyConfig')
 

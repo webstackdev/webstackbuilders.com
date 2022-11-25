@@ -1,10 +1,7 @@
 /**
  * This file is called from within a worker thread when a task is executed
  */
-import * as workerPool from './pool'
-import type { EleventyJson } from './pool'
-
-const { getWorkerPool } = workerPool
+import { getWorkerPool } from './pool'
 
 export const tsCompile = async (entryFile: string) => {
   return (await getWorkerPool().getStaticPool().exec({
@@ -17,7 +14,7 @@ export const loadHtmlTemplate = async (templatePath: string) => {
   return (await getWorkerPool().getStaticPool().exec({
     helperType: 'loadHtmlTemplate',
     inputPath: templatePath,
-  })) as unknown as Promise<EleventyJson>
+  })) as unknown as Promise<string>
 }
 
 export const cleanup = async () => {

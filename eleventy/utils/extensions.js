@@ -50,8 +50,8 @@ const getExtensionFnName = extensionType => {
  * @returns {function(...*): NodeJS.ReadWriteStream} curried function with `eleventyConfig` set as the first parameter
  */
 const curryExtension = (extensionType, extensionName) => {
-  // eslint-disable-next-line security/detect-object-injection
-  return _.curry(_eleventySetup[extensionType][extensionName])(_eleventyConfig)
+  const handler = _eleventySetup[extensionType][extensionName]
+  return _.curry(handler)(_eleventyConfig)
 }
 
 /**
@@ -62,7 +62,6 @@ const curryExtension = (extensionType, extensionName) => {
  * @param {string} extensionType the type of extension from `extensionTypes`, like `filters`.
  */
 const addExtensionsByType = extensionType => {
-  // eslint-disable-next-line security/detect-object-injection
   const extensions = _eleventySetup[extensionType]
   /** Bail if no extensions for the given type are pulled into the 'eleventySetup' object */
   if (!extensions || extensions.length == 0) return
@@ -76,7 +75,7 @@ const addExtensionsByType = extensionType => {
       )
     } catch (err) {
       throw new Error(
-        `Error adding extension '${extensionName}' for type '${extensionType}'.\nDoes it handle the first curried parameter 'eleventyConfig'?`
+        `Error adding extension '${extensionName}' for type '${extensionType}'.\nDoes it handle the first curried parameter 'eleventyConfig'? Error message:\n${err}`
       )
     }
   })

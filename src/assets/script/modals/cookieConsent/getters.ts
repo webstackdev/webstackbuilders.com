@@ -13,7 +13,6 @@ export const getCookieConsentWrapper = () => {
   return wrapper
 }
 
-/** Gets the close HTMLButtonElement */
 export const getCookieConsentCloseBtn = () => {
   const closeBtn = document.querySelector(`.cookie-modal__close-btn`)
   if (!isButtonElement(closeBtn)) {
@@ -24,7 +23,6 @@ export const getCookieConsentCloseBtn = () => {
   return closeBtn
 }
 
-/** Gets the HTMLButtonElement wrapping the cookie consent modal */
 export const getCookieConsentAllowLink = () => {
   const allowLink = document.querySelector(`.cookie-modal__link-allow`)
   if (!isAnchorElement(allowLink)) {
@@ -35,13 +33,32 @@ export const getCookieConsentAllowLink = () => {
   return allowLink
 }
 
-/** Gets the HTMLButtonElement wrapping the cookie consent modal */
 export const getCookieConsentAllowBtn = () => {
   const allowBtn = document.querySelector(`.cookie-modal__btn-allow`)
   if (!isButtonElement(allowBtn)) {
     throw new ClientScriptError(
-      `Cookie consent close button with class 'cookie-modal__btn-allow' not found`
+      `Cookie consent 'Allow All' button with class 'cookie-modal__btn-allow' not found`
     )
   }
   return allowBtn
+}
+
+export const getCookieConsentCustomizeLink = () => {
+  const customizeLink = document.querySelector(`.cookie-modal__link-customize`)
+  if (!isAnchorElement(customizeLink)) {
+    throw new ClientScriptError(
+      `Cookie consent 'Customize' link with class 'cookie-modal__link-customize' not found`
+    )
+  }
+  return customizeLink
+}
+
+export const getCookieConsentCustomizeBtn = () => {
+  const customizeBtn = document.querySelector(`.cookie-modal__btn-customize`)
+  if (!isButtonElement(customizeBtn)) {
+    throw new ClientScriptError(
+      `Cookie consent 'Customize' button with class 'cookie-modal__btn-customize' not found`
+    )
+  }
+  return customizeBtn
 }

@@ -1,8 +1,8 @@
 /**
  * Integration test for table of contents markdown-it plugin
  */
+const { describe, expect, test } = require('@jest/globals')
 const { queryAllByRole, within } = require(`@testing-library/dom`)
-
 const { axe } = require(`../../../test/jest/accessibility`)
 const { markdownItLib } = require(`../setup`)
 

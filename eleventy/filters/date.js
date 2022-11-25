@@ -28,11 +28,8 @@ exports.dateToFormat = (_, date, format = "LLL dd', 'yyyy") => {
  * @param date
  * @param format
  */
-exports.readableDate = (_, date, format) => {
+exports.readableDate = (_, date, format = "LLL dd', 'yyyy") => {
   const datetimeObj = DateTime.fromJSDate(date, { zone: 'utc' })
-  if (!format) {
-    format = datetimeObj.hour + datetimeObj.minute > 0 ? 'dd LLL yyyy - HH:mm' : 'dd LLL yyyy'
-  }
   return datetimeObj.toFormat(format)
 }
 

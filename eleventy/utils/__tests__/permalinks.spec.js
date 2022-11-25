@@ -1,3 +1,4 @@
+const { describe, expect, test } = require('@jest/globals')
 const { getPermalinkPath, normalizeFilePathStem } = require('../permalinks')
 
 describe(`Format the file path stem given by Eleventy`, () => {
