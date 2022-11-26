@@ -29,7 +29,7 @@ const config: PlaywrightTestConfig = {
   reporter: 'html',
   /* Launch a development web server during the tests. */
   webServer: {
-    command: 'yarn serve',
+    command: 'TS_NODE_PROJECT="tsconfig.gulp.json" yarn gulp start',
     url: `http://localhost:${process.env.ELEVENTY_TESTING_SERVER_PORT}`,
     /* How long to wait for the process to start up and be available in milliseconds. */
     timeout: 120 * 1000,

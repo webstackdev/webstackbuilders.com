@@ -21,7 +21,7 @@ module.exports = {
     cover: data => getCoverImageFilePath(data), // relative
     permalink: function (data) {
       return this.getPermalinkPath(data)
-    }, // absolute
+    },
   },
   featured: false,
 }

@@ -1,0 +1,64 @@
+---
+title: 'Case Studies'
+date: 2021-03-31
+tags: case-studies
+layout: base
+permalink: "/case-studies/"
+eleventyNavigation:
+  key: case-studies
+  title: 'Case Studies'
+  order: 2
+---
+<div class="page page--blog">
+  <header class="page__header">
+    <h1 class="page__title">{{ title }}</h1>
+  </header>
+
+  <div class="page__content">
+    {%- set casestudieslist = collections.casestudies -%}
+    <ol reversed class="articlelist" start="{{ casestudieslist.length }}">
+      {% for casestudy in casestudieslist | reverse %}
+        <li class="articlelist__item h-entry {% if casestudy.data.draft %}articlelist__item--draft{% endif %}">
+          <h2 class="articlelist__title p-name">
+            <a
+              href="{{ casestudy.url | url }}"
+              class="articlelist__link u-url"
+              rel="bookmark"
+            >
+              {{ casestudy.data.title }}
+            </a>
+          </h2>
+
+          <div class="articlelist__meta">
+            <time class="articlelist__date dt-published" datetime="{{ casestudy.date | dateToISO }}">
+              {{ casestudy.date | readableDate }}
+            </time>
+
+            {% if casestudy.data.tags %}
+              <span aria-hidden="true">&sdot;</span>
+              <span class="articlelist__tags p-category">
+                {{ casestudy.data.tags|join(', ') }}
+              </span>
+            {% endif %}
+          </div>
+
+          <p class="articlelist__excerpt p-summary">
+            {% if casestudy.data.description %}
+              {{ casestudy.data.description }}
+              {% set hasDescription = true %}
+            {% endif %}
+            {%- if casestudy.data.page.excerpt and (hasDescription !== true) -%}
+              {% renderTemplate "md" %}
+                {{ casestudy.data.page.excerpt }}
+              {% endrenderTemplate %}
+              {% set hasExcerpt = true %}
+            {%- endif -%}
+            {%- if (hasExcerpt !== true) and (hasDescription !== true) -%}
+              <p>Should throw an error, if reached here it's because the page has no description set in the front matter and no excerpt separator set in the content body.</p>
+            {%- endif -%}
+          </p>
+        </li>
+      {% endfor %}
+    </ol>
+  </div>
+</div>

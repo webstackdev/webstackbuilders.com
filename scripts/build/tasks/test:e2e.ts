@@ -6,7 +6,7 @@ import run from 'gulp-run-command'
 import { log } from '../utils'
 
 const task: TaskFunction = async done => {
-  log(`Running unit tests with Jest`)
+  log(`Running end-to-end tests with Playwright`)
   try {
     await run('playwright test')()
     done()

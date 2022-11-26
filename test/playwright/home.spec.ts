@@ -1,3 +1,6 @@
+/**
+ * Home page end-to-end integration tests
+ */
 import { expect, test } from '@playwright/test'
 
 test('Home page title properly set', async ({ page }) => {

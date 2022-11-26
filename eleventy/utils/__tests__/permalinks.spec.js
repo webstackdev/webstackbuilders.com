@@ -17,6 +17,6 @@ describe(`Builds a permalink from the page object provided by Eleventy`, () => {
         outputFileExtension: `html`,
       },
     }
-    expect(getPermalinkPath(data)).toBe(`articles/helloworld/helloworld.html`)
+    expect(getPermalinkPath(data)).toBe(`articles/helloworld/`)
   })
 })

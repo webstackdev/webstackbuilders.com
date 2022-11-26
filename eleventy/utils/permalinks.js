@@ -23,9 +23,5 @@ exports.normalizeFilePathStem = normalizeFilePathStem
  * @returns {string} - the relative path to the web page
  */
 exports.getPermalinkPath = data => {
-  const filePathStem = normalizeFilePathStem(data.page.filePathStem)
-  const fileSlug = data.page.fileSlug
-  const fileExtension = data.page.outputFileExtension
-
-  return `${filePathStem}${fileSlug}.${fileExtension}`
+  return normalizeFilePathStem(data.page.filePathStem)
 }
