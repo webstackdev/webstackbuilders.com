@@ -2,6 +2,7 @@
  * Grid breakpoints: defines the minimum and maximum dimensions at which the layout
  * will change, adapting to different screen sizes, for use in media queries.
  */
+// @NOTE: If these are changed, update the values in sass-true test at __tests__/mixins.spec.scss
 $breakpoints: (
   md: 670px,
   lg: 940px,
@@ -20,6 +21,7 @@ $container-narrow-max-width: 41rem;
 $z-layers: (
   // Used for PWA titlebar in stand-alone desktop app display mode
   'titlebar': 9999,
+  // Modal floats above navigation and overlays
   'modal': 999,
   // Navigation floats above main content
   'nav': 100,

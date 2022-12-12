@@ -1,0 +1,9 @@
+/**
+ * 404 Page Not Found error page
+ */
+.article-header {
+  /** Wrapper class over title, meta, Date, Time to Read, Tags, and Draft Status */
+  &__header {
+    @extend .page__header;
+  }
+}

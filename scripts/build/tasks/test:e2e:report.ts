@@ -8,7 +8,7 @@ import { log } from '../utils'
 const task: TaskFunction = async done => {
   log(`Show test reports in browser, run this after running Playwright test runner`)
   try {
-    await run('playwright show-report')()
+    await run('playwright show-report .cache/playwright/reports')()
     done()
     return
   } catch (err) {

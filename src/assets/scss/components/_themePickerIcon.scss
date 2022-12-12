@@ -4,10 +4,12 @@
   @supports (color: var(--fake-var)) {
     display: flex;
   }
-  @include mq(md) {
+
+  @include media-query-mobile-first(md) {
     margin-right: 2rem;
   }
-  @include mq(lg) {
+
+  @include media-query-mobile-first(lg) {
     margin-left: 1rem;
     margin-right: 0;
     order: initial;

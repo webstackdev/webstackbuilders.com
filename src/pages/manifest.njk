@@ -11,12 +11,12 @@ eleventyExcludeFromCollections: true
   "short_name": "{{ site.name }}",
   "icons": [
     {
-      "src": "/images/favicon/favicon-webapp-192x192.png",
+      "src": "/{{ buildPaths.manifestIconSmallFilename }}",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "/images/favicon/favicon-webapp-512x512.png",
+      "src": "/{{ buildPaths.manifestIconLargeFilename }}",
       "sizes": "512x512",
       "type": "image/png"
     }

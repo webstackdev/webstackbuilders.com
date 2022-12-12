@@ -55,6 +55,31 @@ function excerpt(post){
 {% endfor %}
 ```
 
+## @TODO: Use Confetti on CTA forms
+
+`canvas-confetti`
+https://github.com/catdad/canvas-confetti
+https://www.kirilv.com/canvas-confetti/
+
+
+## @TODO: Use the Page Visibility API to stop unnecessary processes when the user doesn’t see the page or, on the other hand, to perform background actions. Some specific cases can be to pause videos, image carousels, or animations when the user leaves the page.
+
+## @TODO: Add to Calendar button
+
+https://github.com/add2cal/add-to-calendar-button
+https://add-to-calendar-button.com/
+
+## @TODO: Use a grid of cards for mobile nav menu, like the Windows start menu
+
+Also instead of just displaying a Back button, we can stack all the previous sections like a breadcrumb under each other. And so we get a navigation stack.
+
+## @TODO: Add Check HTML Links to test workflow
+
+npm i -D check-html-links
+npx check-html-links _site
+https://github.com/modernweb-dev/rocket/tree/main/packages/check-html-links
+
+
 ## Preload hero images, usually loaded after stylesheets and fonts
 
 ```font
@@ -197,6 +222,21 @@ clear && TS_NODE_PROJECT="tsconfig.jest.json" yarn jest eleventy/nunjucksAsyncSh
 clear && egrep -rnw './' --exclude-dir=node_modules --exclude-dir=.yarn -e 'searchString'
 ```
 
+```bash
+npx jest --clearCache
+```
+
+Problem with installing sharp, recommended install. See jest.setup.jsdom.ts
+```bash
+npm install --platform=linux --arch=x64 sharp
+```
+
+```tyepscript
+import routes from 'https://example.com/routes.json' assert { type: 'json' };
+
+import './global.css' assert { type: 'css' }
+```
+
 ## Nice Jest packages
 
 - jest-json-schema Provides `toMatchSchema(schema)` matcher
@@ -207,6 +247,7 @@ clear && egrep -rnw './' --exclude-dir=node_modules --exclude-dir=.yarn -e 'sear
 - jest-fetch-mock
 - jest-wake-lock-mock If using navigator.wakelock to keep a mobile device from dimming or powering down to save battery
 -   Mocks out window.location and avoids errors with window.location.assign, reload, or replace
+- jest-image-snapshot https://github.com/americanexpress/jest-image-snapshot @TODO: use for social share cards!
 
 ## Nice ESLint packages for Jest
 - eslint-plugin-jest-extended Rules for `jest-extended` like `.toBeTrue()`, but having problem with types for the `jest-extended` matchers

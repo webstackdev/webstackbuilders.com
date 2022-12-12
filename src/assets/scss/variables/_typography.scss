@@ -1,0 +1,22 @@
+/**
+ * Typography variables: font, line-height, and color for body text, headings, etc.
+ */
+
+$font-size-root: 100%;
+$font-size-base: 1rem;
+
+$line-height: 1.625;
+
+// @NOTE: See scss/base/_fonts.scss for font-face definitions like Onest Regular
+
+/** Base Sans Serif Font */
+$font-family-sans-serif: 'Onest Regular', sans-serif;
+
+/** Base Serif Font */
+$font-family-serif: 'Lora Regular', serif;
+
+/** Base Monospace Font */
+$font-family-monospace: 'IBM Plex Mono Regular', monospace;
+
+/** Convenience alias so the base font can be set to anything */
+$font-family-base: $font-family-sans-serif;

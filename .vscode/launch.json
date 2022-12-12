@@ -1,7 +1,13 @@
 {
   "version": "0.2.0",
   "configurations": [
-
+    {
+      "name": "Launch localhost",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:8081/index.html",
+      "webRoot": "${workspaceFolder}/public"
+    },
     {
       "name": "eleventy-build",
       "type": "node",
@@ -26,12 +32,12 @@
       "runtimeVersion": "17.5.0"
     },
     {
-      "name": "gulp-task-build-html-debug",
+      "name": "gulp-task-build-manifest-icons",
       "type": "node",
       "request": "launch",
       "program": "${workspaceRoot}/node_modules/.bin/gulp",
       "stopOnEntry": false,
-      "args": ["build:html:debug"],
+      "args": ["build:manifest-icons"],
       "cwd": "${workspaceRoot}",
       "env": { "TS_NODE_PROJECT": "tsconfig.gulp.json" },
       "console": "internalConsole",
@@ -45,8 +51,9 @@
       "stopOnEntry": false,
       "args": [
         //"src/assets/script/modals/cookieConsent/__tests__/getters.spec.ts",
-        "test/jest/__tests__/node-env/tasks.spec.ts",
-        "--projects=test/jest/jest.config.node.ts"
+        //"test/jest/__tests__/node-env/tasks.spec.ts",
+        "src/assets/script/modules/themePicker/__tests__/setup.spec.ts",
+        "--projects=test/jest/jest.config.jsdom.ts"
       ],
       "cwd": "${workspaceRoot}",
       "env": { "TS_NODE_PROJECT": "tsconfig.jest.json" },

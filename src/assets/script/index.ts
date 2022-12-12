@@ -1,15 +1,19 @@
 /**
  * Site script. All scripts to include in the site must be included here.
  */
-import { addAllLoaderEventListeners, addErrorEventListeners } from './utils/listeners'
+import { addAllLoaderEventListeners } from './utils/loaders'
+import { addErrorEventListeners } from './utils/errorListeners'
 import type { ScriptInit } from './@types/general'
 /** Client scripts */
 import { heroSvgAnimation } from './animations'
-import { showCookieConsentModal } from './modals/cookieConsent'
+//import { initImagesLazyLoad } from './modules/lazyload'
+//import { showCookieConsentModal } from './modals/cookieConsent'
 //import { registerShareHighlight } from './modules/share-highlight'
-//import { setupNavigation } from './modules/navigation'
-//import { setupThemeSwitcher } from './modules/themepicker'
-//import { registerServiceWorker } from './utils/externalScripts'
+import { setupNavigation } from './modules/navigation'
+import { setupThemePicker } from './modules/themePicker'
+//import { registerServiceWorker } from './modules/serviceWorker/registerer'
+
+// @TODO: Are there any tasks that we need to pause using visibility API like animations when user leaves page? See modules/visibility.ts
 
 /**
  * Scripts to execute when the Load event fires. Load event fires when all assets loaded,
@@ -28,9 +32,10 @@ export const scriptsFiredOnLoaded: ScriptInit[] = [
  */
 export const scriptsFiredOnDomLoaded: ScriptInit[] = [
   heroSvgAnimation,
+  //initImagesLazyLoad,
   //registerShareHighlight,
-  //setupNavigation,
-  //setupThemeSwitcher,
+  setupNavigation,
+  setupThemePicker,
 ]
 
 /**
@@ -38,7 +43,7 @@ export const scriptsFiredOnDomLoaded: ScriptInit[] = [
  * or after a delay (default 5 seconds), whichever occurs first.
  */
 export const scriptsFiredOnUserInteraction: ScriptInit[] = [
-  showCookieConsentModal,
+  //showCookieConsentModal,
 ]
 
 /** Add global load event handlers */

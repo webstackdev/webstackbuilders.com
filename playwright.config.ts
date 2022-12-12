@@ -6,9 +6,10 @@ import { devices } from '@playwright/test'
  */
 const config: PlaywrightTestConfig = {
   testDir: './test/playwright',
-  /* Folder for test artifacts such as screenshots, videos, traces, etc. */
-  outputDir: './test/playwright/reports/',
-  /* Maximum time one test can run for. */
+  testMatch: '**/*.spec.ts',
+  /** Folder for test artifacts such as screenshots, videos, traces, etc. */
+  outputDir: '.cache/playwright/output/',
+  /** Maximum time one test can run for. */
   timeout: 30 * 1000,
   expect: {
     /**
@@ -17,34 +18,40 @@ const config: PlaywrightTestConfig = {
      */
     timeout: 5000,
   },
-  /* Run tests in files in parallel */
+  /** Run tests in files in parallel */
   fullyParallel: true,
-  /* Fail the build on CI if you accidentally left test.only in the source code. */
+  /** Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
-  /* Retry on CI only */
+  /** Retry on CI only */
   retries: process.env.CI ? 2 : 0,
-  /* Opt out of parallel tests on CI. */
+  /** Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
-  /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: 'html',
-  /* Launch a development web server during the tests. */
+  /**
+   * Reporter to use. 'github' for GitHub Actions CI to generate annotations.
+   * See https://playwright.dev/docs/test-reporters
+   */
+  reporter: process.env.CI ? 'github' : [['html', { outputFolder: '.cache/playwright/reports/' }]],
+  /** Launch a development web server during the tests. */
   webServer: {
     command: 'TS_NODE_PROJECT="tsconfig.gulp.json" yarn gulp start',
     url: `http://localhost:${process.env.ELEVENTY_TESTING_SERVER_PORT}`,
-    /* How long to wait for the process to start up and be available in milliseconds. */
+    /** How long to wait for the process to start up and be available in milliseconds. */
     timeout: 120 * 1000,
     reuseExistingServer: !process.env.CI,
   },
-  /* Shared settings for all the projects below. */
+  /** Shared settings for all the projects below. */
   use: {
-    /* Maximum time each action such as `click()` can take. Defaults to 0 (no limit). */
+    /** Maximum time each action such as `click()` can take. Defaults to 0 (no limit). */
     actionTimeout: 0,
-    /* Base URL to use in actions like `await page.goto('/')`. */
+    /** Base URL to use in actions like `await page.goto('/')`. */
     baseURL: `http://localhost:${process.env.ELEVENTY_TESTING_SERVER_PORT}`,
-    /* Collect trace when retrying the failed test. */
+    ignoreHTTPSErrors: true,
+    /** Capture screenshot after each test failure, other options are 'on' and 'off'. */
+    screenshot: 'only-on-failure',
+    /** Collect trace when retrying the failed test. */
     trace: 'on-first-retry',
   },
-  /* Configure projects for major browsers */
+  /** Configure projects for major browsers */
   projects: [
     {
       name: 'chromium',
@@ -64,7 +71,7 @@ const config: PlaywrightTestConfig = {
         ...devices['Desktop Safari'],
       },
     },
-    /* Test against mobile viewports. */
+    /** Test against mobile viewports. */
     {
       name: 'Mobile Chrome',
       use: {
@@ -77,7 +84,7 @@ const config: PlaywrightTestConfig = {
         ...devices['iPhone 12'],
       },
     },
-    /* Test against branded browsers. */
+    /** Test against branded browsers. */
     {
       name: 'Microsoft Edge',
       use: {

@@ -3,13 +3,16 @@
     margin: 0 0.6cm 0 0.6cm;
     padding: 3mm 0;
   }
+
   body {
     color: #222;
   }
+
   img::after,
   img::before {
     display: none !important;
   }
+
   body::after {
     content: ' ';
     //background: 
@@ -17,15 +20,19 @@
     height: 0;
     clear: both;
   }
+
   .feature-panel {
     display: none;
   }
+
   body {
     display: block;
   }
+
   a[href] {
     text-decoration: underline !important;
   }
+
   a {
     text-shadow: none !important;
     background: 0 0 !important;

@@ -1,3 +1,7 @@
+/**
+ * Theme picker modal that slides in from top and sticks there
+ */
+
 .themepicker {
   display: block;
   width: 100%;
@@ -13,8 +17,8 @@
     max-height: 11rem;
   }
 
+  /** H3 */
   &__title {
-    font-family: $font-family-sans-serif;
     font-size: 1em;
     text-transform: uppercase;
     text-align: center;
@@ -23,6 +27,7 @@
     padding: 2rem 1.5rem 0;
   }
 
+  /** UL */
   &__list {
     display: block;
     width: 100%;
@@ -32,19 +37,21 @@
     text-align: center;
     -webkit-overflow-scrolling: touch;
     padding: 1rem 1.5rem 2rem;
-    scrollbar-color: var(--color-border) var(--color-bg-offset);
 
     &::-webkit-scrollbar {
       height: 8px;
     }
+
     &::-webkit-scrollbar-thumb {
       background: var(--color-border);
     }
+
     &::-webkit-scrollbar-track {
       background: var(--color-bg-offset);
     }
   }
 
+  /** LI */
   &__item {
     display: inline-block;
     position: relative;
@@ -61,6 +68,7 @@
       box-shadow: $box-shadow;
       z-index: 1;
     }
+
     &.is-active {
       z-index: 1;
       transform: scale(1);
@@ -82,7 +90,8 @@
     }
   }
 
-  &__btn {
+  /** Button wraps the theme item card */
+  &__selectBtn {
     display: block;
     padding: 1em;
     border-radius: 0.5em;
@@ -92,11 +101,13 @@
     background-color: var(--color-bg);
   }
 
+  /** Theme item name */
   &__name {
     display: block;
     color: var(--color-text);
   }
 
+  /** Group of colors shown on the theme item card for the theme */
   &__palette {
     display: block;
     padding: 0.125em 0;
@@ -138,6 +149,7 @@
     }
   }
 
+  /** Close button for the theme picker header modal */
   &__close {
     display: flex;
     position: absolute;

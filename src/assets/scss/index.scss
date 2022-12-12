@@ -1,16 +1,21 @@
 @charset "UTF-8";
 
-/** General SCSS */
+/** Variables SCSS */
 @import 'variables/animations';
 @import 'variables/colors';
 @import 'variables/sizes';
-@import 'variables/themes';
+@import 'variables/typography';
 
-/** Utility SCSS */
+/** Reset comes first once SASS variables are set */
+@import 'base/reset';
+
+/** Utility SCSS comes before production SCSS stylings */
 @import 'utils/functions';
 @import 'utils/mixins';
-@import 'utils/spinner';
-@import 'utils/utility';
+@import 'utils/themes';
+
+/** Animations SCSS */
+@import 'animations/spinner';
 
 /** Base SCSS */
 @import 'base/accessibility';
@@ -19,11 +24,10 @@
 @import 'base/fonts';
 @import 'base/form';
 @import 'base/layout';
+@import 'base/print';
+@import 'base/typography'; // must be before` markdown` and `page` due to `body-text()` mixin
 @import 'base/markdown';
 @import 'base/page';
-@import 'base/print';
-@import 'base/reset';
-@import 'base/typography';
 
 /** Components SCSS */
 @import 'components/callout';
@@ -32,7 +36,7 @@
 @import 'components/header';
 @import 'components/hero';
 @import 'components/logo';
-@import 'components/nav';
+@import 'components/navigation';
 @import 'components/responsiveImage';
 @import 'components/sharer';
 @import 'components/signup';
@@ -50,13 +54,22 @@
 @import 'modals/cookieConsent';
 @import 'modals/cookieCustomize';
 
+/** Modules SCSS */
+@import 'modules/testimonials';
+
 /** Page SCSS */
 @import 'pages/about';
 @import 'pages/articles/featured';
 @import 'pages/articles/item';
 @import 'pages/articles/list';
 @import 'pages/articles/other';
-@import 'pages/testimonials';
+@import 'pages/case_studies/item';
+@import 'pages/case_studies/list';
+@import 'pages/contact';
+@import 'pages/home';
+@import 'pages/services/item';
+@import 'pages/services/list';
+@import 'pages/404';
 
 /** Vendor SCSS */
 @import 'vendor/codetab';

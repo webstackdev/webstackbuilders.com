@@ -22,6 +22,8 @@
     padding: 0;
     white-space: nowrap;
     overflow: auto;
+    /** Not supported by Safari on iOS */
+    -webkit-user-select: none;
     user-select: none;
     border-bottom: 1px solid rgb(240, 240, 240);
   }
@@ -32,6 +34,8 @@
   }
   label {
     cursor: pointer;
+    /** Not supported by Safari on iOS */
+    -webkit-user-select: none;
     user-select: none;
     display: inline-block;
     padding: 2px 5px;

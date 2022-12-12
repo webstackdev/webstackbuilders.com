@@ -128,11 +128,17 @@ exports.rssFeedBuildFilename = rssFeedBuildFilename
 /**
  * Source SVG file to use for generating favicon files
  */
-const faviconSvgSourceFilename = `${imagesSourceDir}/site/favicon.svg`
+const faviconSvgSourceFilename = `${imagesSourceDir}/site/logo.svg`
 exports.faviconSvgSourceFilename = faviconSvgSourceFilename
 
-const faviconSvgBuildDir = `${buildDir}/favicons`
+const faviconSvgBuildDir = `${imagesBuildDir}/favicons`
 exports.faviconSvgBuildDir = faviconSvgBuildDir
+
+const manifestIconSmallFilename = `favicon-webapp-192x192.png`
+exports.manifestIconSmallFilename = manifestIconSmallFilename
+
+const manifestIconLargeFilename = `favicon-webapp-512x512.png`
+exports.manifestIconLargeFilename = manifestIconLargeFilename
 
 /**
  * The build paths that will be removed by the `util:clean` task before starting a new build
@@ -149,6 +155,7 @@ const buildPathsToCreate = [
   fontsBuildDir,
   imagesBuildDir,
   socialImagesBuildDir,
+  faviconSvgBuildDir,
   tmpDir,
 ]
 exports.buildPathsToCreate = buildPathsToCreate

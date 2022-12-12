@@ -11,6 +11,8 @@
   text-align: center;
   text-transform: uppercase;
   transition: all 0.2s ease-in-out;
+  /** Not supported by Safari on iOS */
+  -webkit-user-select: none;
   user-select: none;
   vertical-align: middle;
   white-space: nowrap;
@@ -31,7 +33,8 @@
   transform: translateY(0);
   transition: all 0.15s ease;
 
-  @include hover-focus {
+  &:hover,
+  &:focus {
     background-color: var(--color-primary-offset);
     box-shadow: 0 7px 14px rgba(50, 50, 50, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
     color: #fff;
@@ -49,7 +52,8 @@
   background-color: var(--color-secondary);
   @extend .btn--primary;
 
-  @include hover-focus {
+  &:hover,
+  &:focus {
     background-color: var(--color-secondary-offset);
     color: #fff;
   }
@@ -68,20 +72,23 @@
     transform: translateX(-50%);
   }
 
-  @include hover-focus {
+  &:hover,
+  &:focus {
     color: #1da1f2;
     background-color: transparent;
   }
 }
 
 .icon-btn {
-  @include button-reset;
   align-items: center;
+  background-color: transparent;
   background-color: var(--color-bg-offset);
   border-radius: 50%;
+  border: 0;
   color: var(--color-text);
   height: 3rem;
   justify-content: center;
+  padding: 0;
   text-align: center;
   width: 3rem;
 
@@ -89,7 +96,8 @@
     margin: auto; // iOS Safari compat
   }
 
-  @include hover-focus {
+  &:hover,
+  &:focus {
     filter: brightness(0.95) saturate(140%);
   }
 }

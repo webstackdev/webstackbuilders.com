@@ -29,4 +29,6 @@ export const openCity = (evt: Event, cityName) => {
 document.getElementById('defaultOpen').click()
 */
 
-export const showCookieCustomizeModal = () => {}
+export const showCookieCustomizeModal = () => {
+  console.log(`implement showCookieCustomizeModal`)
+}

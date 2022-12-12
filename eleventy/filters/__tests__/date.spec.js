@@ -26,6 +26,6 @@ describe(`format date filter tests`, () => {
   })
 
   test(`readable date filter hits happy path`, () => {
-    expect(readableDate(undefined, TestDate).toString()).toMatch(/31 Mar 2021/)
+    expect(readableDate(undefined, TestDate).toString()).toMatch(/March 31, 2021/)
   })
 })

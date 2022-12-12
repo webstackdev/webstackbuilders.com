@@ -80,11 +80,11 @@ const pluginOptions = {
   '@sardine/eleventy-plugin-external-links': undefined,
 
   /**
-   * Generate a set of favicon icons from a single image file.
+   * Generate `favicon.ico` and `apple-touch-icon.png` and html link tags for favicon icons.
    */
   'eleventy-favicon': {
-    /** The build directory and where the icon files will be copied over to */
-    destination: buildPaths.imagesBuildDir,
+    /** The output directory where the icon files will be copied over to */
+    destination: buildPaths.faviconSvgBuildDir,
   },
 
   /**

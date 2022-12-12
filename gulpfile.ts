@@ -16,6 +16,7 @@ import buildHtmlCompress from './scripts/build/tasks/build:html:compress'
 import buildHtmlMinify from './scripts/build/tasks/build:html:minify'
 import buildImages from './scripts/build/tasks/build:images'
 import buildLambda from './scripts/build/tasks/build:lambda'
+import buildManifestIcons from './scripts/build/tasks/build:manifest-icons'
 import buildScript from './scripts/build/tasks/build:script'
 import buildServiceworker from './scripts/build/tasks/build:service-worker'
 import buildSocialImages from './scripts/build/tasks/build:social-images'
@@ -31,6 +32,7 @@ task(`build:html:minify`, buildHtmlMinify)
 task(`build:html`, buildHtml)
 task(`build:images`, buildImages)
 task(`build:lambda`, buildLambda)
+task(`build:manifest-icons`, buildManifestIcons)
 task(`build:script`, buildScript)
 task(`build:service-worker`, buildServiceworker)
 task(`build:social-images`, buildSocialImages)
@@ -86,20 +88,24 @@ task(`stats:script`, scriptStats)
 import testAll from './scripts/build/tasks/test:all'
 import testCoverage from './scripts/build/tasks/test:coverage'
 import testE2e from './scripts/build/tasks/test:e2e'
+import testCodegenE2e from './scripts/build/tasks/test:e2e:codegen'
 import testReportE2e from './scripts/build/tasks/test:e2e:report'
 import testUpdateBrowsersE2e from './scripts/build/tasks/test:e2e:update-browsers'
 import testUnit from './scripts/build/tasks/test:unit'
+import testUnitClearCache from './scripts/build/tasks/test:unit:clear-cache'
 import testUnitCi from './scripts/build/tasks/test:unit:ci'
-import testUnitUpdateSnapshot from './scripts/build/tasks/test:unit:updateSnapshot'
+import testUnitUpdateSnapshot from './scripts/build/tasks/test:unit:update-snapshot'
 
 task(`test:all`, testAll)
 task(`test:coverage`, testCoverage)
 task(`test:e2e`, testE2e)
+task(`test:e2e:codegen`, testCodegenE2e)
 task(`test:e2e:report`, testReportE2e)
 task(`test:e2e:update-browsers`, testUpdateBrowsersE2e)
 task(`test:unit`, testUnit)
+task(`test:unit:clear-cache`, testUnitClearCache)
 task(`test:unit:ci`, testUnitCi)
-task(`test:unit:updateSnapshot`, testUnitUpdateSnapshot)
+task(`test:unit:update-snapshot`, testUnitUpdateSnapshot)
 
 /**
  * Utility tasks

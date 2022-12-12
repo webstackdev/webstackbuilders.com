@@ -1,0 +1,15 @@
+{#- Minimal reproduction of src/_layouts/base.njk -#}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {#- Pulled from src/_layouts/components/head/meta.njk -#}
+    <meta name="theme-color" content="#FFFFFF">
+    {#- Script tag to set data-theme attribute on <html> element early -#}
+    {%- include "../../../../../_layouts/components/themePicker/script.njk" %}
+  </head>
+  <body>
+    <div class="layout" role="document">
+      {% include "../../../../../_layouts/components/header.njk" %}
+    </div>
+  </body>
+</html>

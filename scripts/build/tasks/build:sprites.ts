@@ -22,6 +22,7 @@ const spriterConfig: Config = {
   shape: {
     id: {
       /** SVG shape ID generator callback */
+      // @ts-ignore signature for generator method changed and incompatible but not used in this project
       generator: 'icon-%s',
     },
     /** Path to YAML file with meta / accessibility data */
@@ -35,16 +36,19 @@ const spriterConfig: Config = {
   },
 }
 
-/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment */
 export const buildSpritesTask = lazypipe()
+  // @ts-ignore signature for generator method changed and incompatible but not used in this project
   .pipe(() => svgSprite(spriterConfig))
 
 const task: TaskFunction = () => {
   log(`Building SVG sprites`)
-  return src('**/*.svg', { cwd: spritesSourceDir })
-    .pipe(svgSprite(spriterConfig))
-    .pipe(dest(spritesBuildDir))
-    .on('finish', () => log(`Sprites compiled to ${spritesBuildDir}`))
+  return (
+    src('**/*.svg', { cwd: spritesSourceDir })
+      // @ts-ignore signature for generator method changed and incompatible but not used in this project
+      .pipe(svgSprite(spriterConfig))
+      .pipe(dest(spritesBuildDir))
+      .on('finish', () => log(`Sprites compiled to ${spritesBuildDir}`))
+  )
 }
 
 export default task

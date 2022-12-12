@@ -28,7 +28,7 @@ exports.dateToFormat = (_, date, format = "LLL dd', 'yyyy") => {
  * @param date
  * @param format
  */
-exports.readableDate = (_, date, format = "LLL dd', 'yyyy") => {
+exports.readableDate = (_, date, format = "LLLL d', 'yyyy") => {
   const datetimeObj = DateTime.fromJSDate(date, { zone: 'utc' })
   return datetimeObj.toFormat(format)
 }

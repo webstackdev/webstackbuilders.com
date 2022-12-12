@@ -1,11 +1,12 @@
 /**
  * Run Jest unit tests
  */
-import type { TaskFunction } from 'gulp'
+import { series, type TaskFunction } from 'gulp'
 import run from 'gulp-run-command'
 import { log } from '../utils'
+import testUnitClearCache from './test:unit:clear-cache'
 
-const task: TaskFunction = async done => {
+const unitTestTask: TaskFunction = async done => {
   log(`Running unit tests with Jest`)
   try {
     await run('yarn jest', {
@@ -21,5 +22,7 @@ const task: TaskFunction = async done => {
     throw err
   }
 }
+
+const task: TaskFunction = series(testUnitClearCache, unitTestTask)
 
 export default task

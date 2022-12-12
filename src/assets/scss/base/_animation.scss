@@ -1,9 +1,11 @@
 /**
- * Animation classes: default easing curves, transitions, etc
+ * Animation classes and defaults
  */
 
 .fade-in {
   animation: fadeInUp 0.5s ease;
+  /** Safari on iOS < 15.4 */
+  -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
   perspective: 1000px;
   transform: translate3d(0, 0, 0);
@@ -17,42 +19,5 @@
   100% {
     opacity: 1;
     transform: translateY(0);
-  }
-}
-
-@keyframes spinner__left-spin {
-  from {
-    transform: rotate(130deg);
-  }
-  50% {
-    transform: rotate(-5deg);
-  }
-  to {
-    transform: rotate(130deg);
-  }
-}
-
-@keyframes spinner__right-spin {
-  from {
-    transform: rotate(-130deg);
-  }
-  50% {
-    transform: rotate(5deg);
-  }
-  to {
-    transform: rotate(-130deg);
-  }
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  * {
-    animation-duration: 0s !important;
-    transition-duration: 0s !important;
   }
 }

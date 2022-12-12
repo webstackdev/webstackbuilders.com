@@ -1,0 +1,73 @@
+@import 'true';
+@import '../utils/mixins';
+@import '../variables/sizes';
+
+@include describe('media-query-mobile-first() mixin works') {
+  @include test('works for name md') {
+    @include assert {
+      @include output {
+        @include  media-query-mobile-first('md');
+      }
+      @include expect {
+        @media (min-width: 670px) {}
+      }
+    }
+  }
+
+  @include test('works for name lg') {
+    @include assert {
+      @include output {
+        @include  media-query-mobile-first('lg');
+      }
+      @include expect {
+        @media (min-width: 940px) {}
+      }
+    }
+  }
+
+  @include test('works for name xl') {
+    @include assert {
+      @include output {
+        @include  media-query-mobile-first('xl');
+      }
+      @include expect {
+        @media (min-width: 1260px) {}
+      }
+    }
+  }
+}
+
+@include describe('media-query-desktop-first() mixin works') {
+  @include test('works for name md') {
+    @include assert {
+      @include output {
+        @include  media-query-mobile-first('md');
+      }
+      @include expect {
+        @media (max-width: 669px) {}
+      }
+    }
+  }
+
+  @include test('works for name lg') {
+    @include assert {
+      @include output {
+        @include  media-query-mobile-first('lg');
+      }
+      @include expect {
+        @media (max-width: 939px) {}
+      }
+    }
+  }
+
+  @include test('works for name xl') {
+    @include assert {
+      @include output {
+        @include  media-query-mobile-first('xl');
+      }
+      @include expect {
+        @media (max-width: 1259px) {}
+      }
+    }
+  }
+}

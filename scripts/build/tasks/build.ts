@@ -14,6 +14,7 @@ import buildHtmlCompress from './build:html:compress'
 import buildHtmlMinify from './build:html:minify'
 import buildImages from './build:images'
 //import buildLambda from './build:lambda'
+import buildManifestIcons from './build:manifest-icons'
 import buildScript from './build:script'
 import buildServiceworker from './build:service-worker'
 import buildSocialImages from './build:social-images'
@@ -48,7 +49,8 @@ const postbuild: TaskFunction = series(
   socialImagesBuild,
   buildServiceworker,
   buildHtmlMinify,
-  buildHtmlCompress
+  buildHtmlCompress,
+  buildManifestIcons
 )
 
 const removeTmpDir: TaskFunction = done => {

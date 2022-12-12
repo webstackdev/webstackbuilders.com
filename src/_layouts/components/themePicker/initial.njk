@@ -1,0 +1,11 @@
+{#- Used to update the <meta name="theme-color" content="VALID_COLOR"> element when -#}
+{#- the theme is changed, that tag sets the color for e.g. the browser title bar    -#}
+<script>
+  (function() {
+    window.metaColors = {
+      {%- for theme in themes -%}
+        '{{ theme.id }}':'{{ theme.colors.backgroundOffset }}'{% if not loop.last %},{% endif %}
+      {%- endfor -%}
+    }
+  })()
+</script>

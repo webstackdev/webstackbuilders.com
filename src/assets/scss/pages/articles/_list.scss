@@ -16,7 +16,7 @@
   &__item {
       margin-bottom: 3rem;
 
-      @include mq(md) {
+      @include media-query-mobile-first(md) {
         margin-bottom: 5rem;
       }
   }

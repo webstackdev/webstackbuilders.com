@@ -8,7 +8,7 @@ import { fontsSourceDir, fontsBuildDir } from '../paths'
 
 const task: TaskFunction = () => {
   log(`Compiling fonts`)
-  return src(`${fontsSourceDir}/**/*{.woff, .woff2, .ttf}`)
+  return src(`${fontsSourceDir}/**/*.woff2`)
     .pipe(dest(fontsBuildDir))
     .on('finish', () => log(`Fonts compiled to ${fontsBuildDir}`, `yellow`))
 }

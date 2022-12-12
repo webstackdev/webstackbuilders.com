@@ -12,8 +12,10 @@
 {% favicon buildPaths.faviconSvgSourceFilename %}
 {#- Web manifest file for Progressive Web Application app usage #}
 <link rel="manifest" href="{{ '/manifest.json' | url }}">
-{#- Meta key/value pair for the theme switcher, queriable as 'meta[name="theme-color"]' #}
-<meta name="theme-color" content="#FFFFFF">
+{#- Used to sets the color of the surrounding user interface for e.g. the -#}
+{#- browser title bar. It is updated by script when the theme changes.    -#}
+{%- set default = themes|findById('default') -%}
+<meta name="theme-color" content="{{ default.colors.backgroundOffset }}">
 {#- RSS Feed #}
 <link
   type="application/rss+xml"

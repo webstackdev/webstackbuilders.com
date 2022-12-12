@@ -1,5 +1,4 @@
 declare module 'critical' {
-  /* eslint-disable tsdoc/syntax, @typescript-eslint/no-explicit-any */
   interface criticalConfig {
     /**
      * List of directories/urls where the inliner should start looking for assets
@@ -127,7 +126,6 @@ declare module 'critical' {
      */
     penthouse?: { [key: string]: any }
   }
-  /* eslint-enable tsdoc/syntax, @typescript-eslint/no-explicit-any */
 
   export function stream(params: criticalConfig): NodeJS.ReadWriteStream
 }

@@ -16,6 +16,8 @@ export const imagesBuildDir: string
 export const imagesSourceDir: string
 export const jsBuildDir: string
 export const jsSourceDir: string
+export const manifestIconSmallFilename: string
+export const manifestIconLargeFilename: string
 export const rssFeedBuildFilename
 export const scriptSourceGlobs: string[]
 export const scssSourceDir: string

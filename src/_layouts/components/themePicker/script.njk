@@ -1,0 +1,13 @@
+{#- Run this as early as possible to avoid "flash of unthemed styling"        #}
+{#- 11ty global data like storage not available when rendering individual     #}
+{#- templates in tests, so this is conditionally checked for the availability #}
+{#- of 'storage' #}
+<script>
+  const themeStorageKey = {{ storage.THEME_STORAGE_KEY }}
+  if (themeStorageKey) {
+    document.documentElement.setAttribute(
+      'data-theme',
+      localStorage.getItem(themeStorageKey)
+    )
+  }
+</script>

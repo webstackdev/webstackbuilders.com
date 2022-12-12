@@ -14,7 +14,7 @@
     }
   }
 
-  @include mq(md) {
+  @include media-query-mobile-first(md) {
     &__header {
       padding: 4rem 0;
       text-align: center;
@@ -28,7 +28,7 @@
     }
   }
 
-  @include mq(lg) {
+  @include media-query-mobile-first(lg) {
     &__header {
       padding: 5rem 0;
     }

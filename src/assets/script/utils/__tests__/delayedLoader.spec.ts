@@ -11,7 +11,7 @@ import {
 
 const getRelFixturePath = (filename: string) => `src/assets/script/utils/__fixtures__/${filename}`
 const getFixturePath = getCurriedFixturePath(__dirname)
-const templatePath = getFixturePath(`delayedLoader.njk`)
+const templatePath = getFixturePath(`htmlDoc.njk`)
 
 describe(`delayedLoader fires scripts`, () => {
   beforeEach(() => {

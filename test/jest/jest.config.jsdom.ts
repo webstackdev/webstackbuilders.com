@@ -4,6 +4,13 @@
 import commonJestConfig from './jest.config.common'
 import type { ConfigOptions } from './jest.config.common'
 
+/**
+ * Eleventy templates that end up calling 'sharp' require this workaround for
+ * worker threads, with sharp called before worker threads are initialized:
+ * https://sharp.pixelplumbing.com/install#worker-threads
+ */
+import 'sharp'
+
 const envServerPort = process.env['ELEVENTY_DEV_SERVER_PORT']
 export const devServer = envServerPort
   ? `http://localhost:${envServerPort}`
@@ -65,7 +72,11 @@ const config: ConfigOptions = {
     url: devServer,
   },
   /**  Glob patterns Jest uses to detect test files. Default shown. */
-  testMatch: ['**/__tests__/**/*.[jt]s?(x)', '**/?(*.)+(spec|test).[jt]s?(x)'],
+  testMatch: [
+    '**/__tests__/**/*.[jt]s?(x)',
+    '**/?(*.)+(spec|test).[jt]s?(x)',
+    '!**/src/assets/script/modules/serviceWorker/__tests__/**',
+  ],
   /** Skip any tests that match these regexp pattern strings */
   testPathIgnorePatterns: [],
 }

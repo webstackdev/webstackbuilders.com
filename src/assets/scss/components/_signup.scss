@@ -7,7 +7,7 @@
     display: none;
   }
 
-  @include mq(md) {
+  @include media-query-mobile-first(md) {
     font-size: 1.125rem;
   }
 
@@ -28,7 +28,7 @@
     visibility: hidden;
     z-index: 0;
 
-    @include mq(md) {
+    @include media-query-mobile-first(md) {
       padding-right: calc(40% + 2rem);
 
       &::after {
@@ -88,9 +88,8 @@
     transform: scale(1);
   }
 
-  @include mq(md) {
+  @include media-query-mobile-first(md) {
     .signup__back::after {
-      @include invert-on-dark();
       background: #fff url('/assets/images/confetti.gif') no-repeat 0 0;
     }
   }

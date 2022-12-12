@@ -88,7 +88,7 @@ const eslintConfig = {
     'jsdoc/check-tag-names': [
       level,
       {
-        definedTags: ['TODO:', 'jest-environment', 'jest-environment-options'],
+        definedTags: ['NOTE:', 'TODO:', 'jest-environment', 'jest-environment-options'],
         jsxTags: true,
       },
     ],

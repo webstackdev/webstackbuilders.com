@@ -1,7 +1,7 @@
 .markdown {
   @include body-text();
 
-  /* Vertical Rythm */
+  /* Vertical rhythm */
   > * {
     margin-bottom: 2rem;
   }
@@ -16,7 +16,8 @@
       border-bottom: 1px solid currentColor;
       box-shadow: inset 0 -2px 0 0 currentColor;
 
-      @include hover-focus {
+      &:hover,
+      &:focus {
         border-bottom-color: var(--color-primary);
         box-shadow: inset 0 -1.25em 0 0 var(--color-primary);
         color: #fff;
@@ -77,13 +78,15 @@
     &:first-child {
       margin-top: 0;
     }
-    @include hover-focus {
+    &:hover,
+    &:focus {
       > .heading-anchor {
         opacity: 0.75;
       }
     }
   }
 
+  /** Class used in Markdown setup file for the <a> anchor element */
   .heading-anchor {
     display: none;
     left: -1em;
@@ -92,11 +95,12 @@
     top: 0;
     width: 1em;
 
-    @include hover-focus {
+    &:hover,
+    &:focus {
       opacity: 1 !important;
     }
 
-    @include mq(md) {
+    @include media-query-mobile-first(md) {
       display: block;
     }
   }
@@ -149,7 +153,7 @@
       display: block;
     }
 
-    @include mq(lg) {
+    @include media-query-mobile-first(lg) {
       padding: 2rem 3rem;
     }
     @media screen and (min-width: 1040px) {
@@ -178,7 +182,7 @@
     margin: 0 auto 2rem !important;
   }
 
-  /* Basic Styles Before the JS is loaded */
+  /* Basic embedded Tweet styles before the JS is loaded */
   blockquote.twitter-tweet {
     border-color: #eee #ddd #bbb;
     border-radius: 5px;
@@ -205,7 +209,8 @@
       box-shadow: none;
       border: none;
 
-      @include hover-focus {
+      &:hover,
+      &:focus {
         box-shadow: none;
         color: $twitter-brand-primary;
         text-decoration: underline;
@@ -213,7 +218,7 @@
     }
   }
 
-  /* iframe container */
+  /* iFrame container for use on Markdown pages */
   .embed {
     height: 0;
     position: relative;
@@ -230,18 +235,30 @@
       @include coverall;
       height: 100%;
       width: 100% !important;
-      z-index: 2;
     }
   }
 
-  /* Signup Form */
+  /* Box shadow for signup form on Markdown pages */
   .signup {
     box-shadow: 14px 14px 30px -10px rgba(0, 0, 0, 0.1);
   }
 
-  /* Extends */
+  /**
+   * Usage of .extend class:
+   *
+   * <div class="extend">
+   *   <video width="960" style="margin:0 auto; border: 1px solid red;" preload controls>
+   *     <source src="https://res.cloudinary.com/bookstore_nnn2vr.webm" type="video/webm" />
+   *     <source src="https://res.cloudinary.com/bookstore_kkpxmt.mp4" type="video/mp4" />
+   *   </video>
+   * </div>
+   *
+   * <figure class="extend">
+   *   <img src="https://example.com/grid.png" style="border: 1px solid red;" alt="layout schema">
+   * </figure>
+   */
   .extend {
-    @include mq(lg) {
+    @include media-query-mobile-first(lg) {
       margin-left: -3rem;
       margin-right: -3rem;
     }

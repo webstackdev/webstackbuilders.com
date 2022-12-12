@@ -26,7 +26,7 @@
         margin-top: 2rem;
       }
 
-      @include mq(md) {
+      @include media-query-mobile-first(md) {
         padding-left: 2rem;
       }
     }

@@ -1,147 +1,25 @@
 /**
- * Visual themes used by the Theme Switcher component and script.
- * These are processed by the page template themes.njk and output
- * as /css/themes.css
+ * Visual themes used by the Theme Switcher component and script. These are used by:
+ *
+ * - The `components/themePicker/themes.njk` template that generates the theme card modal and items (`id` and `name` properties only)
+ * - The `components/head/meta.njk` to set the <meta name="theme-color" content="CSS_COLOR" /> tag used for outside-the-page UI elements by the browser (`id` and `colors.backgroundOffset` properties only)
+ * - The `components/themePicker/initial.njk` to set the window.metaColors global variable that's used to swap out the previous <meta> element when the theme is changed (`id` and `colors.backgroundOffset` properties only)
  */
+
+/** @NOTE: These need to be kept in sync with `src/assets/scss/variables/_themes.scss` */
 module.exports = [
   {
     id: 'default',
-    name: 'Classic',
+    name: 'Light',
     colors: {
-      primary: '#ff335f',
-      secondary: '#43a9a3',
-      text: '#373a3c',
-      border: '#eceeef',
-      background: '#ffffff',
-      primaryOffset: '#ff1447',
-      textOffset: '#818a91',
-      backgroundOffset: '#f7f7f9',
+      backgroundOffset: '#e2e2e2',
     },
   },
   {
     id: 'dark',
     name: 'Dark',
     colors: {
-      primary: '#ff5277',
-      secondary: '#43a9a3',
-      text: '#ffffff',
-      border: '#2d2d2d',
-      background: '#0e141b',
-      primaryOffset: '#ff2957',
-      textOffset: '#818a91',
-      backgroundOffset: '#252526',
-    },
-  },
-  {
-    id: 'beach',
-    name: 'Koopa Beach',
-    colors: {
-      primary: '#ff9d00',
-      secondary: '#bae8e8',
-      text: '#272343',
-      border: '#e3f6f5',
-      background: '#fffffe',
-      primaryOffset: '#ffca00',
-      textOffset: '#2d334a',
-      backgroundOffset: '#e3f6f5',
-    },
-  },
-  {
-    id: 'choco',
-    name: 'Choco Mountain',
-    colors: {
-      primary: '#f3ab87',
-      secondary: '#e78fb3',
-      text: '#fffffe',
-      border: '#271c19',
-      background: '#55423d',
-      primaryOffset: '#ffc0ad',
-      textOffset: '#ffc0ad',
-      backgroundOffset: '#41312E',
-    },
-  },
-  {
-    id: 'moomoo',
-    name: 'Moo Moo Farm',
-    colors: {
-      primary: '#f582ae',
-      secondary: '#8bd3dd',
-      text: '#172c66',
-      border: '#f3d2c1',
-      background: '#fef6e4',
-      primaryOffset: '#ff3d6a',
-      textOffset: '#006e8a',
-      backgroundOffset: '#f3e1d8',
-    },
-  },
-  {
-    id: 'bowser',
-    name: "Bowser's Castle",
-    colors: {
-      primary: '#7f5af0',
-      secondary: '#2cb67d',
-      text: '#fffffe',
-      border: '#383a61',
-      background: '#16161a',
-      primaryOffset: '#e068fd',
-      textOffset: '#94a1b2',
-      backgroundOffset: '#29293e',
-    },
-  },
-  {
-    id: 'yoshi',
-    name: 'Yoshi Valley',
-    colors: {
-      primary: '#99C221',
-      secondary: '#E55812',
-      text: '#41474C',
-      border: '#e8e0d9',
-      background: '#fafbf5',
-      primaryOffset: '#6E910A',
-      textOffset: '#757D84',
-      backgroundOffset: '#f2ede9',
-    },
-  },
-  {
-    id: 'rainbow',
-    name: 'Rainbow Road',
-    colors: {
-      primary: '#49f5f7',
-      secondary: '#01c317',
-      text: '#feff00',
-      border: '#d846ff',
-      background: '#140527',
-      primaryOffset: '#5dccf8',
-      textOffset: '#ff464d',
-      backgroundOffset: '#311b46',
-    },
-  },
-  {
-    id: 'lobster',
-    name: 'Lobster Life',
-    colors: {
-      primary: '#b62b2b',
-      secondary: '#fb9f13',
-      text: '#4b1313',
-      border: '#f1797c',
-      background: '#fcddd4',
-      primaryOffset: '#FF0030',
-      textOffset: '#146caa',
-      backgroundOffset: '#ffb9ad',
-    },
-  },
-  {
-    id: 'hackernews',
-    name: 'Hacker News',
-    colors: {
-      primary: '#FF6600',
-      secondary: '#FF6600',
-      text: '#000000',
-      border: '#FF6600',
-      background: '#F6F6EF',
-      primaryOffset: '#F56200',
-      textOffset: '#828282',
-      backgroundOffset: '#F8F8EC',
+      backgroundOffset: '#00386d',
     },
   },
 ]

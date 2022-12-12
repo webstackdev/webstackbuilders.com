@@ -5,6 +5,11 @@ import { isShadowRoot } from '../utils/assertions/elements'
 import { getSlotElement } from '../utils/selectors'
 import { promiseErrorHandler } from '../errors/handlers'
 
+/**
+ * @TODO: Is this using native share?
+ * The Web Share API is also among the least-known APIs but is extremely useful. It lets you access the operative system’s native sharing mechanism, which is especially useful to mobile users. With this API, you can share text, links, and files without the need to create your own sharing mechanisms or use third-party ones.
+ */
+
 interface IShareData {
   url: string
   title: string

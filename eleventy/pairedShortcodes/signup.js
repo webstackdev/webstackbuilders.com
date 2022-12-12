@@ -1,7 +1,7 @@
 const outdent = require('outdent')
 const random = require('lodash/random')
 const Icon = require('../shortcodes/icon').icon
-const Spinner = require('./utils').spinner
+const Spinner = require('./spinner').spinner
 
 const SignupForm = (_, source) => {
   const MC = {

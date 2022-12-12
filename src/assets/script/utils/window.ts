@@ -1,13 +1,14 @@
 /**
- * Determine accurate inner dimensions for the window
+ * Determine accurate inner dimensions for the window, accounting for device pixel
+ * ratio which tells the browser how many of the device's screen actual pixels should
+ * be used to draw a single CSS pixel.
  */
-import { getBodyElement, getHtmlElement } from './selectors'
-
 export const getWindowDimensions = () => {
-  const htmlElement = getHtmlElement()
-  const bodyElement = getBodyElement()
+  const height = window.innerHeight * window.devicePixelRatio
+  const width = window.innerWidth * window.devicePixelRatio
+  if (!height || !width) throw new Error(`Window screen size returned zero`)
   return {
-    width: window.innerWidth || htmlElement.clientWidth || bodyElement.clientWidth,
-    height: window.innerHeight || htmlElement.clientHeight || bodyElement.clientHeight,
+    height,
+    width,
   }
 }

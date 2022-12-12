@@ -89,7 +89,8 @@ a {
   //outline-width: 0;
   text-decoration: underline dotted var(--color-primary);
 
-  @include hover-focus {
+  &:hover,
+  &:focus {
     color: blue;
   }
 }

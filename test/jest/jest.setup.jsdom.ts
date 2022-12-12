@@ -17,13 +17,6 @@ import '@testing-library/jest-dom/extend-expect'
 /** Add mocked local and session storage */
 import 'jest-localstorage-mock'
 
-/**
- * Eleventy templates that end up calling 'sharp' require this workaround for
- * worker threads, with sharp called before worker threads are initialized:
- * https://sharp.pixelplumbing.com/install#worker-threads
- */
-import 'sharp'
-
 /** Add Axe accessibility expectations to global expect object */
 expect.extend(toHaveNoViolations)
 

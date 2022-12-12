@@ -1,9 +1,0 @@
-<script>
-  (function() {
-    window.metaColors = {
-      {%- for theme in themes -%}
-        '{{ theme.id }}':'{{ theme.colors.backgroundOffset }}'{% if not loop.last %},{% endif %}
-      {%- endfor -%}
-    }
-  })()
-</script>

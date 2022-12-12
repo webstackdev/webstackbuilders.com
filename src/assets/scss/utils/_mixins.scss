@@ -1,11 +1,11 @@
 /**
  * Prints a mobile first media query based on the name given
  *
- * @param {String} $name - Breakpoint name
- * @require $breakpoints - List of breakpoints and pixel values keyed by name, e.g. `md`
+ * @param {String} $name - Breakpoint name, defined in $breakpoints map in variables/_sizes.scss
+ * @require $breakpoints - List of breakpoints and pixel values keyed by name, e.g. `md`, `lg`, or `xl`
  * @return {String} media query for the breakpoint name provided, using passed attributes
  */
-@mixin mq($name) {
+@mixin media-query-mobile-first($name) {
   @if map-has-key($breakpoints, $name) {
     @media (min-width: map-get($breakpoints, $name)) {
       @content;
@@ -23,7 +23,7 @@
  * @require $breakpoints - List of breakpoints and pixel values keyed by name, e.g. `md`
  * @return {String} media query for the breakpoint name provided, using passed attributes
  */
-@mixin mq-down($name) {
+@mixin media-query-desktop-first($name) {
   @if map-has-key($breakpoints, $name) {
     @media (max-width: (map-get($breakpoints, $name) - 1px)) {
       @content;
@@ -34,60 +34,11 @@
   }
 }
 
-/**
- * Apply a style to :hover and :focus pseudo-classes for a selector.
- */
-@mixin hover-focus {
-  &:hover,
-  &:focus {
-    @content;
-  }
-}
-
-/**
- * Hide information intended only for screen readers from the rendered page. Useful
- * for forms that don't include a label for every input, which will cause problems
- * for screen readers. This is a Bootstrap class originally.
- */
-@mixin sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
-}
-
-/**
- * Causes the sr-only element to become visible whenever the element gets focus, and
- * hides it again when the element loses focus. This only occurs when the sr-only
- * element gets focus via the keyboard. This is a Bootstrap class originally.
- */
-@mixin sr-only-focusable {
-  &:active,
-  &:focus {
-    position: static;
-    width: auto;
-    height: auto;
-    overflow: visible;
-    clip: auto;
-    white-space: normal;
-  }
-}
-
-@mixin body-text() {
-  font-size: 1.125rem;
-  line-height: 1.65;
-  @include mq(md) {
-    font-size: 1.375rem;
-  }
-}
-
 @mixin hyphenate() {
   word-wrap: break-word;
   overflow-wrap: break-word;
+  /** Not supported by Safari on iOS */
+  -webkit-hyphens: auto;
   hyphens: auto;
 }
 
@@ -99,12 +50,9 @@
   right: 0;
 }
 
-@mixin button-reset() {
-  border: 0;
-  padding: 0;
-  background-color: transparent;
-}
-
+/**
+ * Narrow version of container class in layout
+ */
 @mixin container-narrow() {
   width: 100%;
   max-width: $container-narrow-max-width;
@@ -113,6 +61,7 @@
   margin-right: auto;
 }
 
+/** Effect used in _featured for article link */
 @mixin stretched-link() {
   &::after {
     content: '';
@@ -122,14 +71,5 @@
     left: 0;
     right: 0;
     z-index: 1;
-  }
-}
-
-@mixin invert-on-dark() {
-  html[data-theme='dark'] &,
-  html[data-theme='turnpike'] &,
-  html[data-theme='bowser'] &,
-  html[data-theme='rainbow'] & {
-    filter: invert(1);
   }
 }

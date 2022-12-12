@@ -1,0 +1,1 @@
+export { setupNavigation } from './navigation'

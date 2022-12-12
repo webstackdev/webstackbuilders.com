@@ -9,6 +9,9 @@ A demo of the "Page" template and kitchen sink sample of styled elements.
 
 <!-- excerpt -->
 
+See: https://isamatov.com/typescript-module-augmentation/
+For using a button on a sidebar of page contents to turn the sidebar on or off
+
 ## Full Front Matter Example:
 
 ```yaml

@@ -1,5 +1,5 @@
 /**
- * Magic
+ * Animation magic
  */
 const cnst = () => {
   const tenPercentBounce = 1.70158

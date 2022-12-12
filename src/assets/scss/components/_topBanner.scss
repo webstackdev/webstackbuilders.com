@@ -8,7 +8,7 @@
     text-decoration: underline;
   }
 
-  @include mq(md) {
+  @include media-query-mobile-first(md) {
     text-align: center;
   }
 }

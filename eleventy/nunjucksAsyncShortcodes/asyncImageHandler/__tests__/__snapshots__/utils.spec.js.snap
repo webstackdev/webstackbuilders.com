@@ -4,19 +4,15 @@ exports[`Renders the Nunjucks template without error Lazy image matches snapshot
 "
 <picture class="lazy-picture" data-lazy-state="unseen">
   <source
-    
     type="image/jpeg"
     srcset="/img/6dfd7ac6-300.jpeg 300w"
-    
     data-srcset="/img/6dfd7ac6-300.jpeg 300w, /img/6dfd7ac6-600.jpeg 600w, /img/6dfd7ac6-2406.jpeg 2406w"
     sizes="100vw"
     class="lazy"
   >
   <source
-    
     type="image/webp"
     srcset="/img/6dfd7ac6-300.webp 300w"
-    
     data-srcset="/img/6dfd7ac6-300.webp 300w, /img/6dfd7ac6-600.webp 600w, /img/6dfd7ac6-2406.webp 2406w"
     sizes="100vw"
     class="lazy"

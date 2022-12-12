@@ -15,6 +15,9 @@ describe(`Navigation template works`, () => {
 
     expect(document.querySelector(`body`)!.innerHTML).toMatchInlineSnapshot(`
       "<nav class="main-nav" role="navigation">
+        <div class="main-nav__content">
+          
+        </div>
         <button class="icon-btn main-nav__toggleBtn" aria-expanded="false" aria-controls="nav-menu" aria-label="toggle menu">
           <span class="main-nav__menu-icon">
             <span class="main-nav__menuicon-bar"></span>
@@ -23,10 +26,7 @@ describe(`Navigation template works`, () => {
             <span class="main-nav__menuicon-bar"></span>
           </span>
         </button>
-        <div class="main-nav__content">
-          
-        </div>
-        <div class="main-nav-bg">
+        <div class="main-nav__bg">
             <div class="main-nav__bg-circle"></div>
         </div>
       </nav>"

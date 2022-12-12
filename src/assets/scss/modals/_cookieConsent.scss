@@ -25,7 +25,8 @@ $cookie-modal-background: $color-gray-1; // var(--color-primary)
     right: 0;
     top: 0;
 
-    @include hover-focus {
+    &:hover,
+    &:focus {
       color: lighten($success, 10%);
     }
   }
@@ -77,14 +78,16 @@ $cookie-modal-background: $color-gray-1; // var(--color-primary)
 
   &__btn-allow {
     background-color: $success;
-    @include hover-focus {
+    &:hover,
+    &:focus {
       background: lighten($success, 10%);
     }
   }
 
   &__btn-customize {
     background-color: $warning;
-    @include hover-focus {
+    &:hover,
+    &:focus {
       background: lighten($warning, 10%);
     }
   }
@@ -97,7 +100,7 @@ $cookie-modal-background: $color-gray-1; // var(--color-primary)
 /**
   * Mobile Version (portrait tablet and down)
   */
-@include mq-down(md) {
+@include media-query-desktop-first(md) {
   $mobile-cookie-icon-dimension: 36px;
   $mobile-cookie-icon-padding: 6px;
   $mobile-cookie-container-dimension: $mobile-cookie-icon-dimension + ($mobile-cookie-icon-padding * 2);

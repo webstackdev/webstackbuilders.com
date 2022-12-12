@@ -14,7 +14,7 @@ import {
   addButtonEventListeners,
   addLinkEventListeners,
   addWrapperEventListeners,
-} from './listeners'
+} from '../../utils/elementListeners'
 
 import {
   setCookieModalVisibility,

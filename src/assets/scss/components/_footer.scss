@@ -7,7 +7,8 @@
     color: var(--text-color);
     text-decoration: underline;
 
-    @include hover-focus {
+    &:hover,
+    &:focus {
       text-decoration: none;
     }
   }
@@ -29,15 +30,17 @@
   }
 
   &__icon {
-    @include button-reset;
+    background-color: transparent;
+    border: 0;
     display: inline-block;
+    padding: 0;
 
     & + & {
       margin-left: 1rem;
     }
   }
 
-  @include mq(md) {
+  @include media-query-mobile-first(md) {
     &__inner {
       flex-wrap: nowrap;
     }
@@ -53,7 +56,7 @@
     }
   }
 
-  @include mq(lg) {
+  @include media-query-mobile-first(lg) {
     &__item {
       padding-right: 4rem;
     }
