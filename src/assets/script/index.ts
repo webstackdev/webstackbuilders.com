@@ -5,7 +5,7 @@ import { addAllLoaderEventListeners } from './utils/loaders'
 import { addErrorEventListeners } from './utils/errorListeners'
 import type { ScriptInit } from './@types/general'
 /** Client scripts */
-import { heroSvgAnimation } from './animations'
+//import { heroSvgAnimation } from './animations'
 //import { initImagesLazyLoad } from './modules/lazyload'
 //import { showCookieConsentModal } from './modals/cookieConsent'
 //import { registerShareHighlight } from './modules/share-highlight'
@@ -31,7 +31,7 @@ export const scriptsFiredOnLoaded: ScriptInit[] = [
  * function that will be called with no parameters after the event fires.
  */
 export const scriptsFiredOnDomLoaded: ScriptInit[] = [
-  heroSvgAnimation,
+  //heroSvgAnimation,
   //initImagesLazyLoad,
   //registerShareHighlight,
   setupNavigation,

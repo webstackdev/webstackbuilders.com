@@ -8,6 +8,7 @@ import setup from './util:setup'
 import buildCss from './build:css'
 import buildFonts from './build:fonts'
 import buildImages from './build:images'
+import buildManifestIcons from './build:manifest-icons'
 import buildSprites from './build:sprites'
 import watchCss from './watch:css'
 import watchHtml from './watch:html'
@@ -20,7 +21,8 @@ const prewatch: TaskFunction = series(
   buildSprites, // must be before buildHtml
   buildCss, // must be before buildHtml
   buildFonts,
-  buildImages
+  buildImages,
+  buildManifestIcons
 )
 
 const watch: TaskFunction = parallel(watchCss, watchScript, watchHtml)

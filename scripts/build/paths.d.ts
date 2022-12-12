@@ -5,6 +5,7 @@ export const assetSourceDir: string
 export const buildDir: string
 export const buildPathsToClean: string[]
 export const buildPathsToCreate: string[]
+export const cacheDir: string
 export const casestudiesSourceDir: string
 export const contentSourceDir: string
 export const cssBuildDir: string

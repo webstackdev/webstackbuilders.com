@@ -9,6 +9,9 @@ exports.buildDir = buildDir
 const tmpDir = `tmp`
 exports.tmpDir = tmpDir
 
+const cacheDir = `.cache`
+exports.cacheDir = cacheDir
+
 /**
  * Content source directories
  */

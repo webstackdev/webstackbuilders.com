@@ -1,3 +1,10 @@
+/**
+ * The page layout is used to provide <article> element with header and content areas
+ * for pages that do not extend 'base.njk' directly, generally simpler or Markdown templates
+ * for single pages instead of major content areas. Used as 'layout' for '404.njk', 'offline.jk',
+ * 'privacy.md', 'cookies.md', and 'index.njk' for 'about' and 'contact' pages.
+ */
+
 .page {
   &__header {
     padding: 2rem 0;

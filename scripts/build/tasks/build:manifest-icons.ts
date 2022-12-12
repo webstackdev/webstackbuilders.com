@@ -6,6 +6,7 @@ import { copyFileSync, existsSync, mkdirSync } from 'fs'
 import { resolve } from 'path'
 import { createConverter } from 'convert-svg-to-png'
 import type { TaskFunction } from 'gulp'
+import { cacheDir } from '../../../scripts/build/paths'
 import { log } from '../utils'
 import {
   faviconSvgBuildDir,
@@ -34,7 +35,7 @@ const manifestIconFiles: ManifestIconFileMetadata[] = [
 ]
 
   export const getCachedFilePaths = () => manifestIconFiles.map(iconMeta => {
-    return resolve(`.cache/favicon`, iconMeta.fileName)
+    return resolve(`${cacheDir}/favicon`, iconMeta.fileName)
   })
 
 export const areFilesCached = () => {
@@ -54,22 +55,22 @@ export const statBuildDir = () => {
 export const copyCachedFiles = () => {
   log(` Copying cached manifest icon files to build directory`, `yellow`)
   manifestIconFiles.forEach(fileMeta => {
-    const srcFilePath = resolve(`.cache/favicon`, fileMeta.fileName)
+    const srcFilePath = resolve(`${cacheDir}/favicon`, fileMeta.fileName)
     const destFilePath = resolve(faviconSvgBuildDir, fileMeta.fileName)
     copyFileSync(srcFilePath, destFilePath)
   })
 }
 
 export const addFilesToCache = () => {
-  const cacheDir = resolve(`.cache/favicon`)
-  if (!existsSync(cacheDir)) {
-    mkdirSync(cacheDir)
+  const faviconCacheDir = resolve(`${cacheDir}/favicon`)
+  if (!existsSync(faviconCacheDir)) {
+    mkdirSync(faviconCacheDir)
     log(` Creating cache directory for favicons`, `yellow`)
   }
   log(` Adding manifest icon images to cache`, `yellow`)
   manifestIconFiles.forEach(fileMeta => {
     const srcFilePath = resolve(faviconSvgBuildDir, fileMeta.fileName)
-    const destFilePath = resolve(`.cache/favicon`, fileMeta.fileName)
+    const destFilePath = resolve(`${cacheDir}/favicon`, fileMeta.fileName)
     copyFileSync(srcFilePath, destFilePath)
   })
 }

@@ -1,5 +1,6 @@
 import type { PlaywrightTestConfig } from '@playwright/test'
 import { devices } from '@playwright/test'
+import { cacheDir } from './scripts/build/paths'
 
 /**
  * See https://playwright.dev/docs/test-configuration.
@@ -8,7 +9,7 @@ const config: PlaywrightTestConfig = {
   testDir: './test/playwright',
   testMatch: '**/*.spec.ts',
   /** Folder for test artifacts such as screenshots, videos, traces, etc. */
-  outputDir: '.cache/playwright/output/',
+  outputDir: `${cacheDir}/playwright/output/`,
   /** Maximum time one test can run for. */
   timeout: 30 * 1000,
   expect: {
@@ -30,7 +31,9 @@ const config: PlaywrightTestConfig = {
    * Reporter to use. 'github' for GitHub Actions CI to generate annotations.
    * See https://playwright.dev/docs/test-reporters
    */
-  reporter: process.env.CI ? 'github' : [['html', { outputFolder: '.cache/playwright/reports/' }]],
+  reporter: process.env.CI
+    ? 'github'
+    : [['html', { outputFolder: `${cacheDir}/playwright/reports/` }]],
   /** Launch a development web server during the tests. */
   webServer: {
     command: 'TS_NODE_PROJECT="tsconfig.gulp.json" yarn gulp start',

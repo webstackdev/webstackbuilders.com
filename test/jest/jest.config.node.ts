@@ -2,6 +2,7 @@
  * Jest configuration for Node environment, set up with TypeScript
  */
 import commonJestConfig from './jest.config.common'
+import { cacheDir } from '../../scripts/build/paths'
 import type { ConfigOptions } from './jest.config.common'
 
 const config: ConfigOptions = {
@@ -10,7 +11,7 @@ const config: ConfigOptions = {
   // preset: './jest.config.common',
   ...commonJestConfig,
 
-  cacheDirectory: '<rootDir>/.cache/jest-node',
+  cacheDirectory: `<rootDir>/${cacheDir}/jest-node`,
 
   displayName: {
     name: 'NODE',
