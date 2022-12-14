@@ -2,6 +2,7 @@
   &__header {
     margin-bottom: 2rem;
   }
+
   &__photo {
     position: relative;
     display: block;
@@ -20,13 +21,26 @@
       margin-bottom: 1rem;
     }
   }
+
   &__social {
     list-style-type: none !important;
 
     .icon {
-      font-size: 1.25rem;
+      font-size: var(--font-size-xl);
       margin-right: 1.25rem;
     }
+  }
+
+  &__title {
+
+  }
+
+  &__subtitle {
+
+  }
+
+  &__content {
+
   }
 
   @include media-query-mobile-first(lg) {

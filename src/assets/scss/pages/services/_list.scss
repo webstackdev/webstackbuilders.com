@@ -1,0 +1,34 @@
+.servicelist {
+  /** <header> wrapper over "Articles" <h1> header */
+  &__header {
+    //
+  }
+
+  &__item {
+      margin-bottom: 3rem;
+
+      @include media-query-mobile-first(md) {
+        margin-bottom: 5rem;
+      }
+  }
+
+  &__item-excerpt {
+    @include body-text();
+
+    .servicelist__item--draft & {
+      opacity: 0.5;
+    }
+  }
+
+  &__item-link {
+    display: block;
+
+    .servicelist__item--draft & {
+      color: var(--color-secondary);
+    }
+  }
+
+  &__item-title {
+    margin-bottom: 0;
+  }
+}

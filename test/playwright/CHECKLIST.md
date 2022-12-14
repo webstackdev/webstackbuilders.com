@@ -30,3 +30,5 @@
 - The theme picker script initializes and works
 
 - The <meta name="theme-color" content="#CSSCOLOR"> tag is set with a valid color
+
+- That the Hero Greensocks animation stops when @media (prefers-reduced-motion: reduce)

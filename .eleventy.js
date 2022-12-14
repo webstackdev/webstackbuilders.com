@@ -139,8 +139,6 @@ module.exports = eleventyConfig => {
    * Map layouts to the nunjucks file in _layouts
    */
   eleventyConfig.addLayoutAlias('base', 'base.njk')
-  eleventyConfig.addLayoutAlias('page', 'page.njk')
-  eleventyConfig.addLayoutAlias('article', 'article.njk')
 
   /**
    * Watch compiled assets for changes. When the file or the files

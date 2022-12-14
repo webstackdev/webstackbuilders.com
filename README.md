@@ -79,6 +79,27 @@ npm i -D check-html-links
 npx check-html-links _site
 https://github.com/modernweb-dev/rocket/tree/main/packages/check-html-links
 
+## @TODO: Provide button to turn off animation in Hero
+
+"Scaling/zooming animations are problematic for accessibility, as they are a common trigger for certain types of migraine. If you need to include such animations on your website, you should provide a control to allow users to turn off animations, preferably site-wide.  Also, consider making use of the prefers-reduced-motion media feature — use it to write a media query that will turn off animations if the user has reduced animation specified in their system preferences. "
+
+
+## @TODO: add code to stop the Hero Greensocks animation when @media (prefers-reduced-motion: reduce), using window.mediaQuery()
+
+## @TODO: Set up webmentions. This code goes in `_layouts/layouts/base.njk` after the last `<script>` tag in the document `<body>`:
+
+```nunjucks
+{%- if layout == 'layouts/articles/item' -%}
+  <script src="{{ '/assets/scripts/webmentions.js' | url }}" defer></script>
+  <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+{%- endif -%}
+```
+
+## @TODO: Implement draft status for collections (articles, services, case studies). Example:
+
+```nunjucks
+<li class="case-studies__item {% if casestudy.data.draft %}case-studies__item--draft{% endif %}">
+```
 
 ## Preload hero images, usually loaded after stylesheets and fonts
 

@@ -98,7 +98,23 @@ const pluginOptions = {
   /**
    * Generates a nested table of contents for use in an aside from page contents
    */
-  'eleventy-plugin-nesting-toc': undefined,
+  'eleventy-plugin-nesting-toc': {
+    /** Which heading tags are selected, where each headings must have an ID attribute */
+    tags: ['h2', 'h3'],
+    /**
+     * Elements to ignore when constructing the label for every header. Useful for
+     * ignoring permalinks. Must be selectors.
+     */
+    ignoredElements: [], // default
+    /** Element to put around the root `ol` */
+    wrapper: 'nav', // default
+    /** Class for the element around the root `ol` */
+    wrapperClass: 'toc', // default
+    /** Optional text to show in heading above the wrapper element */
+    headingText: '', // default
+    /** Heading tag when showing heading above the wrapper element */
+    headingTag: 'h2', // default
+  },
 
   /**
    * Copies PDF and video asset files to the public folder using input page directory structure

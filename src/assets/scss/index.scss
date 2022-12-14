@@ -4,6 +4,7 @@
 @import 'variables/animations';
 @import 'variables/colors';
 @import 'variables/sizes';
+@import 'variables/themes'; // muyst be after `colors`
 @import 'variables/typography';
 
 /** Reset comes first once SASS variables are set */
@@ -12,7 +13,6 @@
 /** Utility SCSS comes before production SCSS stylings */
 @import 'utils/functions';
 @import 'utils/mixins';
-@import 'utils/themes';
 
 /** Animations SCSS */
 @import 'animations/spinner';
@@ -22,40 +22,49 @@
 @import 'base/animation';
 @import 'base/focus';
 @import 'base/fonts';
-@import 'base/form';
-@import 'base/layout';
 @import 'base/print';
-@import 'base/typography'; // must be before` markdown` and `page` due to `body-text()` mixin
-@import 'base/markdown';
-@import 'base/page';
+@import 'base/pwaTitleBar';
+@import 'base/typography'; // must be before `content` due to `body-text()` mixin
+@import 'base/content';
 
 /** Components SCSS */
 @import 'components/callout';
-@import 'components/featurePanel';
-@import 'components/footer';
-@import 'components/header';
-@import 'components/hero';
+@import 'components/form';
 @import 'components/logo';
 @import 'components/navigation';
 @import 'components/responsiveImage';
-@import 'components/sharer';
-@import 'components/signup';
+//@import 'components/sharer';
+//@import 'components/signup';
 @import 'components/themePicker';
 @import 'components/themePickerIcon';
-@import 'components/titleBar';
-@import 'components/topBanner';
 
 /** Element SCSS */
-@import 'elements/alert';
+//@import 'elements/alert';
 @import 'elements/button';
 @import 'elements/icon';
+
+/** Layout SCSS */
+@import 'layout/base';
+@import 'layout/elements';
+@import 'layout/footer';
+@import 'layout/header';
 
 /** Modals SCSS */
 @import 'modals/cookieConsent';
 @import 'modals/cookieCustomize';
 
 /** Modules SCSS */
-@import 'modules/testimonials';
+@import 'modules/hero';
+/** SCSS for Call To Action panels used as modules */
+@import 'modules/CTA/featured';
+/** SCSS for 'About Me' panel used on home page */
+@import 'modules/panels/about';
+/** SCSS for content list carousels that can be reused across pages */
+@import 'modules/panels/suggestedArticles';
+@import 'modules/panels/suggestedCaseStudies';
+@import 'modules/panels/suggestedServices';
+/** SCSS for content showcase-style panels used as modules, possibly with carousels */
+@import 'modules/panels/testimonials';
 
 /** Page SCSS */
 @import 'pages/about';

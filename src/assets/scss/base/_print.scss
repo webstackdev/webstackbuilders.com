@@ -15,13 +15,13 @@
 
   body::after {
     content: ' ';
-    //background: 
+    //background:
     visibility: hidden;
     height: 0;
     clear: both;
   }
 
-  .feature-panel {
+  .featured-cta {
     display: none;
   }
 

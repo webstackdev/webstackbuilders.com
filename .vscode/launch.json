@@ -32,12 +32,12 @@
       "runtimeVersion": "17.5.0"
     },
     {
-      "name": "gulp-task-build-manifest-icons",
+      "name": "gulp-task-build-html",
       "type": "node",
       "request": "launch",
       "program": "${workspaceRoot}/node_modules/.bin/gulp",
       "stopOnEntry": false,
-      "args": ["build:manifest-icons"],
+      "args": ["build:html"],
       "cwd": "${workspaceRoot}",
       "env": { "TS_NODE_PROJECT": "tsconfig.gulp.json" },
       "console": "internalConsole",

@@ -10,5 +10,8 @@ exports.extensionsInit = extensionsInit
 const { minify } = require('./minify')
 exports.minify = minify
 
+const { getCoverImageFilePath } = require('./coverImage')
+exports.getCoverImageFilePath = getCoverImageFilePath
+
 const { getPermalinkPath } = require('./permalinks')
 exports.getPermalinkPath = getPermalinkPath

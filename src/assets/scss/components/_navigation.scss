@@ -101,7 +101,7 @@
     align-items: center;
     color: var(--color-text);
     display: flex;
-    line-height: 1;
+    line-height: var(--line-height-sm);
     padding: 0.75rem 1.25rem;
     position: relative;
     text-transform: lowercase;
@@ -146,10 +146,9 @@
     }
 
     &__item {
-      color: #fff;
-      font-family: var(--font-family-display);
-      font-size: 2.5rem;
-      letter-spacing: 1px;
+      color: var(--color-text);
+      font-size: var(--font-size-6xl);
+      letter-spacing: var(--letter-spacing-xs);
       padding: 0 15%;
 
       &::after {
@@ -162,17 +161,9 @@
     }
 
     &__item-link {
-      color: #fff !important;
+      color: var(--color-text) !important;
       padding: 1.5rem;
       text-transform: none;
-    }
-
-    &__num { // @TODO: what is this?
-      color: var(--color-text-offset);
-      font-family: var(--font-family-base);
-      font-size: 0.5em;
-      font-weight: 300;
-      margin-right: 0.75rem;
     }
 
     &__togglebtn {
@@ -198,7 +189,7 @@
     }
 
     .main-nav__togglebtn {
-        color: #fff;
+        color: var(--color-text);
         background-color: transparent;
     }
 
@@ -230,7 +221,7 @@
       /** Safari on iOS < 15.4 */
       -webkit-backface-visibility: hidden;
       backface-visibility: hidden;
-      background-color: #000;
+      background-color: var(--color-bg);
       border-radius: 50%;
       display: block;
       height: 300vmax;

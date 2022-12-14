@@ -17,6 +17,13 @@
 }
 
 /**
+ * Create a root stacking context
+ */
+#root, #__next {
+  isolation: isolate;
+}
+
+/**
  * Allow percentage-based heights in the application
  */
 html, body {
@@ -24,36 +31,27 @@ html, body {
   height: 100%;
 }
 
-/**
- * 1. Set the font size using a `rem` value.
- * 2. Change the default tap highlight to be completely transparent in iOS.
- * 3. Initialize CSS vars from SASS vars
- */
 html {
-  font-size: var(--font-size-root, #{$font-size-root}); // 1
   overflow-x: hidden;
   overflow-y: scroll;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); // 2
-  --font-family-base: #{$font-family-base}; // 3
+  /** Change the default tap highlight to be completely transparent in iOS */
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); // 1
 }
 
 /**
  * Set core body defaults
- *
- * 1. Correct the line height in all browsers.
- * 2. Remove default margin.
- * 3. Prevent iOS text size adjust after device orientation change without disabling user zoom.
  */
 body {
   background-color: var(--color-bg);
   color: var(--color-text);
-  font-family: var(--font-family-base);
-  font-size: $font-size-base;
-  line-height: $line-height; /* 1 */
-  margin: 0; /* 2 */
+  /**  Remove default margin */
+  margin: 0;
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
-  -webkit-text-size-adjust: 100%; /* 3 */
+  /**
+   * Prevent iOS text size adjust after device orientation change without disabling user zoom.
+   */
+  -webkit-text-size-adjust: 100%; /* 2 */
 }
 
 /**
@@ -62,13 +60,6 @@ body {
 ::selection {
   background: var(--color-primary-offset);
   color: var(--color-primary);
-}
-
-/**
- * Create a root stacking context
- */
-#root, #__next {
-  isolation: isolate;
 }
 
 /**
@@ -91,7 +82,7 @@ a {
 
   &:hover,
   &:focus {
-    color: blue;
+    color: var(--color-secondary);
   }
 }
 
@@ -120,14 +111,6 @@ b, strong {
 }
 
 /**
- * Fix odd `em`-unit font size rendering in all browsers.
- */
-code, kbd, pre, samp {
-  font-family: monospace, monospace;
-  font-size: 1em;
-}
-
-/**
  * Margin not present in Safari.
  */
 figure {
@@ -146,69 +129,8 @@ hr {
   height: 0;
 }
 
-/**
- * Ensure images are never wider than their container and the aspect ratio is maintained.
- */
-img {
-  display: block;
-  width: 100%;
-  max-width: 100%;
-  height: auto;
-}
-
-ol, ul, dl {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
-
-/**
- * Help prevent overflow of long words/names/URLs
- */
-p, li, h1, h2, h3, h4, h5, h6 {
-  overflow-wrap: break-word;
-  word-break: break-word;
-}
-
-p {
-  margin: 0;
-}
-
 h1, h2, h3, h4, h5, h6 {
-  line-height: 1.2;
   margin: 0;
-}
-
-/**
- * Contain overflow in all browsers.
- */
-pre {
-  overflow: auto;
-}
-
-/**
- * Normalize vertical alignment of `progress` in Chrome, Firefox, and Opera.
- */
-progress {
-  vertical-align: baseline;
-}
-
-/**
- * Prevent `sub` and `sup` affecting `line-height` in all browsers.
- */
-sub, sup {
-  font-size: 75%;
-  line-height: 0;
-  position: relative;
-  vertical-align: baseline;
-}
-
-sup {
-  top: -0.5em;
-}
-
-sub {
-  bottom: -0.25em;
 }
 
 /**
@@ -277,6 +199,27 @@ input::-moz-focus-inner {
 }
 
 /**
+ * Chrome and Firefox set a `min-width: min-content;` on fieldsets, reset
+ * here to ensure it behaves more like a standard block element.
+ */
+fieldset {
+  border: 0;
+  margin: 0;
+  min-width: 0;
+  padding: 0;
+}
+
+/**
+ * Ensure images are never wider than their container and the aspect ratio is maintained.
+ */
+img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+}
+
+/**
  * Address Firefox setting `line-height` on `input` using `!important` in
  * the UA stylesheet.
 */
@@ -314,11 +257,82 @@ input[type='search']::-webkit-search-decoration {
 }
 
 /**
+ * Allow labels to use `margin` for spacing.
+ */
+label {
+  display: inline-block;
+  margin: 0;
+}
+
+/**
+ * Reset the entire legend element to match the `fieldset`
+ */
+legend {
+  border: 0;
+  display: block;
+  font-size: var(--font-size-3xl);
+  line-height: inherit;
+  margin-bottom: 0.5rem;
+  padding: 0;
+  width: 100%;
+}
+
+ol, ul, dl {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+/**
  * Don't inherit the `font-weight` (applied by a rule above).
  * NOTE: the default cannot safely be changed in Chrome and Safari on OS X.
  */
 optgroup {
   font-weight: bold;
+}
+
+/**
+ * Help prevent overflow of long words/names/URLs
+ */
+p, li, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+p {
+  margin: 0;
+}
+
+/**
+ * Contain overflow in all browsers.
+ */
+pre {
+  overflow: auto;
+}
+
+/**
+ * Normalize vertical alignment of `progress` in Chrome, Firefox, and Opera.
+ */
+progress {
+  vertical-align: baseline;
+}
+
+/**
+ * Prevent `sub` and `sup` affecting `line-height` in all browsers.
+ */
+sub, sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+sup {
+  top: -0.5em;
+}
+
+sub {
+  bottom: -0.25em;
 }
 
 /**
@@ -339,36 +353,4 @@ table {
 td,
 th {
   padding: 0;
-}
-
-/**
- * Allow labels to use `margin` for spacing.
- */
-label {
-  display: inline-block;
-  margin: 0;
-}
-
-/**
- * Chrome and Firefox set a `min-width: min-content;` on fieldsets, reset
- * here to ensure it behaves more like a standard block element.
- */
-fieldset {
-  border: 0;
-  margin: 0;
-  min-width: 0;
-  padding: 0;
-}
-
-/**
- * Reset the entire legend element to match the `fieldset`
- */
-legend {
-  border: 0;
-  display: block;
-  font-size: 1.5rem;
-  line-height: inherit;
-  margin-bottom: 0.5rem;
-  padding: 0;
-  width: 100%;
 }

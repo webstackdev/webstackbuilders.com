@@ -1,0 +1,61 @@
+/**
+ * Stylings for Service Item
+ */
+.case-study {
+  /** Wrapper class over title, meta, Date, Time to Read, and Draft Status */
+  &__header {
+    padding: 2rem 0;
+  }
+
+  &__cover-image {
+    //
+  }
+
+  &__title {
+    font-size: var(--font-size-7xl);
+    letter-spacing: -var(--letter-spacing-negative-md);
+    @include media-query-mobile-first(lg) {
+      font-size: var(--font-size-7xl);
+    }
+  }
+
+  @include media-query-mobile-first(md) {
+    &__header {
+      padding: 4rem 0;
+      text-align: center;
+    }
+  }
+
+  @include media-query-mobile-first(lg) {
+    &__header {
+      padding: 5rem 0;
+    }
+  }
+
+  /** Main article content section */
+  &__content {
+    @include container-narrow;
+  }
+
+  /** Article-specific footer section */
+  &__footer {
+    //
+  }
+
+  /** Wrapper <div> for "Other Case Studies" section */
+  &__suggested {
+    border-top: 1px solid var(--color-border);
+    padding: 2rem 0;
+  }
+
+  /** Title for "Other Case Studies" section */
+  &__suggested__title {
+    @extend .smalltitle;
+    margin-bottom: 1rem;
+  }
+
+  /** Overrides for the `Other Case Studies` section */
+  .suggested-case-studies {
+    //
+  }
+}

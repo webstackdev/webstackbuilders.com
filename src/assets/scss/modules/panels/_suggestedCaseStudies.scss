@@ -1,0 +1,43 @@
+  /**
+   * `Other Case Studies` section for use on pages.
+   */
+  .suggested-case-studies {
+    /** Item title */
+    &__title {
+      @extend .smalltitle;
+      margin-bottom: 1rem;
+    }
+
+    /** Item wrapper <li> element */
+    &__item {
+      align-items: center;
+      color: var(--color-text-offset);
+      display: flex;
+
+      &:hover,
+      &:focus {
+        color: var(--color-text);
+      }
+
+      .icon {
+        display: block;
+        margin-right: 0.1875em;
+      }
+    }
+
+    &__date {
+      //
+    }
+
+    &__item-excerpt {
+      //
+    }
+
+    &__item-time-to-read {
+      //
+    }
+
+    @include media-query-mobile-first(md) {
+      padding: 3rem 0;
+    }
+  }

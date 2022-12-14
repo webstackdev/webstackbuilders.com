@@ -2,6 +2,7 @@
  * Jest configuration for JSDOM browser environment, set up with TypeScript
  */
 import commonJestConfig from './jest.config.common'
+import { cacheDir } from '../../scripts/build/paths'
 import type { ConfigOptions } from './jest.config.common'
 
 /**
@@ -22,7 +23,7 @@ const config: ConfigOptions = {
   // preset: './jest.config.common',
   ...commonJestConfig,
 
-  cacheDirectory: '<rootDir>/.cache/jest-jsdom',
+  cacheDirectory: `<rootDir>/${cacheDir}/jest-jsdom`,
 
   displayName: {
     name: 'JSDOM',

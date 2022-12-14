@@ -1,0 +1,75 @@
+---
+# @NOTE: If any of these items are changed, update the test fixtures in src/assets/script/modules/navigation/__fixtures__
+navigationOptions:
+  #
+  # Menu list wrapper
+  #
+  # Change the top level tag
+  listElement: "ul"
+  # Add a class to the top level tag
+  listClass: "main-nav__menu"
+
+  #
+  # Menu list item
+  #
+  # Change the menu list item tag
+  listItemElement: "li"
+  # Add a class to every menu list item
+  listItemClass: "main-nav__item"
+  # Add a class to the menu list item if the item has children
+  listItemHasChildrenClass: ""
+  # Add a class to the anchor within the menu list item tag
+  anchorClass: "main-nav__item-link"
+
+  #
+  # Active item handling
+  #
+  # If matched, `activeListItemClass` and `activeAnchorClass` will be added
+  #activeKey: eleventyNavigation.key
+  # Add a class to the current page menu list item
+  activeListItemClass: "main-nav__item--active"
+  # Add a class to the current page menu list anchor
+  activeAnchorClass: "main-nav__item-link--active"
+
+  #
+  # Other options
+  #
+  # Show excerpts if they have been added in Navigation Plugin frontmatter metadata
+  showExcerpt: false
+---
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% include "../components/head/meta.njk" %}
+    <link rel="preload" href="{{ '/fonts/OnestRegular1602-hint.woff2' | url }}" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="{{ '/fonts/Lora-Regular.woff2' | url }}" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="{{ '/fonts/IBMPlexMono-Regular.woff2' | url }}" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="{{ '/css/index.css' | url }}" />
+    {#- Script tag with background colors keyed to theme names for setting initial bg color -#}
+    {%- include "../components/themePicker/initial.njk" %}
+    {#- Script tag to set data-theme attribute on <html> element early -#}
+    {%- include "../components/themePicker/script.njk" %}
+  </head>
+  <body>
+    <a href="#main" class="sr-skip-link">skip to main content</a>
+    {#- Layered sprite SVG -#}
+    <div hidden>
+      {% include "../images/sprites.njk" %}
+    </div>
+    {#- Sets Window Controls Overlay API for PWA title bar -#}
+    {% include "../components/pwaTitleBar.njk" %}
+    {#- Page area #}
+    <div class="layout" role="document">
+      {% include "../components/header.njk" %}
+      {#- Main Content Area -#}
+      <main class="main" role="main" id="main" tabindex="-1">
+        {{ content | safe }}
+      </main>
+      {% include "../components/footer.njk" %}
+    </div>
+    {#- Cookie Consent Overlay -#}
+    {% include "../modals/cookieConsent.njk" %}
+    {#- Main JS Bundle -#}
+    <script src="{{ '/js/index.js' | url }}?{{ cacheBust.mainJs }}" defer></script>
+  </body>
+</html>

@@ -4,19 +4,24 @@
 .code-tabs {
   border: 1px solid rgb(240, 240, 240);
   border-radius: 3px;
+
   pre,
   input {
     display: none;
   }
+
   input:checked + pre {
     display: block;
   }
+
   label {
     color: rgba(191, 191, 191, 1);
   }
+
   input:checked + label {
     color: rgba(38, 38, 38, 1);
   }
+
   ul {
     font-size: 0;
     padding: 0;
@@ -27,11 +32,13 @@
     user-select: none;
     border-bottom: 1px solid rgb(240, 240, 240);
   }
+
   li {
     list-style: none;
     display: inline-block;
     position: relative;
   }
+
   label {
     cursor: pointer;
     /** Not supported by Safari on iOS */
@@ -40,8 +47,9 @@
     display: inline-block;
     padding: 2px 5px;
     margin: 5px;
-    font-size: 14px;
+    font-size: var(--font-size-sm);
   }
+
   li ~ li::before {
     content: '';
     height: 12px;

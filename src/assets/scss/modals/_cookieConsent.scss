@@ -58,7 +58,7 @@ $cookie-modal-background: $color-gray-1; // var(--color-primary)
   $cookie-main-horizontal-padding: $cookie-container-half-dimension + 5px;
 
   &__content {
-    font-size: 1rem;
+    font-size: var(--font-size-default);
     padding: $cookie-container-half-dimension 0 1rem 2rem;
   }
 

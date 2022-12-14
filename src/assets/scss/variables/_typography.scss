@@ -2,21 +2,48 @@
  * Typography variables: font, line-height, and color for body text, headings, etc.
  */
 
-$font-size-root: 100%;
-$font-size-base: 1rem;
-
-$line-height: 1.625;
-
-// @NOTE: See scss/base/_fonts.scss for font-face definitions like Onest Regular
-
 /** Base Sans Serif Font */
 $font-family-sans-serif: 'Onest Regular', sans-serif;
-
 /** Base Serif Font */
 $font-family-serif: 'Lora Regular', serif;
-
 /** Base Monospace Font */
 $font-family-monospace: 'IBM Plex Mono Regular', monospace;
 
-/** Convenience alias so the base font can be set to anything */
-$font-family-base: $font-family-sans-serif;
+/**
+ * CSS variables used for sizes so that media queries are possible on them
+ */
+:root {
+  /** Font sizes */
+  --font-size-sm: 0.875rem;
+  --font-size-default: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.375rem;
+  --font-size-3xl: 1.5rem;
+  --font-size-4xl: 2rem;
+  --font-size-5xl: 2.25rem;
+  --font-size-6xl: 2.5rem;
+  --font-size-7xl: 3rem;
+
+  /** Line heights */
+  --line-height-sm: 1.25;
+  --line-height-md: 1.4;
+  --line-height-default: 1.625;
+
+  /** Letter spacings */
+  --letter-spacing-xs: 0.025em;
+  --letter-spacing-sm: 0.05em;
+  --letter-spacing-md: 0.1em;
+  --letter-spacing-lg: 0.2em;
+
+  --letter-spacing-negative-md: -0.1em;
+}
+
+@media (min-width: 56em) {
+    :root {
+        --font-size-xl: 1.5rem;
+        --font-size-2xl: 2rem;
+        --font-size-3xl: 2.5rem;
+        --font-size-4xl: 3rem;
+    }
+}
