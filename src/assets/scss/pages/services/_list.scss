@@ -1,34 +1,51 @@
 .servicelist {
-  /** <header> wrapper over "Articles" <h1> header */
+  /** <header> wrapper with nested <h1> */
   &__header {
     //
-  }
-
-  &__item {
-      margin-bottom: 3rem;
-
-      @include media-query-mobile-first(md) {
-        margin-bottom: 5rem;
-      }
-  }
-
-  &__item-excerpt {
-    @include body-text();
-
-    .servicelist__item--draft & {
-      opacity: 0.5;
+    h2 {
+      //
     }
   }
 
+  /** <li> */
+  &__item {
+      margin-bottom: 3em;
+  }
+
+  /** <h2> with nested servicelist__item-link */
+  &__item-title {
+    margin-bottom: 0;
+  }
+
+  /** <a> */
   &__item-link {
     display: block;
-
+    /** SCSS to select the item-excerpt class only when a child of item--draft class. */
     .servicelist__item--draft & {
       color: var(--color-secondary);
     }
   }
 
-  &__item-title {
-    margin-bottom: 0;
+  &__item-excerpt {
+    /** SCSS to select the item-excerpt class only when a child of item--draft class. */
+    .servicelist__item--draft & {
+      opacity: 0.5;
+    }
+  }
+}
+
+@include media-query-min-width(md) {
+  .servicelist {
+    &__item {
+      margin-bottom: 5em;
+    }
+  }
+}
+
+@include media-query-min-width(lg) {
+  .servicelist {
+    &__item {
+      margin-bottom: 5em;
+    }
   }
 }

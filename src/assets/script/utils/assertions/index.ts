@@ -4,11 +4,13 @@ export {
   isBodyElement,
   isButtonElement,
   isDivElement,
+  isHeaderElement,
   isHtmlElement,
   isImageElement,
   isNavElement,
   isShadowRoot,
   isSlotElement,
+  isSpanElement,
   isUlElement,
 } from './elements'
 export { isKeyboardEvent } from './events'

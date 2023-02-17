@@ -20,7 +20,7 @@
       }
     }
 
-    @include media-query-mobile-first(md) {
+    @include media-query-min-width(md) {
       align-items: center;
       display: flex;
       font-size: var(--font-size-2xl);
@@ -43,7 +43,7 @@
     font-size: var(--font-size-sm);
     white-space: nowrap;
 
-    @include media-query-mobile-first(md) {
+    @include media-query-min-width(md) {
       flex: 0 0 7.25rem;
       order: -1;
       padding-right: 1rem;

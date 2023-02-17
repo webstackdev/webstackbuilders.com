@@ -1,0 +1,68 @@
+/** <nav> */
+.main-nav {
+  align-items: center;
+  display: flex;
+
+  /** <ul> */
+  &__menu {
+    display: flex;
+  }
+
+  /** <li> */
+  &__item {
+    position: relative;
+
+    /** Underline style applied to <li> item */
+    &::after {
+      background-color: var(--color-border);
+      bottom: -.25rem;
+      content: '';
+      display: block;
+      height: .25rem;
+      left: 1.25rem;
+      position: absolute;
+      right: 1.25rem;
+      transform-origin: 0 50%;
+      transform: scaleX(0);
+      transition: transform 0.3s cubic-bezier(0.86, 0, 0.07, 1);
+    }
+
+    /** Underline on hover, extends in from left */
+    &:hover::after {
+      background-color: var(--color-primary);
+      transform: scaleX(1);
+    }
+
+    /** Special style for current page active item */
+    &--active {
+      &::after {
+        background-color: var(--color-primary) !important;
+        transform: none;
+      }
+      > a {
+        color: var(--color-primary);
+      }
+    }
+  }
+
+  /** <a> with inner text */
+  &__item-link {
+    align-items: center;
+    color: var(--color-primary-offset);
+    display: flex;
+    font-size: var(--font-size-xl);
+    line-height: var(--line-height-sm);
+    padding: 0.75rem 1.25rem;
+    position: relative;
+    text-decoration: none;
+    text-transform: lowercase;
+    transition: color 0.2s linear;
+    white-space: nowrap;
+    z-index: 1;
+
+    &:hover,
+    &:focus {
+      color: var(--color-primary);
+    }
+  }
+}

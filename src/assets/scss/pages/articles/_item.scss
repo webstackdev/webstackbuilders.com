@@ -4,7 +4,7 @@
 .article {
   /** Wrapper class over title, meta, Date, Time to Read, and Draft Status */
   &__header {
-    padding: 2rem 0;
+    padding: 2em 0;
   }
 
   &__cover-image {
@@ -20,23 +20,19 @@
     color: var(--color-text-offset);
     display: flex;
     flex-wrap: wrap;
-    font-size: var(--font-size-default);
-    margin: 1rem 0;
+    margin: 1em 0;
 
-    @include media-query-mobile-first(md) {
-      font-size: var(--font-size-xl);
+    @include media-query-min-width(md) {
       justify-content: center;
     }
   }
 
   &__status {
     color: var(--color-secondary);
-    font-weight: 700;
+    font-weight: var(--font-weight-bold);
   }
 
   &__tags {
-    font-family: $font-family-serif;
-    letter-spacing: var(--letter-spacing-lg);
     text-transform: uppercase;
   }
 
@@ -45,39 +41,21 @@
   }
 
   &__title {
-    font-size: var(--font-size-7xl);
-    letter-spacing: -var(--letter-spacing-negative-md);
-    @include media-query-mobile-first(lg) {
-      font-size: var(--font-size-7xl);
-    }
-  }
-
-  @include media-query-mobile-first(md) {
-    &__header {
-      padding: 4rem 0;
-      text-align: center;
-    }
-  }
-
-  @include media-query-mobile-first(lg) {
-    &__header {
-      padding: 5rem 0;
-    }
+    //
   }
 
   /** Main article content section */
   &__content {
-    @include container-narrow;
+    //
   }
 
   /** Article-specific footer section */
   &__footer {
-    @include container-narrow;
     align-items: center;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    margin: 2rem auto;
+    margin: 2em auto;
   }
 
     /** Article author avatar and name */
@@ -93,23 +71,40 @@
   &__info {
     color: var(--color-text-offset);
     font-style: italic;
-    margin: 1rem 0;
+    margin: 1em 0;
   }
 
   /** Wrapper <div> for `Other Things I've Written` section */
   &__suggested {
     border-top: 1px solid var(--color-border);
-    padding: 2rem 0;
+    padding: 2em 0;
   }
 
   /** Title for `Other Things I've Written` section */
   &__suggested__title {
-    @extend .smalltitle;
-    margin-bottom: 1rem;
+    margin-bottom: 1em;
+    text-transform: uppercase;
   }
 
   /** Overrides for the `Other Things I've Written` section */
   .suggested-articles {
     //
+  }
+}
+
+@include media-query-min-width(md) {
+  .article {
+    &__header {
+      padding: 4em 0;
+      text-align: center;
+    }
+  }
+}
+
+@include media-query-min-width(lg) {
+  .article {
+    &__header {
+      padding: 5em 0;
+    }
   }
 }

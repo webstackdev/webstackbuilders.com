@@ -1,64 +1,225 @@
-.footer {
-  border-top: 1px solid var(--color-border);
-  font-size: var(--font-size-sm);
-  padding: 2rem 0;
+$page-footer-padding: 0.75em;
+.page-footer {
+  background-color: var(--color-text);
+  color: var(--color-bg);
+  display: flex;
+  flex-direction: column;
+  margin-top: 0;
+  padding: 0 $page-footer-padding $page-footer-padding;
 
   a, button {
-    color: var(--text-color);
-    text-decoration: underline;
+    color: var(--color-bg);
+    text-decoration: none;
+  }
+
+  /**
+   * Decorative horizontal rule spacing off the footer
+   */
+
+  &__hr {
+    border-color: var(--color-primary);
+    border-width: 1em 0 0 0;
+    height: 0;
+  }
+
+  /**
+   * Contact information block
+   */
+
+  &__contact {
+    /** Position the avatar in the middle vertically of contact detail block */
+    align-items: center;
+    display: flex;
+    margin-top: $page-footer-padding;
+  }
+
+  &__contact-avatar {
+    align-self: start;
+    margin-right: $page-footer-padding + 0.25em;
+    margin-top: calc(var(--font-size-2xl) + 1.3em);
+    width: clamp(5em, 25%, 8em);
+  }
+
+  &__contact-details {
+    p {
+      font-size: var(--font-size-default);
+    }
+  }
+
+  &__contact-name {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+  }
+
+  &__contact-name + &__contact-address {
+    margin-top: 0.5em;
+  }
+
+  &__contact-address {
+    margin-left: 0.2em;
+  }
+
+  /**
+   * "Hire Me" block with current month and year set by script
+   */
+
+  &__hire-me {
+
+  }
+
+  &__hire-me-anchor {
+    display: none;
+    text-transform: uppercase;
+
+    &::after {
+      content: ">";
+      display: inline-block;
+    }
+
+    @keyframes arrowBounce {
+      100% {
+        transform: translate(1.5em);
+      }
+    }
+
+    &:hover::after, &:focus::after {
+      animation: arrowBounce 1s alternate;
+    }
+  }
+
+  /**
+   * Social media contact information block
+   */
+
+  &__social {
+
+  }
+
+  &__social-channel {
+    a {
+      align-items: baseline;
+      display: flex;
+      text-transform: uppercase;
+    }
 
     &:hover,
     &:focus {
-      text-decoration: none;
-    }
-  }
+      .page-footer__social-platform,
+      .page-footer__social-channel-blurb {
+        color: var(--color-bg-offset);
+      }
 
-  &__inner {
-    align-items: center;
-    display: flex;
-    flex-wrap: wrap;
-  }
-
-  &__item {
-    flex-basis: 50%;
-    margin-bottom: 0.5rem;
-
-    &--right {
-      flex-basis: 100%;
-      margin-bottom: 0;
-    }
-  }
-
-  &__icon {
-    background-color: transparent;
-    border: 0;
-    display: inline-block;
-    padding: 0;
-
-    & + & {
-      margin-left: 1rem;
-    }
-  }
-
-  @include media-query-mobile-first(md) {
-    &__inner {
-      flex-wrap: nowrap;
-    }
-    &__item {
-      flex: 0 0 auto;
-      padding-right: 2.5rem;
-      margin: 0;
-
-      &--right {
-        margin-left: auto;
-        padding-right: 0 !important;
+      .icon {
+        fill: var(--color-bg-offset);
+        stroke: var(--color-bg-offset);
       }
     }
   }
 
-  @include media-query-mobile-first(lg) {
-    &__item {
-      padding-right: 4rem;
+  &__social-icon {
+    $page-footer-social-icon-size: 1em;
+    .icon {
+      fill: var(--color-bg);
+      height: $page-footer-social-icon-size;
+      stroke: var(--color-bg);
+      width: $page-footer-social-icon-size;
     }
+  }
+
+  &__social-icon + &__social-platform {
+    margin-top: 1em;
+  }
+
+  &__social-platform {
+    margin-left: 0.5em;
+  }
+
+  &__social-channel-blurb {
+    font-family: $font-family-serif;
+    line-height: var(--line-height-sm);
+  }
+
+  /**
+   * Grab-bag row of links
+   */
+
+  &__bottom-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 1em 0.2em 0.75em;
+  }
+
+  $page-footer-decoration-thickness: 0.15em;
+
+  &__subscribe {
+
+  }
+
+  &__subscribe-anchor {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    &:hover, &:focus {
+      color: var(--color-bg-offset);
+      text-decoration: underline dotted var(--color-bg-offset) $page-footer-decoration-thickness;
+    }
+  }
+
+  &__site-pages {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    a:hover, a:focus {
+      color: var(--color-bg-offset);
+      text-decoration: underline dotted var(--color-bg-offset) $page-footer-decoration-thickness;
+    }
+  }
+
+  &__feed {
+    $page-footer-feed-icon-size: 2.5em;
+    $page-footer-feed-icon-size-expanded: 2.5em * 1.2;
+
+    align-items: center;
+    display: flex;
+    width: $page-footer-feed-icon-size-expanded;
+
+    .icon {
+      fill: var(--color-bg);
+      height: $page-footer-feed-icon-size;
+      stroke: var(--color-bg);
+      width: $page-footer-feed-icon-size;
+    }
+
+    a:hover, a:focus {
+      .icon {
+        height: $page-footer-feed-icon-size-expanded;
+        width: $page-footer-feed-icon-size-expanded;
+      }
+    }
+  }
+
+  &__copyright {
+    display: flex;
+    justify-content: center;
+    padding: 1em 0;
+  }
+
+  &__copyright-date +  &__copyright-author {
+    margin-left: 1rem;
+  }
+}
+
+
+@include media-query-min-width(md) {
+  .page-footer {
+    flex-direction: row;
+  }
+}
+
+@include media-query-min-width(lg) {
+  .page-footer {
+
   }
 }

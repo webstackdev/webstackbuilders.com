@@ -1,4 +1,5 @@
 /**
+ * Use by the name of the file and the key: {{ author.avatar }}
  * Expects global site author set in package.json in this format:
  * Kevin Brown <kevin@webstackbuilders.com> (https://webstackbuilders.com/)
  */

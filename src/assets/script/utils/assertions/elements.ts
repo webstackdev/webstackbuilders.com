@@ -38,6 +38,11 @@ export function isDivElement(element: unknown): element is HTMLDivElement {
   return false
 }
 
+export function isHeaderElement(element: unknown): element is HTMLElement {
+  if (isType1Element(element) && element[`tagName`] === `HEADER`) return true
+  return false
+}
+
 export function isHtmlElement(element: unknown): element is HTMLHtmlElement {
   if (isType1Element(element) && element[`tagName`] === `HTML`) return true
   return false
@@ -65,6 +70,11 @@ export function isShadowRoot(element: unknown): element is ShadowRoot {
 
 export function isSlotElement(element: unknown): element is HTMLSlotElement {
   if (isType1Element(element) && element[`tagName`] === `SLOT`) return true
+  return false
+}
+
+export function isSpanElement(element: unknown): element is HTMLSpanElement {
+  if (isType1Element(element) && element[`tagName`] === `SPAN`) return true
   return false
 }
 

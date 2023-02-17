@@ -3,91 +3,96 @@
  */
 import { describe, expect, test } from '@jest/globals'
 import {
-  isBodyElement,
   isButtonElement,
-  isNavElement,
-  isSlotElement,
+  isDivElement,
+  isHeaderElement,
+  isSpanElement,
   isUlElement,
 } from '../../../utils/assertions/elements'
 import {
-  getNavElement,
+  getHeaderElement,
+  getMobileSplashElement,
   getNavMenuElement,
-  getNavMenuToggleBtnElement,
+  getNavToggleBtnElement,
+  getNavToggleWrapperElement,
+  getNavWrapperElement,
 } from '../selectors'
-import { getSlotElement } from '../../../utils/selectors'
 import { navHtml } from '../__fixtures__/navigationHtml'
 
-describe('getNavElement selector works', () => {
-  test(' works with valid selector against DOM', () => {
+describe('getHeaderElement selector works', () => {
+  test(' works with element in DOM', () => {
     document.body.innerHTML = navHtml
-    const sut = isNavElement(getNavElement('.main-nav'))
+    const sut = isHeaderElement(getHeaderElement())
     expect(sut).toBeTruthy()
   })
 
   test(' throws with no results selected against DOM', () => {
-    document.body.innerHTML = `<span></span>`
-    expect(() => getNavElement('.main-nav')).toThrow()
+    document.body.innerHTML = `<div></div>`
+    expect(() => getHeaderElement()).toThrow()
+  })
+})
+
+describe('getMobileSplashElement selector works', () => {
+  test(' works with element in DOM', () => {
+    document.body.innerHTML = navHtml
+    const sut = isDivElement(getMobileSplashElement())
+    expect(sut).toBeTruthy()
+  })
+
+  test(' throws with no results selected against DOM', () => {
+    document.body.innerHTML = `<div></div>`
+    expect(() => getMobileSplashElement()).toThrow()
+  })
+})
+
+describe('getNavWrapperElement selector works', () => {
+  test(' works with element in DOM', () => {
+    document.body.innerHTML = navHtml
+    const sut = isSpanElement(getNavWrapperElement())
+    expect(sut).toBeTruthy()
+  })
+
+  test(' throws with no results selected against DOM', () => {
+    document.body.innerHTML = `<div></div>`
+    expect(() => getNavWrapperElement()).toThrow()
   })
 })
 
 describe('getNavMenuElement selector works', () => {
-  test('getNavElement works with valid class selector against DOM', () => {
+  test('getNavElement works with element in DOM', () => {
     document.body.innerHTML = navHtml
-    const nav = getNavElement('.main-nav')
-    const sut = getNavMenuElement(nav, '.main-nav__menu')
-    expect(isUlElement(sut)).toBeTruthy()
-  })
-
-  test('getNavElement works with nested LI items and no class selector against DOM', () => {
-    document.body.innerHTML = navHtml
-    const nav = getNavElement('.main-nav')
-    const sut = getNavMenuElement(nav)
+    const sut = getNavMenuElement()
     expect(isUlElement(sut)).toBeTruthy()
   })
 
   test('getNavElement throws with no results selected against DOM', () => {
     document.body.innerHTML = `<nav class="main-nav" role="navigation"></nav>`
-    const nav = getNavElement('.main-nav')
-    expect(() => getNavMenuElement(nav)).toThrow()
+    expect(() => getNavMenuElement()).toThrow()
   })
 })
 
-describe('getNavMenuToggleBtnElement selector works', () => {
-  test('getNavMenuToggleBtnElement works with valid class selector against DOM', () => {
+describe('getNavToggleWrapperElement selector works', () => {
+  test('getNavToggleWrapperElement works with element in DOM', () => {
     document.body.innerHTML = navHtml
-    const nav = getNavElement('.main-nav')
-    const sut = getNavMenuToggleBtnElement(nav, '.main-nav__toggleBtn')
-    expect(isButtonElement(sut)).toBeTruthy()
+    const sut = getNavToggleWrapperElement()
+    expect(isSpanElement(sut)).toBeTruthy()
   })
 
-  test('getNavMenuToggleBtnElement works with nested LI items and no class selector against DOM', () => {
-    document.body.innerHTML = navHtml
-    const nav = getNavElement('.main-nav')
-    const sut = getNavMenuToggleBtnElement(nav)
-    expect(isButtonElement(sut)).toBeTruthy()
-  })
-
-  test('getNavMenuToggleBtnElement throws with no results selected against DOM', () => {
+  test('getNavToggleWrapperElement throws with no results selected against DOM', () => {
     document.body.innerHTML = `<nav class="main-nav" role="navigation"></nav>`
-    const nav = getNavElement('.main-nav')
-    expect(() => getNavMenuToggleBtnElement(nav)).toThrow()
+    expect(() => getNavToggleWrapperElement()).toThrow()
   })
 })
 
-describe('getNavMenuToggleBtnElement selector works', () => {
-  test('getNavMenuToggleBtnElement works with valid class selector against DOM', () => {
-    const body = document.querySelector('body')
-    expect(isBodyElement(body)).toBeTruthy()
-    const shadow = (body as HTMLBodyElement).attachShadow({ mode: 'open' })
-    shadow.innerHTML = `<slot></slot>`
-    const sut = getSlotElement(shadow)
-    expect(isSlotElement(sut)).toBeTruthy()
+describe('getNavToggleBtnElement selector works', () => {
+  test('getNavToggleBtnElement works with element in DOM', () => {
+    document.body.innerHTML = navHtml
+    const sut = getNavToggleBtnElement()
+    expect(isButtonElement(sut)).toBeTruthy()
   })
 
-  test('getNavMenuToggleBtnElement throws with no <slot> elements in the shadow DOM', () => {
-    const body = document.querySelector('body')
-    expect(isBodyElement(body)).toBeTruthy()
-    const shadow = (body as HTMLBodyElement).attachShadow({ mode: 'open' })
-    expect(() => getSlotElement(shadow)).toThrow()
+  test('getNavToggleBtnElement throws with no <slot> elements in the shadow DOM', () => {
+    document.body.innerHTML = `<nav class="main-nav" role="navigation"></nav>`
+    expect(() => getNavToggleBtnElement()).toThrow()
   })
 })

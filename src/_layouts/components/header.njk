@@ -1,19 +1,27 @@
 {# Hidden modal shown when theme picker icon selected #}
 {% include "./themePicker/themes.njk" %}
-<header class="header" role="banner">
-  {# Branding #}
-  <span class="header__brand">
-    <a class="header__brand-anchor" href="/" rel="home" aria-label="Go To Homepage">
-      {% include '../images/logo.njk' %}
-      <span class="header__brand-name">{{ site.organization }}</span>
-    </a>
+{# Header for all pages #}
+<header id="header" class="header" role="banner">
+  {#- Element for animated background behind mobile navigation menu -#}
+  <div id="mobile-splash" class="mobile-splash"></div>
+  {# Logo and wordmark #}
+  <span id="header__brand" class="header__brand">
+    {% include "./brand.njk" %}
   </span>
-  {# Theme picker icon #}
-  <span class="header__themepicker-icon">
+  {# Main Navigation Menu #}
+  {# IF THIS CHANGES update navigationHtml.ts fixture in navigation script folder #}
+  <span id="header__main-nav" class="header__main-nav">
+    {% include "./navigation/menu.njk" %}
+  </span>
+  {# Theme picker toggle button to show modal #}
+  <span id="header__theme-icon" class="header__theme-icon">
+    {# Theme picker toggle button and icon #}
     {% include "./themePicker/icon.njk" %}
   </span>
-  {# Navigation #}
-  <span class="header__main-nav">
-    {% include "./navigation.njk" %}
+  {# Mobile navigation toggle button to show menu on full-page splash screen #}
+  {# IF THIS CHANGES update navigationHtml.ts fixture in navigation script folder #}
+  <span id="header__nav-icon" class="header__nav-icon">
+    {# Menu toggle icon #}
+    {% include "./navigation/icon.njk" %}
   </span>
 </header>

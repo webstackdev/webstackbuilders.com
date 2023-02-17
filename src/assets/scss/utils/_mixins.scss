@@ -1,46 +1,6 @@
 /**
- * Prints a mobile first media query based on the name given
- *
- * @param {String} $name - Breakpoint name, defined in $breakpoints map in variables/_sizes.scss
- * @require $breakpoints - List of breakpoints and pixel values keyed by name, e.g. `md`, `lg`, or `xl`
- * @return {String} media query for the breakpoint name provided, using passed attributes
+ * Utility mixins for SCSS
  */
-@mixin media-query-mobile-first($name) {
-  @if map-has-key($breakpoints, $name) {
-    @media (min-width: map-get($breakpoints, $name)) {
-      @content;
-    }
-  } @else {
-    @error "Breakpoint name `#{$name}` not set in SCSS variables."
-        + "Available breakpoints are: #{map-keys($breakpoints)}.";
-  }
-}
-
-/**
- * Prints a desktop first media query based on the name given
- *
- * @param {String} $name - Breakpoint name
- * @require $breakpoints - List of breakpoints and pixel values keyed by name, e.g. `md`
- * @return {String} media query for the breakpoint name provided, using passed attributes
- */
-@mixin media-query-desktop-first($name) {
-  @if map-has-key($breakpoints, $name) {
-    @media (max-width: (map-get($breakpoints, $name) - 1px)) {
-      @content;
-    }
-  } @else {
-    @error "Breakpoint name `#{$name}` not set in SCSS variables."
-        + "Available breakpoints are: #{map-keys($breakpoints)}.";
-  }
-}
-
-@mixin hyphenate() {
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-  /** Not supported by Safari on iOS */
-  -webkit-hyphens: auto;
-  hyphens: auto;
-}
 
 @mixin coverall() {
   position: absolute;
@@ -48,28 +8,4 @@
   left: 0;
   bottom: 0;
   right: 0;
-}
-
-/**
- * Narrow version of container class in layout
- */
-@mixin container-narrow() {
-  width: 100%;
-  max-width: $container-narrow-max-width;
-  max-width: var(--content-max-width, #{$container-narrow-max-width});
-  margin-left: auto;
-  margin-right: auto;
-}
-
-/** Effect used in _featured for article link */
-@mixin stretched-link() {
-  &::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 1;
-  }
 }

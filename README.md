@@ -55,52 +55,6 @@ function excerpt(post){
 {% endfor %}
 ```
 
-## @TODO: Use Confetti on CTA forms
-
-`canvas-confetti`
-https://github.com/catdad/canvas-confetti
-https://www.kirilv.com/canvas-confetti/
-
-
-## @TODO: Use the Page Visibility API to stop unnecessary processes when the user doesn’t see the page or, on the other hand, to perform background actions. Some specific cases can be to pause videos, image carousels, or animations when the user leaves the page.
-
-## @TODO: Add to Calendar button
-
-https://github.com/add2cal/add-to-calendar-button
-https://add-to-calendar-button.com/
-
-## @TODO: Use a grid of cards for mobile nav menu, like the Windows start menu
-
-Also instead of just displaying a Back button, we can stack all the previous sections like a breadcrumb under each other. And so we get a navigation stack.
-
-## @TODO: Add Check HTML Links to test workflow
-
-npm i -D check-html-links
-npx check-html-links _site
-https://github.com/modernweb-dev/rocket/tree/main/packages/check-html-links
-
-## @TODO: Provide button to turn off animation in Hero
-
-"Scaling/zooming animations are problematic for accessibility, as they are a common trigger for certain types of migraine. If you need to include such animations on your website, you should provide a control to allow users to turn off animations, preferably site-wide.  Also, consider making use of the prefers-reduced-motion media feature — use it to write a media query that will turn off animations if the user has reduced animation specified in their system preferences. "
-
-
-## @TODO: add code to stop the Hero Greensocks animation when @media (prefers-reduced-motion: reduce), using window.mediaQuery()
-
-## @TODO: Set up webmentions. This code goes in `_layouts/layouts/base.njk` after the last `<script>` tag in the document `<body>`:
-
-```nunjucks
-{%- if layout == 'layouts/articles/item' -%}
-  <script src="{{ '/assets/scripts/webmentions.js' | url }}" defer></script>
-  <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-{%- endif -%}
-```
-
-## @TODO: Implement draft status for collections (articles, services, case studies). Example:
-
-```nunjucks
-<li class="case-studies__item {% if casestudy.data.draft %}case-studies__item--draft{% endif %}">
-```
-
 ## Preload hero images, usually loaded after stylesheets and fonts
 
 ```font
@@ -130,9 +84,7 @@ https://github.com/modernweb-dev/rocket/tree/main/packages/check-html-links
 
 ## Lighthouse
 
-Display a system font until font files load to improve FCP (First Contentful Paint) with `font-display: swap`.
-Need to make sure that web font doesn't render larger or smaller than the system font fallback to avoid CLS
-(Cumulative Layout Shift) issues.
+Display a system font until font files load to improve FCP (First Contentful Paint) with `font-display: swap`. Need to make sure that web font doesn't render larger or smaller than the system font fallback to avoid CLS (Cumulative Layout Shift) issues.
 
 ```css
 @font-face {
@@ -258,18 +210,17 @@ import routes from 'https://example.com/routes.json' assert { type: 'json' };
 import './global.css' assert { type: 'css' }
 ```
 
-## Nice Jest packages
+Check if a CSS selector is valid in the browser console:
+```bash
+document.querySelector('.main-nav.aria-expanded-true')
+```
 
-- jest-json-schema Provides `toMatchSchema(schema)` matcher
-- jest-json Convenient JSON matchers
-- jest-mock-extended Provides complete Typescript type safety for interfaces, argument types and return types, ability to mock any interface or object
-- jest-localstorage-mock Provides a working localStorage API with mocked functions, maybe built-in to Jest now
-- jest-canvas-mock If using canvas functions
-- jest-fetch-mock
-- jest-wake-lock-mock If using navigator.wakelock to keep a mobile device from dimming or powering down to save battery
--   Mocks out window.location and avoids errors with window.location.assign, reload, or replace
-- jest-image-snapshot https://github.com/americanexpress/jest-image-snapshot @TODO: use for social share cards!
+Test the value of a CSS variable when using `calc()` in the browser console:
+```bash
+document.getElementById('header__theme-icon').getBoundingClientRect().width
+```
 
-## Nice ESLint packages for Jest
-- eslint-plugin-jest-extended Rules for `jest-extended` like `.toBeTrue()`, but having problem with types for the `jest-extended` matchers
-
+Get the currently focused element on the page in the console:
+```bash
+document.activeElement
+```

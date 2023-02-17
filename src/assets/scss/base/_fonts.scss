@@ -7,7 +7,7 @@
   font-display: $fontDisplay;
   font-family: "Onest Regular";
   font-style: normal; // or 'italic'
-  font-weight: normal;
+  font-weight: var(--font-weight-normal);
   src:
     // local() specifies names the font might be cached by on client
     local("Onest Regular"), local("OnestRegular1602-hint"),
@@ -19,7 +19,7 @@
   font-display: $fontDisplay;
   font-family: "Lora Regular";
   font-style: normal;
-  font-weight: normal;
+  font-weight: var(--font-weight-normal);
   src:
     // local() specifies names the font might be cached by on client
     local("Lora Regular"), local("Lora-Regular"),
@@ -31,7 +31,7 @@
   font-display: $fontDisplay;
   font-family: "IBM Plex Mono Regular";
   font-style: normal;
-  font-weight: normal;
+  font-weight: var(--font-weight-normal);
   src:
     // local() specifies names the font might be cached by on client
     local("IBM Plex Mono Regular"), local("IBMPlexMono-Regular"),

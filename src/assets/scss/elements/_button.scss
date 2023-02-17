@@ -1,13 +1,13 @@
 .btn {
   align-items: center;
-  border-radius: $border-radius;
+  border-radius: 0.25em;
   border: 2px solid var(--color-bg);
   display: inline-flex;
   font-size: var(--font-size-sm);
-  font-weight: 600;
+  font-weight: var(--font-weight-heavier);
   justify-content: center;
   letter-spacing: var(--letter-spacing-xs);
-  padding: 0.75rem 1.5rem;
+  padding: 0.75em 1.5em;
   text-align: center;
   text-transform: uppercase;
   transition: all 0.2s ease-in-out;
@@ -49,8 +49,8 @@
 }
 
 .btn--secondary {
-  background-color: var(--color-secondary);
   @extend .btn--primary;
+  background-color: var(--color-secondary);
 
   &:hover,
   &:focus {

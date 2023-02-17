@@ -2,39 +2,68 @@
  * Tests for navigation menu script
  */
 import { describe, expect, test } from '@jest/globals'
-import { resolve } from 'path'
-import { getCurriedFixturePath, loadDomWithScript } from '../../../../../../test/jest/helpers'
-import { isButtonElement, isNavElement, isUlElement } from '../../../utils/assertions'
+import userEvent from '@testing-library/user-event'
+import { getNavToggleBtnElement } from '../selectors'
 import { Navigation, setupNavigation } from '../navigation'
+import { navHtml } from '../__fixtures__/navigationHtml'
 
-const getFixturePath = getCurriedFixturePath(__dirname)
-const templatePath = resolve(process.cwd(), `src/_layouts/components/navigation.njk`)
-
-beforeEach(() => {
-  Object.defineProperty(window, 'innerHeight', {
-    writable: true,
-    configurable: true,
-    value: 768,
-  })
-
-  Object.defineProperty(window, 'innerWidth', {
-    writable: true,
-    configurable: true,
-    value: 1024,
-  })
-
-  Object.defineProperty(window, 'devicePixelRatio', {
-    writable: true,
-    configurable: true,
-    value: 1,
-  })
+beforeAll(() => {
+  jest.useFakeTimers()
 })
 
 describe(`Navigation class works`, () => {
-  test(`Constructor initializes`, async () => {
-    await loadDomWithScript(templatePath, getFixturePath(`navigation_1.ts`), document)
+  test(`Setup initializes`, () => {
+    document.body.innerHTML = navHtml
+    expect(() => setupNavigation()).not.toThrow()
+  })
+})
+
+describe(`Navigation toggleMenu method works`, () => {
+  test(`toggleMenu sets class correctly`, () => {
+    document.body.innerHTML = navHtml
     const sut = new Navigation()
-    expect(sut.isOpen).toBeFalsy()
+    sut.bindEvents()
+    sut.toggleMenu()
+    expect(document.querySelector(`body`)!.className).toMatch(`no-scroll`)
+    expect(
+      document.querySelector(`.nav-icon__toggle-btn`)!.getAttribute(`aria-expanded`)
+    ).toBeTruthy()
+    expect(document.querySelector(`#header`)!.className).toMatch(`aria-expanded-true`)
+  })
+
+  test(`toggleMenu sets and removes the position on the header wrapper`, () => {
+    window.HTMLElement.prototype.getBoundingClientRect = () => {
+      return {
+        x: 336.1000061035156,
+        y: 8,
+        width: 42,
+        height: 42,
+        top: 8,
+        right: 378.1000061035156,
+        bottom: 50,
+        left: 336.1000061035156,
+      } as unknown as DOMRect
+    }
+    document.body.innerHTML = navHtml
+    const sut = new Navigation()
+    sut.bindEvents()
+    const iconWrapper = document.querySelector(`#header__nav-icon`) as HTMLSpanElement
+    expect(iconWrapper.style.left).toBeFalsy()
+    expect(iconWrapper.style.top).toBeFalsy()
+    sut.toggleMenu()
+    expect(iconWrapper.style.left).toMatch(`336.1000061035156px`)
+    expect(iconWrapper.style.top).toMatch(`8px`)
+    sut.toggleMenu()
+    expect(iconWrapper.style.left).toBeFalsy()
+    expect(iconWrapper.style.top).toBeFalsy()
+  })
+})
+
+describe(`Focus trap works`, () => {
+  test(`Constructor initializes`, () => {
+    document.body.innerHTML = navHtml
+    const sut = new Navigation()
+    sut.bindEvents()
     expect(sut.focusTrap).toMatchObject({
       activate: expect.any(Function),
       active: false,
@@ -44,30 +73,49 @@ describe(`Navigation class works`, () => {
       unpause: expect.any(Function),
       updateContainerElements: expect.any(Function),
     })
-    expect(isUlElement(sut.menu)).toBeTruthy()
-    expect(isNavElement(sut.nav)).toBeTruthy()
-    expect(isButtonElement(sut.toggleBtn)).toBeTruthy()
   })
-})
 
-describe(`setupNavigation initialization method works`, () => {
-  test(`setupNavigation initializes class and binds successfully`, async () => {
-    await loadDomWithScript(templatePath, getFixturePath(`navigation_1.ts`), document)
-    const rootElement = document.documentElement
-    expect(rootElement.style.getPropertyValue('--diameter')).toBeFalsy()
-    setupNavigation()
-    expect(rootElement.style.getPropertyValue('--diameter')).toMatch(/1280px/)
-  })
-})
-
-describe(`Navigation toggleMenu method works`, () => {
-  test(`toggleMenu sets class correctly`, async () => {
-    await loadDomWithScript(templatePath, getFixturePath(`navigation_1.ts`), document)
-    jest.useFakeTimers()
+  test(`ESC keypress inside focus trap deactivates the trap`, async () => {
+    document.body.innerHTML = navHtml
     const sut = new Navigation()
-    sut.toggleMenu()
-    expect(document.querySelector(`body`)!.className).toMatch(`no-scroll`)
-    expect(document.querySelector(`nav`)!.className).toMatch(`main-nav main-nav--open`)
-    expect(document.querySelector(`button`)!.getAttribute(`aria-expanded`)).toBeTruthy()
+    sut.bindEvents()
+    sut.toggleMenu(true)
+    const user = userEvent.setup({ delay: undefined })
+    expect(sut.isMenuOpen).toBeTruthy()
+    await user.keyboard('{Escape}')
+    expect(sut.isMenuOpen).toBeFalsy()
+  })
+})
+
+describe(`Toggle button works`, () => {
+  test(`Clicking toggle button works`, async () => {
+    document.body.innerHTML = navHtml
+    const sut = new Navigation()
+    sut.bindEvents()
+    const user = userEvent.setup({ delay: undefined })
+    const button = getNavToggleBtnElement()
+    expect(sut.isMenuOpen).toBeFalsy()
+    await user.click(button)
+    expect(sut.isMenuOpen).toBeTruthy()
+    await user.click(button)
+    expect(sut.isMenuOpen).toBeFalsy()
+  })
+
+  test(`Pressing enter on toggle button works`, async () => {
+    document.body.innerHTML = navHtml
+    const sut = new Navigation()
+    sut.bindEvents()
+    const user = userEvent.setup({ delay: undefined })
+    const button = getNavToggleBtnElement()
+    /** Initial state, menu should be closed */
+    expect(sut.isMenuOpen).toBeFalsy()
+    /** Open the menu */
+    button.focus()
+    await user.keyboard('{Enter}')
+    expect(sut.isMenuOpen).toBeTruthy()
+    /** Close the menu */
+    button.focus()
+    await user.keyboard('{Enter}')
+    expect(sut.isMenuOpen).toBeFalsy()
   })
 })

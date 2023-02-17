@@ -3,6 +3,8 @@ const random = require('lodash/random')
 const Icon = require('../shortcodes/icon').icon
 const Spinner = require('./spinner').spinner
 
+// @TODO: This should be refactored to a template if it ends up being used
+
 const SignupForm = (_, source) => {
   const MC = {
     url: 'https://dev.us18.list-manage.com/subscribe/post',

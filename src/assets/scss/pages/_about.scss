@@ -26,40 +26,42 @@
     list-style-type: none !important;
 
     .icon {
-      font-size: var(--font-size-xl);
       margin-right: 1.25rem;
     }
   }
 
   &__title {
-
+    //
   }
 
   &__subtitle {
-
+    //
   }
 
   &__content {
-
+    //
   }
 
-  @include media-query-mobile-first(lg) {
+  @include media-query-min-width(lg) {
     &__header {
       display: flex;
       align-items: center;
       margin: 0 calc(50% - 50vw) 3rem;
     }
+
     &__photo {
       width: 40%;
       padding-bottom: 450px;
       margin: 0;
     }
+
     &__intro {
       flex: 1 1 60%;
       padding: 2rem 3rem;
     }
+
     &__content {
-      @include container-narrow;
+      //
     }
   }
 }

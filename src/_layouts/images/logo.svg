@@ -1,0 +1,41 @@
+<svg
+  class="logo"
+  title="Webstack Builders Company Logo"
+  viewBox="0 0 88.360085 86.394562"
+  width="88.360085"
+  height="86.394562"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <path
+    class="logo-block-outer"
+    d="M 0,14.625852 V 0 h 8.904504 8.904505 v 14.625852 14.62585 H 8.904504 0 Z"
+  />
+  <path
+    class="logo-block-outer"
+    d="M 24.658627,14.625852 V 0 h 20.206374 20.20638 v 14.625852 14.62585 H 44.865001 24.658627 Z"
+  />
+  <path
+    class="logo-block-outer"
+    d="M 70.551071,14.625852 V 0 h 8.90451 8.9045 v 14.625852 14.62585 h -8.9045 -8.90451 z"
+  />
+  <path
+    class="logo-block-inner"
+    d="m 0,43.197282 v -8.5034 h 20.548856 20.548855 v 8.5034 8.5034 H 20.548856 0 Z"
+  />
+  <path
+    class="logo-block-inner"
+    d="m 47.262371,43.197282 v -8.5034 h 20.54885 20.54886 v 8.5034 8.5034 h -20.54886 -20.54885 z"
+  />
+  <path
+    class="logo-block-outer"
+    d="m 0,71.768712 v -14.62585 h 8.904504 8.904505 v 14.62585 14.62585 H 8.904504 0 Z"
+     id="path545" />
+  <path
+    class="logo-block-outer"
+    d="m 24.658627,71.768712 v -14.62585 h 20.206374 20.20638 v 14.62585 14.62585 H 44.865001 24.658627 Z"
+  />
+  <path
+    class="logo-block-outer"
+    d="m 70.551071,71.768712 v -14.62585 h 8.90451 8.9045 v 14.62585 14.62585 h -8.9045 -8.90451 z"
+  />
+</svg>

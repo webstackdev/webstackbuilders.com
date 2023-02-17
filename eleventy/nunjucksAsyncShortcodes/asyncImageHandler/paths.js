@@ -13,7 +13,7 @@ const { normalizeFilePathStem } = require('../../utils/permalinks')
  * directory. Filename can be either a filename with extension or a filename with a
  * subdirectory prefix.
  */
-const caseHomePageImage = (fileName, _) => {
+const caseHomePageImage = (fileName) => {
   const rootPaths = getRootPathsFromFilePath(fileName)
   return {
     /** Absolute path to the image file to be processed */
@@ -29,11 +29,12 @@ const caseHomePageImage = (fileName, _) => {
 }
 
 /**
- * Images included in Nunjucks or Javascript templates using the `image`
- * shortcode are maintained in the assets/images folder and should be
- * outputted to the /public/images directory.
+ * Avatar images included in Nunjucks or Javascript templates using the `image`
+ * shortcode are maintained in the assets/images/avatars folder and should be
+ * outputted to the /public/images directory. This is because avatars may be
+ * used on multiple pages.
  */
-const caseAvatarImage = (fileName, _) => {
+const caseAvatarImage = (fileName) => {
   const normalizedFileName = stripLeadingSlash(fileName)
   const rootPaths = getRootPathsFromFilePath(fileName)
   return {
@@ -53,15 +54,14 @@ const caseAvatarImage = (fileName, _) => {
  * Images with a leading slash are loaded from the assets/images folder
  * and outputted to the /public/images directory.
  */
-const caseImageFromAssetsFolder = (fileName, filePathStem) => {
+const caseImageFromAssetsFolder = (fileName) => {
   const normalizedFileName = stripLeadingSlash(fileName)
-  const relativeFilePath = normalizeFilePathStem(filePathStem)
   const rootPaths = getRootPathsFromFilePath(fileName)
   return {
     /** Absolute path to the image file to be processed */
     imagePath: path.join(process.cwd(), imagesSourceDir, normalizedFileName),
     /** Project-relative path to the output image directory to write generated images to */
-    outputDir: stripTrailingSlash(path.join(process.cwd(), imagesBuildDir, relativeFilePath)),
+    outputDir: stripTrailingSlash(path.join(process.cwd(), imagesBuildDir, rootPaths)),
     /**
      * Directory for the <img src> attribute. e.g. /images/ for
      * <img src="/images/MY_IMAGE.jpeg">
@@ -79,13 +79,15 @@ const caseImageFromAssetsFolder = (fileName, filePathStem) => {
  * Case: isRelativeFilePath(fileName)
  */
 const caseImageWithRelativePath = (fileName, filePathStem) => {
+  if (!filePathStem.endsWith('/index'))
+    throw new Error(`Relative images only make sense for pages that are nested in their own folder`)
   const relativeFilePath = normalizeFilePathStem(filePathStem)
   const rootPaths = getRootPathsFromFilePath(fileName)
   return {
     /** Absolute path to the image file to be processed */
     imagePath: path.join(process.cwd(), `src/pages`, relativeFilePath, fileName),
     /** Absolute path to the output image directory to write generated images to */
-    outputDir: stripTrailingSlash(path.join(process.cwd(), buildDir, relativeFilePath)),
+    outputDir: stripTrailingSlash(path.join(process.cwd(), buildDir, relativeFilePath, rootPaths)),
     /**
      * Directory for the <img src> attribute. e.g. /images/ for
      * <img src="/images/MY_IMAGE.jpeg">
@@ -107,15 +109,15 @@ exports.getImagePaths = (fileName, filePathStem) => {
   const isAvatar = fileName.startsWith('/avatars/') || fileName.startsWith('avatars/')
   if (filePathStem.startsWith(`/pages/home`) && !isAvatar) {
     /* Home page images have to live in the public assets folder since there's no home folder */
-    return caseHomePageImage(fileName, filePathStem)
+    return caseHomePageImage(fileName)
     //
   } else if (isAvatar) {
     /* Avatar images are global for reuse */
-    return caseAvatarImage(fileName, filePathStem)
+    return caseAvatarImage(fileName)
     //
   } else if (fileName.startsWith('/')) {
     /* Images with a leading slash are loaded from the assets/images folder */
-    return caseImageFromAssetsFolder(fileName, filePathStem)
+    return caseImageFromAssetsFolder(fileName)
     //
   } else if (isRelativeFilePath(fileName)) {
     /* Relative path images are loaded from the same folder as the content */

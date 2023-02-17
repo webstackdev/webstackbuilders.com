@@ -1,6 +1,5 @@
 <div class="themepicker" data-nosnippet hidden>
-  <h3 class="themepicker__title">Select Theme</h3>
-  <ul class="themepicker__list" id="theme-menu">
+  <ul id="theme-menu" class="themepicker__list">
   {%- for theme in themes %}
     <li class="themepicker__item">
       <button
@@ -21,7 +20,7 @@
   {%- endfor %}
   </ul>
   <button
-    class="btn btn--secondary themepicker__closeBtn"
+    class="themepicker__closeBtn"
     type="button"
     aria-label="Close theme picker dialog"
   >

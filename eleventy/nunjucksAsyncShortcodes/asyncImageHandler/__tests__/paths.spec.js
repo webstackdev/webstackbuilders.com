@@ -14,25 +14,26 @@ afterEach(() => {
   mock.restore()
 })
 
+/**
+ * Second parameter to getImagePaths() is `page.filePathStem`:
+ * inputPath              page.filePathStem Result
+ * 2018-01-01-myFile.md  	myFile
+ * myDir/myFile.md 	      myDir/myFile
+ */
 describe(`caseHomePageImage`, () => {
-  test('Homepage image filenames located in Markdown home file source directory point to image assets directory in build folder', () => {
-    const fileName = 'great-days.jpeg'
-    const filePathStem = '/pages/home'
-    const paths = getImagePaths(fileName, filePathStem)
-    expect(paths).toMatchObject({
-      imagePath: "/var/www/eleventy/src/pages/home/great-days.jpeg",
-      outputDir: "/var/www/eleventy/public/images/home",
-      urlBasePath: "/images/home/",
+  test('relative image filenames on the home page work', () => {
+    const sut = getImagePaths('myImage.jpeg', '/pages/home/index')
+    expect(sut).toMatchObject({
+      imagePath: '/var/www/eleventy/src/pages/home/myImage.jpeg',
+      outputDir: '/var/www/eleventy/public/images/home',
+      urlBasePath: '/images/home/',
     })
-    //expect(paths).toMatchInlineSnapshot()
   })
 
-  test('Homepage image filenames with leading paths in image name located in Markdown home file directory point to image assets directory in build folder', () => {
-    const fileName = 'carousel/great-days.jpeg'
-    const filePathStem = '/pages/home'
-    const paths = getImagePaths(fileName, filePathStem)
-    expect(paths).toMatchObject({
-      imagePath: '/var/www/eleventy/src/pages/home/carousel/great-days.jpeg',
+  test('relative image filenames with leading paths on the home page work', () => {
+    const sut = getImagePaths('carousel/myImage.jpeg', '/pages/home/index')
+    expect(sut).toMatchObject({
+      imagePath: '/var/www/eleventy/src/pages/home/carousel/myImage.jpeg',
       outputDir: '/var/www/eleventy/public/images/home/carousel',
       urlBasePath: '/images/home/carousel/',
     })
@@ -40,34 +41,28 @@ describe(`caseHomePageImage`, () => {
 })
 
 describe(`caseAvatarImage`, () => {
-  test('absolute image filenames in the avatars directory are handled correctly', () => {
-    const fileName = '/avatars/john-smith.jpeg'
-    const filePathStem = '/pages/articles/helloworld/index'
-    const paths = getImagePaths(fileName, filePathStem)
-    expect(paths).toMatchObject({
-      imagePath: "/var/www/eleventy/src/assets/images/avatars/john-smith.jpeg",
-      outputDir: "/var/www/eleventy/public/images/avatars",
-      urlBasePath: "/images/avatars/",
+  test('absolute image filenames in the avatars directory work', () => {
+    const sut = getImagePaths('/avatars/myImage.jpeg', '/pages/articles/helloworld/index')
+    expect(sut).toMatchObject({
+      imagePath: '/var/www/eleventy/src/assets/images/avatars/myImage.jpeg',
+      outputDir: '/var/www/eleventy/public/images/avatars',
+      urlBasePath: '/images/avatars/',
     })
   })
 
-  test('relative image filenames in the avatars directory are handled correctly', () => {
-    const fileName = 'avatars/john-smith.jpeg'
-    const filePathStem = '/pages/articles/helloworld/index'
-    const paths = getImagePaths(fileName, filePathStem)
-    expect(paths).toMatchObject({
-      imagePath: "/var/www/eleventy/src/assets/images/avatars/john-smith.jpeg",
-      outputDir: "/var/www/eleventy/public/images/avatars",
-      urlBasePath: "/images/avatars/",
+  test('relative image filenames in the avatars directory work', () => {
+    const sut = getImagePaths('avatars/myImage.jpeg', '/pages/articles/helloworld/index')
+    expect(sut).toMatchObject({
+      imagePath: '/var/www/eleventy/src/assets/images/avatars/myImage.jpeg',
+      outputDir: '/var/www/eleventy/public/images/avatars',
+      urlBasePath: '/images/avatars/',
     })
   })
 
-  test('can use avatar images on the home page', () => {
-    const fileName = '/avatars/john-smith.jpeg'
-    const filePathStem = '/pages/home'
-    const paths = getImagePaths(fileName, filePathStem)
-    expect(paths).toMatchObject({
-      imagePath: '/var/www/eleventy/src/assets/images/avatars/john-smith.jpeg',
+  test('relative image filenames with avatar as the path on the home page work', () => {
+    const sut = getImagePaths('/avatars/myImage.jpeg', '/pages/home/index')
+    expect(sut).toMatchObject({
+      imagePath: '/var/www/eleventy/src/assets/images/avatars/myImage.jpeg',
       outputDir: '/var/www/eleventy/public/images/avatars',
       urlBasePath: '/images/avatars/',
     })
@@ -75,38 +70,45 @@ describe(`caseAvatarImage`, () => {
 })
 
 describe(`caseImageFromAssetsFolder`, () => {
-  test('leading an image filename with a forward slash loads the image from the assets/images directory', () => {
-    const fileName = '/john-smith.jpeg'
-    const filePathStem = '/pages/articles/helloworld/index'
-    const paths = getImagePaths(fileName, filePathStem)
-    expect(paths).toMatchObject({
-      imagePath: "/var/www/eleventy/src/assets/images/john-smith.jpeg",
-      outputDir: "/var/www/eleventy/public/images/articles/helloworld",
-      urlBasePath: "/images/",
+  test('absolute image filename loads the image from the assets/images directory', () => {
+    const sut = getImagePaths('/myImage.jpeg', '/pages/articles/helloworld/index')
+    expect(sut).toMatchObject({
+      imagePath: '/var/www/eleventy/src/assets/images/myImage.jpeg',
+      outputDir: '/var/www/eleventy/public/images',
+      urlBasePath: '/images/',
+    })
+  })
+
+  test('absolute image filename with paths loads the image from the assets/images/path directory', () => {
+    const sut = getImagePaths('/path/myImage.jpeg', '/pages/articles/helloworld/index')
+    expect(sut).toMatchObject({
+      imagePath: '/var/www/eleventy/src/assets/images/path/myImage.jpeg',
+      outputDir: '/var/www/eleventy/public/images/path',
+      urlBasePath: '/images/path/',
     })
   })
 })
 
 describe(`caseImageWithRelativePath`, () => {
-  test('plain filename with extension is loaded from same folder as content', () => {
-    const fileName = 'cover.webp'
-    const filePathStem = '/pages/articles/helloworld/index'
-    const sut = getImagePaths(fileName, filePathStem)
+  test('relative image filename works', () => {
+    const sut = getImagePaths('myImage.webp', '/pages/articles/helloworld/index')
     expect(sut).toMatchObject({
-      imagePath: "/var/www/eleventy/src/pages/articles/helloworld/cover.webp",
+      imagePath: "/var/www/eleventy/src/pages/articles/helloworld/myImage.webp",
       outputDir: "/var/www/eleventy/public/articles/helloworld",
       urlBasePath: "/articles/helloworld/",
     })
   })
 
-  test('nested relative image returns correct paths', () => {
-    const fileName = 'feature/great.jpeg'
-    const filePathStem = '/pages/articles/helloworld/index'
-    const sut = getImagePaths(fileName, filePathStem)
+  test('relative image filename with paths works', () => {
+    const sut = getImagePaths('feature/myImage.jpeg', '/pages/articles/helloworld/index')
     expect(sut).toMatchObject({
-      imagePath: '/var/www/eleventy/src/pages/articles/helloworld/feature/great.jpeg',
-      outputDir: '/var/www/eleventy/public/articles/helloworld',
+      imagePath: '/var/www/eleventy/src/pages/articles/helloworld/feature/myImage.jpeg',
+      outputDir: '/var/www/eleventy/public/articles/helloworld/feature',
       urlBasePath: '/articles/helloworld/feature/',
     })
+  })
+
+  test('relative image filename where the including file is stand-alone throws', () => {
+    expect(() => getImagePaths('feature/myImage.jpeg', '/pages/site/somepage')).toThrow()
   })
 })

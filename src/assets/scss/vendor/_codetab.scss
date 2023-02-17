@@ -3,7 +3,7 @@
  */
 .code-tabs {
   border: 1px solid rgb(240, 240, 240);
-  border-radius: 3px;
+  border-radius: 0.3em;
 
   pre,
   input {
@@ -23,7 +23,6 @@
   }
 
   ul {
-    font-size: 0;
     padding: 0;
     white-space: nowrap;
     overflow: auto;
@@ -45,15 +44,14 @@
     -webkit-user-select: none;
     user-select: none;
     display: inline-block;
-    padding: 2px 5px;
-    margin: 5px;
-    font-size: var(--font-size-sm);
+    padding: 0.2em 0.5em;
+    margin: 0.5em;
   }
 
   li ~ li::before {
     content: '';
-    height: 12px;
-    width: 1px;
+    height: 1.2em;
+    width: 0.1em;
     background: rgba(191, 191, 191, 1);
     position: absolute;
     top: 50%;

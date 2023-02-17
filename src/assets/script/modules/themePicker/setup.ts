@@ -11,33 +11,37 @@ interface MetaColorsWindow extends Window {
 declare let window: MetaColorsWindow
 
 import { addButtonEventListeners } from '../../utils/elementListeners'
-import { getNavElement, getNavMenuToggleBtnElement } from '../navigation/selectors'
 import GlobalData from '../../../../_data/storage'
 import {
-  getThemePickerModalWrapper,
-  getThemePickerSelectButtons,
-  getThemePickerCloseButton,
   getThemePickerToggleButton,
+  getThemePickerModalWrapper,
+  getThemePickerCloseButton,
+  getThemePickerSelectButtons,
 } from './selectors'
+import { getNavToggleBtnElement } from '../navigation/selectors'
 
 const { THEME_STORAGE_KEY } = GlobalData
 export const CLASSES = {
-  open: `is-open`,
+  isOpen: `is-open`,
   active: `is-active`,
 }
 
 export type ThemeIds = `default` | `dark` | `holiday`
 
 export class ThemePicker {
-  isOpen: boolean
+  isModalOpen: boolean
   activeTheme: ThemeIds
+  /** Wrapper <div> for the theme picker drop down component */
   pickerModal: HTMLDivElement
+  /** <button> element to toggle the picker in site <header> */
   toggleBtn: HTMLButtonElement
+  /** close <button> element for the theme picker drop down */
   closeBtn: HTMLButtonElement
+  /** <button> element on each theme in drop down component to select that theme */
   themeSelectBtns: NodeListOf<HTMLButtonElement>
 
   constructor() {
-    this.isOpen = false
+    this.isModalOpen = false
     this.activeTheme = this.getInitialActiveTheme()
     this.pickerModal = getThemePickerModalWrapper()
     this.toggleBtn = getThemePickerToggleButton()
@@ -48,6 +52,7 @@ export class ThemePicker {
   init() {
     this.setActiveItem()
     this.bindEvents()
+    //iconAnimationInit()
   }
 
   hasLocalStorage() {
@@ -91,8 +96,8 @@ export class ThemePicker {
      * Theme picker modal on mobile should close if it is open and the hamburger menu
      * icon is clicked or pressed.
      */
-    addButtonEventListeners(getNavMenuToggleBtnElement(getNavElement(`.main-nav`)), () => {
-      if (this.isOpen) {
+    addButtonEventListeners(getNavToggleBtnElement(), () => {
+      if (this.isModalOpen) {
         this.togglePicker(false)
       }
     })
@@ -159,20 +164,27 @@ export class ThemePicker {
   }
 
   shouldOpen(forceOpen?: boolean) {
-    return typeof forceOpen === `boolean` ? forceOpen : !this.isOpen
+    return typeof forceOpen === `boolean` ? forceOpen : !this.isModalOpen
   }
 
   togglePicker(forceOpen?: boolean) {
-    this.isOpen = this.shouldOpen(forceOpen)
+    this.isModalOpen = this.shouldOpen(forceOpen)
+
+    /** 1. Set the aria-expanded attribute on the toggle button */
+    this.toggleBtn.setAttribute('aria-expanded', String(this.isModalOpen))
+
     /** Change to open */
-    if (this.isOpen) {
-      /** 1. Add the aria-expanded attribute to the toggle button */
-      this.toggleBtn.setAttribute(`aria-expanded`, `aria-expanded`)
+    if (this.isModalOpen) {
       /** 2. Remove the hidden property from the theme picker modal */
       this.pickerModal.removeAttribute(`hidden`)
-      /** 3. Add the is-open class to the theme picker modal and trigger CSS transition */
+      /**
+       *  3. Add the `is-open` class to the theme picker modal and trigger CSS transition.
+       *     `setTimeout()` used because it follows removing the element's `display: none;`
+       *     property, which is treated as if the initial state had never occurred and
+       *     the element was always in its final state for transitions.
+       */
       window.setTimeout(() => {
-        this.pickerModal.classList.add(CLASSES.open)
+        this.pickerModal.classList.add(CLASSES.isOpen)
       }, 1)
 
       /** 4. Set focus to the currently selected theme item in the modal */
@@ -181,13 +193,11 @@ export class ThemePicker {
       }
       /** Change to close */
     } else {
-      /** 1. Remove the aria-expanded attribute from the toggle button */
-      this.toggleBtn.removeAttribute(`aria-expanded`)
       /** 2. Set the theme picker modal to hidden when the CSS transition has completed */
       const transitionHandler = () => this.pickerModal.setAttribute(`hidden`, `hidden`)
       this.pickerModal.addEventListener(`transitionend`, transitionHandler, { once: true })
       /** 3. Remove the is-open class from the theme picker modal */
-      this.pickerModal.classList.remove(CLASSES.open)
+      this.pickerModal.classList.remove(CLASSES.isOpen)
       /** 4. Set focus to the toggle button */
       this.toggleBtn.focus()
     }

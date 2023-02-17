@@ -1,50 +1,28 @@
-/** Typography for article list view excerpt text and Markdown base text */
-@mixin body-text() {
-  font-size: var(--font-size-lg);
-  line-height: var(--line-height-default);
-  @include media-query-mobile-first(md) {
-    font-size: var(--font-size-2xl);
-  }
-}
 
 html {
-  /** Set the font size using a `rem` value */
-  font-size: 100%;
+  /** Set the font size so that 1 rem equals 10 px at the default 16 px browser font size */
+  font-size: 62.5%;
 }
 
 body {
   font-family: $font-family-sans-serif;
-  font-size: (--font-size-default);
+  font-size: var(--font-size-default); // variable uses rem units
   /** Correct the line height in all browsers */
   line-height: var(--line-height-default);
 }
 
-h1, h2, h3, h4, h5, h6 {
-  line-height: 1.2;
-}
+/**
+ * Typography for base elements
+ */
 
-
-h1, h2, h3 {
-  font-family: $font-family-serif;
-  font-weight: 500;
-  text-rendering: optimizeLegibility;
-}
-
-h1, .h1 {
-  font-size: var(--font-size-6xl);
-}
-
-h2, .h2 {
-  font-size: var(--font-size-5xl);
-}
-
-h3, .h3 {
-  font-size: var(--font-size-4xl);
+ /** Default style is set to `bolder` in Firefox, Safari, and Chrome. */
+b, strong {
+  font-weight: var(--font-weight-bold);
 }
 
 blockquote {
   font-family: $font-family-serif;
-  font-size: var(--font-size-3xl);
+  font-size: var(--font-size-3xl); // variable uses rem units
   font-style: italic;
   quotes: '“' '”' '‘' '’';
 
@@ -62,7 +40,7 @@ blockquote {
 
   footer {
     font-family: $font-family-sans-serif;
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-sm); // variable uses rem units
     font-style: normal;
   }
 
@@ -74,25 +52,68 @@ blockquote {
 /** Fix odd `em`-unit font size rendering in all browsers */
 code, kbd, pre, samp {
   font-family: $font-family-monospace;
-  font-size: var(--font-size-default);
+  font-size: var(--font-size-default); // variable uses rem units
 }
 
-/** Used for subtitle on pages */
-.lead {
-  font-size: var(--font-size-3xl);
-  font-weight: 300;
-  line-height: var(--line-height-md);
-
-  @include media-query-mobile-first(md) {
-    font-size: var(--font-size-4xl);
-  }
+h1, h2, h3, h4, h5, h6 {
+  line-height: var(--line-height-sm);
 }
 
-/** Used for title in article section */
-.smalltitle {
+
+h1, h2, h3 {
   font-family: $font-family-serif;
-  font-size: var(--font-size-sm);
-  font-weight: 700;
-  letter-spacing: var(--letter-spacing-lg);
-  text-transform: uppercase;
+  font-weight: var(--font-weight-heavy);
+  text-rendering: optimizeLegibility;
+}
+
+h1, .h1 {
+  font-size: var(--font-size-6xl); // variable uses rem units
+}
+
+h2, .h2 {
+  font-size: var(--font-size-5xl); // variable uses rem units
+}
+
+h3, .h3 {
+  font-size: var(--font-size-4xl); // variable uses rem units
+}
+
+input, button, textarea, select {
+  font: inherit;
+}
+
+/**
+ * Address Firefox setting `line-height` on `input` using `!important` in the UA stylesheet.
+ */
+input {
+  line-height: normal;
+}
+
+legend {
+  font-size: var(--font-size-3xl);
+  line-height: inherit;
+}
+
+/**
+ * Don't inherit the `font-weight` (applied by a rule above).
+ * NOTE: the default cannot safely be changed in Chrome and Safari on OS X.
+ */
+optgroup {
+  font-weight: var(--font-weight-normal);
+}
+
+
+/**
+ * Make paragraph text more readable than default 16px font setting
+ */
+p {
+  font-size: var(--font-size-lg);
+}
+
+/**
+ * Prevent `sub` and `sup` affecting `line-height` in all browsers.
+ */
+sub, sup {
+  font-size: 75%;
+  line-height: 0;
 }

@@ -5,14 +5,16 @@
 
 $cookie-modal-background: $color-gray-1; // var(--color-primary)
 
+/** @TODO: need to refactor from desktop-first to mobile-first */
+
 .cookie-modal {
   background-color: $cookie-modal-background;
-  border-radius: 10px;
+  border-radius: 0.5em;
   bottom: 0;
   display: flex;
   flex-flow: row nowrap;
   left: 0;
-  margin: 0 10px 10px;
+  margin: 0 1em 1em;
   position: fixed;
   right: 0;
 
@@ -58,14 +60,13 @@ $cookie-modal-background: $color-gray-1; // var(--color-primary)
   $cookie-main-horizontal-padding: $cookie-container-half-dimension + 5px;
 
   &__content {
-    font-size: var(--font-size-default);
-    padding: $cookie-container-half-dimension 0 1rem 2rem;
+    padding: $cookie-container-half-dimension 0 1em 2em;
   }
 
   &__btn-group {
     align-items: center;
     display: flex;
-    padding: $cookie-container-half-dimension 2rem 1rem 1rem;
+    padding: $cookie-container-half-dimension 2em 1em 1em;
 
     > li {
       list-style-type: none;
@@ -78,6 +79,7 @@ $cookie-modal-background: $color-gray-1; // var(--color-primary)
 
   &__btn-allow {
     background-color: $success;
+
     &:hover,
     &:focus {
       background: lighten($success, 10%);
@@ -86,6 +88,7 @@ $cookie-modal-background: $color-gray-1; // var(--color-primary)
 
   &__btn-customize {
     background-color: $warning;
+
     &:hover,
     &:focus {
       background: lighten($warning, 10%);
@@ -93,16 +96,16 @@ $cookie-modal-background: $color-gray-1; // var(--color-primary)
   }
 
   &__btn-spacer {
-    width: 15px;
+    width: 1.5em;
   }
 }
 
 /**
   * Mobile Version (portrait tablet and down)
   */
-@include media-query-desktop-first(md) {
-  $mobile-cookie-icon-dimension: 36px;
-  $mobile-cookie-icon-padding: 6px;
+@include media-query-max-width(md) {
+  $mobile-cookie-icon-dimension: 3.6em;
+  $mobile-cookie-icon-padding: 0.6em;
   $mobile-cookie-container-dimension: $mobile-cookie-icon-dimension + ($mobile-cookie-icon-padding * 2);
   $mobile-cookie-container-half-dimension: math.div($mobile-cookie-container-dimension, 2);
 
@@ -122,7 +125,7 @@ $cookie-modal-background: $color-gray-1; // var(--color-primary)
     }
 
     &__content {
-      padding: $mobile-cookie-container-half-dimension 0 1rem 2rem;
+      padding: $mobile-cookie-container-half-dimension 0 1em 2em;
     }
 
     &__addl-content {
@@ -130,7 +133,7 @@ $cookie-modal-background: $color-gray-1; // var(--color-primary)
     }
 
     &__btn-group {
-      padding: 0 2rem 1rem 1rem;
+      padding: 0 2em 1em 1em;
     }
   }
 }

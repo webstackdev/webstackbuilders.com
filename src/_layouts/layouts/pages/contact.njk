@@ -8,124 +8,137 @@ layout: layouts/base.njk
   itemtype="http://schema.org/ContactPage"
   aria-labelledby="contact-title"
 >
-  <header class="contact__header">
-    <h1
-      id="contact-title"
-      class="contact__title"
-      itemprop="headline"
-    >
-      Contact Us
-    </h1>
-    <p class="contact__subtitle">Happy to hear from you! Please drop us a few words about you and your project</p>
-  </header>
-  <div class="contact__body">
-    <form id="contact-form" class="form-layout contact">
-      <div class="form-layout__header">Tell us about your project:</div>
-
-      <div class="form-unit form-unit-full-width">
-        <div class="field-animate-group">
-          <div class="error-validation__info" data-id="leadFormNameError"></div>
-          <div>
-            <label for="name">Your Name *</label>
-            <input id="name" name="name" type="text" label="Your Name *" data-id="leadFormName" value="">
-          </div>
-        </div>
-      </div>
-
-      <div class="form-unit">
-
-        <div class="field-animate-group">
-            <div class="error-validation__info" data-id="leadFormEmailError"></div>
-            <div>
-              <label for="email">E-mail *</label>
-              <input id="email" name="email" type="text" label="E-mail *" data-id="leadFormEmail" value="">
-            </div>
-          </div>
-          <div class="field-animate-group">
-            <div class="error-validation__info" data-id="leadFormPhoneError"></div>
-            <div>
-              <label for="phone">Phone Number</label>
-              <input id="phone" name="phone" label="Phone Number" type="tel" data-id="leadFormPhone" value="">
-            </div>
-          </div>
-        </div>
-
-        <div class="form-unit">
-          <div class="field-animate-group">
-            <div class="error-validation__info" data-id="leadFormSelectSourceError"></div>
-
-            <div>
-              <icon title="angle-arrow">
-              <label for="leadsource">How did you hear about us? *</label>
-              <select id="leadsource" data-id="leadFormSelectSource" name="leadsource" label="How did you hear about us? *">
-                <option aria-label="empty" style="display: none;"></option>
-                <option aria-label="clutch">clutch</option>
-                <option aria-label="linkedin">linkedin</option>
-                <option aria-label="quora">quora</option>
-                <option aria-label="google search">google search</option>
-                <option aria-label="facebook">facebook</option>
-                <option aria-label="dev.to">dev.to</option>
-                <option aria-label="medium">medium</option>
-                <option aria-label="from a friend">from a friend</option>
-                <option aria-label="other">other</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="field-animate-group">
-            <div class="error-validation__info" data-id="leadFormSelectBudgetError"></div>
-            <div>
-              <icon title="angle-arrow">
-            <label for="budget">What is your budget? *</label>
-            <select id="budget" data-id="leadFormSelectBudget" name="budget" label="What is your budget? *">
-              <option aria-label="empty" style="display: none;"></option>
-              <option aria-label="$25 000 - $50 000">$25 000 - $50 000</option>
-              <option aria-label="$50 000 - $100 000">$50 000 - $100 000</option>
-              <option aria-label="Over $100 000">Over $100 000</option>
-              <option aria-label="Can't disclose / Not sure">Can't disclose / Not sure</option>
-            </select>
-          </div>
-        </div>
-      </div>
-
-      <div class="form-unit">
-        <textarea name="message" placeholder="Project description" data-id="leadFormMessage"></textarea>
-      </div>
-
-      <div class="form-unit form-unit-full-width">
-        <div class="checkbox-container">
-          <label for="custom-chekbox" class="checkbox-label" data-id="leadFormCheckbox">
-            <input id="custom-chekbox" type="checkbox" name="checkbox_subscribe" value="true" checked="">
-            <span class="checkbox-custom"></span>
-          </label>
-          <div class="checkbox-container__text">Stay up to date with software development and design materials from Codica.</div>
-        </div>
-      </div>
-
-      <div class="form-unit-bottom">
-        <div class="form-unit d-block">
-          <div class="dropzone" tabindex="0" data-id="leadFormAttach">
-            <input multiple="" type="file" style="display: none;" autocomplete="off" tabindex="-1">
-            <p>
-              <span class="dropzone__img-text"><icon title="Paperclip">Attach files</span>
-            </p>
-          </div>
-          <div id="dropzone-previews"></div>
-        </div>
-        <button id="contact-submit-btn" class="button red transition" type="submit" data-id="leadFormButton">Send message</button>
-      </div>
-    </form>
+  <header class="contact__hero">
+    <div class="contact__map">
+      {% asyncImageHandler '/map.webp', "Map to office" %}
     </div>
-    <div class="contact__content">
-      <span class="contact__content__author-avatar">
-        {% asyncImageHandler author.avatar, "Site author's avatar image" %}
-      </span>
-      <h3>What's next?</h3>
-      <ol>
-        <li>I'll be in touch with you within 1 business day.</li>
-        <li>I'll sign the NDA if required, and start the project discussion.</li>
-        <li>Our custom software development experts will analyze your requirements and suggest the best ways to bring your idea to life.</li>
-      </ol>
+    <div class="contact__callout">
+      <h2 class="contact__callout-title" itemprop="headline">
+        Webstack Builders
+      </h2>
+      <p class="contact__callout-text">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+      </p>
+      <p class="contact__callout-text">
+        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+      </p>
+    </div>
+  </header>
+
+  <div class="contact__leadin">
+    <h1 class="contact__leadin-header">
+      Get in Touch
+    </h1>
+    <p class="contact__leadin-expect">What to Expect When Reaching Out:</p>
+    {#- List role added for Safari since the SVG list marker is used in :before pseudo-element -#}
+    <ul class="contact__leadin-expect__list" role="list">
+      <li class="contact__leadin-expect__item"><span>Less than 12 hour response</span></li>
+      <li class="contact__leadin-expect__item"><span>Thoroughness and expertise</span></li>
+      <li class="contact__leadin-expect__item"><span>Plan of Action in a follow up email</span></li>
+    </ul>
+  </div>
+
+  <form id="contact__form" class="contact__form">
+    <div class="contact__form-name">
+      <div class="error-validation__info"></div>
+      <div class="contact__form-input-group">
+        <label
+          for="name"
+          class="contact__form-input-label"
+        >
+          Name
+        </label>
+        <input
+          class="contact__form-input-element"
+          type="text"
+          name="name"
+          placeholder=""
+          value=""
+        >
+      </div>
+    </div>
+
+    <div class="contact__form-email">
+      <div class="error-validation__info" ></div>
+      <div class="contact__form-input-group">
+        <label
+          for="email"
+          class="contact__form-input-label"
+        >
+          Your email address
+        </label>
+        <input
+          class="contact__form-input-element"
+          type="text"
+          name="email" value=""
+        >
+      </div>
+    </div>
+
+    <div class="contact__form-message">
+      <div class="error-validation__info" ></div>
+      <div class="contact__form-input-group">
+        <label
+          for="message"
+          class="contact__form-input-label"
+        >
+          Message
+        </label>
+        <textarea
+          name="message"
+          placeholder=""
+          class="contact__form-input-element"
+        ></textarea>
+      </div>
+    </div>
+
+    <div class="contact__form-upload">
+      <div class="contact__form-upload-dropzone" tabindex="0">
+        <span class="contact__form-upload-dropzone-label">
+          {% icon "paper-clip" %}
+          Attach files
+        </span>
+        <input type="file" multiple="" style="display: none;" autocomplete="off" tabindex="-1">
+      </div>
+      <div id="dcontact__form-upload-previews"></div>
+    </div>
+
+    <button type="submit" class="btn contact__form-submit-btn">
+      <span class="contact__form-submit-label">Send</span>
+      <span class="contact__form-submit-circle">{% icon "arrow-right" %}</span>
+    </button>
+  </form>
+
+  <div class="contact__channels">
+    <h2 class="contact__channels-title">Connect with us:</h2>
+    <div class="contact__channels-detail">
+      <p class="contact__channels-email">
+        <a href="mailto:{{ company.email }}">{{ company.email }}</a>
+      </p>
+      <p class="contact__channels-toll-free">Toll Free {{ company.telephoneTollFree }}</p>
+      <p class="contact__channels-local">Local {{ company.telephoneLocal }}</p>
+      <div class="contact__channels-social-icons">
+        <span>
+          <a href="{{ company.social.twitter.url }}" title="Twitter" rel="me">
+            {% icon "twitter" %}
+          </a>
+        </span>
+        <span>
+          <a href="{{ company.social.linkedin.url }}" title="Linkedin" rel="me">
+            {% icon "linkedin" %}
+          </a>
+        </span>
+        <span>
+          <a href="{{ company.social.github.url }}" title="Github" rel="me">
+            {% icon "github" %}
+          </a>
+        </span>
+        <span>
+          <a href="{{ company.social.codepen.url }}" title="Codepen" rel="me">
+            {% icon "codepen" %}
+          </a>
+        </span>
+      </div>
     </div>
   </div>
 </article>

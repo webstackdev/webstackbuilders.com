@@ -23,6 +23,7 @@ $light: (
   primaryColor: $color-blue-4,
   primaryOffsetColor: $color-blue-5,
   secondaryColor: $color-yellow-2,
+  secondaryColorOffset: darken($color-yellow-2, 10%)
 );
 
 $dark: (
@@ -31,11 +32,12 @@ $dark: (
   backgroundColor: $color-blue-6,
   backgroundOffsetColor: $color-blue-5,
   textColor: $color-gray-1,
-  textOffsetColor: $color-gray-3,
+  textOffsetColor: $color-gray-2,
   borderColor: $color-gray-6,
-  primaryColor: $color-blue-4,
-  primaryOffsetColor: $color-blue-5,
-  secondaryColor: $color-yellow-2
+  primaryColor: $color-gray-1,
+  primaryOffsetColor: $color-gray-2,
+  secondaryColor: $color-yellow-2,
+  secondaryColorOffset: darken($color-yellow-2, 10%)
 );
 
 $themes: $light, $dark;
@@ -54,6 +56,7 @@ $themes: $light, $dark;
   --color-primary: #{get-var($theme, "primaryColor")};
   --color-primary-offset: #{get-var($theme, "primaryOffsetColor")};
   --color-secondary: #{get-var($theme, "secondaryColor")};
+  --color-secondary-offset: #{get-var($theme, "secondaryColorOffset")};
 }
 
 :root {

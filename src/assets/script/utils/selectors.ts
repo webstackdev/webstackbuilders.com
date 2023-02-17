@@ -3,6 +3,7 @@
  */
 import {
   isBodyElement,
+  isDivElement,
   isHtmlElement,
   isSlotElement,
 } from './assertions/elements'
@@ -48,4 +49,21 @@ export const getSlotElement = (shadowRoot: ShadowRoot): HTMLSlotElement => {
   const slotElement = shadowRoot.querySelector('slot')
   if (!isSlotElement(slotElement)) throw new Error(`<slot> element is missing in shadow root`)
   return slotElement
+}
+
+/**
+ * Getter for general <div> HTML element
+ */
+export const getDivElement = (selector: string): HTMLDivElement => {
+  const element = document.querySelector(selector)
+  if (!isDivElement(element))
+    throw new Error(`Could not find <div> element for query selector ${selector}`)
+  return element
+}
+
+export const getDivElements = (selector: string): NodeListOf<HTMLDivElement> => {
+  const elements = document.querySelectorAll(selector)
+  if (elements.length === 0)
+    throw new Error(`Could not find any <div> elements for query selector ${selector}`)
+  return elements as NodeListOf<HTMLDivElement>
 }

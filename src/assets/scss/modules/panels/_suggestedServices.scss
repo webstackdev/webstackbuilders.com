@@ -15,7 +15,7 @@
 
     .icon {
       display: block;
-      margin-right: 0.1875em;
+      margin-right: 0.2em;
     }
   }
 
@@ -30,8 +30,10 @@
   &__item-time-to-read {
     //
   }
+}
 
-  @include media-query-mobile-first(md) {
-    padding: 3rem 0;
+@include media-query-min-width(md) {
+  .other-services {
+    padding: 3em 0;
   }
 }

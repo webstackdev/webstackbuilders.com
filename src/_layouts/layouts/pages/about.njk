@@ -18,6 +18,9 @@ layout: layouts/base.njk
     </h1>
     <p class="about__subtitle">Some subtitle about me</p>
   </header>
+  <div class="contact__content__author-avatar">
+    {% asyncImageHandler author.avatar, "Site author's avatar image" %}
+  </div>
   <div class="about__content content">
     {{ content | safe }}
   </div>

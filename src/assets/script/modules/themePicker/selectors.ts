@@ -1,13 +1,47 @@
 /**
  * Type-safe HTML element selectors
  */
-import { isButtonElement, isDivElement } from '../../utils/assertions/elements'
+import {
+  isButtonElement,
+  isDivElement,
+  isSpanElement
+} from '../../utils/assertions/elements'
 
 export const SELECTORS = {
-  pickerModal: '.themepicker', // entire theme picker drop down component
-  themeSelectBtns: '.themepicker__selectBtn', // button on each theme to select
-  closeBtn: '.themepicker__closeBtn', // close button for the theme picker drop down
-  toggleBtn: '.themepicker-icon__toggle-btn', // button to toggle the picker in navigation header
+  /** <span> wrapper for the theme picker toggle button */
+  toggleWrapper: '#header__theme-icon',
+  /** <button> element to toggle the picker in site <header> */
+  toggleBtn: '.themepicker-toggle__toggle-btn',
+  /** Wrapper <div> for the theme picker drop down component */
+  pickerModal: '.themepicker',
+  /** close <button> element for the theme picker drop down */
+  closeBtn: '.themepicker__closeBtn',
+  /** <button> element on each theme in drop down component to select that theme */
+  themeSelectBtns: '.themepicker__selectBtn',
+}
+
+/**
+ * Getter for the toggle <button> in the theme picker icon
+ */
+export const getThemePickerToggleWrapper = (): HTMLSpanElement => {
+  const toggleWrapper = document.querySelector(SELECTORS.toggleWrapper)
+  if (!isSpanElement(toggleWrapper))
+    throw new Error(
+      `Wrapper <span> element for the theme picker toggle button is missing in site HTML`
+    )
+  return toggleWrapper
+}
+
+/**
+ * Getter for the toggle <button> in the theme picker icon
+ */
+export const getThemePickerToggleButton = (): HTMLButtonElement => {
+  const toggleBtn = document.querySelector(SELECTORS.toggleBtn)
+  if (!isButtonElement(toggleBtn))
+    throw new Error(
+      `Toggle <button> element with icon is missing in the theme picker modal wrapper`
+    )
+  return toggleBtn
 }
 
 /**
@@ -17,6 +51,16 @@ export const getThemePickerModalWrapper = (): HTMLDivElement => {
   const wrapper = document.querySelector(SELECTORS.pickerModal)
   if (!isDivElement(wrapper)) throw new Error(`Theme picker modal wrapper is missing in document`)
   return wrapper
+}
+
+/**
+ * Getter for the close <button> for the theme picker modal
+ */
+export const getThemePickerCloseButton = (): HTMLButtonElement => {
+  const closeBtn = document.querySelector(SELECTORS.closeBtn)
+  if (!isButtonElement(closeBtn))
+    throw new Error(`Close <button> element is missing in the theme picker modal wrapper`)
+  return closeBtn
 }
 
 /**
@@ -31,26 +75,4 @@ export const getThemePickerSelectButtons = (): NodeListOf<HTMLButtonElement> => 
   })
 
   return selectBtns as NodeListOf<HTMLButtonElement>
-}
-
-/**
- * Getter for the close <button> for the theme picker modal
- */
-export const getThemePickerCloseButton = (): HTMLButtonElement => {
-  const closeBtn = document.querySelector(SELECTORS.closeBtn)
-  if (!isButtonElement(closeBtn))
-    throw new Error(`Close <button> element is missing in the theme picker modal wrapper`)
-  return closeBtn
-}
-
-/**
- * Getter for the toggle <button> in the theme picker icon
- */
-export const getThemePickerToggleButton = (): HTMLButtonElement => {
-  const toggleBtn = document.querySelector(SELECTORS.toggleBtn)
-  if (!isButtonElement(toggleBtn))
-    throw new Error(
-      `Toggle <button> element with icon is missing in the theme picker modal wrapper`
-    )
-  return toggleBtn
 }

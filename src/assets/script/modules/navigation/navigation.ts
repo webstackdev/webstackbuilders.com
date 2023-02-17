@@ -1,65 +1,96 @@
 import { createFocusTrap } from 'focus-trap'
-import debounce from 'lodash/debounce'
 import type { FocusTrap } from 'focus-trap'
 import type { ScriptInit } from '../../@types/general'
-import { getNavElement, getNavMenuElement, getNavMenuToggleBtnElement } from './selectors'
-import { getWindowDimensions } from '../../utils/window'
+import {
+  getHeaderElement,
+  getMobileSplashElement,
+  getNavMenuElement,
+  getNavToggleBtnElement,
+  getNavToggleWrapperElement,
+} from './selectors'
 
-const SELECTORS = {
-  nav: '.main-nav',
-  menu: '.main-nav__menu',
-  toggleBtn: '.main-nav__toggleBtn',
-}
-
-const CLASSES = {
+export const CLASSES = {
+  navOpen: 'aria-expanded-true',
   noScroll: 'no-scroll',
-  navOpen: 'main-nav--open',
-  navMenuVisible: 'main-nav__menu--visible',
-}
-
-export const setScreenDiameter = () => {
-  const windowComputed = getWindowDimensions()
-  const diameter = Math.sqrt(windowComputed.height ** 2 + windowComputed.width ** 2)
-  document.documentElement.style.setProperty('--diameter', `${diameter}px`)
+  // active: `main-nav__item--active`,
 }
 
 export class Navigation {
-  isOpen: boolean
-  nav: HTMLElement
-  menu: HTMLUListElement
-  toggleBtn: HTMLButtonElement
   focusTrap: FocusTrap
+  isMenuOpen: boolean
+  /** <header> element with id '#header' */
+  header: HTMLElement
+  /** <div> element with id '#mobile-splash' */
+  mobileSplash: HTMLDivElement
+  /** <ul> element with class 'main-nav__menu' */
+  menu: HTMLUListElement
+  /** <span> element with class `#header__nav-icon` wrapping the toggle button */
+  toggleWrapper: HTMLSpanElement
+  /** <button> element with class 'nav-icon__toggle-btn' */
+  toggleBtn: HTMLButtonElement
+  togglePosition!: DOMRect
 
   constructor() {
-    this.isOpen = false
-    this.nav = getNavElement(SELECTORS.nav)
-    this.menu = getNavMenuElement(this.nav, SELECTORS.menu)
-    this.toggleBtn = getNavMenuToggleBtnElement(this.nav, SELECTORS.toggleBtn)
-    this.focusTrap = createFocusTrap(this.nav, {
+    this.isMenuOpen = false
+    /** Set references to menu elements */
+    this.header = getHeaderElement()
+    this.mobileSplash = getMobileSplashElement()
+    this.menu = getNavMenuElement()
+    this.toggleWrapper = getNavToggleWrapperElement()
+    this.toggleBtn = getNavToggleBtnElement()
+    this.setTogglePosition()
+    /**
+     * Set the focus trap on the menu <ul> so navigating past the last item wraps to the first.
+     */
+    this.focusTrap = createFocusTrap([this.toggleBtn, this.menu], {
+      initialFocus: () => this.toggleBtn,
+      /** Close the nav menu if the focus trap is exited by user pressing ESC */
       onDeactivate: () => this.toggleMenu(false),
     })
   }
 
+  setTogglePosition = () => {
+    // @TODO: There's a bug here. When the menu is expanded and the splash screen showing, and the device screen is resized, the bounding rectangle doesn't change.
+    this.togglePosition = this.toggleBtn.getBoundingClientRect()
+  }
+
   bindEvents() {
-    this.toggleBtn.addEventListener('click', () => this.toggleMenu())
-    window.addEventListener('resize', debounce(setScreenDiameter, 200))
-    setScreenDiameter()
+    this.toggleBtn.addEventListener('click', () => {
+      this.toggleMenu()
+    })
+    // @TODO: Why is pressing enter triggering the click event, when type="button" is set?
+    //this.toggleBtn.addEventListener('keyup', event => {
+    //  if (event.key === 'Enter') this.toggleMenu()
+    //})
+    window.addEventListener('resize', this.setTogglePosition)
   }
 
   toggleMenu(force?: boolean) {
-    this.isOpen = force !== undefined ? force : !this.isOpen
-    // <body class="no-scroll">
-    document.body.classList.toggle(CLASSES.noScroll, this.isOpen)
-    // <nav class="main-nav main-nav--open" role="navigation">
-    this.nav.classList.toggle(CLASSES.navOpen, this.isOpen)
-    // <button aria-controls="nav-menu" aria-expanded="true" aria-label="toggle menu" class="icon-btn main-nav__toggleBtn">
-    this.toggleBtn.setAttribute('aria-expanded', String(this.isOpen))
+    /** Short-circuit if force paramater is the same as current state */
+    if (this.isMenuOpen === force) return
+    this.isMenuOpen = force !== undefined ? force : !this.isMenuOpen
+    /**
+     * The `#header__nav-icon` mobile nav menu hamburger icon is positioned with `right: 0`
+     * and `align-items: center` in the `#header` flex container, but it will move down
+     * when the `.main-nav__menu` unordered list has its `display` property changed from
+     * `none` to `flex`. This is to fix the `#header__nav-icon` wrapper to an absolute
+     * position when the menu list is expanded so it stays in the same position.
+     */
+    if (this.isMenuOpen) {
+      this.toggleWrapper.style.left = `${this.togglePosition.left}px`
+      this.toggleWrapper.style.top = `${this.togglePosition.top}px`
+    } else {
+      this.toggleWrapper.style.removeProperty('left')
+      this.toggleWrapper.style.removeProperty('top')
+    }
+    /** <body class="no-scroll"> */
+    document.body.classList.toggle(CLASSES.noScroll, this.isMenuOpen)
+    /** <button class="nav-icon__toggle-btn" aria-expanded="false" ...> */
+    this.toggleBtn.setAttribute('aria-expanded', String(this.isMenuOpen))
+    /** <header id="header" class="header"> */
+    this.header.classList.toggle(CLASSES.navOpen, this.isMenuOpen)
 
-    window.setTimeout(() => {
-      this.menu.classList.toggle(CLASSES.navMenuVisible, this.isOpen)
-    }, 50)
-
-    if (this.isOpen) {
+    if (this.isMenuOpen) {
       this.focusTrap.activate()
     } else {
       this.focusTrap.deactivate()
@@ -68,8 +99,6 @@ export class Navigation {
 }
 
 export const setupNavigation: ScriptInit = () => {
-  if (document.querySelector(SELECTORS.nav)) {
-    const nav = new Navigation()
-    nav.bindEvents()
-  }
+  const navigation = new Navigation()
+  navigation.bindEvents()
 }

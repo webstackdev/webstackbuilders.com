@@ -2,8 +2,8 @@
  * Eleventy global data is not available when rendering individual
  * templates, kept in sync by assertions against the selector variable.
  */
-export const getThemePickerItemCard = (themeId: string) => {
-  return`
+export const getThemePickerItemCard = (themeId: string = `default`) => {
+  return `
 <li class="themepicker__item">
   <button
     class="themepicker__selectBtn"
@@ -20,5 +20,18 @@ export const getThemePickerItemCard = (themeId: string) => {
     </span>
   </button>
 </li>
+`
+}
+export const getHeader = () => {
+  return `
+<header id="header" class="header" role="banner">
+  <span id="header__theme-icon" class="header__theme-icon">
+    <button class="icon-btn themepicker-toggle__toggle-btn" type="button" aria-expanded="false" aria-owns="theme-menu" aria-label="toggle theme switcher" aria-haspopup="true">
+      <svg class="icon icon--theme" role="img" aria-hidden="true" width="24" height="24">
+        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-theme" />
+      </svg>
+    </button>
+  </span>
+</header>
 `
 }

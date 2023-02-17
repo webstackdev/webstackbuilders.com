@@ -1,9 +1,3 @@
-.page {
-  &__subtitle {
-    @extend .lead;
-  }
-}
-
 .articlelist {
   /** <header> wrapper over "Articles" <h1> header */
   &__header {
@@ -16,11 +10,7 @@
   }
 
   &__item {
-      margin-bottom: 3rem;
-
-      @include media-query-mobile-first(md) {
-        margin-bottom: 5rem;
-      }
+    margin-bottom: 3em;
   }
 
   &__item-date {
@@ -28,8 +18,7 @@
   }
 
   &__item-excerpt {
-    @include body-text();
-
+    /** SCSS to select the item-excerpt class only when a child of item--draft class. */
     .articlelist__item--draft & {
       opacity: 0.5;
     }
@@ -37,7 +26,7 @@
 
   &__item-link {
     display: block;
-
+    /** SCSS to select the item-link class only when a child of item--draft class. */
     .articlelist__item--draft & {
       color: var(--color-secondary);
     }
@@ -45,19 +34,14 @@
 
   &__item-meta {
     color: var(--color-text-offset);
-    font-size: var(--font-size-lg);
-    margin-bottom: 1rem;
+    margin-bottom: 1em;
   }
 
   &__item-status {
     color: var(--color-secondary);
-    font-weight: 700;
   }
 
   &__item-tags {
-    font-family: $font-family-serif;
-    font-size: var(--font-size-sm);
-    letter-spacing: var(--letter-spacing-lg);
     text-transform: uppercase;
   }
 
@@ -67,5 +51,13 @@
 
   &__item-title {
     margin-bottom: 0;
+  }
+}
+
+@include media-query-min-width(md) {
+  .articlelist {
+    &__item {
+      margin-bottom: 5em;
+    }
   }
 }

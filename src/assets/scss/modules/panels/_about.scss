@@ -1,51 +1,54 @@
 .mod-about {
   &__header {
-    margin-bottom: 2rem;
+    margin-bottom: 2em;
   }
+
   &__photo {
     position: relative;
     display: block;
     padding-bottom: 75%;
-    margin-bottom: 2rem;
+    margin-bottom: 2em;
 
     .responsive-image {
       object-position: 0 50%;
       background-position: left center;
     }
   }
-  &__intro {
-    max-width: 54rem;
 
+  &__intro {
     p {
-      margin-bottom: 1rem;
+      margin-bottom: 1em;
     }
   }
+
   &__social {
     list-style-type: none !important;
 
     .icon {
-      font-size: var(--font-size-xl);
-      margin-right: 1.25rem;
+      margin-right: 1.25em;
     }
   }
 
-  @include media-query-mobile-first(lg) {
+  @include media-query-min-width(lg) {
     &__header {
       display: flex;
       align-items: center;
-      margin: 0 calc(50% - 50vw) 3rem;
+      margin: 0 calc(50% - 50vw) 3em;
     }
+
     &__photo {
       width: 40%;
       padding-bottom: 450px;
       margin: 0;
     }
+
     &__intro {
       flex: 1 1 60%;
-      padding: 2rem 3rem;
+      padding: 2em 3em;
     }
+
     &__content {
-      @include container-narrow;
+      //
     }
   }
 }

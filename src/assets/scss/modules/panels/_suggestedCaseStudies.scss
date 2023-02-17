@@ -1,43 +1,45 @@
-  /**
-   * `Other Case Studies` section for use on pages.
-   */
-  .suggested-case-studies {
-    /** Item title */
-    &__title {
-      @extend .smalltitle;
-      margin-bottom: 1rem;
+/**
+  * `Other Case Studies` section for use on pages.
+  */
+.suggested-case-studies {
+  /** Item title */
+  &__title {
+    margin-bottom: 1em;
+    text-transform: uppercase;
+  }
+
+  /** Item wrapper <li> element */
+  &__item {
+    align-items: center;
+    color: var(--color-text-offset);
+    display: flex;
+
+    &:hover,
+    &:focus {
+      color: var(--color-text);
     }
 
-    /** Item wrapper <li> element */
-    &__item {
-      align-items: center;
-      color: var(--color-text-offset);
-      display: flex;
-
-      &:hover,
-      &:focus {
-        color: var(--color-text);
-      }
-
-      .icon {
-        display: block;
-        margin-right: 0.1875em;
-      }
-    }
-
-    &__date {
-      //
-    }
-
-    &__item-excerpt {
-      //
-    }
-
-    &__item-time-to-read {
-      //
-    }
-
-    @include media-query-mobile-first(md) {
-      padding: 3rem 0;
+    .icon {
+      display: block;
+      margin-right: 0.2em;
     }
   }
+
+  &__date {
+    //
+  }
+
+  &__item-excerpt {
+    //
+  }
+
+  &__item-time-to-read {
+    //
+  }
+}
+
+@include media-query-min-width(md) {
+  .suggested-case-studies {
+    padding: 3em 0;
+  }
+}

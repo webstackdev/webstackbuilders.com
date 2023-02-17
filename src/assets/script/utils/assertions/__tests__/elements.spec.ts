@@ -7,11 +7,13 @@ import {
   isBodyElement,
   isButtonElement,
   isDivElement,
+  isHeaderElement,
   isHtmlElement,
   isImageElement,
   isNavElement,
   isShadowRoot,
   isSlotElement,
+  isSpanElement,
   isType1Element,
   isUlElement,
 } from '../elements'
@@ -128,17 +130,35 @@ describe('HTML <div> element assertion', () => {
   })
 })
 
-describe('HTML <html> element assertion', () => {
-  test('Valid <html> element returns true from assertion', () => {
-    document.body.innerHTML = ``
-    const sut = isHtmlElement(document.querySelector('html'))
+describe('HTML <header> element assertion', () => {
+  test('Valid <header> element returns true from assertion', () => {
+    document.body.innerHTML = `<header></header>`
+    const sut = isHeaderElement(document.querySelector('header'))
     expect(sut).toBeTruthy()
   })
 
-  test('Non-<html> element returns false from assertion', () => {
+  test('Non-<header> element returns false from assertion', () => {
     document.body.innerHTML = `<div></div>`
-    const sut = isHtmlElement(document.querySelector('div'))
+    const sut = isHeaderElement(document.querySelector('header'))
     expect(sut).toBeFalsy()
+  })
+
+  test('Function returns false from assertion', () => {
+    const sut = isHeaderElement(voidFn)
+    expect(sut).toBeFalsy()
+  })
+
+  test('Null returns false from assertion', () => {
+    const sut = isHeaderElement(nullConst)
+    expect(sut).toBeFalsy()
+  })
+})
+
+describe('HTML <html> element assertion', () => {
+  test('Valid <html> element returns true from assertion', () => {
+    document.body.innerHTML = `` // JSDOM automatically adds <html> element
+    const sut = isHtmlElement(document.querySelector('html'))
+    expect(sut).toBeTruthy()
   })
 
   test('Function returns false from assertion', () => {
@@ -247,6 +267,30 @@ describe('HTML <slot> element assertion', () => {
 
   test('Null returns false from assertion', () => {
     const sut = isSlotElement(nullConst)
+    expect(sut).toBeFalsy()
+  })
+})
+
+describe('HTML <span> element assertion', () => {
+  test('Valid <span> element returns true from assertion', () => {
+    document.body.innerHTML = `<span></span>`
+    const sut = isSpanElement(document.querySelector('span'))
+    expect(sut).toBeTruthy()
+  })
+
+  test('Non-<span> element returns false from assertion', () => {
+    document.body.innerHTML = `<div></div>`
+    const sut = isSpanElement(document.querySelector('div'))
+    expect(sut).toBeFalsy()
+  })
+
+  test('Function returns false from assertion', () => {
+    const sut = isSpanElement(voidFn)
+    expect(sut).toBeFalsy()
+  })
+
+  test('Null returns false from assertion', () => {
+    const sut = isSpanElement(nullConst)
     expect(sut).toBeFalsy()
   })
 })
