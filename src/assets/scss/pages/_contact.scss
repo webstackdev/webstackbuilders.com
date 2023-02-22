@@ -1,11 +1,9 @@
+$sidebar-font-size: var(--font-size-2xl);
+
 .contact {
   /**
    * Contact page header with map to office and callout
    */
-
-  &__hero {
-
-  }
 
   &__map {
     padding-top: 1em;
@@ -19,25 +17,9 @@
     display: none;
   }
 
-  &__callout-title {
-
-  }
-
-  &__callout-text {
-
-  }
-
   /**
    * Leadin with "what to expect" bullet list
    */
-
-  &__leadin {
-
-  }
-
-  &__leadin-header {
-
-  }
 
   &__leadin-expect {
     font-style: italic;
@@ -75,7 +57,6 @@
       position: relative;
       padding-left: $contact-expect-icon-size + 0.5em;
     }
-
   }
 
   /**
@@ -103,15 +84,40 @@
     border: none;
     padding: 0.4em 0.5em 0.6em 0.5em;
     width: 90%;
+
+    &:hover, &:focus {
+      outline: 2px solid var(--color-secondary);
+    }
+
+    &:invalid {
+      outline: 2px dashed red;
+    }
+
+    &:invalid:required {
+      background-image: linear-gradient(to right, pink, lightgreen);
+    }
+
+    &:valid {
+      //background-color: lightgreen; // @TODO: why is this showing when nothing entered?
+    }
   }
 
-  &__form-name {
+/* This is the style of our error messages */
+.error {
+  width: 100%;
+  padding: 0;
 
-  }
+  font-size: 80%;
+  color: white;
+  background-color: #900;
+  border-radius: 0 0 5px 5px;
 
-  &__form-email {
+  box-sizing: border-box;
+}
 
-  }
+.error.active {
+  padding: 0.3em;
+}
 
   &__form-message {
     padding-bottom: 1.4em;
@@ -135,19 +141,12 @@
     display: flex;
   }
 
-  &__form-upload-dropzone {
-
-  }
-
-  &__form-upload-previews {
-
-  }
-
   /**
    * Submit message button
    */
   &__form-submit-btn {
     background-color: var(--color-text-offset);
+    border: 0;
     color: var(--color-bg);
     font-size: var(--font-size-xl);
     justify-content: space-between;
@@ -187,6 +186,14 @@
   }
 
   /**
+   * "Skills" unordered list
+   */
+
+  &__skills {
+    display: none;
+  }
+
+  /**
    * Social media icons
    */
 
@@ -195,7 +202,7 @@
   }
 
   &__channels-title {
-    font-size: var(--font-size-2xl)
+    font-size: $sidebar-font-size;
   }
 
   &__channels-title + &__channels-detail {
@@ -214,14 +221,6 @@
     a:hover, a:focus {
       text-decoration: underline dotted var(--color-text) 0.1em;
     }
-  }
-
-  &__channels-toll-free {
-
-  }
-
-  &__channels-local {
-
   }
 
   &__channels-social-icons {
@@ -247,8 +246,174 @@
 
 @include media-query-min-width(sm) {
   .contact {
+    /**
+    * Callout with company name and an "about" text block
+    */
+
+    &__hero {
+      position: relative;
+    }
+
     &__callout {
+      align-items: center;
+      display: flex; // overriding display: none; on mobile
+      inset: 2em 1em 1em 70%;
+      position: absolute;
+    }
+
+    &__callout-flex {
+      background-color: var(--color-primary);
+      border-radius: 5px;
       display: flex;
+      flex-direction: column;
+      padding: 1em 1.5em;
+
+      p {
+        color: var(--color-bg);
+        font-size: var(--font-size-default)
+      }
+
+      p + p {
+        margin-top: 0.5em;
+      }
+    }
+
+    &__callout-name {
+      font-weight: var(--font-weight-bold)
+    }
+
+    &__callout-skills {
+
+    }
+
+    &__callout-skills-list {
+
+    }
+
+    /**
+    * Grid layout for larger screens
+    */
+    $contact-grid-spacing: 2em;
+
+    &__hero + &__grid {
+      margin-top: $contact-grid-spacing;
+    }
+
+    &__grid {
+      display: grid;
+      gap: 1em 1em;
+      grid-template-columns: 2fr 1fr;
+      grid-template-rows: auto;
+      grid-template-areas:
+        "form leadin"
+        "form channels"
+        "form skills";
+      margin-bottom: $contact-grid-spacing;
+    }
+
+    &__grid-sidebar-item {
+      background-color: var(--color-bg-offset);
+      border-radius: 5px;
+      padding: 2em;
+      width: 100%;
+    }
+
+    /**
+    * The "Contact Us" form with inputs
+    */
+
+    &__form {
+      grid-area: form;
+      padding-top: 0;
+    }
+
+    &__form-wrapper {
+      background-color: var(--color-bg-offset);
+      border-radius: 5px;
+      padding: 2em;
+    }
+
+    &__form-input-widget {
+      width: 85%;
+    }
+
+    /**
+    * The file upload widget for the input form for senders to add documents to message
+    */
+
+    &__form-upload {
+
+    }
+
+    /**
+    * Leadin with "what to expect" bullet list
+    */
+
+    &__leadin {
+      grid-area: leadin;
+      place-self: center;
+    }
+
+    &__leadin-header {
+      font-size: $sidebar-font-size;
+    }
+
+    &__leadin-header + &__leadin-expect {
+      margin-top: 0.3em;
+    }
+
+    &__leadin-expect + &__leadin-expect__list {
+      margin-top: 0.5em;
+    }
+
+    &__leadin-expect__item + &__leadin-expect__item {
+      margin-top: 0.3em;
+    }
+
+    &__channels {
+      grid-area: channels;
+      place-self: center;
+    }
+
+    &__channels-social-icons {
+      margin-bottom: 0;
+      width: 12em;
+    }
+
+    &__skills {
+      display: block;
+      grid-area: skills;
+      place-self: center;
+    }
+
+    &__skills-header {
+      font-size: $sidebar-font-size;
+    }
+
+    &__skills-header + &__skills-list-wrapper {
+      margin-top: 0.75em;
+    }
+
+    &__skills-list {
+      list-style-type: "\2605";
+      margin-left: 1em;
+      text-align: left;
+
+      span {
+        margin-left: 0.2em;
+      }
+    }
+
+    &__skills-list-item + &__skills-list-item {
+      margin-top: 0.5em;
+    }
+  }
+}
+
+@include media-query-min-width(md) {
+  .contact {
+    &__callout {
+      padding-right: 1.5em;
     }
   }
 }

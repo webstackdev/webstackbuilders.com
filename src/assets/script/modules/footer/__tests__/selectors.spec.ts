@@ -3,7 +3,7 @@
  *
  * Tests for cookies modal getters
  */
-import { resolve } from 'path'
+//import { resolve } from 'path'
 import { describe, expect, test } from '@jest/globals'
 //import { getByTestId } from '@testing-library/dom'
 import { getCurriedFixturePath, loadDomWithScript } from '../../../../../../test/jest/helpers'

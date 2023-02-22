@@ -29,6 +29,8 @@ const config: ConfigOptions = {
     '<rootDir>/eleventy/nunjucksAsyncShortcodes',
     '<rootDir>/eleventy/nunjucksFilters',
     '<rootDir>/eleventy/nunjucksShortcodes',
+    '<rootDir>/eleventy/pairedShortcodes',
+    '<rootDir>/eleventy/shortcodes',
     '<rootDir>/eleventy/utils',
     '<rootDir>/lambda',
     '<rootDir>/scripts',

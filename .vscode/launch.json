@@ -53,7 +53,7 @@
         //"src/assets/script/modals/cookieConsent/__tests__/getters.spec.ts",
         //"test/jest/__tests__/node-env/tasks.spec.ts",
         //"src/assets/script/modules/navigation/__tests__/navigation.spec.ts",
-        "eleventy/nunjucksAsyncShortcodes/asyncImageHandler/__tests__/paths.spec.js",
+        "eleventy/nunjucksShortcodes/__tests__/conditionalTagLink.spec.js",
         "--projects=test/jest/jest.config.node.ts"
       ],
       "cwd": "${workspaceRoot}",

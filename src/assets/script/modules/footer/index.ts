@@ -1,16 +1,18 @@
 /**
  * Script for the footer
  */
+import { getHireMeAnchorElement } from './selectors'
 
 export const footerInit = () => {
-  // @TODO: 1. set month and year in footer__hire-me: date.getMonth() + 1 as number 1-12, date.getFullYear() and set display to block. Maybe don't show on contact page?
+  const anchor = getHireMeAnchorElement()
+  const date = new Date()
+  const month = getMonthName(date)
+  const year = date.getFullYear()
+  anchor.innerHTML = `Available ${month}, ${year}. Hire Me Now`
+  anchor.style.display = `block`
 }
 
-// Available {month}, {year}. Hire Me Now >
-
-function getMonthName(monthNumber) {
-  const date = new Date()
-  date.setMonth(monthNumber - 1)
-
+const getMonthName = (date) => {
+  date.setMonth(date.getMonth() - 1)
   return date.toLocaleString('en-US', { month: 'long' })
 }

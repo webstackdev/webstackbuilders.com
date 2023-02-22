@@ -212,7 +212,7 @@ import './global.css' assert { type: 'css' }
 
 Check if a CSS selector is valid in the browser console:
 ```bash
-document.querySelector('.main-nav.aria-expanded-true')
+document.querySelector('.contact___callout-flex')
 ```
 
 Test the value of a CSS variable when using `calc()` in the browser console:

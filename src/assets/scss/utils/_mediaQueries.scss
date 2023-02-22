@@ -1,17 +1,4 @@
 /**
- * Grid breakpoints: defines the minimum and maximum dimensions at which the layout
- * will change, adapting to different screen sizes, for use in media queries.
- * These are Bootstrap breakpoints without `sx` (0) and `xxl` (1400px).
- * 1 rem = 10 px at the default 16 px browser font size.
- */
-$breakpoints: (
-  sm: 57.6rem, // 576px
-  md: 76.8rem, // 768px
-  lg: 99.2rem, // 992px
-  xl: 120rem // 1200px
-);
-
-/**
  * Prints a mobile first media query based on the name given. All rules outside of
  * @media queries apply to devices from 0px to breakpoint variable value.
  *

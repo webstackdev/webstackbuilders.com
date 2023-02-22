@@ -15,6 +15,7 @@
         <a href="mailto:{{ company.email }}">{{ company.email }}</a>
       </p>
       <p class="page-footer__contact-toll-free">
+        "<a href="tel:+16031112298"></a>"
         Toll Free {{ company.telephoneTollFree }}
       </p>
       <p class="page-footer__contact-local">
@@ -24,7 +25,11 @@
   </div>
   {#- "Hire Me" block with current month and year set by script -#}
   <div class="page-footer__hire-me">
-    <a href="/contact" class="page-footer__hire-me-anchor"></a>
+    <a
+      href="/contact"
+      id="page-footer__hire-me-anchor"
+      class="page-footer__hire-me-anchor"
+    ></a>
   </div>
   {#- Page footer Social Share links -#}
   <div class="page-footer__social">
@@ -73,7 +78,7 @@
     {#- Page footer Subscribe link -#}
     <span class="page-footer__subscribe">
       <a href="/mailinglist"  class="page-footer__subscribe-anchor">
-        <span class="page-footer__subscribe-lead">Subscribe</span>
+        <span class="page-footer__subscribe-lead">Subscribe to</span>
         <span class="page-footer__subscribe-link">Mailing List</span>
       </a>
     </span>
@@ -100,10 +105,10 @@
   {#- Page footer Author link and Date -#}
   <div class="page-footer__copyright">
     <span class="page-footer__copyright-date">
-      &copy; 2018&ndash;{{ page.date | dateToFormat('yyyy') }}
+      &copy; 2018&ndash;{% year %}
     </span>
     <span class="page-footer__copyright-author">
-      <a rel="me" href="{{ absoluteUrl }}">{{ author.name }}</a>
+      <a rel="me" href="{{ absoluteUrl }}">{{ company.name }}</a>
     </span>
   </div>
 </footer>

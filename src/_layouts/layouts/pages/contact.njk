@@ -13,131 +13,158 @@ layout: layouts/base.njk
       {% asyncImageHandler '/map.webp', "Map to office" %}
     </div>
     <div class="contact__callout">
-      <h2 class="contact__callout-title" itemprop="headline">
-        Webstack Builders
-      </h2>
-      <p class="contact__callout-text">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-      </p>
-      <p class="contact__callout-text">
-        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-      </p>
+      <div class="contact__callout-flex">
+        <p class="contact__callout-text">
+          <span class="contact__callout-name">Webstack Builders</span> is a solo software development agency offering a wide scope of backend and front end engineering services in multiple languages and frameworks.
+        </p>
+        <p>
+          If you need a reliable partner to augment your team or take the lead on a project for your business, I'd love to discuss working together.
+        </p>
+      </div>
     </div>
   </header>
-
-  <div class="contact__leadin">
-    <h1 class="contact__leadin-header">
-      Get in Touch
-    </h1>
-    <p class="contact__leadin-expect">What to Expect When Reaching Out:</p>
-    {#- List role added for Safari since the SVG list marker is used in :before pseudo-element -#}
-    <ul class="contact__leadin-expect__list" role="list">
-      <li class="contact__leadin-expect__item"><span>Less than 12 hour response</span></li>
-      <li class="contact__leadin-expect__item"><span>Thoroughness and expertise</span></li>
-      <li class="contact__leadin-expect__item"><span>Plan of Action in a follow up email</span></li>
-    </ul>
-  </div>
-
-  <form id="contact__form" class="contact__form">
-    <div class="contact__form-name">
-      <div class="error-validation__info"></div>
-      <div class="contact__form-input-group">
-        <label
-          for="name"
-          class="contact__form-input-label"
-        >
-          Name
-        </label>
-        <input
-          class="contact__form-input-element"
-          type="text"
-          name="name"
-          placeholder=""
-          value=""
-        >
+  <div class="contact__grid">
+    <div class="contact__leadin contact__grid-sidebar-item">
+      <h2 class="contact__leadin-header">
+        Get in Touch
+      </h2>
+      <p class="contact__leadin-expect">What to Expect When Reaching Out:</p>
+      {#- List role added for Safari since the SVG list marker is used in :before pseudo-element -#}
+      <ul class="contact__leadin-expect__list" role="list">
+        <li class="contact__leadin-expect__item"><span>Less than 12 hour response</span></li>
+        <li class="contact__leadin-expect__item"><span>Thoroughness and expertise</span></li>
+        <li class="contact__leadin-expect__item"><span>Plan of Action in a follow up email</span></li>
+      </ul>
+    </div>
+    <form id="contact__form" class="contact__form">
+      <div class="contact__form-wrapper">
+        <div class="contact__form-name contact__form-input-widget">
+          <div class="error-validation__info"></div>
+          <div class="contact__form-input-group">
+            <label
+              for="name"
+              class="contact__form-input-label"
+            >
+              Name
+            </label>
+            <input
+              class="contact__form-input-element"
+              type="text"
+              name="name"
+              required
+            >
+          </div>
+        </div>
+        <div class="contact__form-email contact__form-input-widget">
+          <div class="error-validation__info" ></div>
+          <div class="contact__form-input-group">
+            <label
+              for="email"
+              class="contact__form-input-label"
+            >
+              Your email address
+            </label>
+            <input
+              class="contact__form-input-element"
+              type="text"
+              name="email" value=""
+              required
+            >
+          </div>
+        </div>
+        <div class="contact__form-message contact__form-input-widget">
+          <div class="error-validation__info" ></div>
+          <div class="contact__form-input-group">
+            <label
+              for="message"
+              class="contact__form-input-label"
+            >
+              Message
+            </label>
+            <textarea
+              name="message"
+              class="contact__form-input-element"
+              minlength="6"
+              maxlength="2000"
+              required
+              rows="6"
+            ></textarea>
+          </div>
+        </div>
+        <div class="contact__form-upload contact__form-input-widget">
+          <div class="contact__form-upload-dropzone" tabindex="0">
+            <span class="contact__form-upload-dropzone-label">
+              {% icon "paper-clip" %}
+              Attach files
+            </span>
+            <input type="file" multiple="" style="display: none;" autocomplete="off" tabindex="-1">
+          </div>
+          <div id="contact__form-upload-previews"></div>
+        </div>
+        <div id="toast"></div>
+        <button type="submit" class="btn contact__form-submit-btn">
+          <span class="contact__form-submit-label">Send</span>
+          <span class="contact__form-submit-circle">{% icon "arrow-right" %}</span>
+        </button>
+      </div>
+    </form>
+    <div class="contact__channels contact__grid-sidebar-item">
+      <h2 class="contact__channels-title">Connect With Us</h2>
+      <div class="contact__channels-detail">
+        <p class="contact__channels-email">
+          <a href="mailto:{{ company.email }}">{{ company.email }}</a>
+        </p>
+        <p class="contact__channels-toll-free">Toll Free {{ company.telephoneTollFree }}</p>
+        <p class="contact__channels-local">Local {{ company.telephoneLocal }}</p>
+        <div class="contact__channels-social-icons">
+          <span>
+            <a href="{{ company.social.twitter.url }}" title="Twitter" rel="me">
+              {% icon "twitter" %}
+            </a>
+          </span>
+          <span>
+            <a href="{{ company.social.linkedin.url }}" title="Linkedin" rel="me">
+              {% icon "linkedin" %}
+            </a>
+          </span>
+          <span>
+            <a href="{{ company.social.github.url }}" title="Github" rel="me">
+              {% icon "github" %}
+            </a>
+          </span>
+          <span>
+            <a href="{{ company.social.codepen.url }}" title="Codepen" rel="me">
+              {% icon "codepen" %}
+            </a>
+          </span>
+        </div>
       </div>
     </div>
-
-    <div class="contact__form-email">
-      <div class="error-validation__info" ></div>
-      <div class="contact__form-input-group">
-        <label
-          for="email"
-          class="contact__form-input-label"
-        >
-          Your email address
-        </label>
-        <input
-          class="contact__form-input-element"
-          type="text"
-          name="email" value=""
-        >
-      </div>
-    </div>
-
-    <div class="contact__form-message">
-      <div class="error-validation__info" ></div>
-      <div class="contact__form-input-group">
-        <label
-          for="message"
-          class="contact__form-input-label"
-        >
-          Message
-        </label>
-        <textarea
-          name="message"
-          placeholder=""
-          class="contact__form-input-element"
-        ></textarea>
-      </div>
-    </div>
-
-    <div class="contact__form-upload">
-      <div class="contact__form-upload-dropzone" tabindex="0">
-        <span class="contact__form-upload-dropzone-label">
-          {% icon "paper-clip" %}
-          Attach files
-        </span>
-        <input type="file" multiple="" style="display: none;" autocomplete="off" tabindex="-1">
-      </div>
-      <div id="dcontact__form-upload-previews"></div>
-    </div>
-
-    <button type="submit" class="btn contact__form-submit-btn">
-      <span class="contact__form-submit-label">Send</span>
-      <span class="contact__form-submit-circle">{% icon "arrow-right" %}</span>
-    </button>
-  </form>
-
-  <div class="contact__channels">
-    <h2 class="contact__channels-title">Connect with us:</h2>
-    <div class="contact__channels-detail">
-      <p class="contact__channels-email">
-        <a href="mailto:{{ company.email }}">{{ company.email }}</a>
-      </p>
-      <p class="contact__channels-toll-free">Toll Free {{ company.telephoneTollFree }}</p>
-      <p class="contact__channels-local">Local {{ company.telephoneLocal }}</p>
-      <div class="contact__channels-social-icons">
-        <span>
-          <a href="{{ company.social.twitter.url }}" title="Twitter" rel="me">
-            {% icon "twitter" %}
-          </a>
-        </span>
-        <span>
-          <a href="{{ company.social.linkedin.url }}" title="Linkedin" rel="me">
-            {% icon "linkedin" %}
-          </a>
-        </span>
-        <span>
-          <a href="{{ company.social.github.url }}" title="Github" rel="me">
-            {% icon "github" %}
-          </a>
-        </span>
-        <span>
-          <a href="{{ company.social.codepen.url }}" title="Codepen" rel="me">
-            {% icon "codepen" %}
-          </a>
-        </span>
+    <div class="contact__skills contact__grid-sidebar-item">
+      <h2 class="contact__skills-header">
+        Specializing In
+      </h2>
+      <div class="contact__skills-list-wrapper">
+        <ul class="contact__skills-list">
+          <li class="contact__skills-list-item">
+            <span>MVC Frameworks ({% conditionalTagLink collections.all, "rails" %}, {% conditionalTagLink collections.all, "django" %}, {% conditionalTagLink collections.all, "laravel" %}, {% conditionalTagLink collections.all, "express" %})</span>
+          </li>
+          <li class="contact__skills-list-item">
+            <span>{% conditionalTagLink collections.all, "react" %}, Vanilla ({% conditionalTagLink collections.all, "typescript" %}, {% conditionalTagLink collections.all, "scss" %})</span>
+          </li>
+          <li class="contact__skills-list-item">
+            <span>{% conditionalTagLink collections.all, "databaseNormalization" %} and {% conditionalTagLink collections.all, "sqlOptimization" %}</span>
+          </li>
+          <li class="contact__skills-list-item">
+            <span>{% conditionalTagLink collections.all, "ci" %}/{% conditionalTagLink collections.all, "cd" %} and {% conditionalTagLink collections.all, "deployment" %} ({% conditionalTagLink collections.all, "aws" %}, On-Prem)</span>
+          </li>
+          <li class="contact__skills-list-item">
+            <span>{% conditionalTagLink collections.all, "apiDesign" %}, Documentation, Testing ({% conditionalTagLink collections.all, "restful" %}, {% conditionalTagLink collections.all, "graphql" %})</span>
+          </li>
+          <li class="contact__skills-list-item">
+            <span>{% conditionalTagLink collections.all, "devPortals" %}, {% conditionalTagLink collections.all, "marTech" %}, {% conditionalTagLink collections.all, "adTech" %}, {% conditionalTagLink collections.all, "cms" %}, {% conditionalTagLink collections.all, "crm" %}</span>
+          </li>
+        </ul>
       </div>
     </div>
   </div>

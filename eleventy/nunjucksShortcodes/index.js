@@ -3,6 +3,19 @@
  */
 
 /**
+ * Wrap a key with an anchor link to the collection page if there
+ * is content tagged with the key
+ */
+const { conditionalTagLink } = require('./conditionalTagLink')
+exports.conditionalTagLink = conditionalTagLink
+
+/**
+ * Normalize a camelCased tag name to something suitable for publishing
+ */
+const { normalizeTagName } = require('./normalizeTagName')
+exports.normalizeTagName = normalizeTagName
+
+/**
  * Page description for meta headers
  */
 const { pageDescription } = require('./pageDescription')

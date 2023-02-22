@@ -39,8 +39,6 @@ const config: ConfigOptions = {
   /** A list of paths to directories that Jest should use to search for test files */
   roots: [
     '<rootDir>/eleventy/markdown',
-    '<rootDir>/eleventy/pairedShortcodes',
-    '<rootDir>/eleventy/shortcodes',
     '<rootDir>/src/assets/script',
     '<rootDir>/src/_layouts',
     '<rootDir>/scripts/build/__tests__/jsdom-env',

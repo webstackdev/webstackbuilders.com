@@ -23,6 +23,12 @@ const { icon } = require('./icon')
 exports.icon = icon
 
 /**
+ * Format a phone number in numeric format e.g. `(213) 373-4253`
+ */
+const { formatPhoneNumber } = require('./formatPhoneNumber')
+exports.formatPhoneNumber = formatPhoneNumber
+
+/**
  * Embed Youtube as shortcode in markdown by video ID
  */
 const { youtubeShortcode } = require('./youtube')

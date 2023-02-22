@@ -10,26 +10,20 @@ $font-family-serif: 'Lora Regular', serif;
 $font-family-monospace: 'IBM Plex Mono Regular', monospace;
 
 /**
- * font-size on <html> is set to  62.5% so that 1rem equals 10px at the default 16px
- * browser font size. The scaling factor restores it to the default for font sizes.
- */
-$font-scaling-factor: 1.6;
-
-/**
  * CSS variables used for sizes so that media queries are possible on them
  */
 :root {
   /** Font sizes */
-  --font-size-sm: #{0.875 * $font-scaling-factor}rem;
-  --font-size-default: #{1 * $font-scaling-factor}rem;
-  --font-size-lg: #{1.125 * $font-scaling-factor}rem;
-  --font-size-xl: #{1.25 * $font-scaling-factor}rem;
-  --font-size-2xl: #{1.375 * $font-scaling-factor}rem;
-  --font-size-3xl: #{1.5 * $font-scaling-factor}rem;
-  --font-size-4xl: #{2 * $font-scaling-factor}rem;
-  --font-size-5xl: #{2.25 * $font-scaling-factor}rem;
-  --font-size-6xl: #{2.5 * $font-scaling-factor}rem;
-  --font-size-7xl: #{3 * $font-scaling-factor}rem;
+  --font-size-sm: #{0.875}rem;
+  --font-size-default: #{1}rem;
+  --font-size-lg: #{1.125}rem;
+  --font-size-xl: #{1.25}rem;
+  --font-size-2xl: #{1.375}rem;
+  --font-size-3xl: #{1.5}rem;
+  --font-size-4xl: #{2}rem;
+  --font-size-5xl: #{2.25}rem;
+  --font-size-6xl: #{2.5}rem;
+  --font-size-7xl: #{3}rem;
 
   /** Font weights */
   --font-weight-normal: 400;
@@ -53,9 +47,9 @@ $font-scaling-factor: 1.6;
 
 @media (min-width: 56em) {
   :root {
-    --font-size-xl: #{1.5 * $font-scaling-factor}rem;
-    --font-size-2xl: #{2 * $font-scaling-factor}rem;
-    --font-size-3xl: #{2.5 * $font-scaling-factor}rem;
-    --font-size-4xl: #{3 * $font-scaling-factor}rem;
+    --font-size-xl: #{1.5}rem;
+    --font-size-2xl: #{2}rem;
+    --font-size-3xl: #{2.5}rem;
+    --font-size-4xl: #{3}rem;
   }
 }

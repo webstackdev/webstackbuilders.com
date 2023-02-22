@@ -232,8 +232,9 @@ export default class JSDomTscompileEnvironment implements JestEnvironment<number
     })
 
     global.JSDOM_QUIET_MODE = undefined
-    Object.assign(globalThis, {
-      JSDOM_QUIET_MODE: undefined,
+    Object.defineProperty(globalThis, 'JSDOM_QUIET_MODE', {
+      writable: true,
+      value: undefined,
     })
   }
 

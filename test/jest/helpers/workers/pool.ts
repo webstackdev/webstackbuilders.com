@@ -21,7 +21,6 @@ export type OrchestratorFn = <T extends OrchestratorType>({
   inputPath
 }: OrchestratorParamType<T>) => OrchestratorReturnType<T>
 
-
 export function isWorkerPoolInstance(input: unknown): input is WorkerPool {
   const isDefined = !!input
   const isInstanceOf = input instanceof WorkerPool

@@ -139,6 +139,7 @@
     "@types/svg-sprite": "^0.0.34",
     "@types/testing-library__jest-dom": "^5.14.5",
     "@types/tough-cookie": "^4.0.2",
+    "@types/valid-url": "^1",
     "@types/vinyl": "^2.0.7",
     "@types/webpack-bundle-analyzer": "^4.6.0",
     "@typescript-eslint/eslint-plugin": "^5.52.0",
@@ -304,6 +305,9 @@
     "@11ty/eleventy@1.0.2": "patch:@11ty/eleventy@npm:1.0.2#.yarn/patches/@11ty-eleventy-npm-1.0.2-59e27de09e.patch"
   },
   "dependencies": {
-    "@uppy/core": "^3.0.6"
+    "@uppy/core": "^3.0.6",
+    "aws-sdk": "^2.1320.0",
+    "libphonenumber-js": "^1.10.20",
+    "valid-url": "^1.0.9"
   }
 }

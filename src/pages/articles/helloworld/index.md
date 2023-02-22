@@ -2,7 +2,7 @@
 title: 'Hello World'
 slug: hello-world
 date: 2021-03-31
-tags: code
+tags: code, cms
 ---
 
 A demo of the "Page" template and kitchen sink sample of styled elements.

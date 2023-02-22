@@ -40,14 +40,12 @@ interface PageSchema {
   properties: FrontmatterSchema
 }
 
-/* eslint-disable tsdoc/syntax */
 /**
  * Extract the schema name and over-ride object when function syntax is used in `allPages.ts`.
  * Allows `_` and `/` characters so `__fixtures__` directory can be prepended in testing.
  *
  * @example avatarSchema({ "image": { "required": true } })
  */
-/* eslint-enable tsdoc/syntax */
 export const matchFunctionSyntax = (schemaName: string) => {
   return /([\w_\/^(]*)\(([^)]+)\)/.exec(schemaName)
 }

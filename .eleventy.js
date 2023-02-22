@@ -1,6 +1,7 @@
 const _ = require('lodash')
 const buildPaths = require('./scripts/build/paths')
 const { EleventyRenderPlugin } = require('@11ty/eleventy')
+const { serviceTags } = require('./src/_data/tags')
 
 // load environmental variables if not already loaded
 if (!process.env.ELEVENTY_ENV_VARS_INIT) {
