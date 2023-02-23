@@ -62,9 +62,13 @@ $page-footer-hover-decoration: underline dotted var(--color-bg) 0.15em;
   }
 
   &__contact-email {
-    /** Don't wrap email address */
+    /** Don't hyphenate email address */
     hyphens: none;
+  }
 
+  &__contact-email,
+  &__contact-toll-free,
+  &__contact-local {
     a:hover, a:focus {
       text-decoration: $page-footer-hover-decoration;
     }
@@ -152,7 +156,6 @@ $page-footer-hover-decoration: underline dotted var(--color-bg) 0.15em;
     padding: 1em 0.2em 0.75em;
   }
 
-  $page-footer-decoration-thickness: 0.15em;
   &__subscribe-anchor {
     display: flex;
     flex-direction: column;
@@ -210,9 +213,13 @@ $page-footer-hover-decoration: underline dotted var(--color-bg) 0.15em;
 }
 
 @include media-query-min-width(sm) {
+  .page-footer + .page-footer__contact {
+    margin-top: 2em;
+  }
+
   .page-footer {
     display: grid;
-    gap: 1em 1em;
+    gap: 0.5em 1em;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: auto;
     grid-template-areas:
@@ -221,38 +228,17 @@ $page-footer-hover-decoration: underline dotted var(--color-bg) 0.15em;
       "bottom-row bottom-row"
       "copyright copyright";
 
-    a, button {
-
-    }
-
-    &__hr {
-
-    }
-
     &__contact {
       grid-area: contact;
     }
 
     &__contact-avatar {
-
+      margin-top: calc(var(--font-size-2xl) + 1.5em);
     }
 
     &__contact-details {
-      p {
-
-      }
-    }
-
-    &__contact-name {
-
-    }
-
-    &__contact-name + &__contact-address {
-
-    }
-
-    &__contact-address {
-
+      align-self: start;
+      margin-top: 0.5em;
     }
 
     &__hire-me {
@@ -260,99 +246,19 @@ $page-footer-hover-decoration: underline dotted var(--color-bg) 0.15em;
       display: none;
     }
 
-    &__hire-me-anchor {
-
-    }
-
-    /**
-    * Social media contact information block
-    */
-
     &__social {
       grid-area: social;
     }
 
-    &__social-channel {
-      a {
-
-      }
-
-      &:hover,
-      &:focus {
-        .page-footer__social-platform,
-        .page-footer__social-channel-blurb {
-
-        }
-
-        .icon {
-
-        }
-      }
-    }
-
-    &__social-icon {
-      .icon {
-
-      }
-    }
-
-    &__social-icon + &__social-platform {
-
-    }
-
-    &__social-platform {
-
-    }
-
-    &__social-channel-blurb {
-
-    }
-
-    /**
-    * Grab-bag row of links
-    */
-
     &__bottom-row {
       grid-area: bottom-row;
-    }
-
-    &__subscribe {
-
-    }
-
-    &__subscribe-anchor {
-
-      &:hover, &:focus {
-
-      }
-    }
-
-    &__site-pages {
-
-      a:hover, a:focus {
-
-      }
-    }
-
-    &__feed {
-
-      .icon {
-
-      }
-
-      a:hover, a:focus {
-        .icon {
-
-        }
-      }
+      justify-content: space-evenly;
+      padding: 0 0.2em 0;
     }
 
     &__copyright {
       grid-area: copyright;
-    }
-
-    &__copyright-date +  &__copyright-author {
-
+      padding: 0;
     }
   }
 }
@@ -406,7 +312,7 @@ $page-footer-hover-decoration: underline dotted var(--color-bg) 0.15em;
     */
 
     &__social {
- 
+
     }
 
     &__social-channel {

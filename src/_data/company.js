@@ -11,8 +11,8 @@ module.exports = _ => {
     city: 'Claymont',
     state: 'DE',
     index: '19703',
-    telephoneLocal: '+1 (302) 608 6864',
-    telephoneTollFree: '+1 (888) 987 1881',
+    telephoneLocal: '+13026086864',
+    telephoneTollFree: '+18889871881',
     social: {
       codepen: {
         name: 'WebstackDev',

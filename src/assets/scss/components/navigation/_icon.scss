@@ -89,7 +89,7 @@
 }
 
 /** Don't display hamburger nav icon on desktop */
-@include media-query-min-width(md) {
+@include media-query-min-width(lg) {
   .nav-icon__toggle-btn {
     display: none;
   }

@@ -32,7 +32,7 @@ $header-icons-svg-scale-factor: 0.7;
   }
 }
 
-@include media-query-min-width(sm) {
+@include media-query-min-width(lg) {
   :root {
     --header-icon-size: calc(#{$header-icon-size-base});
   }
@@ -125,20 +125,13 @@ $header-icon-transition-duration: 0.3s;
   }
 }
 
-@include media-query-min-width(sm) {
-  #header {
-    &__theme-icon {
-      margin-right: 1em;
-    }
-  }
-}
-
 /** Laptop and desktop hides the menu hamburger icon */
-@include media-query-min-width(md) {
+@include media-query-min-width(lg) {
   #header {
     padding: 0.75em 0;
 
     &__theme-icon {
+      margin-right: 1em;
       /** Don't leave space for the menu hamburger icon */
       width: var(--header-icon-size);
     }

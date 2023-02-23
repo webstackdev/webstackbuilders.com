@@ -33,9 +33,3 @@ exports.formatPhoneNumber = formatPhoneNumber
  */
 const { youtubeShortcode } = require('./youtube')
 exports.youtubeShortcode = youtubeShortcode
-
-/**
- * Get the year as a four-digit number
- */
-const { year } = require('./year')
-exports.year = year

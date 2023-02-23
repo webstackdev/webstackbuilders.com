@@ -110,12 +110,20 @@ layout: layouts/base.njk
     </form>
     <div class="contact__channels contact__grid-sidebar-item">
       <h2 class="contact__channels-title">Connect With Us</h2>
-      <div class="contact__channels-detail">
+      <address class="contact__channels-detail">
         <p class="contact__channels-email">
           <a href="mailto:{{ company.email }}">{{ company.email }}</a>
         </p>
-        <p class="contact__channels-toll-free">Toll Free {{ company.telephoneTollFree }}</p>
-        <p class="contact__channels-local">Local {{ company.telephoneLocal }}</p>
+        <p class="contact__channels-toll-free" itemprop="telephone" rel="nofollow">
+          <a href="tel:{{ company.telephoneTollFree }}">
+            Toll Free {% formatPhoneNumber company.telephoneTollFree %}
+          </a>
+        </p>
+        <p class="contact__channels-local" itemprop="telephone" rel="nofollow">
+          <a href="tel:{{ company.telephoneLocal }}">
+            Local {% formatPhoneNumber company.telephoneLocal %}
+          </a>
+        </p>
         <div class="contact__channels-social-icons">
           <span>
             <a href="{{ company.social.twitter.url }}" title="Twitter" rel="me">
@@ -138,7 +146,7 @@ layout: layouts/base.njk
             </a>
           </span>
         </div>
-      </div>
+      </address>
     </div>
     <div class="contact__skills contact__grid-sidebar-item">
       <h2 class="contact__skills-header">

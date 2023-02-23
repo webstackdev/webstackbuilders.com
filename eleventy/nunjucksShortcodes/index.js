@@ -32,3 +32,9 @@ exports.pageSocialImg = pageSocialImg
  */
 const { pageTitle } = require('./pageTitle')
 exports.pageTitle = pageTitle
+
+/**
+ * Get the year as a four-digit number
+ */
+const { year } = require('./year')
+exports.year = year

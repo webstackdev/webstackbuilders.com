@@ -4,15 +4,17 @@ pagination:
   size: 1
   alias: tag
 filter:
+  - all
   - articles
   - case-studies
   - services
   - site
   - testimonials
+title: 'Pages in Category {{ tag }}'
 layout: layouts/base.njk
 permalink: /tags/{{ tag }}/
 ---
-<h1>Tagged "{% normalizeTagName tag %}"</h1>
+<h1>Category: "{% normalizeTagName tag %}"</h1>
 <ol>
 {% set taglist = collections[ tag ] %}
 {% for post in taglist | reverse %}

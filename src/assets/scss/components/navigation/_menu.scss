@@ -75,7 +75,7 @@
 }
 
 /** Display navigation menu on desktop */
-@include media-query-min-width(md) {
+@include media-query-min-width(lg) {
   .main-nav {
     /** <ul> */
     &__menu {

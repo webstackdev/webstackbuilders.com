@@ -9,7 +9,12 @@ body {
  * Typography for base elements
  */
 
- /** Default style is set to `bolder` in Firefox, Safari, and Chrome. */
+/** font-style set to italic in Firefox user agent styles */
+address {
+  font-style: normal;
+}
+
+/** Default style is set to `bolder` in Firefox, Safari, and Chrome. */
 b, strong {
   font-weight: var(--font-weight-bold);
 }

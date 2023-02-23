@@ -209,8 +209,11 @@ $sidebar-font-size: var(--font-size-2xl);
     margin-top: 0.25em;
   }
 
-  &__channels-email {
-    /** Don't wrap email address */
+  &__channels-email,
+  &__channels-toll-free,
+  &__channels-local {
+    font-size: var(--font-size-default);
+    /** Don't hyphenate email address */
     hyphens: none;
 
     a {
@@ -257,7 +260,7 @@ $sidebar-font-size: var(--font-size-2xl);
     &__callout {
       align-items: center;
       display: flex; // overriding display: none; on mobile
-      inset: 2em 1em 1em 70%;
+      inset: 2em 1em 1em 60%;
       position: absolute;
     }
 
@@ -267,6 +270,10 @@ $sidebar-font-size: var(--font-size-2xl);
       display: flex;
       flex-direction: column;
       padding: 1em 1.5em;
+
+      &:first-child {
+        display: none;
+      }
 
       p {
         color: var(--color-bg);
@@ -291,7 +298,7 @@ $sidebar-font-size: var(--font-size-2xl);
     }
 
     /**
-    * Grid layout for larger screens
+    * Grid layout
     */
     $contact-grid-spacing: 2em;
 
@@ -302,7 +309,7 @@ $sidebar-font-size: var(--font-size-2xl);
     &__grid {
       display: grid;
       gap: 1em 1em;
-      grid-template-columns: 2fr 1fr;
+      grid-template-columns: 4fr 3fr;
       grid-template-rows: auto;
       grid-template-areas:
         "form leadin"
@@ -314,7 +321,7 @@ $sidebar-font-size: var(--font-size-2xl);
     &__grid-sidebar-item {
       background-color: var(--color-bg-offset);
       border-radius: 5px;
-      padding: 2em;
+      padding: 1em;
       width: 100%;
     }
 
@@ -413,7 +420,20 @@ $sidebar-font-size: var(--font-size-2xl);
 @include media-query-min-width(md) {
   .contact {
     &__callout {
+      inset: 2em 1em 1em 60%;
       padding-right: 1.5em;
+    }
+
+    &__callout-flex {
+      background-color: var(--color-primary);
+      border-radius: 5px;
+      display: flex;
+      flex-direction: column;
+      padding: 1em 1.5em;
+
+      &:first-child {
+        display: none;
+      }
     }
   }
 }

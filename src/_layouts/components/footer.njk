@@ -5,7 +5,7 @@
     <div class="page-footer__contact-avatar">
       {% asyncImageHandler author.avatar, "Site author's avatar image" %}
     </div>
-    <div class="page-footer__contact-details">
+    <address class="page-footer__contact-details">
       <h2 class="page-footer__contact-name">{{ company.name }}</h2>
       <div  class="page-footer__contact-address">
         <p>{{ company.address }}</p>
@@ -14,14 +14,17 @@
       <p class="page-footer__contact-email">
         <a href="mailto:{{ company.email }}">{{ company.email }}</a>
       </p>
-      <p class="page-footer__contact-toll-free">
-        "<a href="tel:+16031112298"></a>"
-        Toll Free {{ company.telephoneTollFree }}
+      <p class="page-footer__contact-toll-free" itemprop="telephone" rel="nofollow">
+        <a href="tel:{{ company.telephoneTollFree }}">
+          Toll Free {% formatPhoneNumber company.telephoneTollFree %}
+        </a>
       </p>
-      <p class="page-footer__contact-local">
-        Local {{ company.telephoneLocal }}
+      <p class="page-footer__contact-local" itemprop="telephone" rel="nofollow">
+        <a href="tel:{{ company.telephoneLocal }}">
+          Local {% formatPhoneNumber company.telephoneLocal %}
+        </a>
       </p>
-    </div>
+    </address>
   </div>
   {#- "Hire Me" block with current month and year set by script -#}
   <div class="page-footer__hire-me">
@@ -105,7 +108,7 @@
   {#- Page footer Author link and Date -#}
   <div class="page-footer__copyright">
     <span class="page-footer__copyright-date">
-      &copy; 2018&ndash;{% year %}
+      &copy; 2018&ndash;{% year true %}
     </span>
     <span class="page-footer__copyright-author">
       <a rel="me" href="{{ absoluteUrl }}">{{ company.name }}</a>
