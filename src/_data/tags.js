@@ -21,7 +21,6 @@ const pageTags = [`articles`, `case-studies`, `contact`, `home`, `services`, `si
 
 const serviceTags = [
   `rails`,
-  `django`,
   `laravel`,
   `express`,
   `react`,

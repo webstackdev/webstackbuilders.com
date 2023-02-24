@@ -14,10 +14,10 @@ layout: layouts/base.njk
     </div>
     <div class="contact__callout">
       <div class="contact__callout-flex">
-        <p class="contact__callout-text">
+        <p class="contact__callout-text-intro">
           <span class="contact__callout-name">Webstack Builders</span> is a solo software development agency offering a wide scope of backend and front end engineering services in multiple languages and frameworks.
         </p>
-        <p>
+        <p class="contact__callout-text-cta">
           If you need a reliable partner to augment your team or take the lead on a project for your business, I'd love to discuss working together.
         </p>
       </div>
@@ -28,13 +28,21 @@ layout: layouts/base.njk
       <h2 class="contact__leadin-header">
         Get in Touch
       </h2>
-      <p class="contact__leadin-expect">What to Expect When Reaching Out:</p>
-      {#- List role added for Safari since the SVG list marker is used in :before pseudo-element -#}
-      <ul class="contact__leadin-expect__list" role="list">
-        <li class="contact__leadin-expect__item"><span>Less than 12 hour response</span></li>
-        <li class="contact__leadin-expect__item"><span>Thoroughness and expertise</span></li>
-        <li class="contact__leadin-expect__item"><span>Plan of Action in a follow up email</span></li>
-      </ul>
+      <p class="contact__leadin-expect-intro">What to Expect When Reaching Out:</p>
+      <div class="contact__leadin-expect__list" role="list">
+        <div class="contact__leadin-expect__item" role="listitem">
+          <span class="contact__leadin-expect__item-icon">{% icon "alarm-clock" %}</span>
+          <span class="contact__leadin-expect__item-text">Less than 12 hour response</span>
+        </div>
+        <div class="contact__leadin-expect__item" role="listitem">
+          <span class="contact__leadin-expect__item-icon">{% icon "award" %}</span>
+          <span class="contact__leadin-expect__item-text">Thoroughness and expertise</span>
+        </div>
+        <div class="contact__leadin-expect__item" role="listitem">
+          <span class="contact__leadin-expect__item-icon">{% icon "paper-and-pencil" %}</span>
+          <span class="contact__leadin-expect__item-text">Plan of Action in a follow up email</span>
+        </div>
+      </div>
     </div>
     <form id="contact__form" class="contact__form">
       <div class="contact__form-wrapper">
@@ -155,7 +163,7 @@ layout: layouts/base.njk
       <div class="contact__skills-list-wrapper">
         <ul class="contact__skills-list">
           <li class="contact__skills-list-item">
-            <span>MVC Frameworks ({% conditionalTagLink collections.all, "rails" %}, {% conditionalTagLink collections.all, "django" %}, {% conditionalTagLink collections.all, "laravel" %}, {% conditionalTagLink collections.all, "express" %})</span>
+            <span>MVC Frameworks ({% conditionalTagLink collections.all, "rails" %}, {% conditionalTagLink collections.all, "laravel" %}, {% conditionalTagLink collections.all, "express" %})</span>
           </li>
           <li class="contact__skills-list-item">
             <span>{% conditionalTagLink collections.all, "react" %}, Vanilla ({% conditionalTagLink collections.all, "typescript" %}, {% conditionalTagLink collections.all, "scss" %})</span>

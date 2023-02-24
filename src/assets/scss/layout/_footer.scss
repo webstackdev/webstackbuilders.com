@@ -1,5 +1,7 @@
-$page-footer-padding: 0.75em;
+$page-footer-feed-icon-size-expanded: 2.5em * 1.2;
+$page-footer-feed-icon-size: 2.5em;
 $page-footer-hover-decoration: underline dotted var(--color-bg) 0.15em;
+$page-footer-padding: 0.75em;
 
 .page-footer {
   background-color: var(--color-text);
@@ -111,7 +113,11 @@ $page-footer-hover-decoration: underline dotted var(--color-bg) 0.15em;
 
     &:hover,
     &:focus {
-      .page-footer__social-platform,
+      .page-footer__social-platform {
+        color: var(--color-bg-offset);
+        text-decoration: $page-footer-hover-decoration;
+      }
+
       .page-footer__social-channel-blurb {
         color: var(--color-bg-offset);
       }
@@ -156,17 +162,6 @@ $page-footer-hover-decoration: underline dotted var(--color-bg) 0.15em;
     padding: 1em 0.2em 0.75em;
   }
 
-  &__subscribe-anchor {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-
-    &:hover, &:focus {
-      color: var(--color-bg-offset);
-      text-decoration: $page-footer-hover-decoration;
-    }
-  }
-
   &__site-pages {
     display: flex;
     flex-direction: column;
@@ -178,10 +173,11 @@ $page-footer-hover-decoration: underline dotted var(--color-bg) 0.15em;
     }
   }
 
-  &__feed {
-    $page-footer-feed-icon-size: 2.5em;
-    $page-footer-feed-icon-size-expanded: 2.5em * 1.2;
+  &__site-pages-desc {
+    display: none;
+  }
 
+  &__feed {
     align-items: center;
     display: flex;
     width: $page-footer-feed-icon-size-expanded;
@@ -263,139 +259,59 @@ $page-footer-hover-decoration: underline dotted var(--color-bg) 0.15em;
   }
 }
 
-@include media-query-min-width(md) {
+@include media-query-min-width(lg) {
+  $page-footer-padding-desktop: 1.5em;
   .page-footer {
-    a, button {
-
-    }
-
-    &__hr {
-
-    }
-
-    &__contact {
-
-    }
+    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-rows: 2rem auto auto;
+    grid-template-areas:
+      "hire-me social bottom-row" // hire-me
+      "contact social bottom-row"
+      "copyright copyright copyright";
+    padding-left: $page-footer-padding-desktop;
+    padding-right: $page-footer-padding-desktop;
 
     &__contact-avatar {
-
+      margin-top: 1em;
     }
-
-    &__contact-details {
-      p {
-
-      }
-    }
-
-    &__contact-name {
-
-    }
-
-    &__contact-name + &__contact-address {
-
-    }
-
-    &__contact-address {
-
-    }
-
-    &__hire-me {
-      // display: none;
-    }
-
-    &__hire-me-anchor {
-
-    }
-
-    /**
-    * Social media contact information block
-    */
-
-    &__social {
-
-    }
-
-    &__social-channel {
-      a {
-
-      }
-
-      &:hover,
-      &:focus {
-        .page-footer__social-platform,
-        .page-footer__social-channel-blurb {
-
-        }
-
-        .icon {
-
-        }
-      }
-    }
-
-    &__social-icon {
-      .icon {
-
-      }
-    }
-
-    &__social-icon + &__social-platform {
-
-    }
-
-    &__social-platform {
-
-    }
-
-    &__social-channel-blurb {
-
-    }
-
-    /**
-    * Grab-bag row of links
-    */
 
     &__bottom-row {
-
+      flex-direction: column;
+      padding-left: 2em;
     }
 
-    &__subscribe {
-
-    }
-
-    &__subscribe-anchor {
-
-      &:hover, &:focus {
-
-      }
+    &__subscribe-lead {
+      display: none;
     }
 
     &__site-pages {
-
+      padding-top: 0.7em;
       a:hover, a:focus {
-
+        text-decoration: none;
       }
+    }
+
+    &__site-pages-title {
+      font-weight: var(--font-weight-bold);
+      text-transform: uppercase;
+
+      &:hover, &:focus {
+        color: var(--color-bg-offset);
+        text-decoration: $page-footer-hover-decoration;
+      }
+    }
+
+    &__site-pages-desc {
+      display: block;
     }
 
     &__feed {
-
-      .icon {
-
-      }
-
-      a:hover, a:focus {
-        .icon {
-
-        }
-      }
+      height: $page-footer-feed-icon-size-expanded;
+      width: $page-footer-feed-icon-size-expanded;
     }
 
     &__copyright {
-
-    }
-
-    &__copyright-date +  &__copyright-author {
-
+      margin-top: 0.5em;
     }
   }
 }
