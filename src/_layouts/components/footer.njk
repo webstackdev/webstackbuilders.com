@@ -114,7 +114,7 @@
   {#- Page footer Author link and Date -#}
   <div class="page-footer__copyright">
     <span class="page-footer__copyright-date">
-      &copy; 2018&ndash;{% year true %}
+      &copy; 2018&ndash;{{ page.date | dateToFormat('yyyy') }}
     </span>
     <span class="page-footer__copyright-author">
       <a rel="me" href="{{ '/' | absoluteUrl }}">{{ company.name }}</a>

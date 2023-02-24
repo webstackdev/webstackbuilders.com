@@ -8,7 +8,7 @@ import { log } from '../utils'
 const task: TaskFunction = async done => {
   log(`Clear Jest's cache`)
   try {
-    await run('yarn jest --clearCache', {
+    await run(`${process.cwd()}/node_modules/.bin/jest --clearCache`, {
       env: { NODE_OPTIONS: '--experimental-vm-modules' },
     })()
     done()

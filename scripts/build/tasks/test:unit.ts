@@ -9,7 +9,7 @@ import testUnitClearCache from './test:unit:clear-cache'
 const unitTestTask: TaskFunction = async done => {
   log(`Running unit tests with Jest`)
   try {
-    await run('yarn jest', {
+    await run(`${process.cwd()}/node_modules/.bin/jest`, {
       env: { NODE_OPTIONS: '--experimental-vm-modules' },
     })()
     done()
