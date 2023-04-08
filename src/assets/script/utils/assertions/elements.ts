@@ -38,6 +38,11 @@ export function isDivElement(element: unknown): element is HTMLDivElement {
   return false
 }
 
+export function isFormElement(element: unknown): element is HTMLFormElement {
+  if (isType1Element(element) && element[`tagName`] === `FORM`) return true
+  return false
+}
+
 export function isHeaderElement(element: unknown): element is HTMLElement {
   if (isType1Element(element) && element[`tagName`] === `HEADER`) return true
   return false
@@ -50,6 +55,16 @@ export function isHtmlElement(element: unknown): element is HTMLHtmlElement {
 
 export function isImageElement(element: unknown): element is HTMLImageElement {
   if (isType1Element(element) && element[`tagName`] === `IMG`) return true
+  return false
+}
+
+export function isInputElement(element: unknown): element is HTMLInputElement {
+  if (isType1Element(element) && element[`tagName`] === `INPUT`) return true
+  return false
+}
+
+export function isLabelElement(element: unknown): element is HTMLLabelElement {
+  if (isType1Element(element) && element[`tagName`] === `LABEL`) return true
   return false
 }
 

@@ -1,7 +1,8 @@
-import { getCookieConsentWrapper } from '../getters'
+import { ContactFormSelectors } from '../selectors'
 
 try {
-  const wrapper = getCookieConsentWrapper()
+  const selectors = new ContactFormSelectors()
+  const wrapper = selectors.submitButton
   wrapper.setAttribute(`data-testid`, `test-element`)
 } catch (err) {
   /** Pass error message back to test */

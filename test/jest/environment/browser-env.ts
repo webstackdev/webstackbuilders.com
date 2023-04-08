@@ -215,8 +215,10 @@ export default class JSDomTscompileEnvironment implements JestEnvironment<number
        * this.global.close() will trigger the CustomElement::disconnectedCallback.
        * Do not reset the document before CustomElement disconnectedCallback function
        * has finished running, document should be accessible within disconnectedCallback.
+       * The 'document' property configurable descriptor is set to false so can't use
+       * Object.defineProperty to set value.
        */
-      Object.defineProperty(this.global, 'document', { value: null })
+      this.global.document = null as unknown as Document
     }
 
     this.errorEventListener = null

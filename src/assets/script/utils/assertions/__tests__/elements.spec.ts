@@ -7,9 +7,12 @@ import {
   isBodyElement,
   isButtonElement,
   isDivElement,
+  isFormElement,
   isHeaderElement,
   isHtmlElement,
   isImageElement,
+  isInputElement,
+  isLabelElement,
   isNavElement,
   isShadowRoot,
   isSlotElement,
@@ -130,6 +133,30 @@ describe('HTML <div> element assertion', () => {
   })
 })
 
+describe('HTML <form> element assertion', () => {
+  test('Valid <form> element returns true from assertion', () => {
+    document.body.innerHTML = `<form></form>`
+    const sut = isFormElement(document.querySelector('form'))
+    expect(sut).toBeTruthy()
+  })
+
+  test('Non-<form> element returns false from assertion', () => {
+    document.body.innerHTML = `<span></span>`
+    const sut = isFormElement(document.querySelector('form'))
+    expect(sut).toBeFalsy()
+  })
+
+  test('Function returns false from assertion', () => {
+    const sut = isFormElement(voidFn)
+    expect(sut).toBeFalsy()
+  })
+
+  test('Null returns false from assertion', () => {
+    const sut = isFormElement(nullConst)
+    expect(sut).toBeFalsy()
+  })
+})
+
 describe('HTML <header> element assertion', () => {
   test('Valid <header> element returns true from assertion', () => {
     document.body.innerHTML = `<header></header>`
@@ -192,6 +219,54 @@ describe('HTML <img> element assertion', () => {
 
   test('Null returns false from assertion', () => {
     const sut = isImageElement(nullConst)
+    expect(sut).toBeFalsy()
+  })
+})
+
+describe('HTML <input> element assertion', () => {
+  test('Valid <input> element returns true from assertion', () => {
+    document.body.innerHTML = `<input type="text" name="test"></input>`
+    const sut = isInputElement(document.querySelector('input'))
+    expect(sut).toBeTruthy()
+  })
+
+  test('Non-<input> element returns false from assertion', () => {
+    document.body.innerHTML = `<div></div>`
+    const sut = isInputElement(document.querySelector('div'))
+    expect(sut).toBeFalsy()
+  })
+
+  test('Function returns false from assertion', () => {
+    const sut = isInputElement(voidFn)
+    expect(sut).toBeFalsy()
+  })
+
+  test('Null returns false from assertion', () => {
+    const sut = isInputElement(nullConst)
+    expect(sut).toBeFalsy()
+  })
+})
+
+describe('HTML <label> element assertion', () => {
+  test('Valid <label> element returns true from assertion', () => {
+    document.body.innerHTML = `<label for="test"></label>`
+    const sut = isLabelElement(document.querySelector('label'))
+    expect(sut).toBeTruthy()
+  })
+
+  test('Non-<label> element returns false from assertion', () => {
+    document.body.innerHTML = `<div></div>`
+    const sut = isLabelElement(document.querySelector('div'))
+    expect(sut).toBeFalsy()
+  })
+
+  test('Function returns false from assertion', () => {
+    const sut = isLabelElement(voidFn)
+    expect(sut).toBeFalsy()
+  })
+
+  test('Null returns false from assertion', () => {
+    const sut = isLabelElement(nullConst)
     expect(sut).toBeFalsy()
   })
 })

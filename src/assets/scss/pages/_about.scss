@@ -3,7 +3,15 @@
     margin-bottom: 2rem;
   }
 
-  &__photo {
+  &__title {
+    //
+  }
+
+  &__subtitle {
+    //
+  }
+
+  &__author-avatar {
     position: relative;
     display: block;
     padding-bottom: 75%;
@@ -14,32 +22,17 @@
       background-position: left center;
     }
   }
+
+  &__content {
+    //
+  }
+
   &__intro {
     max-width: 54rem;
 
     p {
       margin-bottom: 1rem;
     }
-  }
-
-  &__social {
-    list-style-type: none !important;
-
-    .icon {
-      margin-right: 1.25rem;
-    }
-  }
-
-  &__title {
-    //
-  }
-
-  &__subtitle {
-    //
-  }
-
-  &__content {
-    //
   }
 
   @include media-query-min-width(lg) {
@@ -49,7 +42,7 @@
       margin: 0 calc(50% - 50vw) 3rem;
     }
 
-    &__photo {
+    &__author-avatar {
       width: 40%;
       padding-bottom: 450px;
       margin: 0;

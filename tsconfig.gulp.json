@@ -9,7 +9,7 @@
        * `package.json` to be set to `module`, which is then in conflict with
        * other JavaScript workflows in the project.
        */
-      "module": "commonjs",
+      "module": "commonjs"
     }
   },
   /**

@@ -1,4 +1,4 @@
-import chalk from 'chalk'
+import colors from 'ansi-colors'
 import fancyLog from 'fancy-log'
 
 /**
@@ -24,10 +24,10 @@ type logColor = `red` | `green` | `yellow` | `blue` | `magenta` | `cyan` | `whit
 export const log = (message: string | string[], color: logColor = `magenta`) => {
   if (message instanceof Array) {
     message.forEach((item) => {
-      fancyLog(chalk[color](item))
+      fancyLog(colors[color](item))
     })
   } else {
-    fancyLog(chalk[color](message))
+    fancyLog(colors[color](message))
   }
 }
 

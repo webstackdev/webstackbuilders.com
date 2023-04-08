@@ -15,7 +15,7 @@ egrep -rnw --exclude-dir=node_modules --exclude=yarn.lock --exclude=yarn-error.l
 @types/gulp // used by Gulp
 @types/serve-static // used in eleventy global type definitions in @types directory
 @yarnpkg/cli // used in Yarn plugin
-chalk // used in validateFrontmatter script
+ansi-colors // used in build script for logger
 critical // used in gulp task for inlining critical CSS
 cross-var
 dotenv

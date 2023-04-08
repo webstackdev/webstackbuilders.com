@@ -12,6 +12,7 @@ import type { ScriptInit } from './@types/general'
 import { setupNavigation } from './modules/navigation'
 import { setupThemePicker } from './modules/themePicker'
 //import { registerServiceWorker } from './modules/serviceWorker/registerer'
+import { footerInit } from './modules/footer'
 import { contactInit } from './pages/contact'
 
 // @TODO: Are there any tasks that we need to pause using visibility API like animations when user leaves page? See modules/visibility.ts
@@ -33,10 +34,10 @@ export const scriptsFiredOnLoaded: ScriptInit[] = [
  */
 export const scriptsFiredOnDomLoaded: ScriptInit[] = [
   contactInit,
+  footerInit,
   //heroSvgAnimation,
   //initImagesLazyLoad,
   //registerShareHighlight,
-  //setupNavigation,
   setupNavigation,
   setupThemePicker,
 ]

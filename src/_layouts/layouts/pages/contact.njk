@@ -46,8 +46,9 @@ layout: layouts/base.njk
     </div>
     <form id="contact__form" class="contact__form">
       <div class="contact__form-wrapper">
+        <div class="contact__form-error"></div>
         <div class="contact__form-name contact__form-input-widget">
-          <div class="error-validation__info"></div>
+          <div class="contact__form-validation-error"></div>
           <div class="contact__form-input-group">
             <label
               for="name"
@@ -58,30 +59,33 @@ layout: layouts/base.njk
             <input
               class="contact__form-input-element"
               type="text"
+              maxlength="50"
               name="name"
-              required
             >
           </div>
         </div>
         <div class="contact__form-email contact__form-input-widget">
-          <div class="error-validation__info" ></div>
+          <div class="contact__form-validation-error" ></div>
           <div class="contact__form-input-group">
             <label
-              for="email"
+              for="contact__form-email"
               class="contact__form-input-label"
             >
               Your email address
             </label>
             <input
               class="contact__form-input-element"
-              type="text"
-              name="email" value=""
+              type="email"
+              maxlength="64"
+              minlength="6"
+              name="contact__form-email"
+              value=""
               required
             >
           </div>
         </div>
         <div class="contact__form-message contact__form-input-widget">
-          <div class="error-validation__info" ></div>
+          <div class="contact__form-validation-error" ></div>
           <div class="contact__form-input-group">
             <label
               for="message"
@@ -92,24 +96,17 @@ layout: layouts/base.njk
             <textarea
               name="message"
               class="contact__form-input-element"
-              minlength="6"
               maxlength="2000"
+              minlength="7"
               required
               rows="6"
             ></textarea>
           </div>
         </div>
         <div class="contact__form-upload contact__form-input-widget">
-          <div class="contact__form-upload-dropzone" tabindex="0">
-            <span class="contact__form-upload-dropzone-label">
-              {% icon "paper-clip" %}
-              Attach files
-            </span>
-            <input type="file" multiple="" style="display: none;" autocomplete="off" tabindex="-1">
-          </div>
+          <div class="contact__form-upload-dropzone" tabindex="0"></div>
           <div id="contact__form-upload-previews"></div>
         </div>
-        <div id="toast"></div>
         <button type="submit" class="btn contact__form-submit-btn">
           <span class="contact__form-submit-label">Send</span>
           <span class="contact__form-submit-circle">{% icon "arrow-right" %}</span>

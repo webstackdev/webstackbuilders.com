@@ -12,7 +12,7 @@ export const footerInit = () => {
   anchor.style.display = `block`
 }
 
-const getMonthName = (date) => {
+const getMonthName = (date: Date) => {
   date.setMonth(date.getMonth() - 1)
   return date.toLocaleString('en-US', { month: 'long' })
 }

@@ -60,6 +60,12 @@ $sidebar-font-size: var(--font-size-2xl);
     padding-top: 1em;
   }
 
+  &__form-error {
+    background-color: var(--color-bg-offset);
+    margin: 1em 0;
+    padding: 1em;
+  }
+
   &__form-input-group {
     padding-bottom: 1em;
     position: relative;
@@ -81,36 +87,19 @@ $sidebar-font-size: var(--font-size-2xl);
     &:hover, &:focus {
       outline: 2px solid var(--color-secondary);
     }
-
-    &:invalid {
-      outline: 2px dashed red;
-    }
-
-    &:invalid:required {
-      background-image: linear-gradient(to right, pink, lightgreen);
-    }
-
-    &:valid {
-      //background-color: lightgreen; // @TODO: why is this showing when nothing entered?
-    }
   }
 
-/* This is the style of our error messages */
-.error {
-  width: 100%;
-  padding: 0;
+  &__form-validation-error {
+    &.warning {
+      color: white;
+      background-color: yellow;
+    }
 
-  font-size: 80%;
-  color: white;
-  background-color: #900;
-  border-radius: 0 0 5px 5px;
-
-  box-sizing: border-box;
-}
-
-.error.active {
-  padding: 0.3em;
-}
+    &.error {
+      color: white;
+      background-color: red;
+    }
+  }
 
   &__form-message {
     padding-bottom: 1.4em;
