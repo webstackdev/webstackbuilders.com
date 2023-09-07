@@ -15,3 +15,6 @@ exports.getCoverImageFilePath = getCoverImageFilePath
 
 const { getPermalinkPath } = require('./permalinks')
 exports.getPermalinkPath = getPermalinkPath
+
+const { initDraftHandler } = require('./permalinks')
+exports.initDraftHandler = initDraftHandler

@@ -1,5 +1,5 @@
 const { startCase } = require('lodash')
-const { exceptions } = require('../../src/_data/tags')
+const { exceptions } = require('../../tags/tagList')
 
 /**
  * Wrap a key with an anchor element if there is a tag collection for the key

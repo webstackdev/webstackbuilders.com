@@ -4,7 +4,7 @@
  * {%- set autoDescription = currentPage.templateContent | excerpt | safe | striptags -%}
  *
  * @param {object} _ - A curried EleventyConfig object from '.eleventy.js'
- * @param {array} allPages - Array of collection objects to get the current page from
+ * @param {Array} allPages - Array of collection objects to get the current page from
  * @param {string} currentPage - The file path of the current page to retrieve
  * @returns {object} - A collection object for the current page
  */
@@ -13,7 +13,7 @@ exports.currentPage = (_, allPages, currentPage) => {
   if (matches && matches.length) {
     return matches[0]
   }
-  return null
+  return undefined
 }
 
 /**
@@ -21,9 +21,9 @@ exports.currentPage = (_, allPages, currentPage) => {
  * {% assign taggers = tip.data.tags | exclude: "tips" %}
  *
  * @param {object} _ - A curried EleventyConfig object from '.eleventy.js'
- * @param {array} values - An array of values to filter over
+ * @param {Array} values - An array of values to filter over
  * @param {unknown} itemToExclude - The value to exclude from the array
- * @returns {array} - Returns a new filtered array
+ * @returns {Array} - Returns a new filtered array
  */
 exports.exclude = (_, values, itemToExclude) => {
   return values.filter(value => value !== itemToExclude)
@@ -34,9 +34,9 @@ exports.exclude = (_, values, itemToExclude) => {
  * {% set otherposts = collections.posts | excludeItemFromCollection(page) | slice(-10) %}
  *
  * @param {object} _ - A curried EleventyConfig object from '.eleventy.js'
- * @param {array} collection - Array of collection objects to filter by excluded item
+ * @param {Array} collection - Array of collection objects to filter by excluded item
  * @param {string} itemToExclude - The file path of the item to exclude from the collection
- * @returns {array} - Returns a filtered array of collection objects
+ * @returns {Array} - Returns a filtered array of collection objects
  */
 exports.excludeItemFromCollection = (_, collection, itemToExclude) => {
   return collection.filter(item => item.inputPath !== itemToExclude.inputPath)
@@ -60,7 +60,7 @@ exports.findById = (_, object, id) => {
  * {% set otherposts = collections.posts | excludePost(page) | slice(-10) %}
  *
  * @param {object} _ - A curried EleventyConfig object from '.eleventy.js'
- * @param {array} array - The array to slice
+ * @param {Array} array - The array to slice
  * @param {number} start - The beginning element to slice from, can use negative numbers to slice from end
  * @param {number} end - Optional, the last element to slice up to
  * @returns {unknown} Returns a new array with the sliced elements
@@ -74,7 +74,7 @@ exports.slice = (_, array, start, end) => {
  * {% assign category = collections.categories | withCategory: "articles, case-studies" %}
  *
  * @param {object} _ - A curried EleventyConfig object from '.eleventy.js'
- * @param {array} collectionItems - array of collection objects to filter by tag on
+ * @param {Array} collectionItems - array of collection objects to filter by tag on
  * @param {string} categories - a string or space separated list of categories the value must contain one of
  * @returns {boolean} whether the passed category is a tag on the item
  */

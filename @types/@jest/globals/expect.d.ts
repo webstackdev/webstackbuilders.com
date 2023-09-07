@@ -1,6 +1,8 @@
-import type { Constructor } from '../../../test/jest/matchers/assertions'
-
 declare module 'expect' {
+  type Constructor = {
+    new (...args: unknown[]): unknown
+  }
+
   export interface Matchers<R> {
     /**
      * Custom Jest matchers

@@ -4,15 +4,15 @@
   ],
   "hints": {
     "compat-api/css": ["error", {
-        "ignore": [
-          "-moz-appearance: none",
-          "-webkit-appearance: none",
-          "-webkit-tap-highlight-color",
-          "-webkit-text-size-adjust",
-          "appearance: none",
-          "cursor",
-          "zoom: 1"
-        ]
+      "ignore": [
+        "-moz-appearance: none",
+        "-webkit-appearance: none",
+        "-webkit-tap-highlight-color",
+        "-webkit-text-size-adjust",
+        "appearance: none",
+        "cursor",
+        "zoom: 1"
+      ]
     }]
   }
 }

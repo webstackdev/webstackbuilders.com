@@ -15,5 +15,9 @@
   "stylelint.reportNeedlessDisables": true,
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "typescript.tsdk": ".yarn/sdks/typescript/lib",
-  "svg.preview.background": "white"
+  "svg.preview.background": "white",
+  "cSpell.words": [
+    "braniac",
+    "OSPF"
+  ]
 }

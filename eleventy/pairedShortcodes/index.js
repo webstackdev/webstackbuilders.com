@@ -8,5 +8,12 @@
 const { callout } = require('./callout')
 exports.callout = callout
 
+
+/**
+ * Allows using Markdown inside shortcode in a Nunjucks or other template file
+ */
+const { customMarkdownShortcode } = require('./markdown')
+exports.customMarkdownShortcode = customMarkdownShortcode
+
 const { signup } = require('./signup')
 exports.signup = signup

@@ -18,22 +18,6 @@ exports.dateToFormat = (_, date, format = "LLL dd', 'yyyy") => {
 }
 
 /**
- * Friendly date filter. Supported tokens:
- * https://moment.github.io/luxon/docs/manual/formatting.html#table-of-tokens
- * Usage:
- *   {{ date | readableDate }}
- *   {{ webmention.published | dateFromISO | readableDate }}
- *
- * @param _
- * @param date
- * @param format
- */
-exports.readableDate = (_, date, format = "LLLL d', 'yyyy") => {
-  const datetimeObj = DateTime.fromJSDate(date, { zone: 'utc' })
-  return datetimeObj.toFormat(format)
-}
-
-/**
  * Returns an ISO 8601-compliant string representation of this DateTime
  *
  * EXAMPLE: Friday, July 15, 2022 at 11:39:50 PM GMT+3
@@ -62,4 +46,21 @@ exports.dateToISO = (_, date) => {
  */
 exports.dateFromISO = (_, timestamp) => {
   return DateTime.fromISO(timestamp, { zone: 'utc' }).toJSDate()
+}
+
+
+/**
+ * Friendly date filter. Supported tokens:
+ * https://moment.github.io/luxon/docs/manual/formatting.html#table-of-tokens
+ * Usage:
+ *   {{ date | readableDate }}
+ *   {{ webmention.published | dateFromISO | readableDate }}
+ *
+ * @param _
+ * @param date
+ * @param format
+ */
+exports.readableDate = (_, date, format = "LLLL d', 'yyyy") => {
+  const datetimeObj = DateTime.fromJSDate(date, { zone: 'utc' })
+  return datetimeObj.toFormat(format)
 }

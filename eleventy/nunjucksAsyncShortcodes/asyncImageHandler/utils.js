@@ -66,7 +66,7 @@ exports.isRelativeFilePath = isRelativeFilePath
  * @param {object} context - A Nunjucks context to use while rendering
  * @returns {string} - The rendered template output
  */
-exports.renderTemplate = (template, context) => {
+exports.renderNunjucksTemplate = (template, context) => {
   const env = new nunjucks.Environment(
     new nunjucks.FileSystemLoader(
       path.join(process.cwd(), 'eleventy/nunjucksAsyncShortcodes/asyncImageHandler')

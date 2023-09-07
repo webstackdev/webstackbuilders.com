@@ -21,13 +21,14 @@
     "npm": "please-use-yarn",
     "yarn": ">= 3.2.0"
   },
-  "packageManager": "yarn@3.2.2",
+  "packageManager": "yarn@3.6.2",
   "browserslist": [
     "> 1%",
     "not IE 11"
   ],
   "scripts": {
     "info": "npm-scripts-info",
+    "lint:style": "clear && npx write-good src/pages/**/*.md",
     "postinstall": "TS_NODE_PROJECT='tsconfig.gulp.json' yarn gulp test:e2e:update-browsers"
   },
   "scripts-info": {
@@ -133,6 +134,7 @@
     "@types/node-sass": "^4.11.3",
     "@types/nunjucks": "^3.2.2",
     "@types/prettier": "^2.7.2",
+    "@types/sanitize-html": "^2",
     "@types/serve-static": "^1.15.1",
     "@types/sharp": "^0.31.1",
     "@types/sprintf-js": "^1.1.2",
@@ -269,6 +271,7 @@
     "prettier": "2.8.4",
     "read-pkg-up": "^8.0.0",
     "rewire": "^6.0.0",
+    "sanitize-html": "^2.11.0",
     "sass": "1.58.3",
     "sass-extract": "^2.1.0",
     "sass-true": "^7.0.0",
@@ -301,6 +304,7 @@
     "webpack-cli": "5.0.1",
     "webpack-merge": "5.8.0",
     "workbox-cli": "6.5.4",
+    "write-good": "^1.0.8",
     "yargs": "17.7.1"
   },
   "resolutions": {

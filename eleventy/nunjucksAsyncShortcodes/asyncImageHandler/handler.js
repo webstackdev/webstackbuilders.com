@@ -4,7 +4,7 @@ const { pathsExist } = require('./file')
 const {
   checkForAltMetadata,
   filenameFormat,
-  renderTemplate,
+  renderNunjucksTemplate,
 } = require('./utils')
 const { getImagePaths } = require('./paths')
 
@@ -81,7 +81,7 @@ exports.asyncImageHandler = async function (
    * Returns an HTML <picture> element string with keys for each image format
    * with properties `placeholder` and `largest` showing the image size.
    */
-  return renderTemplate(`picture.njk`, {
+  return renderNunjucksTemplate(`picture.njk`, {
     alt,
     base64Placeholder,
     className,

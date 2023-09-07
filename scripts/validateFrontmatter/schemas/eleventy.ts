@@ -5,7 +5,7 @@
  */
 import type { FrontmatterSchema } from '@github-docs/frontmatter'
 
-import validTags from '../../../src/_data/tags'
+import validTags from '../../../tags/tagList'
 import { isStringInArray } from '../util'
 
 const permalinkRegex = /^\/|(\/[\w-]+)+$/

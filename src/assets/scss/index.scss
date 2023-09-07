@@ -62,12 +62,12 @@
 
 /** Modules SCSS */
 @import 'modules/hero';
-@import 'modules/CTA/featured';
-@import 'modules/panels/about';
-@import 'modules/panels/suggestedArticles';
-@import 'modules/panels/suggestedCaseStudies';
-@import 'modules/panels/suggestedServices';
-@import 'modules/panels/testimonials';
+@import 'modules/cta_featured';
+@import 'modules/about';
+@import 'modules/suggestedArticles';
+@import 'modules/suggestedCaseStudies';
+@import 'modules/suggestedServices';
+@import 'modules/testimonials';
 
 /** Page SCSS */
 @import 'pages/about';

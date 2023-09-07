@@ -1,23 +1,21 @@
 # Todos
 
-
 ## @TODO: Use Confetti on CTA forms
 
 `canvas-confetti`
 https://github.com/catdad/canvas-confetti
 https://www.kirilv.com/canvas-confetti/
 
+## @TODO: Use the Page Visibility API to pause videos, image carousels, and animations
 
-## @TODO: Use the Page Visibility API to stop unnecessary processes when the user doesn’t see the page or, on the other hand, to perform background actions. Some specific cases can be to pause videos, image carousels, or animations when the user leaves the page.
+Stop unnecessary processes when the user doesn’t see the page or inversely to perform background actions.
 
-## @TODO: Add to Calendar button
+## @TODO: "Add to Calendar" button
+
+Google Calendar, Apple Calendar,  Yahoo Calender,  Microsoft 365, Outlook, and Teams, and generate iCal/ics files (for all other calendars and cases).
 
 https://github.com/add2cal/add-to-calendar-button
 https://add-to-calendar-button.com/
-
-## @TODO: Use a grid of cards for mobile nav menu, like the Windows start menu
-
-Also instead of just displaying a Back button, we can stack all the previous sections like a breadcrumb under each other. And so we get a navigation stack.
 
 ## @TODO: Add Check HTML Links to test workflow
 
@@ -29,10 +27,26 @@ https://github.com/modernweb-dev/rocket/tree/main/packages/check-html-links
 
 "Scaling/zooming animations are problematic for accessibility, as they are a common trigger for certain types of migraine. If you need to include such animations on your website, you should provide a control to allow users to turn off animations, preferably site-wide.  Also, consider making use of the prefers-reduced-motion media feature — use it to write a media query that will turn off animations if the user has reduced animation specified in their system preferences. "
 
+## @TODO: Handle `@media (prefers-reduced-motion: reduce)`
 
-## @TODO: add code to stop the Hero Greensocks animation when @media (prefers-reduced-motion: reduce), using window.mediaQuery()
+Stop the Hero Greensocks animation when `@media (prefers-reduced-motion: reduce)`, using `window.mediaQuery()`. Handle user preference for reduced motion on animations, doing this also with a listener like for browser theme preference
 
-## @TODO: Set up webmentions. This code goes in `_layouts/layouts/base.njk` after the last `<script>` tag in the document `<body>`:
+```css
+@media (prefers-reduced-motion) {
+  /* styles to apply if the user's settings are set to reduced motion */
+}
+```
+
+```typescript
+const mediaQueryList = window.matchMedia('(prefers-reduced-motion)') // not sure what the inverse is to match for so that there's a listener for both the prefers-reduced-motion state and the doesn't-care state
+mediaQueryList.addEventListener(event => {
+  if (event.type === 'change') {}
+})
+```
+
+## @TODO: Set up webmentions
+
+This code goes in `_layouts/layouts/base.njk` after the last `<script>` tag in the document `<body>`:
 
 ```nunjucks
 {%- if layout == 'layouts/articles/item' -%}
@@ -41,23 +55,21 @@ https://github.com/modernweb-dev/rocket/tree/main/packages/check-html-links
 {%- endif -%}
 ```
 
-## @TODO: Implement draft status for collections (articles, services, case studies). Example:
+There's a filter roughed out for the webmentions.
 
-```nunjucks
-<li class="case-studies__item {% if casestudy.data.draft %}case-studies__item--draft{% endif %}">
-```
+## @TODO: SCSS Use clothoid corners with border-radius
 
-## @TODO: SCSS Use clothoid corners with border-radius: https://onotakehiko.dev/clothoid/
+https://onotakehiko.dev/clothoid/
 
-## @TODO: SCSS Make sure accent-color or styling for checkboxes/radio button groups is set up. Sets the colour used by checkboxes and radio buttons, as well as range fields and progress indicators. The accent colour is inherited
+`@TODO: SCSS Make sure accent-color or styling for checkboxes/radio button groups is set up. Sets the colour used by checkboxes and radio buttons, as well as range fields and progress indicators. The accent colour is inherited`
 
 ```scss
 :root{
   accent-color : #696;
 }
-``
+```
 
-## @TODO: SCSS Replace all :focus pseudoselectors with :focus-visible
+## @TODO: SCSS Replace all `:focus pseudoselectors` with `:focus-visible`
 
 ```css
 /* Focusing the button with a keyboard will show a dashed black line. */
@@ -75,7 +87,6 @@ button:focus:not(:focus-visible) {
 ## @TODO: Refactor modals
 
 Modals should be wrapped in the `<dialog>` element and use programmatic methods to display - `showModal()` to disable the area outside of the modal (handles `esc` keypress natively) and `show()` to allow interaction outside the modal, along with `close()`.
-
 
 ## @TODO: Fix Favicon workflow
 
@@ -131,7 +142,9 @@ function themeChange(event) {
 }
 ```
 
-## @TODO: Are we listening for an event that the user changes their browser's theme preference, and updating our theme if they do? And is the initial theme of our site set based on the browser's theme preference?
+## @TODO: Theme preference handling
+
+Are we listening for an event that the user changes their browser's theme preference, and updating our theme if they do? And is the initial theme of our site set based on the browser's theme preference? Use a listener for browser theme preference.
 
 ```css
 @media (prefers-color-scheme: dark) {}
@@ -145,22 +158,7 @@ mediaQueryList.addEventListener(event => {
 })
 ```
 
-## @TODO: Handle user preference for reduced motion on animations, doing this also with a listener like for browser theme preference
-
-```css
-@media (prefers-reduced-motion) {
-  /* styles to apply if the user's settings are set to reduced motion */
-}
-```
-
-```typescript
-const mediaQueryList = window.matchMedia('(prefers-reduced-motion)') // not sure what the inverse is to match for so that there's a listener for both the prefers-reduced-motion state and the doesn't-care state
-mediaQueryList.addEventListener(event => {
-  if (event.type === 'change') {}
-})
-```
-
-## @TODO: Add for iOS:
+## @TODO: Add for iOS
 
 Specifying a Launch Screen Image
 

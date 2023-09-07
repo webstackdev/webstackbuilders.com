@@ -1,7 +1,6 @@
 const _ = require('lodash')
 const buildPaths = require('./scripts/build/paths')
 const { EleventyRenderPlugin } = require('@11ty/eleventy')
-const { serviceTags } = require('./src/_data/tags')
 
 // load environmental variables if not already loaded
 if (!process.env.ELEVENTY_ENV_VARS_INIT) {
@@ -19,9 +18,6 @@ const { addEleventyPlugins, disabled, enabled } = require('./eleventy/config/plu
 
 /** @param { import('./@types/eleventyConfig').Config } eleventyConfig */
 module.exports = eleventyConfig => {
-  /** built-in plugin to render templates from templates */
-  eleventyConfig.addPlugin(EleventyRenderPlugin)
-
   /**
    * Build paths available as global variables for use in e.g. src/_generate templates
    */
@@ -163,6 +159,13 @@ module.exports = eleventyConfig => {
   eleventySetup.utils.extensionsInit(eleventyConfig, eleventySetup)
 
   /**
+   * Set an environmental flag to build drafts when in local server mode, and to not output
+   * files when in production build. Handled in `eleventy/utils/permalink.js` utility used
+   * to set permalink in computed data.
+   */
+  eleventySetup.utils.initDraftHandler(eleventyConfig)
+
+  /**
    * Add functions for use in Eleventy Javascript  *.11tydata.js directory files
    */
   eleventyConfig.addJavaScriptFunction('getPermalinkPath', eleventySetup.utils.getPermalinkPath)
@@ -173,10 +176,19 @@ module.exports = eleventyConfig => {
   eleventyConfig.setLibrary('md', eleventySetup.markdown.setup)
 
   /**
-   * Add a markdown renderer filter, use in *.11ty.js files as
-   * 'await this.renderTemplate(`# Title`)'. Must come after setLibrary('md', _) call.
+   * Built-in plugin to render templates from templates. Must come after call
+   * to `setLibrary('md', _)`.
+   * @example use in *.11ty.js files:
+   * await this.renderTemplate(`# Title`)
+   * @example use in Nunjucks templates:
+   * {% renderTemplate "md" %}
+   *   # I am a title
+   *
+   *   * I am a list
+   *   * I am a list
+   * {% endrenderTemplate %}
    */
-  eleventyConfig.addPlugin(require('@11ty/eleventy').EleventyRenderPlugin)
+  eleventyConfig.addPlugin(EleventyRenderPlugin)
 
   /**
    * BrowserSyncConfig configuration
@@ -203,10 +215,11 @@ module.exports = eleventyConfig => {
    * Collections: Articles
    */
   eleventyConfig.addCollection('articles', function (collection) {
-    return collection
+    const temp = collection
       .getFilteredByGlob(`${buildPaths.articlesSourceDir}/**/*.md`)
       .filter(item => item.data.permalink !== false)
       .sort((a, b) => b.date - a.date)
+    return temp
   })
 
   /**
@@ -246,6 +259,9 @@ module.exports = eleventyConfig => {
       .filter(item => item.data.active)
   })
 
+  /**
+   * Collections: Sitemap entries
+   */
   eleventyConfig.addCollection('sitemap', function (collection) {
     return collection.getFilteredByTags(`articles`, `case-studies`, `services`, `site`)
   })
@@ -260,7 +276,8 @@ module.exports = eleventyConfig => {
 
       /**
        * The top level directory/file/glob used to look for templates, such as Markdown
-       * files or 11ydata.js / 11ydata.json / (subdir|markdownFilename).json files.
+       * files or 11ydata.js / 11ydata.json / (subdir|markdownFilename).json files. Picks
+       * up directories like `src/pages` and `src/_generate`
        */
       input: 'src',
 

@@ -45,7 +45,7 @@ layout: layouts/base.njk
           {% if post.data.tags %}
             <span aria-hidden="true">&sdot;</span>
             <span class="articlelist__item-tags" itemprop="keywords">
-              {{ post.data.tags|join(', ') }}
+              {{ post.data.tags | join(', ') }}
             </span>
           {% endif %}
           {#- Article Draft Status -#}
@@ -56,19 +56,19 @@ layout: layouts/base.njk
         </div>
         {#- Article Excerpt -#}
         <p class="articlelist__item-excerpt" itemprop="abstract">
-          {#- Article Description -#}
+          {#- Article Description. Use when the description doesn't make sense as -#}
+          {#- a continuation in main content using the <!-- excerpt --> separator -#}
           {% if post.data.description %}
             {{ post.data.description }}
-            {% set hasDescription = true %}
-          {% endif %}
-          {#- Article Excerpt -#}
-          {%- if post.data.page.excerpt and (hasDescription !== true) -%}
-            {% renderTemplate "md" %}
-              {{ post.data.page.excerpt }}
+          {#- Article Excerpt. Specify by using the <!-- excerpt --> separator below   -#}
+          {#- the excerpt text. Provides lead text text on the article item view page. -#}
+          {%- elseif post.data.page.excerpt and (post.data.description !== true) -%}
+            {% set pageData = post.data.page %}
+            {% renderTemplate "njk,md", pageData %}
+{#- Markdown-processed content must be left justified in template -#}
+{{ excerpt }}
             {% endrenderTemplate %}
-            {% set hasExcerpt = true %}
-          {%- endif -%}
-          {%- if (hasExcerpt !== true) and (hasDescription !== true) -%}
+          {%- else -%}
             <p>Should throw an error, if reached here it's because the page has no description set in the front matter and no excerpt separator set in the content body.</p>
           {%- endif -%}
         </p>

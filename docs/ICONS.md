@@ -28,6 +28,22 @@ The shortcode will generate content like this: `icon`
 </svg>
 ```
 
+## Resizing SVGs
+
+To shrink the canvas to the largest dimension in the bounding box:
+
+```bash
+inkscape --batch-process --export-area-drawing --export-plain-svg --export-filename=src/assets/icons/output.svg src/assets/icons/paper-clip.svg
+```
+
+## How to resize without transforms in Inkscape
+
+Do the transform using the "W:" and "H:" boxes in the top toolbar with the lock icon clicked to preserve aspect ratio.
+
+Then, ungroup and then group.
+
+## Available Icons
+
 ---
 | Icon | Description |
 | ---- | ----------- |
@@ -53,16 +69,3 @@ The shortcode will generate content like this: `icon`
 | ![twitter](../src/assets/icons/twitter.svg) | `twitter` |
 | ![warning](../src/assets/icons/warning.svg) | `warning` |
 
-## Resizing SVGs
-
-To shrink the canvas to the largest dimension in the bounding box:
-
-```bash
-inkscape --batch-process --export-area-drawing --export-plain-svg --export-filename=src/assets/icons/output.svg src/assets/icons/paper-clip.svg
-```
-
-## How to resize without transforms in Inkscape
-
-Do the transform using the "W:" and "H:" boxes in the top toolbar with the lock icon clicked to preserve aspect ratio.
-
-Then, ungroup and then group.

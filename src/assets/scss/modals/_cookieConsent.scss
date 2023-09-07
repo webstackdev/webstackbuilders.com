@@ -1,14 +1,12 @@
 /**
  * Stylings for the cookie consent pop-up modal dialog
  */
-@use 'sass:math';
-
-$cookie-modal-background: $color-gray-1; // var(--color-primary)
+ @use "sass:math";
 
 /** @TODO: need to refactor from desktop-first to mobile-first */
 
 .cookie-modal {
-  background-color: $cookie-modal-background;
+  background-color: var(--color-modal-background);
   border-radius: 0.5em;
   bottom: 0;
   display: flex;
@@ -29,7 +27,7 @@ $cookie-modal-background: $color-gray-1; // var(--color-primary)
 
     &:hover,
     &:focus {
-      color: lighten($success, 10%);
+      color: var(--color-success-offset);
     }
   }
 
@@ -39,7 +37,7 @@ $cookie-modal-background: $color-gray-1; // var(--color-primary)
   $cookie-container-half-dimension: math.div($cookie-container-dimension, 2);
 
   &__icon-container {
-    background-color: $cookie-modal-background;
+    background-color: var(--color-modal-background);
     clip-path: circle(50%);
     height: $cookie-container-dimension;
     left: 0;
@@ -78,20 +76,20 @@ $cookie-modal-background: $color-gray-1; // var(--color-primary)
   }
 
   &__btn-allow {
-    background-color: $success;
+    background-color: var(--color-success);
 
     &:hover,
     &:focus {
-      background: lighten($success, 10%);
+      background: var(--color-success-offset);
     }
   }
 
   &__btn-customize {
-    background-color: $warning;
+    background-color: var(--color-warning);
 
     &:hover,
     &:focus {
-      background: lighten($warning, 10%);
+      background: var(--color-warning-offset);
     }
   }
 

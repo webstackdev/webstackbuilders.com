@@ -1,4 +1,6 @@
+# Tags
 
+The file `src/_data/tags.js` has a list of tags that are used for validation in the `scripts/validate-frontmatter` build step.
 
 - site
 - services

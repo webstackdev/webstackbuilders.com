@@ -11,12 +11,6 @@ const { canonical } = require('./canonical')
 exports.canonical = canonical
 
 /**
- * Allows using Markdown inside tags in a Nunjucks or other template file
- */
-const { customMarkdownShortcode } = require('./markdown')
-exports.customMarkdownShortcode = customMarkdownShortcode
-
-/**
  * Returns <svg> block for using SVG icon sprite by icon name
  */
 const { icon } = require('./icon')

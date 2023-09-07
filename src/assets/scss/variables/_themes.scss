@@ -23,7 +23,15 @@ $light: (
   primaryColor: $color-blue-4,
   primaryOffsetColor: $color-blue-5,
   secondaryColor: $color-yellow-2,
-  secondaryColorOffset: darken($color-yellow-2, 10%)
+  secondaryColorOffset: $color-yellow-3,
+  modalBackground: $color-gray-1,
+  successColor: $color-green-4,
+  successColorOffset: $color-green-3,
+  infoColor: $color-cyan-4,
+  warningColor: $color-yellow-4,
+  warningColorOffset: $color-yellow-3,
+  dangerColor:  $color-red-4,
+  twitterColor: #1da1f2,
 );
 
 $dark: (
@@ -37,7 +45,15 @@ $dark: (
   primaryColor: $color-gray-1,
   primaryOffsetColor: $color-gray-2,
   secondaryColor: $color-yellow-2,
-  secondaryColorOffset: darken($color-yellow-2, 10%)
+  secondaryColorOffset: $color-yellow-3,
+  modalBackground: $color-gray-1,
+  successColor: $color-green-4,
+  successColorOffset: $color-green-3,
+  infoColor: $color-cyan-4,
+  warningColor: $color-yellow-4,
+  warningColorOffset: $color-yellow-3,
+  dangerColor:  $color-red-4,
+  twitterColor: #1da1f2,
 );
 
 $themes: $light, $dark;
@@ -57,10 +73,18 @@ $themes: $light, $dark;
   --color-primary-offset: #{get-var($theme, "primaryOffsetColor")};
   --color-secondary: #{get-var($theme, "secondaryColor")};
   --color-secondary-offset: #{get-var($theme, "secondaryColorOffset")};
+  --color-modal-background: #{get-var($theme, "modalBackground")};
+  --color-success: #{get-var($theme, "successColor")};
+  --color-success-offset: #{get-var($theme, "successColorOffset")};
+  --color-info: #{get-var($theme, "infoColor")};
+  --color-warning: #{get-var($theme, "warningColor")};
+  --color-warning-offset: #{get-var($theme, "warningColorOffset")};
+  --color-danger: #{get-var($theme, "dangerColor")};
+  --color-twitter: #{get-var($theme, "twitterColor")};
 }
 
 :root {
-  --twitter-brand-primary: $twitter-brand-primary;
+
   @include css-vars($light);
 }
 

@@ -1,3 +1,6 @@
+/**
+ * Base class for buttons
+ */
 .btn {
   align-items: center;
   border-radius: 0.25em;
@@ -24,6 +27,9 @@
   }
 }
 
+/**
+ * Primary button class to use along with `.btn`
+ */
 .btn--primary {
   background-color: var(--color-primary);
   border-color: transparent;
@@ -48,6 +54,9 @@
   }
 }
 
+/**
+ * Secondary button class to use along with `.btn`
+ */
 .btn--secondary {
   @extend .btn--primary;
   background-color: var(--color-secondary);
@@ -63,6 +72,9 @@
   }
 }
 
+/**
+ * Twitter button class to use along with `.btn`
+ */
 .btn--twitter {
   background-color: var(--twitter-brand-primary);
   border-color: var(--twitter-brand-primary);

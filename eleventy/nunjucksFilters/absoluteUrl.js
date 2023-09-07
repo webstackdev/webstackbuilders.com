@@ -19,5 +19,7 @@ const { URL } = require('url')
  */
 // .eleventy.js
 exports.absoluteUrl = (eleventyConfig, url) => {
-  return new URL(url, eleventyConfig.globalData.site.baseUrl).href
+  const baseUrl = eleventyConfig.globalData.site.baseUrl
+  const normalizedUrl = new URL(url, baseUrl)
+  return normalizedUrl.href
 }

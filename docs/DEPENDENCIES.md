@@ -100,6 +100,7 @@ markdown-it-emoji
 posthtml // this and posthtml-urls used in 'htmlToAbsoluteUrls' filter over ride
 posthtml-urls
 postcss
+sanitize-html // used in webmentions filter
 sharp // used in image lazy loading script
 ```
 

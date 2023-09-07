@@ -69,7 +69,7 @@ $header-icon-transition-duration: 0.3s;
     transform: translateX(-52%);
     z-index: -1;
     box-sizing: border-box;
-    background-color: $color-gray-2; // @TODO: need a css var for this so themes switch, also this color is the same as the background color for the theme modal panel in light theme: --color-bg-offset
+    background-color: var(--color-bg-offset);
   }
 
   /** <span> wrapper around the company logo and name */

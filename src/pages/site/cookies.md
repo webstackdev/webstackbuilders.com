@@ -1,5 +1,5 @@
 ---
-title: 'Cookie Policy'
+title: "Cookie Policy"
 date: 2021-03-31
 tags: site
 permalink: /cookies/

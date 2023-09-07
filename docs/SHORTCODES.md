@@ -1,5 +1,7 @@
 # Table of Filters and Short Codes
 
+These are the filters and short codes available in the Webstack Builders Corporate Website project.
+
 Difference between filters and short codes is slight. Universal filters cannot be passed parameters other than the value to the left of the pipe. Short codes can also used a paired syntax to accept the content between the tags to be used as inputs, something not possible with filters.
 
 Shortcodes are sugar over Nunjucks custom tags. Tags are special blocks that perform operations on sections of the template: `if`, `for`, `asyncEach`, `asyncAll`, `macro`, `set`, `extends`, `block`, `include`, `import`, `raw`, `filter`, and `call`.
@@ -21,27 +23,34 @@ Shortcodes are sugar over Nunjucks custom tags. Tags are special blocks that per
   - **`setExt`**  Sets or changes the extension on media files.
   - **`slice`** @TODO: This is also a built-in Nunjucks filter, why is it over-ridden?
   - **`withCategory`**  Filter a collection by category e.g. "articles".
+
 - *Custom Nunjucks Filters*
   - **`absoluteUrl`**  Over-ride of plugin provided method in eleventy-plugin-rss.
+
 - *Custom Short Codes*
   - **`canonical`**  Determine the canonical URL for a page.
   - **`customMarkdownShortcode`**  Allows using Markdown inside tags in a Nunjucks or other template file. @TODO: Maybe change this to just "markdown"?
   - **`icon`**  Returns `<svg>` block for using SVG icon sprite by icon name.
   - **`youtubeShortcode`**  Embed Youtube as shortcode in markdown by video ID.
   - **`year`**  Get the year as a four-digit number.
+
 - *Custom Paired Short Codes*
   - **`callout`**  Return HTML tags to wrap provided content in a callout box
   - **`signup`**  Return HTML tags for a signup box
+
 - *Custom Nunjucks Short Codes*
   - **`pageDescription`**  Get page description for meta headers.
   - **`pageSocialImg`**  Get page social share image to set in meta header.
   - **`pageTitle`**  Builds a string for use in the browser title bar, with site title, a separator, and page title.
+
 - *Custom Nunjucks Async Short Codes*
   - **`asyncImageHandler`**  Return responsive image code snippet and creates optimized image.
   - **`htmlToAbsoluteUrls`**  Convert relative URLs to absolute URLs
-- *Plugin Provided Short Codes*
+
+- *Third-Party Eleventy Plugin Provided Short Codes*
   - **`highlight`**
   - **`toc`**
+
 - *Nunjucks [Built-In Filters](https://mozilla.github.io/nunjucks/templating.html#builtin-filters)*
   - **`abs`**  Return the absolute value of the argument.
   - **`batch`**  Returns a list with the given number of items from a source list.
@@ -83,22 +92,60 @@ Shortcodes are sugar over Nunjucks custom tags. Tags are special blocks that per
   - **`urlencode`**  Escape strings for use in URLs, using UTF-8 encoding.
   - **`urlize`**  Convert URLs in plain text into anchor links.
   - **`wordcount`**  Count and output the number of words in a string.
+
 - *Eleventy - Provided Filters*
   - **`url`**  Normalize absolute paths in your content with a subdirectory, useful for Netlify.
   - **`slugify`:`**  "My string" to "my-string" for permalinks.
   - **`log`**  `console.log` inside templates.
   - **`get*CollectionItem`**  Get next or previous collection items for easy linking.
 
+---
+
+## Renderer
+
+---
+
+Eleventy built-in plugin to [render templates](https://www.11ty.dev/docs/plugins/render/) from templates.
+
+Use in `*.11ty.js` files:
+
+```javascript
+await this.renderTemplate(`# Title`)
+```
+
+Use in Nunjucks templates with Markdown:
+
+```nunjucks
+{% renderTemplate "md" %}
+  # I am a title
+
+  * I am a list
+  * I am a list
+{% endrenderTemplate %}
+```
+
+---
+
 ## Filters
 
-Use the Configuration API 'getFilter' method to use a filter inside of another filter or shortcode.
+---
+
+Syntax:
 
 ```nunjucks
 {{ foo | title }}
 {{ foo | replace("foo", "bar") | capitalize }}
 ```
 
-### currentPage
+In code you can use the configuration object's  'getFilter' method to use a filter inside of another filter or shortcode.
+
+---
+
+### Collections Filters
+
+---
+
+#### currentPage
 
 Gets the full data for the current page from collections using the page's path as a key
 
@@ -106,7 +153,53 @@ Gets the full data for the current page from collections using the page's path a
 {%- set currentPage = collections.all | currentPage(page) -%}
 ```
 
-### dateToFormat
+#### exclude
+
+Usage:
+
+```nunjucks
+{%- set tags = article.data.tags | exclude("old") -%}
+```
+
+#### excludeItemFromCollection
+
+Usage:
+
+```nunjucks
+{% set otherposts = collections.posts | excludeItemFromCollection(page) | slice(-10) %}
+```
+
+#### findById
+
+Find item in associative array by key. Usage:
+
+```nunjucks
+{%- set dark = themes | findById('dark') -%}
+```
+
+#### slice
+
+Usage:
+
+```nunjucks
+{% set otherposts = collections.posts | excludePost(page) | slice(-10) %}
+```
+
+#### withCategory
+
+Usage:
+
+```nunjucks
+{%- set category = collections.categories | withCategory("articles") -%}
+```
+
+---
+
+### Date Filters
+
+---
+
+#### dateToFormat
 
 Usage:
 
@@ -115,7 +208,7 @@ Usage:
 {{ page.date | dateToFormat('yyyy') }}
 ```
 
-### dateToISO
+#### dateToISO
 
 Usage:
 
@@ -125,7 +218,7 @@ Usage:
 
 Result: `Friday, July 15, 2022 at 11:39:50 PM GMT+3`
 
-### dateFromISO
+#### dateFromISO
 
 Usage:
 
@@ -133,57 +226,7 @@ Usage:
 {{ webmention.published | dateFromISO | readableDate("dd LLL yyyy") }}
 ```
 
-### exclude
-
-Usage:
-
-```nunjucks
-{%- set tags = article.data.tags | exclude("old") -%}
-```
-
-### excludeItemFromCollection
-
-Usage:
-
-```nunjucks
-{% set otherposts = collections.posts | excludeItemFromCollection(page) | slice(-10) %}
-```
-
-### findById
-
-Find item in associative array by key. Usage:
-
-```nunjucks
-{%- set dark = themes | findById('dark') -%}
-```
-
-### humanizeNumber
-
-Print high numbers as "11K" for thousands. Usage:
-
-```nunjucks
-{{ likeCount | humanizeNumber }}
-```
-
-### identity
-
-Identity filter for use in tests.
-
-```nunjucks
-{{ `test` | identity }}
-```
-
-### obfuscate
-
-Usage:
-
-```nunjucks
-<a href="mailto:{{ author.email | obfuscate | safe }}">
-  {{ author.email | obfuscate | safe }}
-</a>
-```
-
-### readableDate
+#### readableDate
 
 Friendly date filter. Supported tokens [here](https://moment.github.io/luxon/docs/manual/formatting.html#table-of-tokens).
 
@@ -193,7 +236,45 @@ Usage:
 {{ date | readableDate('dd LLL yyyy') }}
 ```
 
-### setExt
+---
+
+### Identity Filter (tests only)
+
+---
+
+#### identity
+
+Identity filter for use in tests.
+
+```nunjucks
+{{ `test` | identity }}
+```
+
+---
+
+### Format Filters
+
+---
+
+#### humanizeNumber
+
+Print high numbers as "11K" for thousands. Usage:
+
+```nunjucks
+{{ likeCount | humanizeNumber }}
+```
+
+#### obfuscate
+
+Usage:
+
+```nunjucks
+<a href="mailto:{{ author.email | obfuscate | safe }}">
+  {{ author.email | obfuscate | safe }}
+</a>
+```
+
+#### setExt
 
 Sets or changes the extension on media files. Usage:
 
@@ -201,21 +282,15 @@ Sets or changes the extension on media files. Usage:
 {{ imgsrc | setExt('webp') }}
 ```
 
-### slice
+---
 
-Usage:
+### Webmentions Filters
 
-```nunjucks
-{% set otherposts = collections.posts | excludePost(page) | slice(-10) %}
-```
+---
 
-### withCategory
+**@TODO:** Not implemented yet
 
-Usage:
-
-```nunjucks
-{%- set category = collections.categories | withCategory("articles") -%}
-```
+---
 
 ## Nunjucks Filters
 

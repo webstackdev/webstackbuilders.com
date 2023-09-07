@@ -7,7 +7,7 @@ const {
   filenameFormat,
   getRootPathsFromFilePath,
   isRelativeFilePath,
-  renderTemplate,
+  renderNunjucksTemplate,
   getDataSrcset,
   stripLeadingSlash,
   stripTrailingSlash,
@@ -107,7 +107,7 @@ describe(`Renders the Nunjucks template without error`, () => {
   }
 
   test('Non-lazy image matches snapshot with same context', () => {
-    expect(renderTemplate(`picture.njk`, { lazy: false, ...context })).toMatchSnapshot()
+    expect(renderNunjucksTemplate(`picture.njk`, { lazy: false, ...context })).toMatchSnapshot()
   })
 
   const lazyContext = {
@@ -116,7 +116,7 @@ describe(`Renders the Nunjucks template without error`, () => {
   }
 
   test('Lazy image matches snapshot with same context', () => {
-    expect(renderTemplate(`picture.njk`, { lazy: true, ...lazyContext })).toMatchSnapshot()
+    expect(renderNunjucksTemplate(`picture.njk`, { lazy: true, ...lazyContext })).toMatchSnapshot()
   })
 })
 

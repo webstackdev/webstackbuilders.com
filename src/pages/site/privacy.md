@@ -1,5 +1,5 @@
 ---
-title: 'Privacy Policy'
+title: "Privacy Policy"
 date: 2021-03-31
 tags: site
 permalink: /privacy/

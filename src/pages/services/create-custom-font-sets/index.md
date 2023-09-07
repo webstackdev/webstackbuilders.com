@@ -1,6 +1,6 @@
 ---
-title: 'Create Custom Font Sets'
-slug: 'custom-fonts'
+title: "Create Custom Font Sets"
+slug: "custom-fonts"
 date: 2021-03-31
 tags: services
 ---

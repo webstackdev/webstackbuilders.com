@@ -88,6 +88,13 @@ const addExtensionsByType = extensionType => {
  *
  * @param {import('../../@types/eleventyConfig').Config} eleventyConfig 11ty config object
  * @param {object} eleventySetup Object with requires from the 'eleventy' directory
+ * @example In the .eleventy.js file include the following:
+ * const eleventySetup = require('./eleventy')
+ * module.exports = eleventyConfig => {
+ *   ...
+ *   eleventySetup.utils.extensionsInit(eleventyConfig, eleventySetup)
+ *   ...
+ * }
  */
 exports.extensionsInit = (eleventyConfig, eleventySetup) => {
   _eleventyConfig = eleventyConfig
