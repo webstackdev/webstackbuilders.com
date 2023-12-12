@@ -263,7 +263,7 @@
     "nunjucks": "^3.2.4",
     "outdent": "0.8.0",
     "plugin-error": "^2.0.1",
-    "postcss": "^8.4.21",
+    "postcss": "^8.4.31",
     "postcss-scss": "^4.0.6",
     "postcss-svgo": "5.1.0",
     "posthtml": "0.16.6",
