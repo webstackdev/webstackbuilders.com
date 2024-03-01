@@ -271,7 +271,7 @@
     "prettier": "2.8.4",
     "read-pkg-up": "^8.0.0",
     "rewire": "^6.0.0",
-    "sanitize-html": "^2.11.0",
+    "sanitize-html": "^2.12.1",
     "sass": "1.58.3",
     "sass-extract": "^2.1.0",
     "sass-true": "^7.0.0",
