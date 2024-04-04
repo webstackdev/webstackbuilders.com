@@ -212,7 +212,7 @@
     "jest-utils": "^0.0.1",
     "jsdom": "21.1.0",
     "jsdom-testing-mocks": "^1.7.0",
-    "katex": "0.16.4",
+    "katex": "0.16.10",
     "lazypipe": "^1.0.2",
     "libphonenumber-js": "^1.10.21",
     "lodash": "4.17.21",
