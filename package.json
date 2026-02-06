@@ -299,7 +299,7 @@
     "valid-url": "^1.0.9",
     "vinyl": "^3.0.0",
     "vinyl-string": "^1.0.2",
-    "webpack": "5.75.0",
+    "webpack": "5.104.1",
     "webpack-bundle-analyzer": "^4.8.0",
     "webpack-cli": "5.0.1",
     "webpack-merge": "5.8.0",
