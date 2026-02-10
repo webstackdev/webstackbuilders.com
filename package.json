@@ -215,7 +215,7 @@
     "katex": "0.16.10",
     "lazypipe": "^1.0.2",
     "libphonenumber-js": "^1.10.21",
-    "lodash": "4.17.21",
+    "lodash": "4.17.23",
     "luxon": "3.2.1",
     "markdown-frontmatter-processor": "1.0.4",
     "markdown-it": "^13.0.1",
